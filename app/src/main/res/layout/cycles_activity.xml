@@ -50,12 +50,30 @@
         android:layout_alignParentStart="true"
         android:layout_below="@id/txt_totalvolume"
         />
+    <ImageButton
+        android:id="@+id/btn_decrement"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_decrement"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/lay_seekbar"
+        android:layout_marginStart="100dp"
+        />
+    <ImageButton
+        android:id="@+id/btn_increment"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_increment"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/lay_seekbar"
+        android:layout_marginEnd="100dp"
+        />
     <Button
         android:id="@+id/btn_addcycle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/lay_seekbar"
+        android:layout_below="@id/btn_decrement"
         android:layout_marginBottom="10dp"
         android:text="Add Cycle"
         />
