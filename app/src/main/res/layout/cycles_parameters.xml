@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TableRow style="@style/table_row" >
+        <include layout="@layout/cycle_parameters_headings" />
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include
+            android:id="@+id/cycle_parameters_0"
+            layout="@layout/cycle_parameters" />
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include
+            android:id="@+id/cycle_parameters_1"
+            layout="@layout/cycle_parameters" />
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include
+            android:id="@+id/cycle_parameters_2"
+            layout="@layout/cycle_parameters" />
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include
+            android:id="@+id/cycle_parameters_3"
+            layout="@layout/cycle_parameters" />
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include
+            android:id="@+id/cycle_parameters_4"
+            layout="@layout/cycle_parameters" />
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include
+            android:id="@+id/cycle_parameters_5"
+            layout="@layout/cycle_parameters" />
+    </TableRow>
+</TableLayout>

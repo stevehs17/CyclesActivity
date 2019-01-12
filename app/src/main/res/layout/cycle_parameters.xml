@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableRow style="@style/table_row" >
+
+        <!--
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        -->
+
+        <TextView
+            android:id="@+id/textview_cycle_label"
+            android:text="Cycle n"
+            style="@style/table_cell_label"
+
+            />
+
+        <EditText
+            android:id="@+id/edittext_cycle_brew_time"
+            android:hint="1"
+            android:inputType="number"
+            android:ems="3"
+            android:maxLength="3"
+            style="@style/table_cell" />
+
+        <EditText
+            android:id="@+id/edittext_cycle_volume"
+            android:hint="250"
+            android:inputType="number"
+            android:ems="4"
+            android:maxLength="4"
+            style="@style/table_cell" />
+
+
+        <EditText
+            android:id="@+id/edittext_cycle_vacuum_time"
+            android:hint="20"
+            android:inputType="number"
+            android:ems="3"
+            android:maxLength="3"
+            style="@style/table_cell" />
+
+    </TableRow>
+
+</TableLayout>

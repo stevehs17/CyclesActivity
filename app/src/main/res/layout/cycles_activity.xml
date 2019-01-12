@@ -43,12 +43,20 @@
         android:text="500 mL"
         />
     <include
+        android:id="@+id/lay_cycles_parameters"
+        layout="@layout/cycles_parameters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/txt_totalvolume"
+        />
+    <include
         android:id="@+id/lay_seekbar"
         layout="@layout/common_partial_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/txt_totalvolume"
+        android:layout_below="@id/lay_cycles_parameters"
         />
     <ImageButton
         android:id="@+id/btn_decrement"
