@@ -4,16 +4,34 @@
     android:layout_height="match_parent">
 
     <TableRow style="@style/table_row" >
-        <Space
-            style="@style/table_cell_label" />
+       <TextView
+            android:text="Cycle"
+            style="@style/cycle_number"
+            />
         <TextView
-            android:text="Brew Time (secs)"
+            android:text="Brew Secs"
             style="@style/table_cell"/>
         <TextView
-            android:text="Volume (ml)"
+            android:text="Volume mL"
             style="@style/table_cell"/>
         <TextView
-            android:text="Vacuum Time (secs)"
+            android:text="Vacuum Secs"
+            style="@style/table_cell"/>
+    </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <TextView
+            android:text="_____"
+            style="@style/cycle_number"
+            />
+        <TextView
+            android:text="_________"
+            style="@style/table_cell"/>
+        <TextView
+            android:text="_________"
+            style="@style/table_cell"/>
+        <TextView
+            android:text="__________"
             style="@style/table_cell"/>
     </TableRow>
 

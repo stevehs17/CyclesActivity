@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:text="Coffee: "
         />
     <TextView
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/txt_coffee_label"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:text="French Roast"
         />
     <TextView
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_coffee"
         android:layout_alignParentStart="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:text="Total Volume: "
         />
     <TextView
@@ -40,11 +43,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_coffee"
         android:layout_toEndOf="@id/txt_totalvolume_label"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:text="500 mL"
         />
     <include
         android:id="@+id/lay_cycles_parameters"
         layout="@layout/cycles_parameters"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -53,6 +58,7 @@
     <include
         android:id="@+id/lay_seekbar"
         layout="@layout/common_partial_seekbar"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -60,21 +66,23 @@
         />
     <ImageButton
         android:id="@+id/btn_decrement"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_decrement"
         android:layout_alignParentStart="true"
         android:layout_below="@id/lay_seekbar"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="-10dp"
         />
     <ImageButton
         android:id="@+id/btn_increment"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_increment"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/lay_seekbar"
         android:layout_marginEnd="100dp"
+        android:layout_marginTop="-10dp"
         />
     <Button
         android:id="@+id/btn_addcycle"
@@ -82,7 +90,7 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_below="@id/btn_decrement"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         android:text="Add Cycle"
         />
     <Button
@@ -91,7 +99,7 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_below="@id/btn_addcycle"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         android:text="Delete Cycle"
         />
     <Button
@@ -100,7 +108,7 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_below="@id/btn_deletecycle"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         android:text="Save Cycles"
         />
 
