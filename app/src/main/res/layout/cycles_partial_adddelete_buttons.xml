@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+    <Button
+        android:id="@+id/btn_addcycle"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:text="Add Cycle"
+        />
+    <Button
+        android:id="@+id/btn_deletecycle"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:text="Delete Cycle"
+        />
+</LinearLayout>

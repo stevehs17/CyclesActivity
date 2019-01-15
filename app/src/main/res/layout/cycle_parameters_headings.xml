@@ -25,14 +25,39 @@
             style="@style/cycle_number"
             />
         <TextView
-            android:text="_________"
-            style="@style/table_cell"/>
+            android:text="@string/volume_ml"
+            style="@style/table_cell"
+            />
         <TextView
-            android:text="_________"
-            style="@style/table_cell"/>
+            android:text="@string/brew_secs"
+            style="@style/table_cell"
+            />
         <TextView
-            android:text="__________"
-            style="@style/table_cell"/>
+             android:text="@string/vacuum_secs"
+             style="@style/table_cell"
+            />
+        <!--
+         <TextView
+             android:text="_________"
+             style="@style/table_cell"/>
+
+         <TextView
+             android:text="__________"
+             style="@style/table_cell"/>
+             -->
+
+        <include
+            layout="@layout/common_divider_horizontal"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            />
+        <include
+            layout="@layout/common_divider_horizontal"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            />
+
+        />
     </TableRow>
 
 </TableLayout>

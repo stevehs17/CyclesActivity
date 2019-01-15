@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ssimon.cyclesactivity.CyclesActivity"
     >
+
     <TextView
         android:id="@+id/txt_coffee_label"
         android:layout_width="wrap_content"
@@ -84,6 +85,7 @@
         android:layout_marginEnd="100dp"
         android:layout_marginTop="-10dp"
         />
+    <!--
     <Button
         android:id="@+id/btn_addcycle"
         android:layout_width="match_parent"
@@ -102,12 +104,41 @@
         android:layout_marginTop="5dp"
         android:text="Delete Cycle"
         />
+        -->
+
+    <LinearLayout
+        android:id="@+id/lay_adddelete_buttons"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_decrement"
+
+        >
+        <Button
+            android:id="@+id/btn_addcycle"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:text="Add Cycle"
+            />
+        <Button
+            android:id="@+id/btn_deletecycle"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:text="Delete Cycle"
+            />
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/btn_savecycles"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/btn_deletecycle"
+        android:layout_below="@id/lay_adddelete_buttons"
         android:layout_marginTop="5dp"
         android:text="Save Cycles"
         />

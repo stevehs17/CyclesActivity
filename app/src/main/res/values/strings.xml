@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CyclesActivity</string>
+
+    <string name="volume_ml"><u>Volume mL</u>.</string>
+    <string name="brew_secs"><u>Brew Secs</u>.</string>
+    <string name="vacuum_secs"><u>Vacuum Secs</u>.</string>
+
 </resources>
