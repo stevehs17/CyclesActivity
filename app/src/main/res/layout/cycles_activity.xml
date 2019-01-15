@@ -118,6 +118,7 @@
             android:id="@+id/btn_addcycle"
             android:layout_width="0dp"
             android:layout_weight="0.5"
+            android:textAllCaps="false"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:text="Add Cycle"
@@ -127,6 +128,7 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="50dp"
+            android:textAllCaps="false"
             android:layout_marginTop="5dp"
             android:text="Delete Cycle"
             />
@@ -140,6 +142,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@id/lay_adddelete_buttons"
         android:layout_marginTop="5dp"
+        android:textAllCaps="false"
         android:text="Save Cycles"
         />
 

@@ -7,6 +7,15 @@
         <include layout="@layout/cycle_parameters_headings" />
     </TableRow>
 
+    <!--
+    <TableRow style="@style/table_row" >
+        <include layout="@layout/common_divider_horizontal"
+            android:layout_height="1dp"
+                 android:layout_width="match_parent"
+
+            />
+    </TableRow>
+    -->
     <TableRow style="@style/table_row" >
         <include
             android:id="@+id/cycle_parameters_0"
@@ -42,4 +51,14 @@
             android:id="@+id/cycle_parameters_5"
             layout="@layout/cycle_parameters" />
     </TableRow>
+
+    <TableRow style="@style/table_row" >
+        <include layout="@layout/common_divider_horizontal"
+                 android:layout_height="1dp"
+                 android:layout_width="match_parent"
+
+
+            />
+    </TableRow>
+
 </TableLayout>
