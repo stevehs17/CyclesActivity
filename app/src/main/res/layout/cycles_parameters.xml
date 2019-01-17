@@ -37,7 +37,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginBottom="2dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -45,90 +45,23 @@
             android:text="6"
             android:gravity="center"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1670"
-            android:gravity="right"
-            android:textSize="20sp"
-
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:padding="8dp"
-            android:background="@drawable/rectangular_outline"
+         <TextView
+             style="@style/cycle_parameter"
+             android:text="1670"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="998"
-            android:gravity="right"
-            android:textSize="20sp"
-
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/rectangular_outline"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="999"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="167"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            android:background="@color/red"
-            />
-        <!--
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-            -->
         <TextView
             style="@style/cycle_parameter"
-            android:text="99"
+            android:text="998"
             />
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
+            style="@style/cycle_parameter"
+            android:text="999"
             />
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -137,33 +70,22 @@
             android:gravity="center"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/cycle_parameter"
             android:text="167"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
+            style="@style/cycle_parameter"
+            android:text="998"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
+            style="@style/cycle_parameter"
+            android:text="999"
             />
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -172,99 +94,86 @@
             android:gravity="center"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="167"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
+            style="@style/cycle_parameter"
+            android:text="1670"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
+            style="@style/cycle_parameter"
+            android:text="998"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
+            style="@style/cycle_parameter"
+            android:text="999"
             />
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
+    </TableRow><TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="167"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-    </TableRow>
-    <TableRow
-        android:layout_width="match_parent"
+        android:text="6"
+        android:gravity="center"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="16"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="998"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="999"
+        />
+</TableRow><TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="167"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:gravity="right"
-            android:layout_marginEnd="25dp"
-            android:textSize="20sp"
-            />
-    </TableRow>
-
+        android:text="6"
+        android:gravity="center"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="1"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="9"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="9"
+        />
+</TableRow>
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        android:gravity="center"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="1670"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="99"
+        />
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="99"
+        />
+</TableRow>
 </TableLayout>
