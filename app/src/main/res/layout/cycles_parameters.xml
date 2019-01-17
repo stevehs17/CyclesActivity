@@ -40,12 +40,10 @@
         android:layout_marginBottom="2dp"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:gravity="center"
+            style="@style/cycle_number"
+            android:text="1"
             />
-         <TextView
+        <TextView
              style="@style/cycle_parameter"
              android:text="1670"
             />
@@ -64,10 +62,8 @@
         android:layout_marginBottom="2dp"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:gravity="center"
+            style="@style/cycle_number"
+            android:text="2"
             />
         <TextView
             style="@style/cycle_parameter"
@@ -88,10 +84,8 @@
         android:layout_marginBottom="2dp"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:gravity="center"
+            style="@style/cycle_number"
+            android:text="3"
             />
         <TextView
             style="@style/cycle_parameter"
@@ -111,10 +105,8 @@
     android:layout_marginBottom="2dp"
     >
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6"
-        android:gravity="center"
+        style="@style/cycle_number"
+        android:text="4"
         />
     <TextView
         style="@style/cycle_parameter"
@@ -134,10 +126,8 @@
     android:layout_marginBottom="2dp"
     >
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6"
-        android:gravity="center"
+        style="@style/cycle_number"
+        android:text="5"
         />
     <TextView
         style="@style/cycle_parameter"
@@ -158,11 +148,10 @@
     android:layout_marginBottom="2dp"
     >
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/cycle_number"
         android:text="6"
-        android:gravity="center"
         />
+
     <TextView
         style="@style/cycle_parameter"
         android:text="1670"
