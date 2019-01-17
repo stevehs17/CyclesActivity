@@ -18,6 +18,21 @@
 
     </style>
 
+    <style name="cycle_parameter">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:background">@drawable/rectangular_outline</item>
+
+    </style>
+
     <style name="table_cell_label" parent="table_cell">
         <item name="android:layout_width">60dp</item>
     </style>
@@ -26,4 +41,69 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="ButtonThemeRed" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/red</item>
+    </style>
+
+    <style name="Text" parent="TextAppearance.AppCompat">
+    </style>
+
+    <style name="Text.Huge">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="Text.Huge.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Large">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Text.Large.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Large.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Medium.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Medium.Bold.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium.Red">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="Text.Medium.Tab">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.Medium.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Small">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text.Small.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Small.Red">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+
 </resources>

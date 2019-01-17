@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="French Roast"
         android:textSize="30dp"
+        android:textAppearance="@color/black"
         />
     <TextView
         android:id="@+id/txt_coffee_label"
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:text="500 mL"
         android:textSize="30dp"
+        android:textAppearance="@color/black"
         />
     <TextView
         android:id="@+id/txt_totalvolume_label"
@@ -96,6 +98,9 @@
             android:text="Add Cycle"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
+            android:theme="@style/ButtonThemeRed"
+            android:textAppearance="@style/Text.Medium.White"
+
             />
         <Button
             android:id="@+id/btn_deletecycle"
@@ -105,6 +110,8 @@
             android:text="Delete Cycle"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
+            android:textAppearance="@style/Text.Medium.White"
+            android:theme="@style/ButtonThemeRed"
             />
     </RelativeLayout>
 
@@ -116,6 +123,8 @@
         android:textAllCaps="false"
         android:layout_gravity="center"
         android:text="Save Cycles"
+        android:theme="@style/ButtonThemeRed"
+        android:textAppearance="@style/Text.Medium.White"
         />
 
 </LinearLayout>

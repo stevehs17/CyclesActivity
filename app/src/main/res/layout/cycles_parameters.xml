@@ -3,6 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:stretchColumns="*"
+
     >
     <TableRow
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         >
         <TextView
             android:layout_width="wrap_content"
@@ -48,16 +50,29 @@
             android:layout_height="wrap_content"
             android:text="1670"
             android:gravity="right"
-            android:layout_marginEnd="25dp"
             android:textSize="20sp"
+
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:padding="8dp"
+            android:background="@drawable/rectangular_outline"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="999"
+            android:text="998"
             android:gravity="right"
-            android:layout_marginEnd="25dp"
             android:textSize="20sp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/rectangular_outline"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -85,7 +100,9 @@
             android:gravity="right"
             android:layout_marginEnd="25dp"
             android:textSize="20sp"
+            android:background="@color/red"
             />
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,6 +111,12 @@
             android:layout_marginEnd="25dp"
             android:textSize="20sp"
             />
+            -->
+        <TextView
+            style="@style/cycle_parameter"
+            android:text="99"
+            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
