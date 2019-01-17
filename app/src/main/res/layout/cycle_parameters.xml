@@ -11,7 +11,7 @@
         <TextView
             android:id="@+id/txt_cycle_number"
             android:text="n"
-            style="@style/cycle_number"
+            style="@style/cycle_constant"
             />
         <TextView
             android:id="@+id/edittext_cycle_volume"

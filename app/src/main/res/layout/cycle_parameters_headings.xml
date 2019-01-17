@@ -7,7 +7,7 @@
     <TableRow style="@style/table_row" >
         <TextView
             android:text="@string/cycle"
-            style="@style/cycle_number"
+            style="@style/cycle_constant"
             />
         <TextView
             android:text="@string/volume_ml"

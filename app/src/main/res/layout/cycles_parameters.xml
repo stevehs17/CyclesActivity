@@ -10,37 +10,27 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/cycle_constant"
             android:text="Cycle"
-            android:gravity="center"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/cycle_constant"
             android:text="Volume mL"
-            android:gravity="center"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/cycle_constant"
             android:text="Brew Secs"
-            android:gravity="center"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/cycle_constant"
             android:text="Vacuum Secs"
-            android:gravity="center"
             />
     </TableRow>
     <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+       style="@style/cycle_parameter_row"
         >
         <TextView
-            style="@style/cycle_number"
+            style="@style/cycle_constant"
             android:text="1"
             />
         <TextView
@@ -57,12 +47,10 @@
             />
     </TableRow>
     <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        style="@style/cycle_parameter_row"
         >
         <TextView
-            style="@style/cycle_number"
+            style="@style/cycle_constant"
             android:text="2"
             />
         <TextView
@@ -79,12 +67,10 @@
             />
     </TableRow>
     <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        style="@style/cycle_parameter_row"
         >
         <TextView
-            style="@style/cycle_number"
+            style="@style/cycle_constant"
             android:text="3"
             />
         <TextView
@@ -99,13 +85,12 @@
             style="@style/cycle_parameter"
             android:text="999"
             />
-    </TableRow><TableRow
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    >
+    </TableRow>
+    <TableRow
+        style="@style/cycle_parameter_row"
+        >
     <TextView
-        style="@style/cycle_number"
+        style="@style/cycle_constant"
         android:text="4"
         />
     <TextView
@@ -121,12 +106,10 @@
         android:text="999"
         />
 </TableRow><TableRow
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
+    style="@style/cycle_parameter_row"
     >
     <TextView
-        style="@style/cycle_number"
+        style="@style/cycle_constant"
         android:text="5"
         />
     <TextView
@@ -143,12 +126,10 @@
         />
 </TableRow>
 <TableRow
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
+    style="@style/cycle_parameter_row"
     >
     <TextView
-        style="@style/cycle_number"
+        style="@style/cycle_constant"
         android:text="6"
         />
 
