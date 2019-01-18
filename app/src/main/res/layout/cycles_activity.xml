@@ -10,32 +10,25 @@
     android:paddingTop="8dp"
     android:orientation="vertical"
     >
-    <TextView
+   <TextView
         android:id="@+id/txt_coffee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/HeadingText"
         android:text="French Roast"
-        android:textSize="30dp"
-        android:textAppearance="@color/black"
         />
-    <TextView
+  <TextView
         android:id="@+id/txt_coffee_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/LabelText"
         android:text="Coffee"
         />
+
     <TextView
         android:id="@+id/txt_totalvolume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/HeadingText"
         android:text="500 mL"
-        android:textSize="30dp"
-        android:textAppearance="@color/black"
         />
     <TextView
         android:id="@+id/txt_totalvolume_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/LabelText"
         android:text="Total Volume"
         android:layout_marginBottom="5dp"
         />
