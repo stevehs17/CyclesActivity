@@ -8,24 +8,15 @@
     style="@style/cycle_constant"
     android:text="6"
     />
-<TextView
-    style="@style/cycle_parameter"
-    android:text="1670"
-    />
-<TextView
-    style="@style/cycle_parameter"
-    android:text="99"
-    />
     <!--
-
-    <Button
+    <TextView
         style="@style/cycle_parameter"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:text="99"
-        android:onClick="onClickVacuumSecs"
+        android:text="1670"
         />
-        -->
+    <TextView
+        style="@style/cycle_parameter"
+        android:text="99"
+        />
     <Button
         android:layout_width="10dp"
         android:layout_height="30dp"
@@ -36,8 +27,48 @@
         android:textAppearance="@color/black"
         android:layout_gravity="center"
         android:gravity="right|center_vertical"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="45dp"
         android:paddingEnd="5dp"
+        />
+    <Button
+        android:layout_width="10dp"
+        android:layout_height="30dp"
+        android:text="999"
+        android:onClick="onClickVacuumSecs"
+        android:textSize="20sp"
+        android:background="@drawable/rectangular_outline"
+        android:textAppearance="@color/black"
+        android:layout_gravity="center"
+        android:gravity="right|center_vertical"
+        android:paddingEnd="5dp"
+              />
+
+    <Button
+        android:layout_width="10dp"
+        android:layout_height="30dp"
+        android:text="999"
+        android:onClick="onClickVacuumSecs"
+        android:textSize="20sp"
+        android:background="@drawable/rectangular_outline"
+        android:textAppearance="@color/black"
+        android:layout_gravity="center"
+        android:gravity="right|center_vertical"
+        android:paddingEnd="5dp"
+        />
+         -->
+    <Button
+        style="@style/cycle_parameter"
+        android:text="888"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        />
+
+    <Button
+        style="@style/cycle_parameter"
+        android:text="888"
+        android:layout_marginEnd="10dp"
+        />
+    <Button
+        style="@style/cycle_parameter"
+        android:text="888"
         />
 </TableRow>
