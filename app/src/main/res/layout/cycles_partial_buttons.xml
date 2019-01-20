@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <Button
+        android:id="@+id/btn_addcycle"
+        android:layout_width="150dp"
+        android:textAllCaps="false"
+        android:layout_height="50dp"
+        android:text="Add Cycle"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:theme="@style/ButtonThemeRed"
+        android:textAppearance="@style/Text.Medium.White"
+
+        />
+    <Button
+        android:id="@+id/btn_deletecycle"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textAllCaps="false"
+        android:text="Delete Cycle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:textAppearance="@style/Text.Medium.White"
+        android:theme="@style/ButtonThemeRed"
+        />
+    <Button
+        android:id="@+id/btn_savecycles"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textAllCaps="false"
+        android:text="Save Cycles"
+        android:theme="@style/ButtonThemeRed"
+        android:textAppearance="@style/Text.Medium.White"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_addcycle"
+        />
+</RelativeLayout>
+
+
