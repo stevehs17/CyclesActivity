@@ -58,17 +58,20 @@
     <Button
         style="@style/cycle_parameter"
         android:text="888"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="20dp"
         />
 
     <Button
         style="@style/cycle_parameter"
         android:text="888"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="20dp"
         />
     <Button
         style="@style/cycle_parameter"
-        android:text="888"
+        android:text="8"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="20dp"
         />
 </TableRow>
