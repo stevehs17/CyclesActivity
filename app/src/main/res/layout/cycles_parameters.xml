@@ -152,4 +152,9 @@
     </TableRow>
     -->
     <include layout="@layout/cycle_partial_parameters"/>
+    <include layout="@layout/cycle_partial_parameters"/>
+    <include layout="@layout/cycle_partial_parameters"/>
+    <include layout="@layout/cycle_partial_parameters"/>
+    <include layout="@layout/cycle_partial_parameters"/>
+    <include layout="@layout/cycle_partial_parameters"/>
 </TableLayout>

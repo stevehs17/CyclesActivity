@@ -3,6 +3,7 @@
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
 
           style="@style/cycle_parameter_row"
+          android:layout_marginBottom="100dp"
     >
 <TextView
     style="@style/cycle_constant"
@@ -57,9 +58,11 @@
          -->
     <Button
         style="@style/cycle_parameter"
-        android:text="888"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
+        android:text="1670"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="15dp"
+
+        android:layout_marginBottom="5dp"
         />
 
     <Button
