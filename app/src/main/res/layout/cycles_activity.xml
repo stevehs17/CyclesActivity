@@ -39,7 +39,7 @@
         />
      <include
         android:id="@+id/lay_seekbar"
-        layout="@layout/common_partial_seekbar"
+        layout="@layout/cycles_partial_seekbar"
         />
     <include
         layout="@layout/cycles_partial_seekbarbuttons"
