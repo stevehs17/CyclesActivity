@@ -32,7 +32,7 @@
         android:layout_height="15dp"/>
     <include
         android:id="@+id/lay_cycles_parameters"
-        layout="@layout/cycles_parameters"
+        layout="@layout/test_cycles_partial_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"

@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-
-          style="@style/cycle_parameter_row"
-          android:layout_marginBottom="100dp"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <TextView
-        style="@style/cycle_constant"
-        android:text="6"
-        />
     <Button
         style="@style/cycle_parameter"
         android:text="1670"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="15dp"
-
         android:layout_marginBottom="5dp"
         />
-
     <Button
         style="@style/cycle_parameter"
         android:text="888"
@@ -30,4 +20,4 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="20dp"
         />
-</TableRow>
+</merge>
