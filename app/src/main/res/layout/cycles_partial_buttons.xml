@@ -8,21 +8,20 @@
         style="@style/Button"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:text="Add Cycle"
+        android:text="@string/cycles_btn_addcycle"
         />
     <Button
-        android:id="@+id/btn_addcycle"
         style="@style/Button"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:text="Delete Cycle"
+        android:text="@string/cycles_btn_deletecycle"
         />
     <Button
         android:id="@+id/btn_savecycles"
         style="@style/Button"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btn_addcycle"
-        android:text="Save Cycles"
+        android:text="@string/cycles_btn_savecycles"
         />
 </RelativeLayout>
 

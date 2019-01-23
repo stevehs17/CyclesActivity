@@ -5,5 +5,8 @@
     <string name="volume_ml"><u>Volume mL</u></string>
     <string name="brew_secs"><u>Brew Secs</u></string>
     <string name="vacuum_secs"><u>Vacuum Secs</u></string>
+    <string name="cycles_btn_addcycle">Add Cycle</string>
+    <string name="cycles_btn_deletecycle">Delete Cycle</string>
+    <string name="cycles_btn_savecycles">Save Cycles</string>
 
 </resources>
