@@ -82,47 +82,16 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!--
     <style name="cycle_constant">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
     </style>
-
-
-
-    <!--
-    <style name="table_cell">
-        <item name="android:layout_width">90dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">right</item>
-
-    </style>
-
-    <style name="cycle_parameter">
-        <item name="android:layout_width">10dp</item>
-        <item name="android:layout_height">30dp</item>
-        <item name="android:gravity">right|center_vertical</item>
-        <item name="android:textSize">20sp</item>
-
-        <item name="android:paddingEnd">5dp</item>
-        <item name="android:background">@drawable/rectangular_outline</item>
-        <item name="android:textAppearance">@color/black</item>
-    </style>
-
-
-    <style name="cycle_parameter_row">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-
-    </style>
-
-    <style name="table_cell_label" parent="table_cell">
-        <item name="android:layout_width">60dp</item>
-    </style>
-
-    <style name="table_row">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
     -->
- </resources>
+
+    <style name="CyclesConstant" parent="WrapContent">
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

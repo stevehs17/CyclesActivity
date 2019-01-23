@@ -9,21 +9,21 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="Cycle"
             />
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="Volume mL"
             android:layout_width="90dp"
             />
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="Brew Secs"
             android:layout_width="90dp"
             />
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="Vacuum Secs"
             android:layout_width="90dp"
             />
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="1"
             />
         <include layout="@layout/cycles_partial_parameter_row"/>
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="2"
             />
         <include layout="@layout/cycles_partial_parameter_row"/>
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="3"
             />
         <include layout="@layout/cycles_partial_parameter_row"/>
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="4"
             />
         <include layout="@layout/cycles_partial_parameter_row"/>
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="5"
             />
         <include layout="@layout/cycles_partial_parameter_row"/>
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
-            style="@style/cycle_constant"
+            style="@style/CyclesConstant"
             android:text="6"
             />
         <include layout="@layout/cycles_partial_parameter_row"/>
