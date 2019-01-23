@@ -9,8 +9,8 @@
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:theme">@style/ButtonThemeRed</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:textAppearance">@style/Text.Medium.White</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="ButtonThemeRed" parent="Widget.AppCompat.Button.Colored">
@@ -23,25 +23,19 @@
         <item name="android:layout_marginStart">25dp</item>
         <item name="android:layout_marginEnd">20dp</item>
         <item name="android:layout_marginBottom">3dp</item>
-        <item name="android:gravity">right|center_vertical</item>
         <item name="android:paddingEnd">5dp</item>
+        <item name="android:gravity">right|center_vertical</item>
         <item name="android:background">@drawable/rectangular_outline</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textAppearance">@style/Text.Medium</item>
+        <item name="android:textAppearance">@style/Text.Medium.Black</item>
     </style>
 
-
-
     <style name="HeadingText" parent="WrapContent">
-        <item name="android:textAppearance">@style/Text.Large</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textAppearance">@style/Text.Large.Black</item>
     </style>
 
     <style name="LabelText" parent="WrapContent">
-        <item name="android:textAppearance">@style/Text.Small</item>
-        <item name="android:textColor">@color/grey_dark</item>
+        <item name="android:textAppearance">@style/Text.Small.DarkGrey</item>
     </style>
-
 
     <style name="MatchParent">
         <item name="android:layout_width">match_parent</item>
@@ -53,15 +47,22 @@
         <item name="android:layout_height">50dp</item>
     </style>
 
-    <style name="Text" parent="TextAppearance.AppCompat">
-    </style>
+    <style name="Text" parent="TextAppearance.AppCompat"/>
 
     <style name="Text.Large">
         <item name="android:textSize">30sp</item>
     </style>
 
+    <style name="Text.Large.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="Text.Medium">
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Text.Medium.Black">
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Text.Medium.White">
@@ -72,28 +73,19 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Text.Small.DarkGrey">
+        <item name="android:textColor">@color/grey_dark</item>
+    </style>
+
     <style name="WrapContent">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-
-
-
-
-
-
-
-
-
-    <!-- styles below are to be removed when done -->
-
-
     <style name="cycle_constant">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-
     </style>
 
 
