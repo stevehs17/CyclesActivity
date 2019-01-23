@@ -25,51 +25,12 @@
         style="@style/LabelText"
         android:text="Total Volume"
         />
-  <android.support.v4.widget.Space
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      />
-
-
-  <!--
-  <android.support.v4.widget.Space
-      android:layout_width="match_parent"
-      android:layout_height="10dp"
-      />
-      -->
-    <include
-        android:id="@+id/lay_cycles_parameters"
-        layout="@layout/cycles_partial_table"
-        />
-  <!--
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        />
-  -->
-  <android.support.v4.widget.Space
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      />
-  <include layout="@layout/cycles_partial_seekbar"/>
-  <include layout="@layout/cycles_partial_seekbarbuttons"/>
-  <!--
-  <android.support.v4.widget.Space
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      />
-      -->
-
     <include layout="@layout/common_spacer"/>
-
+    <include layout="@layout/cycles_partial_table"/>
+    <include layout="@layout/common_spacer"/>
+    <include layout="@layout/cycles_partial_seekbar"/>
+    <include layout="@layout/cycles_partial_seekbarbuttons"/>
+    <include layout="@layout/common_spacer"/>
     <include layout="@layout/cycles_partial_buttons"/>
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
+    <include layout="@layout/common_spacer"/>
 </LinearLayout>
