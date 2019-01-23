@@ -2,22 +2,17 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <Button
-        style="@style/cycle_parameter"
+        style="@style/CyclesParameter"
         android:text="1670"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="3dp"
         />
     <Button
-        style="@style/cycle_parameter"
+        style="@style/CyclesParameter"
         android:text="888"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
         />
     <Button
-        style="@style/cycle_parameter"
+        style="@style/CyclesParameter"
         android:text="8"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
         />
 </merge>
