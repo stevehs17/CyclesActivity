@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     >
 
+    <!--
     <Button
         android:id="@+id/btn_addcycle"
         android:layout_width="150dp"
@@ -14,7 +15,16 @@
         android:layout_marginStart="10dp"
         android:theme="@style/ButtonThemeRed"
         android:textAppearance="@style/Text.Medium.White"
+        />
+        -->
 
+    <Button
+        android:id="@+id/btn_addcycle"
+        style="@style/Button"
+
+        android:text="Add Cycle"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
         />
     <Button
         android:id="@+id/btn_deletecycle"
