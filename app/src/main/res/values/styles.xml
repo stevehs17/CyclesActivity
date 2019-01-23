@@ -33,6 +33,11 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="SeekbarButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
     <style name="Text" parent="TextAppearance.AppCompat">
     </style>
 
