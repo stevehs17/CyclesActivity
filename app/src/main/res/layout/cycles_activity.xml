@@ -32,5 +32,4 @@
     <include layout="@layout/cycles_partial_seekbarbuttons"/>
     <include layout="@layout/common_spacer"/>
     <include layout="@layout/cycles_partial_buttons"/>
-    <include layout="@layout/common_spacer"/>
-</LinearLayout>
+  </LinearLayout>
