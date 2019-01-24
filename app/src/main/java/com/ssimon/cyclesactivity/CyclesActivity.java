@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,7 +16,7 @@ public class CyclesActivity extends AppCompatActivity {
     static final private String TAG = "MainActivity";
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
-    private Button currentParmButton;
+    private Button currentParmButton = null;
     private List<Integer> currentParmValues;
 
     @Override
@@ -47,6 +49,8 @@ public class CyclesActivity extends AppCompatActivity {
         maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
         currentParmValues = CycleValues.VACUUMTIMES;
         seekBar.setMax(currentParmValues.size() - 1);
+        if (currentParmButton != null)
+            currentParmButton.clearAnimation();
         currentParmButton = (Button) v;
         String s = currentParmButton.getText().toString();
         int val = Integer.parseInt(s);
@@ -54,6 +58,16 @@ public class CyclesActivity extends AppCompatActivity {
         if (idx < 0) throw new IllegalStateException("idx = " + idx);
         seekBar.setProgress(idx);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
+
+
+        // TextView myText = (TextView) findViewById(R.id.myText );
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(500); //You can manage the time of the blink with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        currentParmButton.startAnimation(anim);
     }
 
     private SeekBar.OnSeekBarChangeListener seekBarListener() {
