@@ -14,6 +14,6 @@
     <Button
         style="@style/CyclesParameter"
         android:onClick="onClickVacuumSecs"
-        android:text="8"
+        android:text="800"
         />
 </merge>

@@ -40,7 +40,28 @@ public class CyclesActivity extends AppCompatActivity {
         Log.v(TAG, "clicked");
         minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
         maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
+        currentParmValues = CycleValues.VACUUMTIMES;
+        seekBar.setMax(currentParmValues.size());
+        currentParmButton = (Button) v;
+        String s = currentParmButton.getText().toString();
+        int n = Integer.parseInt(s);
+        seekBar.setProgress(n - CycleValues.MIN_VACUUMTIME);
+        seekBar.setOnSeekBarChangeListener(seekBarListener());
     }
+
+    private SeekBar.OnSeekBarChangeListener seekBarListener() {
+        return new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar bar, int idx, boolean unused) {
+                int val = currentParmValues.get(idx);
+                currentParmButton.setText(Integer.toString(val));
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+        };
+    }
+
 }
 
 
