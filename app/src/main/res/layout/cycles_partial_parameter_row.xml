@@ -3,9 +3,9 @@
     >
     <Button
         style="@style/CyclesParameter"
-        android:text="1670"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="15dp"
+        android:text="1670"
         />
     <Button
         style="@style/CyclesParameter"
@@ -13,6 +13,7 @@
         />
     <Button
         style="@style/CyclesParameter"
+        android:onClick="onClickVacuumSecs"
         android:text="8"
         />
 </merge>
