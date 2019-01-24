@@ -13,6 +13,8 @@ public class CycleValues {
     static final List<Integer> BREWTIMES = getBrewTimes();
     static final int MIN_VACUUMTIME = 1;
     static final int MAX_VACUUMTIME = 999;
+    //static final int MIN_VACUUMTIME = 1;
+    //static final int MAX_VACUUMTIME = 5;
     static final List<Integer> VACUUMTIMES = getVacuumTimes();
 
     static List<Integer> getVolumes() {

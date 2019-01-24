@@ -29,15 +29,6 @@ public class CyclesActivity extends AppCompatActivity {
     /*
     public void onClickVacuumSecs(View v) {
         Log.v(TAG, "clicked");
-        Button b = (Button)v;
-        String buttonText = b.getText().toString();
-        Log.v(TAG, "buttonText = " + buttonText);
-        b.setText("123");
-    }
-    */
-
-    public void onClickVacuumSecs(View v) {
-        Log.v(TAG, "clicked");
         minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
         maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
         currentParmValues = CycleValues.VACUUMTIMES;
@@ -46,6 +37,22 @@ public class CyclesActivity extends AppCompatActivity {
         String s = currentParmButton.getText().toString();
         int n = Integer.parseInt(s);
         seekBar.setProgress(n - CycleValues.MIN_VACUUMTIME);
+        seekBar.setOnSeekBarChangeListener(seekBarListener());
+    }
+    */
+
+    public void onClickVacuumSecs(View v) {
+        Log.v(TAG, "clicked");
+        minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
+        maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
+        currentParmValues = CycleValues.VACUUMTIMES;
+        seekBar.setMax(currentParmValues.size() - 1);
+        currentParmButton = (Button) v;
+        String s = currentParmButton.getText().toString();
+        int val = Integer.parseInt(s);
+        int idx = currentParmValues.indexOf(val);
+        if (idx < 0) throw new IllegalStateException("idx = " + idx);
+        seekBar.setProgress(idx);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
     }
 
