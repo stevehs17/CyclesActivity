@@ -29,7 +29,7 @@
         <item name="android:layout_marginBottom">3dp</item>
         <item name="android:paddingEnd">5dp</item>
         <item name="android:gravity">right|center_vertical</item>
-        <item name="android:background">@drawable/rectangular_outline</item>
+        <item name="android:background">@drawable/rectangular_outline_white</item>
         <item name="android:textAppearance">@style/Text.Medium.Black</item>
     </style>
 

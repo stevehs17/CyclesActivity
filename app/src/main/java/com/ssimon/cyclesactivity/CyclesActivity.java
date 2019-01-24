@@ -49,8 +49,10 @@ public class CyclesActivity extends AppCompatActivity {
         maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
         currentParmValues = CycleValues.VACUUMTIMES;
         seekBar.setMax(currentParmValues.size() - 1);
+
         if (currentParmButton != null)
-            currentParmButton.clearAnimation();
+            currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_white);
+
         currentParmButton = (Button) v;
         String s = currentParmButton.getText().toString();
         int val = Integer.parseInt(s);
@@ -62,12 +64,18 @@ public class CyclesActivity extends AppCompatActivity {
 
         // TextView myText = (TextView) findViewById(R.id.myText );
 
+        /*
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(500); //You can manage the time of the blink with this parameter
+        anim.setDuration(750); //You can manage the time of the blink with this parameter
         anim.setStartOffset(20);
         anim.setRepeatMode(Animation.REVERSE);
         anim.setRepeatCount(Animation.INFINITE);
         currentParmButton.startAnimation(anim);
+        */
+
+        //currentParmButton.setBackgroundColor(getResources().getColor(R.color.yellow));
+        currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_yellow);
+
     }
 
     private SeekBar.OnSeekBarChangeListener seekBarListener() {
