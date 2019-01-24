@@ -10,64 +10,64 @@
         >
         <TextView
             style="@style/CyclesConstant"
-            android:text="Cycle"
+            android:text="@string/cycles_txt_cycle"
             />
         <TextView
             style="@style/CyclesConstant"
             android:layout_width="90dp"
-            android:text="Volume mL"
+            android:text="@string/cycles_txt_volumeml"
             />
         <TextView
             style="@style/CyclesConstant"
             android:layout_width="90dp"
-            android:text="Brew Secs"
+            android:text="@string/cycles_txt_brewsecs"
             />
         <TextView
             style="@style/CyclesConstant"
             android:layout_width="90dp"
-            android:text="Vacuum Secs"
+            android:text="@string/cycles_txt_vacuumsecs"
             />
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TextView style="@style/CyclesConstant" android:text="1"/>
+        <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_1"/>
         <include layout="@layout/cycles_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TextView style="@style/CyclesConstant" android:text="2"/>
+        <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_2"/>
         <include layout="@layout/cycles_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TextView style="@style/CyclesConstant" android:text="3"/>
+        <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_3"/>
         <include layout="@layout/cycles_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TextView style="@style/CyclesConstant" android:text="4"/>
+        <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_4"/>
         <include layout="@layout/cycles_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TextView style="@style/CyclesConstant" android:text="5"/>
+        <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_5"/>
         <include layout="@layout/cycles_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TextView style="@style/CyclesConstant" android:text="6"/>
+        <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_6"/>
         <include layout="@layout/cycles_partial_parameter_row"/>
     </TableRow>
 </TableLayout>
