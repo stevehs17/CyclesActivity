@@ -2,10 +2,7 @@ package com.ssimon.cyclesactivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -13,11 +10,10 @@ import android.widget.TextView;
 import java.util.List;
 
 public class CyclesActivity extends AppCompatActivity {
-    static final private String TAG = "MainActivity";
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
     private Button currentParmButton = null;
-    private List<Integer> currentParmValues;
+    private List<Integer> currentParmValues = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +24,15 @@ public class CyclesActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
     }
 
-
     public void onClickVolumeMl(View v) {
         setCurrentParmButton(v, CycleValues.MIN_VOLUME, CycleValues.MAX_VOLUME,
                 CycleValues.VOLUMES);
     }
 
-
-
     public void onClickBrewSecs(View v) {
         setCurrentParmButton(v, CycleValues.MIN_BREWTIME, CycleValues.MAX_BREWTIME,
                 CycleValues.BREWTIMES);
     }
-
 
     public void onClickVacuumSecs(View v) {
         setCurrentParmButton(v, CycleValues.MIN_VACUUMTIME, CycleValues.MAX_VACUUMTIME,
@@ -77,25 +69,30 @@ public class CyclesActivity extends AppCompatActivity {
         };
     }
 
-     public void onClickDecrement(View unused) {
+    public void onClickDecrement(View unused) {
+        if (currentParmValues == null)
+            return;
         int idx = seekBar.getProgress();
-        if (idx > 0)
+        if (idx > 0) {
             idx--;
-        seekBar.setProgress(idx);
-        int val = currentParmValues.get(idx);
-        seekBar.setProgress(idx);
-        currentParmButton.setText(Integer.toString(val));
+            setSeekBar(idx);
+        }
     }
 
     public void onClickIncrement(View unused) {
+        if (currentParmValues == null)
+            return;
         int idx = seekBar.getProgress();
-        if (idx < currentParmValues.size() - 1);
+        if (idx < currentParmValues.size() - 1) {
             idx++;
+            setSeekBar(idx);
+        }
+    }
+
+    private void setSeekBar(int idx) {
         seekBar.setProgress(idx);
         int val = currentParmValues.get(idx);
         seekBar.setProgress(idx);
         currentParmButton.setText(Integer.toString(val));
     }
 }
-
-
