@@ -27,22 +27,7 @@ public class CyclesActivity extends AppCompatActivity {
         maxValueText = (TextView) findViewById(R.id.txt_max_value);
         seekBar = (SeekBar) findViewById(R.id.seek);
     }
-
-    /*
-    public void onClickVacuumSecs(View v) {
-        Log.v(TAG, "clicked");
-        minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
-        maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
-        currentParmValues = CycleValues.VACUUMTIMES;
-        seekBar.setMax(currentParmValues.size());
-        currentParmButton = (Button) v;
-        String s = currentParmButton.getText().toString();
-        int n = Integer.parseInt(s);
-        seekBar.setProgress(n - CycleValues.MIN_VACUUMTIME);
-        seekBar.setOnSeekBarChangeListener(seekBarListener());
-    }
-    */
-
+    
     public void onClickVacuumSecs(View v) {
         Log.v(TAG, "clicked");
         minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
