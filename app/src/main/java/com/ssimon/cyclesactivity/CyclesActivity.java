@@ -28,25 +28,19 @@ public class CyclesActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
     }
 
-    /*
-    public void onClickVacuumSecs(View v) {
-        Log.v(TAG, "clicked");
-        minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
-        maxValueText.setText(Integer.toString(CycleValues.MAX_VACUUMTIME));
-        currentParmValues = CycleValues.VACUUMTIMES;
-        seekBar.setMax(currentParmValues.size() - 1);
-        if (currentParmButton != null)
-            currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_white);
-        currentParmButton = (Button) v;
-        currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_yellow);
-        String s = currentParmButton.getText().toString();
-        int val = Integer.parseInt(s);
-        int idx = currentParmValues.indexOf(val);
-        if (idx < 0) throw new IllegalStateException("idx = " + idx);
-        seekBar.setProgress(idx);
-        seekBar.setOnSeekBarChangeListener(seekBarListener());
+
+    public void onClickVolumeMl(View v) {
+        setCurrentParmButton(v, CycleValues.MIN_VOLUME, CycleValues.MAX_VOLUME,
+                CycleValues.VOLUMES);
     }
-    */
+
+
+
+    public void onClickBrewSecs(View v) {
+        setCurrentParmButton(v, CycleValues.MIN_BREWTIME, CycleValues.MAX_BREWTIME,
+                CycleValues.BREWTIMES);
+    }
+
 
     public void onClickVacuumSecs(View v) {
         setCurrentParmButton(v, CycleValues.MIN_VACUUMTIME, CycleValues.MAX_VACUUMTIME,
