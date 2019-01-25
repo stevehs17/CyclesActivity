@@ -27,7 +27,8 @@ public class CyclesActivity extends AppCompatActivity {
         maxValueText = (TextView) findViewById(R.id.txt_max_value);
         seekBar = (SeekBar) findViewById(R.id.seek);
     }
-    
+
+    /*
     public void onClickVacuumSecs(View v) {
         Log.v(TAG, "clicked");
         minValueText.setText(Integer.toString(CycleValues.MIN_VACUUMTIME));
@@ -42,6 +43,29 @@ public class CyclesActivity extends AppCompatActivity {
         int val = Integer.parseInt(s);
         int idx = currentParmValues.indexOf(val);
         if (idx < 0) throw new IllegalStateException("idx = " + idx);
+        seekBar.setProgress(idx);
+        seekBar.setOnSeekBarChangeListener(seekBarListener());
+    }
+    */
+
+    public void onClickVacuumSecs(View v) {
+        setCurrentParmButton(v, CycleValues.MIN_VACUUMTIME, CycleValues.MAX_VACUUMTIME,
+                CycleValues.VACUUMTIMES);
+    }
+
+    private void setCurrentParmButton(View v, int minVal, int maxVal, List<Integer> values) {
+        minValueText.setText(Integer.toString(minVal));
+        maxValueText.setText(Integer.toString(maxVal));
+        currentParmValues = values;
+        if (currentParmButton != null)
+            currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_white);
+        currentParmButton = (Button) v;
+        currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_yellow);
+        String s = currentParmButton.getText().toString();
+        int val = Integer.parseInt(s);
+        int idx = currentParmValues.indexOf(val);
+        if (idx < 0) throw new IllegalStateException("idx = " + idx);
+        seekBar.setMax(currentParmValues.size() - 1);
         seekBar.setProgress(idx);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
     }
