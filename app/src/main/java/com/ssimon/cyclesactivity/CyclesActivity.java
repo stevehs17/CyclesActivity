@@ -77,6 +77,25 @@ public class CyclesActivity extends AppCompatActivity {
         };
     }
 
+     public void onClickDecrement(View unused) {
+        int idx = seekBar.getProgress();
+        if (idx > 0)
+            idx--;
+        seekBar.setProgress(idx);
+        int val = currentParmValues.get(idx);
+        seekBar.setProgress(idx);
+        currentParmButton.setText(Integer.toString(val));
+    }
+
+    public void onClickIncrement(View unused) {
+        int idx = seekBar.getProgress();
+        if (idx < currentParmValues.size() - 1);
+            idx++;
+        seekBar.setProgress(idx);
+        int val = currentParmValues.get(idx);
+        seekBar.setProgress(idx);
+        currentParmButton.setText(Integer.toString(val));
+    }
 }
 
 
