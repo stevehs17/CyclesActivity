@@ -9,12 +9,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:text="@string/cycles_btn_addcycle"
+        android:onClick="onClickAddCycle"
         />
     <Button
         style="@style/Button"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:text="@string/cycles_btn_deletecycle"
+        android:onClick="onClickDeleteCycle"
         />
     <Button
         android:id="@+id/btn_savecycles"

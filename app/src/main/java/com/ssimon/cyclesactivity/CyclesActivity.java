@@ -2,9 +2,11 @@ package com.ssimon.cyclesactivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,8 +14,11 @@ import java.util.List;
 public class CyclesActivity extends AppCompatActivity {
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
+    private TableLayout parmTable;
     private Button currentParmButton = null;
     private List<Integer> currentParmValues = null;
+
+    static final private String TAG = "CyclesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,7 @@ public class CyclesActivity extends AppCompatActivity {
         minValueText = (TextView) findViewById(R.id.txt_min_value);
         maxValueText = (TextView) findViewById(R.id.txt_max_value);
         seekBar = (SeekBar) findViewById(R.id.seek);
+        parmTable = (TableLayout) findViewById(R.id.lay_parms);
     }
 
     public void onClickVolumeMl(View v) {
@@ -94,5 +100,34 @@ public class CyclesActivity extends AppCompatActivity {
         int val = currentParmValues.get(idx);
         seekBar.setProgress(idx);
         currentParmButton.setText(Integer.toString(val));
+    }
+
+    /*
+    public void onClickDeleteCycle(View unused) {
+        Log.v(TAG, "child counr = " + parmTable.getChildCount());
+        for (int i = 0; i < parmTable.getChildCount(); i++) {
+            View v = parmTable.getChildAt(i);
+            Log.v(TAG, "child " + i + " is " + (v == null ? "null" : "non-null"));
+        }
+    }
+    */
+    public void onClickAddCycle(View unused) {
+        for (int i = 2; i < parmTable.getChildCount(); i++) {
+            View v = parmTable.getChildAt(i);
+            if (v.getVisibility() == View.INVISIBLE) {
+                v.setVisibility(View.VISIBLE);
+                break;
+            }
+        }
+    }
+
+    public void onClickDeleteCycle(View unused) {
+        for (int i = parmTable.getChildCount() - 1; i > 1; i--) {
+            View v = parmTable.getChildAt(i);
+            if (v.getVisibility() == View.VISIBLE) {
+                v.setVisibility(View.INVISIBLE);
+                break;
+            }
+        }
     }
 }
