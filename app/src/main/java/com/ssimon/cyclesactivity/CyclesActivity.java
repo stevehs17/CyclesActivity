@@ -62,29 +62,37 @@ public class CyclesActivity extends AppCompatActivity {
                 return true;
             }
         });
-        /*
-        final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-        final Runnable r = new Runnable() {
+
+        final ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
+        final Runnable rr = new Runnable() {
             @Override
             public void run() {
-                Log.v(TAG, "big decrement");
-                decr.postDelayed(this, ViewConfiguration.getLongPressTimeout());
+                Log.v(TAG, "big increment");
+                if (currentParmValues == null)
+                    return;
+                int idx = seekBar.getProgress();
+                if (idx >= 5) {
+                    idx += 5;
+                    setSeekBar(idx);
+                }
+                incr.postDelayed(this, ViewConfiguration.getLongPressTimeout());
             }
         };
-        decr.setOnTouchListener(new View.OnTouchListener() {
+        incr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.v(TAG, "decrement");
-                    v.postDelayed(r, ViewConfiguration.getLongPressTimeout());
+                    onClickIncrement(null);
+                    v.postDelayed(rr, ViewConfiguration.getLongPressTimeout());
                 } else if (e.getAction() == MotionEvent.ACTION_MOVE || e.getAction() == MotionEvent.ACTION_UP) {
                     Log.v(TAG, "removing callback...");
-                    v.removeCallbacks(r);
+                    v.removeCallbacks(rr);
                 }
                 return true;
             }
         });
-        */
+
     }
 
     public void onClickVolumeMl(View v) {
