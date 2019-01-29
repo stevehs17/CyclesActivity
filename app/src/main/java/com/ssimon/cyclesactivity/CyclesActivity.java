@@ -33,7 +33,9 @@ public class CyclesActivity extends AppCompatActivity {
         maxValueText = (TextView) findViewById(R.id.txt_max_value);
         seekBar = (SeekBar) findViewById(R.id.seek);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
+        setDecrementButton();
 
+        /*
         final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
         final Runnable r = new Runnable() {
             @Override
@@ -54,6 +56,7 @@ public class CyclesActivity extends AppCompatActivity {
                 return true;
             }
         });
+        */
 
         final ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
         final Runnable rr = new Runnable() {
@@ -177,5 +180,29 @@ public class CyclesActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+
+    private void setDecrementButton() {
+        final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
+        final Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                onClickDecrement(null);
+                decr.postDelayed(this, 100);
+            }
+        };
+        decr.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                    onClickDecrement(null);
+                    v.postDelayed(r, ViewConfiguration.getLongPressTimeout());
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                    v.removeCallbacks(r);
+                }
+                return true;
+            }
+        });
     }
 }
