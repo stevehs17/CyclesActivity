@@ -35,6 +35,63 @@ public class CyclesActivity extends AppCompatActivity {
         setDefaultParmButton();
     }
 
+    private void setDecrementButton() {
+        setSeekBarButton(true);
+    }
+
+    private void setIncrementButton() {
+        setSeekBarButton(false);
+    }
+
+    private void setSeekBarButton(final boolean isDecrement) {
+        final ImageButton btn = (ImageButton) findViewById(isDecrement ? R.id.btn_decrement
+                : R.id.btn_increment);
+        final Runnable repeater = new Runnable() {
+            @Override
+            public void run() {
+                if (isDecrement)
+                    decrement();
+                else
+                    increment();
+                final int milliseconds = 100;
+                btn.postDelayed(this, milliseconds);
+            }
+        };
+        btn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (isDecrement)
+                        decrement();
+                    else
+                        increment();
+                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                    v.removeCallbacks(repeater);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void decrement() {
+        int idx = seekBar.getProgress();
+        if (idx > 0) {
+            idx--;
+            seekBar.setProgress(idx);
+            setParmButton(idx);
+        }
+    }
+
+    private void increment() {
+        int idx = seekBar.getProgress();
+        if (idx < currentParmValues.size() - 1) {
+            idx++;
+            seekBar.setProgress(idx);
+            setParmButton(idx);
+        }
+    }
+
     private void setDefaultParmButton() {
         TableRow tr = (TableRow) parmTable.getChildAt(FIRST_PARM_ROW_INDEX);
         View v =  tr.getChildAt(FIRST_PARM_COLUMN_INDEX);
@@ -85,25 +142,7 @@ public class CyclesActivity extends AppCompatActivity {
         };
     }
 
-    private void decrement() {
-        int idx = seekBar.getProgress();
-        if (idx > 0) {
-            idx--;
-            seekBar.setProgress(idx);
-            setParmButton(idx);
-        }
-    }
-
-    private void increment() {
-        int idx = seekBar.getProgress();
-        if (idx < currentParmValues.size() - 1) {
-            idx++;
-            seekBar.setProgress(idx);
-            setParmButton(idx);
-        }
-    }
-
-    private void setParmButton(int idx) {
+  private void setParmButton(int idx) {
         int val = currentParmValues.get(idx);
         currentParmButton.setText(Integer.toString(val));
     }
@@ -127,44 +166,5 @@ public class CyclesActivity extends AppCompatActivity {
                 break;
             }
         }
-    }
-
-    private void setDecrementButton() {
-        setSeekBarButton(true);
-    }
-
-    private void setIncrementButton() {
-        setSeekBarButton(false);
-    }
-
-    private void setSeekBarButton(final boolean isDecrement) {
-        final ImageButton btn = (ImageButton) findViewById(isDecrement ? R.id.btn_decrement
-                : R.id.btn_increment);
-        final Runnable repeater = new Runnable() {
-            @Override
-            public void run() {
-                if (isDecrement)
-                    decrement();
-                else
-                    increment();
-                final int milliseconds = 100;
-                btn.postDelayed(this, milliseconds);
-            }
-        };
-        btn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (isDecrement)
-                        decrement();
-                    else
-                        increment();
-                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
-                } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                    v.removeCallbacks(repeater);
-                }
-                return true;
-            }
-        });
     }
 }
