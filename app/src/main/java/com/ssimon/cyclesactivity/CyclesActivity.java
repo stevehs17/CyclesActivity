@@ -78,13 +78,17 @@ public class CyclesActivity extends AppCompatActivity {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
-                int val = currentParmValues.get(idx);
-                currentParmButton.setText(Integer.toString(val));
+                setParmButton(idx);
             }
 
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         };
+    }
+
+    private void setParmButton(int idx) {
+        int val = currentParmValues.get(idx);
+        currentParmButton.setText(Integer.toString(val));
     }
 
     private void decrement() {
@@ -105,8 +109,7 @@ public class CyclesActivity extends AppCompatActivity {
 
     private void setSeekBar(int idx) {
         seekBar.setProgress(idx);
-        int val = currentParmValues.get(idx);
-        currentParmButton.setText(Integer.toString(val));
+        setParmButton(idx);
     }
 
     public void onClickAddCycle(View unused) {
