@@ -17,6 +17,8 @@ import android.widget.TextView;
 import java.util.List;
 
 public class CyclesActivity extends AppCompatActivity {
+    static final private int FIRST_PARM_ROW_INDEX = 1;
+    static final private int FIRST_PARM_COLUMN_INDEX = 1;
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
     private TableLayout parmTable;
@@ -34,29 +36,6 @@ public class CyclesActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         setDecrementButton();
-
-        /*
-        final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                onClickDecrement(null);
-                decr.postDelayed(this, 100);
-            }
-        };
-        decr.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    onClickDecrement(null);
-                    v.postDelayed(r, ViewConfiguration.getLongPressTimeout());
-                } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                    v.removeCallbacks(r);
-                }
-                return true;
-            }
-        });
-        */
 
         final ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
         final Runnable rr = new Runnable() {
@@ -83,8 +62,8 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     private void setDefaultParmButton() {
-        TableRow tr = (TableRow) parmTable.getChildAt(1);
-        View v =  tr.getChildAt(1);
+        TableRow tr = (TableRow) parmTable.getChildAt(FIRST_PARM_ROW_INDEX);
+        View v =  tr.getChildAt(FIRST_PARM_COLUMN_INDEX);
         onClickVolumeMl(v);
     }
 
