@@ -24,6 +24,7 @@ public class CyclesActivity extends AppCompatActivity {
     private List<Integer> currentParmValues = null;
 
     static final private String TAG = "CyclesActivity";
+    //final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,39 @@ public class CyclesActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
 
+        //final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
+
+
+        //final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
+
         final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
+        /*
+        private Runnable repeatDecrement() {
+            return new Runnable() {
+                @Override
+                public void run() {
+                    onClickDecrement(null);
+                    decr.postDelayed(this, 100);
+                }
+            };
+        }
+        */
+
+        /*
+        private Runnable repeatDecrement () {
+            return new Runnable() {
+                @Override
+                public void run() {
+                    onClickDecrement(null);
+                    decr.postDelayed(this, 100);
+                }
+            }
+        }
+        */
+
+
+
+
         final Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -49,16 +82,6 @@ public class CyclesActivity extends AppCompatActivity {
                 decr.postDelayed(this, ViewConfiguration.getLongPressTimeout());
             }
         };
-        /*
-        decr.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Log.v(TAG, "long click");
-                decr.postDelayed(r, 0);
-                return true;
-            }
-        });
-        */
 
         decr.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -75,39 +98,14 @@ public class CyclesActivity extends AppCompatActivity {
                 return true;
             }
         });
-            /*
-        decr.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                Log.v(TAG, "Received MotionEvent: " + e.getAction());
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(TAG, "decrement");
-                    onClickDecrement(null);
-                    v.postDelayed(r, ViewConfiguration.getLongPressTimeout());
-                } else if (e.getAction() == MotionEvent.ACTION_MOVE || e.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(TAG, "removing callback...");
-                    v.removeCallbacks(r);
-                }
-                return true;
-            }
-        });
-*/
+
         final ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
         final Runnable rr = new Runnable() {
             @Override
             public void run() {
-                Log.v(TAG, "big increment");
                 if (currentParmValues == null)
                     return;
-                /*
-                int idx = seekBar.getProgress();
-                if (idx >= 5) {
-                    idx += 5;
-                    setSeekBar(idx);
-                }
-                */
                 onClickIncrement(null);
-                //incr.postDelayed(this, ViewConfiguration.getLongPressTimeout()/2);
                 incr.postDelayed(this, 100);
             }
         };
@@ -115,26 +113,14 @@ public class CyclesActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(TAG, "decrement");
                     onClickIncrement(null);
                     v.postDelayed(rr, ViewConfiguration.getLongPressTimeout());
-                //} else if (e.getAction() == MotionEvent.ACTION_MOVE || e.getAction() == MotionEvent.ACTION_UP) {
                 } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(TAG, "removing callback...");
                     v.removeCallbacks(rr);
                 }
                 return true;
             }
         });
-
-
-
-        /*
-        TableRow tr = (TableRow) parmTable.getChildAt(1);
-        View v =  tr.getChildAt(1);
-        //(TextView) v).setText("test");
-        onClickVolumeMl(v);
-        */
 
         setDefaultParmButton();
     }
@@ -189,6 +175,8 @@ public class CyclesActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         };
     }
+
+
 
     public void onClickDecrement(View unused) {
         if (currentParmValues == null)
