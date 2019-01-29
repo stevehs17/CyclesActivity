@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.List;
@@ -48,9 +49,37 @@ public class CyclesActivity extends AppCompatActivity {
                 decr.postDelayed(this, ViewConfiguration.getLongPressTimeout());
             }
         };
+        /*
+        decr.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.v(TAG, "long click");
+                decr.postDelayed(r, 0);
+                return true;
+            }
+        });
+        */
+
         decr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
+                Log.v(TAG, "Received MotionEvent: " + e.getAction());
+                if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(TAG, "decrement");
+                    onClickDecrement(null);
+                    v.postDelayed(r, ViewConfiguration.getLongPressTimeout());
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(TAG, "removing callback...");
+                    v.removeCallbacks(r);
+                }
+                return true;
+            }
+        });
+            /*
+        decr.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                Log.v(TAG, "Received MotionEvent: " + e.getAction());
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.v(TAG, "decrement");
                     onClickDecrement(null);
@@ -62,7 +91,7 @@ public class CyclesActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+*/
         final ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
         final Runnable rr = new Runnable() {
             @Override
@@ -70,12 +99,16 @@ public class CyclesActivity extends AppCompatActivity {
                 Log.v(TAG, "big increment");
                 if (currentParmValues == null)
                     return;
+                /*
                 int idx = seekBar.getProgress();
                 if (idx >= 5) {
                     idx += 5;
                     setSeekBar(idx);
                 }
-                incr.postDelayed(this, ViewConfiguration.getLongPressTimeout());
+                */
+                onClickIncrement(null);
+                //incr.postDelayed(this, ViewConfiguration.getLongPressTimeout()/2);
+                incr.postDelayed(this, 100);
             }
         };
         incr.setOnTouchListener(new View.OnTouchListener() {
@@ -85,7 +118,8 @@ public class CyclesActivity extends AppCompatActivity {
                     Log.v(TAG, "decrement");
                     onClickIncrement(null);
                     v.postDelayed(rr, ViewConfiguration.getLongPressTimeout());
-                } else if (e.getAction() == MotionEvent.ACTION_MOVE || e.getAction() == MotionEvent.ACTION_UP) {
+                //} else if (e.getAction() == MotionEvent.ACTION_MOVE || e.getAction() == MotionEvent.ACTION_UP) {
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
                     Log.v(TAG, "removing callback...");
                     v.removeCallbacks(rr);
                 }
@@ -93,6 +127,22 @@ public class CyclesActivity extends AppCompatActivity {
             }
         });
 
+
+
+        /*
+        TableRow tr = (TableRow) parmTable.getChildAt(1);
+        View v =  tr.getChildAt(1);
+        //(TextView) v).setText("test");
+        onClickVolumeMl(v);
+        */
+
+        setDefaultParmButton();
+    }
+
+    private void setDefaultParmButton() {
+        TableRow tr = (TableRow) parmTable.getChildAt(1);
+        View v =  tr.getChildAt(1);
+        onClickVolumeMl(v);
     }
 
     public void onClickVolumeMl(View v) {
@@ -181,6 +231,7 @@ public class CyclesActivity extends AppCompatActivity {
             View v = parmTable.getChildAt(i);
             if (v.getVisibility() == View.VISIBLE) {
                 v.setVisibility(View.INVISIBLE);
+                setDefaultParmButton();
                 break;
             }
         }
