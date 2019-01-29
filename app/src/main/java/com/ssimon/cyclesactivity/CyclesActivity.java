@@ -11,7 +11,6 @@ import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import java.util.List;
 
 public class CyclesActivity extends AppCompatActivity {
@@ -86,16 +85,12 @@ public class CyclesActivity extends AppCompatActivity {
         };
     }
 
-    private void setParmButton(int idx) {
-        int val = currentParmValues.get(idx);
-        currentParmButton.setText(Integer.toString(val));
-    }
-
     private void decrement() {
         int idx = seekBar.getProgress();
         if (idx > 0) {
             idx--;
-            setSeekBar(idx);
+            seekBar.setProgress(idx);
+            setParmButton(idx);
         }
     }
 
@@ -103,13 +98,14 @@ public class CyclesActivity extends AppCompatActivity {
         int idx = seekBar.getProgress();
         if (idx < currentParmValues.size() - 1) {
             idx++;
-            setSeekBar(idx);
+            seekBar.setProgress(idx);
+            setParmButton(idx);
         }
     }
 
-    private void setSeekBar(int idx) {
-        seekBar.setProgress(idx);
-        setParmButton(idx);
+    private void setParmButton(int idx) {
+        int val = currentParmValues.get(idx);
+        currentParmButton.setText(Integer.toString(val));
     }
 
     public void onClickAddCycle(View unused) {
