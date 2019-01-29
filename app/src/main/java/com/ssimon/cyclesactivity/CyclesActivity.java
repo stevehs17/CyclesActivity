@@ -118,9 +118,9 @@ public class CyclesActivity extends AppCompatActivity {
         maxValueText.setText(Integer.toString(maxVal));
         currentParmValues = values;
         if (currentParmButton != null)
-            currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_white);
+            currentParmButton.setBackgroundResource(R.drawable.white_rectangle);
         currentParmButton = (Button) v;
-        currentParmButton.setBackgroundResource(R.drawable.rectangular_outline_yellow);
+        currentParmButton.setBackgroundResource(R.drawable.yellow_rectangle);
         String s = currentParmButton.getText().toString();
         int val = Integer.parseInt(s);
         int idx = currentParmValues.indexOf(val);
