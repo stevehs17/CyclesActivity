@@ -24,7 +24,6 @@ public class CyclesActivity extends AppCompatActivity {
     private List<Integer> currentParmValues = null;
 
     static final private String TAG = "CyclesActivity";
-    //final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,64 +34,21 @@ public class CyclesActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
 
-        //final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-
-
-        //final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-
         final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-        /*
-        private Runnable repeatDecrement() {
-            return new Runnable() {
-                @Override
-                public void run() {
-                    onClickDecrement(null);
-                    decr.postDelayed(this, 100);
-                }
-            };
-        }
-        */
-
-        /*
-        private Runnable repeatDecrement () {
-            return new Runnable() {
-                @Override
-                public void run() {
-                    onClickDecrement(null);
-                    decr.postDelayed(this, 100);
-                }
-            }
-        }
-        */
-
-
-
-
         final Runnable r = new Runnable() {
             @Override
             public void run() {
-                Log.v(TAG, "big decrement");
-                if (currentParmValues == null)
-                    return;
-                int idx = seekBar.getProgress();
-                if (idx >= 5) {
-                    idx -= 5;
-                    setSeekBar(idx);
-                }
-                decr.postDelayed(this, ViewConfiguration.getLongPressTimeout());
+                onClickDecrement(null);
+                decr.postDelayed(this, 100);
             }
         };
-
         decr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
-                Log.v(TAG, "Received MotionEvent: " + e.getAction());
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(TAG, "decrement");
                     onClickDecrement(null);
                     v.postDelayed(r, ViewConfiguration.getLongPressTimeout());
                 } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(TAG, "removing callback...");
                     v.removeCallbacks(r);
                 }
                 return true;
@@ -103,8 +59,6 @@ public class CyclesActivity extends AppCompatActivity {
         final Runnable rr = new Runnable() {
             @Override
             public void run() {
-                if (currentParmValues == null)
-                    return;
                 onClickIncrement(null);
                 incr.postDelayed(this, 100);
             }

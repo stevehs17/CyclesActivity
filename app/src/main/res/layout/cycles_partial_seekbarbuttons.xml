@@ -11,7 +11,6 @@
         android:src="@drawable/ic_decrement"
         android:layout_alignParentStart="true"
         android:layout_marginStart="100dp"
-        android:onClick="onClickDecrement"
         />
     <ImageButton
         android:id="@+id/btn_increment"
@@ -19,6 +18,5 @@
         android:src="@drawable/ic_increment"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="100dp"
-        android:onClick="onClickIncrement"
         />
 </RelativeLayout>
