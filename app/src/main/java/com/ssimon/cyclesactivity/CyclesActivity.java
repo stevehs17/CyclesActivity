@@ -36,7 +36,9 @@ public class CyclesActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         setDecrementButton();
+        setIncrementButton();
 
+        /*
         final ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
         final Runnable rr = new Runnable() {
             @Override
@@ -57,6 +59,8 @@ public class CyclesActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        */
 
         setDefaultParmButton();
     }
@@ -161,7 +165,44 @@ public class CyclesActivity extends AppCompatActivity {
         }
     }
 
+    private void setDecrementButton() {
+        setSeekBarButton(true);
+    }
 
+    private void setIncrementButton() {
+        setSeekBarButton(false);
+    }
+
+    private void setSeekBarButton(final boolean isDecrement) {
+        final ImageButton btn = (ImageButton) findViewById(isDecrement ? R.id.btn_decrement : R.id.btn_increment);
+        final Runnable repeater = new Runnable() {
+            @Override
+            public void run() {
+                if (isDecrement)
+                    onClickDecrement(null);
+                else
+                    onClickIncrement(null);
+                btn.postDelayed(this, 100);
+            }
+        };
+        btn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (isDecrement)
+                        onClickDecrement(null);
+                    else
+                        onClickIncrement(null);
+                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                    v.removeCallbacks(repeater);
+                }
+                return true;
+            }
+        });
+    }
+
+    /*
     private void setDecrementButton() {
         final ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
         final Runnable r = new Runnable() {
@@ -184,4 +225,5 @@ public class CyclesActivity extends AppCompatActivity {
             }
         });
     }
+    */
 }
