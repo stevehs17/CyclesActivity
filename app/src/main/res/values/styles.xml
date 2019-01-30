@@ -16,6 +16,7 @@
     <style name="ButtonThemeRed" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/red</item>
     </style>
+
      <style name="CyclesConstant" parent="WrapContent">
         <item name="android:gravity">center</item>
     </style>
