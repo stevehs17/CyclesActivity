@@ -23,10 +23,15 @@ public class CheckerTest {
     static final private long LONGMIN = 2;
     static final private List<String> EMPTY_COLLECTION = new ArrayList<>();
     static final private List<String> NONEMPTY_COLLECTION = Arrays.asList("test");
+    static final private List<String> NULL_COLLECTION = null;
     static final private Map<String, String> EMPTY_MAP = new HashMap<>();
     static final private Map<String, String> NONEMPTY_MAP = new HashMap<String, String>(){{put("testone", "one");}};
+    static final private Map<String, String> NULL_MAP = null;
     static final private String EMPTY_STRING = "";
     static final private String NONEMPTY_STRING = "1";
+    static final private String NULL_STRING = null;
+    static final private Object NONNULL_OBJECT = "";
+    static final private Object NULL_OBJECT = null;
 
     @Test
     public void atLeast_double_isCorrect() throws Exception {
@@ -262,6 +267,158 @@ public class CheckerTest {
     public void notEquals_String_isIncorrect() throws Exception {
         try {
             Checker.notEquals(INTMIN, INTMIN);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notGreaterThan_float_isCorrect() throws Exception {
+        Checker.notGreaterThan(FLOATMIN, FLOATMIN);
+    }
+
+    @Test
+    public void notGreaterThan_float_isIncorrect() throws Exception {
+        try {
+            Checker.notGreaterThan(FLOATMAX, FLOATMIN);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notGreaterThan_int_isCorrect() throws Exception {
+        Checker.notGreaterThan(INTMIN, INTMIN);
+    }
+
+    @Test
+    public void notGreaterThan_int_isIncorrect() throws Exception {
+        try {
+            Checker.notGreaterThan(INTMAX, INTMIN);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNull_Collection_isCorrect() throws Exception {
+        Checker.notNull(EMPTY_COLLECTION);
+    }
+
+    @Test
+    public void notNull_Collection_isIncorrect() throws Exception {
+        try {
+            Checker.notNull(NULL_COLLECTION);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNull_Map_isCorrect() throws Exception {
+        Checker.notNull(EMPTY_MAP);
+    }
+
+    @Test
+    public void notNull_Map_isIncorrect() throws Exception {
+        try {
+            Checker.notNull(NULL_MAP);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNull_Object_isCorrect() throws Exception {
+        Checker.notNull(NONNULL_OBJECT);
+    }
+
+    @Test
+    public void notNull_Object_isIncorrect() throws Exception {
+        try {
+            Checker.notNull(NULL_OBJECT);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNull_String_isCorrect() throws Exception {
+        Checker.notNull(EMPTY_STRING);
+    }
+
+    @Test
+    public void notNull_String_isIncorrect() throws Exception {
+        try {
+            Checker.notNull(NULL_STRING);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+
+
+
+
+
+
+
+    @Test
+    public void notNullOrEmpty_Map_isCorrect() throws Exception {
+        Checker.notNullOrEmpty(NONEMPTY_MAP);
+    }
+
+    @Test
+    public void notNullOrEmpty_Map_null_isIncorrect() throws Exception {
+        try {
+            Checker.notNullOrEmpty(NULL_MAP);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNullOrEmpty_Map_empty_isIncorrect() throws Exception {
+        try {
+            Checker.notNullOrEmpty(EMPTY_MAP);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+
+
+
+
+
+    @Test
+    public void notNullOrEmpty_String_isCorrect() throws Exception {
+        Checker.notNullOrEmpty(NONEMPTY_STRING);
+    }
+
+    @Test
+    public void notNullOrEmpty_String_null_isIncorrect() throws Exception {
+        try {
+            Checker.notNullOrEmpty(NULL_STRING);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNullOrEmpty_String_empty_isIncorrect() throws Exception {
+        try {
+            Checker.notNullOrEmpty(EMPTY_STRING);
         } catch (IllegalStateException e) {
             return;
         }

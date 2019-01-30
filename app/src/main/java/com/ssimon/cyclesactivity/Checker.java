@@ -106,7 +106,7 @@ public class Checker {
         }
     }
 
-    static public void notGreaterThan(int val, int max, String argumentName) {
+    static public void notGreaterThan(int val, int max) {
         if (val > max) {
             final String fmt = "val (%d) is greater than max (%d)";
             throw new IllegalStateException(String.format(Locale.getDefault(), fmt, val, max));
