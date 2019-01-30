@@ -164,4 +164,19 @@ public class CheckerTest {
         }
         throw new IllegalStateException("failure");
     }
+
+    @Test
+    public void isExactly_int_isCorrect() throws Exception {
+        Checker.isExactly(INTVAL, INTVAL);
+    }
+
+    @Test
+    public void isExactly_int_isIncorrect() throws Exception {
+        try {
+            Checker.isExactly(INTMIN, INTVAL);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
 }
