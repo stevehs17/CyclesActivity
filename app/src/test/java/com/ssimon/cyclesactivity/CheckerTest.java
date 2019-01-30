@@ -10,6 +10,7 @@ public class CheckerTest {
     static final private float FLOATMIN = 2.1F;
     static final private int INTVAL = 5;
     static final private int INTMIN = 2;
+    static final private int INTMAX = 10;
     static final private long LONGVAL = 5;
     static final private long LONGMIN = 2;
 
@@ -127,6 +128,29 @@ public class CheckerTest {
     public void greaterThan_long_isIncorrect() throws Exception {
         try {
             Checker.greaterThan(LONGVAL, LONGVAL);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+
+
+
+
+
+
+
+
+    @Test
+    public void inRange_int_isCorrect() throws Exception {
+        Checker.inRange(INTVAL, INTMIN, INTMAX);
+    }
+
+    @Test
+    public void inRange_int_isIncorrect() throws Exception {
+        try {
+            Checker.inRange(INTMIN, INTVAL, INTMAX);
         } catch (IllegalStateException e) {
             return;
         }
