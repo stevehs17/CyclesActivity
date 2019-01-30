@@ -179,4 +179,19 @@ public class CheckerTest {
         }
         throw new IllegalStateException("failure");
     }
+
+    @Test
+    public void lessThan_int_isCorrect() throws Exception {
+        Checker.lessThan(INTMIN, INTVAL);
+    }
+
+    @Test
+    public void lessThan_int_isIncorrect() throws Exception {
+        try {
+            Checker.lessThan(INTVAL, INTVAL);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
 }
