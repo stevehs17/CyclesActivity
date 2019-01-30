@@ -10,6 +10,8 @@ public class CheckerTest {
     static final private float FLOATMIN = 2.1F;
     static final private int INTVAL = 5;
     static final private int INTMIN = 2;
+    static final private long LONGVAL = 5;
+    static final private long LONGMIN = 2;
 
     @Test
     public void atLeast_double_isCorrect() throws Exception {
@@ -40,7 +42,7 @@ public class CheckerTest {
         }
         throw new IllegalStateException("failure");
     }
-    
+
     @Test
     public void atLeast_int_isCorrect() throws Exception {
         Checker.atLeast(INTVAL, INTMIN);
@@ -50,6 +52,21 @@ public class CheckerTest {
     public void atLeast_int_isIncorrect() throws Exception {
          try {
             Checker.atLeast(INTMIN, INTVAL);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void atLeast_long_isCorrect() throws Exception {
+        Checker.atLeast(LONGVAL, LONGMIN);
+    }
+
+    @Test
+    public void atLeast_long_isIncorrect() throws Exception {
+        try {
+            Checker.atLeast(LONGMIN, LONGVAL);
         } catch (IllegalStateException e) {
             return;
         }
