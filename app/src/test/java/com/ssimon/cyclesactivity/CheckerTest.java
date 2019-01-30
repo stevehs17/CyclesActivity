@@ -88,17 +88,15 @@ public class CheckerTest {
         throw new IllegalStateException("failure");
     }
 
-    /*
-
     @Test
-    public void atLeast_float_isCorrect() throws Exception {
-        Checker.atLeast(FLOATVAL, FLOATMIN);
+    public void greaterThan_float_isCorrect() throws Exception {
+        Checker.greaterThan(FLOATVAL, FLOATMIN);
     }
 
     @Test
-    public void atLeast_float_isIncorrect() throws Exception {
+    public void greaterThan_float_isIncorrect() throws Exception {
         try {
-            Checker.atLeast(FLOATMIN, FLOATVAL);
+            Checker.greaterThan(FLOATVAL, FLOATVAL);
         } catch (IllegalStateException e) {
             return;
         }
@@ -106,14 +104,14 @@ public class CheckerTest {
     }
 
     @Test
-    public void atLeast_int_isCorrect() throws Exception {
-        Checker.atLeast(INTVAL, INTMIN);
+    public void greaterThan_int_isCorrect() throws Exception {
+        Checker.greaterThan(INTVAL, INTMIN);
     }
 
     @Test
-    public void atLeast_int_isIncorrect() throws Exception {
+    public void greaterThan_int_isIncorrect() throws Exception {
          try {
-            Checker.atLeast(INTMIN, INTVAL);
+            Checker.greaterThan(INTVAL, INTVAL);
         } catch (IllegalStateException e) {
             return;
         }
@@ -121,18 +119,17 @@ public class CheckerTest {
     }
 
     @Test
-    public void atLeast_long_isCorrect() throws Exception {
-        Checker.atLeast(LONGVAL, LONGMIN);
+    public void greaterThan_long_isCorrect() throws Exception {
+        Checker.greaterThan(LONGVAL, LONGMIN);
     }
 
     @Test
-    public void atLeast_long_isIncorrect() throws Exception {
+    public void greaterThan_long_isIncorrect() throws Exception {
         try {
-            Checker.atLeast(LONGMIN, LONGVAL);
+            Checker.greaterThan(LONGVAL, LONGVAL);
         } catch (IllegalStateException e) {
             return;
         }
         throw new IllegalStateException("failure");
     }
-     */
 }
