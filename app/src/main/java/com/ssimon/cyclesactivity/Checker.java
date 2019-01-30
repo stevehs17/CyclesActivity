@@ -128,11 +128,6 @@ public class Checker {
             throw new NullPointerException("object is null");
     }
 
-    static public void notNull(String str) {
-        if (str == null)
-            throw new NullPointerException("string is null");
-    }
-
     static public void notNullOrEmpty(Collection<?> col) {
         notNull(col);
         notEmpty(col);
