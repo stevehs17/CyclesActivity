@@ -3,6 +3,15 @@ package com.ssimon.cyclesactivity;
 import java.io.Serializable;
 
 class Cycle implements Serializable {
+    static final int MAX_NUM_CYCLES = 6;
+    static final int MIN_VOLUME = 180;
+    static final int MAX_VOLUME = 1670;
+    static final int MIN_BREWTIME = 1;
+    static final int MAX_BREWTIME = 999;
+    static final int MIN_VACUUMTIME = 1;
+    static final int MAX_VACUUMTIME = 999;
+
+
     final private long id;
     final private int volumeMl;
     final private int brewSeconds;

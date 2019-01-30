@@ -15,16 +15,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        Cycle c = new Cycle(1, CycleValues.MIN_VOLUME + 500, CycleValues.MIN_BREWTIME + 30,
-                CycleValues.MIN_VACUUMTIME + 40);
+        Cycle c = new Cycle(1, Cycle.MIN_VOLUME + 500, Cycle.MIN_BREWTIME + 30, Cycle.MIN_VACUUMTIME + 40);
         ArrayList<Cycle> cycles = new ArrayList<>();
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
-        c = new Cycle(1, CycleValues.MIN_VOLUME, CycleValues.MIN_BREWTIME,
-                CycleValues.MIN_VACUUMTIME);
+        c = new Cycle(1, Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
         cycles.add(c);
         Volume v = new Volume(1, cycles);
         List<Volume> volumes = new ArrayList<>();

@@ -11,6 +11,9 @@ import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CyclesActivity extends AppCompatActivity {
@@ -19,6 +22,9 @@ public class CyclesActivity extends AppCompatActivity {
     static final private int VOLUME_COLUMN = FIRST_PARM_COLUMN_INDEX;
     static final private int BREWTIME_COLUMN = VOLUME_COLUMN + 1;
     static final private int VACUUMTIME_COLUMN = BREWTIME_COLUMN + 1;
+    static final List<Integer> VOLUMES = getVolumes();
+    static final List<Integer> BREWTIMES = getBrewTimes();
+    static final List<Integer> VACUUMTIMES = getVacuumTimes();
 
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
@@ -38,7 +44,7 @@ public class CyclesActivity extends AppCompatActivity {
         setIncrementButton();
         Coffee cof = (Coffee) getIntent().getSerializableExtra(MainActivity.EXTRA_COFFEE);
         int volumeIdx = getIntent().getIntExtra(MainActivity.EXTRA_VOLUME_IDX, -1);
-        if (volumeIdx < 0 || volumeIdx > CycleValues.MAX_NUM_CYCLES - 1)
+        if (volumeIdx < 0 || volumeIdx > Cycle.MAX_NUM_CYCLES - 1)
             throw new IllegalStateException("invalid volume index: " + volumeIdx);
         setParmButtonValues(cof.volumes().get(volumeIdx).cycles());
         setDefaultParmButton();
@@ -46,7 +52,7 @@ public class CyclesActivity extends AppCompatActivity {
 
     private void setParmButtonValues(List<Cycle> cycles) {
         int numCycles = cycles.size();
-        for (int i = 0; i < CycleValues.MAX_NUM_CYCLES; i++) {
+        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
             TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
             if (i < numCycles) {
                 Cycle c = cycles.get(i);
@@ -126,18 +132,15 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     public void onClickVolumeMl(View v) {
-        setCurrentParmButton(v, CycleValues.MIN_VOLUME, CycleValues.MAX_VOLUME,
-                CycleValues.VOLUMES);
+        setCurrentParmButton(v, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, VOLUMES);
     }
 
     public void onClickBrewSecs(View v) {
-        setCurrentParmButton(v, CycleValues.MIN_BREWTIME, CycleValues.MAX_BREWTIME,
-                CycleValues.BREWTIMES);
+        setCurrentParmButton(v, Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, BREWTIMES);
     }
 
     public void onClickVacuumSecs(View v) {
-        setCurrentParmButton(v, CycleValues.MIN_VACUUMTIME, CycleValues.MAX_VACUUMTIME,
-                CycleValues.VACUUMTIMES);
+        setCurrentParmButton(v, Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME, VACUUMTIMES);
     }
 
     private void setCurrentParmButton(View v, int minVal, int maxVal, List<Integer> values) {
@@ -193,5 +196,27 @@ public class CyclesActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    static private List<Integer> getVolumes() {
+        final int increment = 10;
+        return getIntegerList(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, increment);
+    }
+
+    static private List<Integer> getBrewTimes() {
+        final int increment = 1;
+        return getIntegerList(Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, increment);
+    }
+
+    static List<Integer> getVacuumTimes() {
+        final int increment = 1;
+        return getIntegerList(Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME, increment);
+    }
+
+    static private List<Integer> getIntegerList(int min, int max, int increment) {
+        List<Integer> volumes = new ArrayList<>();
+        for (int i = min; i <= max; i += increment)
+            volumes.add(i);
+        return Collections.unmodifiableList(volumes);
     }
 }
