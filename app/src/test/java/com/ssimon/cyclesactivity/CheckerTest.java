@@ -1,6 +1,13 @@
 package com.ssimon.cyclesactivity;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 
 public class CheckerTest {
@@ -14,6 +21,12 @@ public class CheckerTest {
     static final private int INTMAX = 10;
     static final private long LONGVAL = 5;
     static final private long LONGMIN = 2;
+    static final private List<String> EMPTY_COLLECTION = new ArrayList<>();
+    static final private List<String> NONEMPTY_COLLECTION = Arrays.asList("test");
+    static final private Map<String, String> EMPTY_MAP = new HashMap<>();
+    static final private Map<String, String> NONEMPTY_MAP = new HashMap<String, String>(){{put("testone", "one");}};
+    static final private String EMPTY_STRING = "";
+    static final private String NONEMPTY_STRING = "1";
 
     @Test
     public void atLeast_double_isCorrect() throws Exception {
@@ -189,6 +202,66 @@ public class CheckerTest {
     public void lessThan_int_isIncorrect() throws Exception {
         try {
             Checker.lessThan(INTVAL, INTVAL);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notEmpty_Collection_isCorrect() throws Exception {
+        Checker.notEmpty(NONEMPTY_COLLECTION);
+    }
+
+    @Test
+    public void notEmpty_Collection_isIncorrect() throws Exception {
+        try {
+            Checker.notEmpty(EMPTY_COLLECTION);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notEmpty_Map_isCorrect() throws Exception {
+        Checker.notEmpty(NONEMPTY_MAP);
+    }
+
+    @Test
+    public void notEmpty_Map_isIncorrect() throws Exception {
+        try {
+            Checker.notEmpty(EMPTY_MAP);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notEmpty_String_isCorrect() throws Exception {
+        Checker.notEmpty(NONEMPTY_STRING);
+    }
+
+    @Test
+    public void notEmpty_String_isIncorrect() throws Exception {
+        try {
+            Checker.notEmpty(EMPTY_STRING);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notEquals_int_isCorrect() throws Exception {
+        Checker.notEquals(INTMIN, INTMAX);
+    }
+
+    @Test
+    public void notEquals_String_isIncorrect() throws Exception {
+        try {
+            Checker.notEquals(INTMIN, INTMIN);
         } catch (IllegalStateException e) {
             return;
         }
