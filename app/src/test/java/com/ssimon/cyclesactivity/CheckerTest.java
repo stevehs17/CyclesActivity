@@ -8,6 +8,7 @@ public class CheckerTest {
     static final private double DOUBLEMIN = 2.1;
     static final private float FLOATVAL = 5.1F;
     static final private float FLOATMIN = 2.1F;
+    static final private float FLOATMAX = 10.5F;
     static final private int INTVAL = 5;
     static final private int INTMIN = 2;
     static final private int INTMAX = 10;
@@ -134,13 +135,20 @@ public class CheckerTest {
         throw new IllegalStateException("failure");
     }
 
+    @Test
+    public void inRange_float_isCorrect() throws Exception {
+        Checker.inRange(FLOATVAL, FLOATMIN, FLOATMAX);
+    }
 
-
-
-
-
-
-
+    @Test
+    public void inRange_float_isIncorrect() throws Exception {
+        try {
+            Checker.inRange(FLOATMIN, FLOATVAL, FLOATMAX);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
 
     @Test
     public void inRange_int_isCorrect() throws Exception {
