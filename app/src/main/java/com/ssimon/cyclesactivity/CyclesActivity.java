@@ -1,5 +1,6 @@
 package com.ssimon.cyclesactivity;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -177,11 +178,30 @@ public class CyclesActivity extends AppCompatActivity {
         currentParmButton.setText(Integer.toString(val));
     }
 
+    /*
     public void onClickAddCycle(View unused) {
         for (int i = 2; i < parmTable.getChildCount(); i++) {
             View v = parmTable.getChildAt(i);
             if (v.getVisibility() == View.INVISIBLE) {
                 v.setVisibility(View.VISIBLE);
+                break;
+            }
+        }
+    }
+    */
+
+    public void onClickAddCycle(View unused) {
+        for (int i = 2; i < parmTable.getChildCount(); i++) {
+            View v = parmTable.getChildAt(i);
+            if (v.getVisibility() == View.INVISIBLE) {
+                TableRow tr = (TableRow) v;
+                tr.setVisibility(View.VISIBLE);
+                Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
+                b.setText(Integer.toString(Cycle.MIN_VOLUME));
+                b = (Button) tr.getChildAt(BREWTIME_COLUMN);
+                b.setText(Integer.toString(Cycle.MIN_BREWTIME));
+                b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
+                b.setText(Integer.toString(Cycle.MIN_LASTCYCLE_VACUUMTIME));
                 break;
             }
         }

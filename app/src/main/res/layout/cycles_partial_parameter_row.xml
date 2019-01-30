@@ -6,16 +6,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="15dp"
         android:onClick="onClickVolumeMl"
-        android:text="1670"
         />
     <Button
         style="@style/CyclesParameter"
         android:onClick="onClickBrewSecs"
-        android:text="888"
         />
     <Button
         style="@style/CyclesParameter"
         android:onClick="onClickVacuumSecs"
-        android:text="3"
         />
 </merge>

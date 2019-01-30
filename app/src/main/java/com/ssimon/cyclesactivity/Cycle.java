@@ -10,6 +10,7 @@ class Cycle implements Serializable {
     static final int MAX_BREWTIME = 999;
     static final int MIN_VACUUMTIME = 1;
     static final int MAX_VACUUMTIME = 999;
+    static final int MIN_LASTCYCLE_VACUUMTIME = 20;
 
 
     final private long id;
