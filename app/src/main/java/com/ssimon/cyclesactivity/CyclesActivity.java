@@ -33,6 +33,8 @@ public class CyclesActivity extends AppCompatActivity {
         setDecrementButton();
         setIncrementButton();
         setDefaultParmButton();
+        Coffee cof = (Coffee) getIntent().getSerializableExtra(MainActivity.EXTRA_KEY);
+
     }
 
     private void setDecrementButton() {
