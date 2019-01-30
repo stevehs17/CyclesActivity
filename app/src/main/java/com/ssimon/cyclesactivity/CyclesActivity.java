@@ -173,22 +173,10 @@ public class CyclesActivity extends AppCompatActivity {
         };
     }
 
-  private void setParmButton(int idx) {
+    private void setParmButton(int idx) {
         int val = currentParmValues.get(idx);
         currentParmButton.setText(Integer.toString(val));
     }
-
-    /*
-    public void onClickAddCycle(View unused) {
-        for (int i = 2; i < parmTable.getChildCount(); i++) {
-            View v = parmTable.getChildAt(i);
-            if (v.getVisibility() == View.INVISIBLE) {
-                v.setVisibility(View.VISIBLE);
-                break;
-            }
-        }
-    }
-    */
 
     public void onClickAddCycle(View unused) {
         for (int i = 2; i < parmTable.getChildCount(); i++) {
