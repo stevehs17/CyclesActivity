@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CycleValues {
+    static final int MAX_NUM_CYCLES = 6;
     static final int MIN_VOLUME = 180;
     static final int MAX_VOLUME = 1670;
     static final List<Integer> VOLUMES = getVolumes();

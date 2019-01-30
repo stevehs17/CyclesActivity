@@ -16,6 +16,10 @@ import java.util.List;
 public class CyclesActivity extends AppCompatActivity {
     static final private int FIRST_PARM_ROW_INDEX = 1;
     static final private int FIRST_PARM_COLUMN_INDEX = 1;
+    static final private int VOLUME_COLUMN = FIRST_PARM_COLUMN_INDEX;
+    static final private int BREWTIME_COLUMN = VOLUME_COLUMN + 1;
+    static final private int VACUUMTIME_COLUMN = BREWTIME_COLUMN + 1;
+
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
     private TableLayout parmTable;
@@ -32,9 +36,30 @@ public class CyclesActivity extends AppCompatActivity {
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         setDecrementButton();
         setIncrementButton();
+        Coffee cof = (Coffee) getIntent().getSerializableExtra(MainActivity.EXTRA_COFFEE);
+        int volumeIdx = getIntent().getIntExtra(MainActivity.EXTRA_VOLUME_IDX, -1);
+        if (volumeIdx < 0 || volumeIdx > CycleValues.MAX_NUM_CYCLES - 1)
+            throw new IllegalStateException("invalid volume index: " + volumeIdx);
+        setParmButtonValues(cof.volumes().get(volumeIdx).cycles());
         setDefaultParmButton();
-        Coffee cof = (Coffee) getIntent().getSerializableExtra(MainActivity.EXTRA_KEY);
+    }
 
+    private void setParmButtonValues(List<Cycle> cycles) {
+        int numCycles = cycles.size();
+        for (int i = 0; i < CycleValues.MAX_NUM_CYCLES; i++) {
+            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
+            if (i < numCycles) {
+                Cycle c = cycles.get(i);
+                Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
+                b.setText(Integer.toString(c.volumeMl()));
+                b = (Button) tr.getChildAt(BREWTIME_COLUMN);
+                b.setText(Integer.toString(c.brewSeconds()));
+                b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
+                b.setText(Integer.toString(c.vacuumSeconds()));
+            } else {
+                tr.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     private void setDecrementButton() {
