@@ -363,12 +363,30 @@ public class CheckerTest {
         throw new IllegalStateException("failure");
     }
 
+    @Test
+    public void notNullOrEmpty_Collection_isCorrect() throws Exception {
+        Checker.notNullOrEmpty(NONEMPTY_COLLECTION);
+    }
 
+    @Test
+    public void notNullOrEmpty_Collection_null_isIncorrect() throws Exception {
+        try {
+            Checker.notNullOrEmpty(NULL_COLLECTION);
+        } catch (NullPointerException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
 
-
-
-
-
+    @Test
+    public void notNullOrEmptyCollection_empty_isIncorrect() throws Exception {
+        try {
+            Checker.notNullOrEmpty(EMPTY_COLLECTION);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
 
     @Test
     public void notNullOrEmpty_Map_isCorrect() throws Exception {
@@ -395,11 +413,6 @@ public class CheckerTest {
         throw new IllegalStateException("failure");
     }
 
-
-
-
-
-
     @Test
     public void notNullOrEmpty_String_isCorrect() throws Exception {
         Checker.notNullOrEmpty(NONEMPTY_STRING);
@@ -419,6 +432,21 @@ public class CheckerTest {
     public void notNullOrEmpty_String_empty_isIncorrect() throws Exception {
         try {
             Checker.notNullOrEmpty(EMPTY_STRING);
+        } catch (IllegalStateException e) {
+            return;
+        }
+        throw new IllegalStateException("failure");
+    }
+
+    @Test
+    public void notNullResourceId_isCorrect() throws Exception {
+        Checker.notNullResourceId(Const.NULL_RESOURCE_ID + 1);
+    }
+
+    @Test
+    public void notNullResourceId_isIncorrect() throws Exception {
+        try {
+            Checker.notNullResourceId(Const.NULL_RESOURCE_ID);
         } catch (IllegalStateException e) {
             return;
         }
