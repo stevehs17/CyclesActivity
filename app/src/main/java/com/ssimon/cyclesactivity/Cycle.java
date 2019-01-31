@@ -18,6 +18,11 @@ class Cycle implements Serializable {
     final private int vacuumSeconds;
 
     Cycle(long id, int volumeMl, int brewSeconds, int vacuumSeconds) {
+        if (id != Const.UNSET_DATABASE_ID)
+            Checker.atLeast(id, Const.MIN_DATABASE_ID);
+        Checker.inRange(volumeMl, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME);
+        Checker.inRange(brewSeconds, Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME);
+        Checker.inRange(vacuumSeconds, Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME);
         this.id = id;
         this.volumeMl = volumeMl;
         this.brewSeconds = brewSeconds;

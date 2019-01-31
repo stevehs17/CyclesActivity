@@ -45,13 +45,13 @@ public class CyclesActivity extends AppCompatActivity {
         setIncrementButton();
         Coffee cof = (Coffee) getIntent().getSerializableExtra(MainActivity.EXTRA_COFFEE);
         int volumeIdx = getIntent().getIntExtra(MainActivity.EXTRA_VOLUME_IDX, -1);
-        if (volumeIdx < 0 || volumeIdx > Cycle.MAX_NUM_CYCLES - 1)
-            throw new IllegalStateException("invalid volume index: " + volumeIdx);
+        Checker.inRange(volumeIdx, 0, Cycle.MAX_NUM_CYCLES - 1);
         setParmButtonValues(cof.volumes().get(volumeIdx).cycles());
         setDefaultParmButton();
     }
 
     private void setParmButtonValues(List<Cycle> cycles) {
+        Checker.notNullOrEmpty(cycles);
         int numCycles = cycles.size();
         for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
             TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
@@ -145,6 +145,10 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     private void setCurrentParmButton(View v, int minVal, int maxVal, List<Integer> values) {
+        Checker.notNull(v);
+        Checker.greaterThan(minVal, 0);
+        Checker.lessThan(minVal, maxVal);
+        Checker.notNullOrEmpty(values);
         minValueText.setText(Integer.toString(minVal));
         maxValueText.setText(Integer.toString(maxVal));
         currentParmValues = values;
@@ -174,6 +178,7 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     private void setParmButton(int idx) {
+        Checker.inRange(idx, 0, currentParmValues.size() - 1);
         int val = currentParmValues.get(idx);
         currentParmButton.setText(Integer.toString(val));
     }
@@ -222,6 +227,9 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     static private List<Integer> getIntegerList(int min, int max, int increment) {
+        Checker.atLeast(min, 0);
+        Checker.lessThan(min, max);
+        Checker.greaterThan(increment, 0);
         List<Integer> volumes = new ArrayList<>();
         for (int i = min; i <= max; i += increment)
             volumes.add(i);

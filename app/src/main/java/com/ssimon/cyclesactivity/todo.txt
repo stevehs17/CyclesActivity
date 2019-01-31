@@ -1,0 +1,2 @@
+1. Use Checker in CyclesActivity, etc.
+2. Add database code, onClickSaveCycles.
