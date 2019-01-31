@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-
 public class CheckerTest {
     static final private double DOUBLEVAL = 5.1;
     static final private double DOUBLEMIN = 2.1;
@@ -19,8 +17,8 @@ public class CheckerTest {
     static final private int INTVAL = 5;
     static final private int INTMIN = 2;
     static final private int INTMAX = 10;
-    static final private long LONGVAL = 5;
-    static final private long LONGMIN = 2;
+    static final private long LONGVAL = 5L;
+    static final private long LONGMIN = 2L;
     static final private List<String> EMPTY_COLLECTION = new ArrayList<>();
     static final private List<String> NONEMPTY_COLLECTION = Arrays.asList("test");
     static final private List<String> NULL_COLLECTION = null;
