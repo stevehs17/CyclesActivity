@@ -23,9 +23,9 @@ public class CyclesActivity extends AppCompatActivity {
     static final private int VOLUME_COLUMN = FIRST_PARM_COLUMN_INDEX;
     static final private int BREWTIME_COLUMN = VOLUME_COLUMN + 1;
     static final private int VACUUMTIME_COLUMN = BREWTIME_COLUMN + 1;
-    static final List<Integer> VOLUMES = getVolumes();
-    static final List<Integer> BREWTIMES = getBrewTimes();
-    static final List<Integer> VACUUMTIMES = getVacuumTimes();
+    static final private List<Integer> VOLUMES = getVolumes();
+    static final private List<Integer> BREWTIMES = getBrewTimes();
+    static final private List<Integer> VACUUMTIMES = getVacuumTimes();
 
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;

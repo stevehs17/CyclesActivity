@@ -1,2 +1,4 @@
-1. Use Checker in CyclesActivity, etc.
-2. Add database code, onClickSaveCycles.
+Add database code, onClickSaveCycles.
+
+DONE
+Use Checker in CyclesActivity, etc.
