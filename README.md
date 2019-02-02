@@ -1,0 +1,3 @@
+This project implements a component of the app that provides the human-machine interface for Voga's GroundControl coffee brewer.
+
+The biggest challenge I faced in designing the UI was to provide a means for the user to select a valid value from a large range of values -- ranges of up to a thousand. My solution is to provide three ways to select the value: (1) sliding a SeekBar to make gross adjustments of the value, (2) short-pressing a Plus button and a Minus button to respectively increment and decrement the value by 1, and (3) long-pressing the buttons to repeatedly increment and decrement the value. 
