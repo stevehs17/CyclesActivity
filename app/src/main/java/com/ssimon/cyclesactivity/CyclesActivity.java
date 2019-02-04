@@ -61,6 +61,59 @@ public class CyclesActivity extends AppCompatActivity {
         setDefaultParmButton();
     }
 
+
+
+    /*
+    public void onClickSaveCycles(View unused) {
+        List<Cycle> cycles = parmButtonToCycles();
+        validateCycles(cycles);
+        Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
+        if (volumeExists(vol, coffee.volumes())) {
+            OverwriteVolumeDialog ovd = OverwriteVolumeDialog.newInstance(vol, coffee);
+            ovd.show();
+        } else {
+            DatabaseManager.savevolume(vol, coffee);
+        }
+    }
+    */
+
+    public void onClickSaveCycles(View unused) {
+        List<Cycle> cycles = parmButtonToCycles();
+    }
+
+    private List<Cycle> parmButtonToCycles() {
+        List<Cycle> cycles = new ArrayList<>();
+        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
+            if (tr.getVisibility() == View.VISIBLE) {
+                Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
+                String s = b.getText().toString();
+                int vol = Integer.valueOf(s);
+                b = (Button) tr.getChildAt(BREWTIME_COLUMN);
+                s = b.getText().toString();
+                int brew = Integer.valueOf(s);
+                b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
+                s = b.getText().toString();
+                int vac = Integer.valueOf(s);
+                cycles.add(new Cycle(Const.UNSET_DATABASE_ID, vol, brew, vac));
+            } else {
+                break;
+            }
+        }
+        return cycles;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     private void setParmButtonValues(List<Cycle> cycles) {
         Checker.notNullOrEmpty(cycles);
         int numCycles = cycles.size();

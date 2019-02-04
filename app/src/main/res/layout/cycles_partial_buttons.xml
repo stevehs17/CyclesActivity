@@ -24,6 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btn_addcycle"
         android:text="@string/cycles_btn_savecycles"
+        android:onClick="onClickSaveCycles"
         />
 </RelativeLayout>
 
