@@ -21,8 +21,7 @@ public class DatabaseHelperTest {
         SQLiteDatabase db = dh.getWritableDatabase();
         db.execSQL(Contract.Recipe.DELETE_TABLE);
         db.execSQL(Contract.Volume.DELETE_TABLE);
-
-        //db.execSQL(Contract.Cycle.DELETE_TA/BLE);
+        db.execSQL(Contract.Cycle.DELETE_TABLE);
 
         db.execSQL(Contract.Recipe.CREATE_TABLE);
 
