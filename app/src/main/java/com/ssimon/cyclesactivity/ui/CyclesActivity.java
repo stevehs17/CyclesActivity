@@ -9,7 +9,7 @@
  language governing permissions and limitations under the License.
 */
 
-package ui;
+package com.ssimon.cyclesactivity.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.Coffee;
-import model.Cycle;
-import util.Checker;
+import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.util.Checker;
 
 public class CyclesActivity extends AppCompatActivity {
     static final private int FIRST_PARM_ROW_INDEX = 1;

@@ -9,7 +9,7 @@
  language governing permissions and limitations under the License.
 */
 
-package util;
+package com.ssimon.cyclesactivity.util;
 
 import com.ssimon.cyclesactivity.Const;
 

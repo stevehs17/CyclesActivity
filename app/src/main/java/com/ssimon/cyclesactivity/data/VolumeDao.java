@@ -3,9 +3,9 @@ package com.ssimon.cyclesactivity.data;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import util.Checker;
+import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
-import model.Volume;
+import com.ssimon.cyclesactivity.model.Volume;
 
 import static com.ssimon.cyclesactivity.data.Contract.Volume.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Volume.TABLE_NAME;

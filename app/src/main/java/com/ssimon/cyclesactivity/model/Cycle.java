@@ -9,9 +9,9 @@
  language governing permissions and limitations under the License.
 */
 
-package model;
+package com.ssimon.cyclesactivity.model;
 
-import util.Checker;
+import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;

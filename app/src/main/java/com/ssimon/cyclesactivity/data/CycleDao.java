@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import util.Checker;
+import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
-import model.Cycle;
+import com.ssimon.cyclesactivity.model.Cycle;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ssimon.cyclesactivity;
+package com.ssimon.cyclesactivity.util;
 
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import util.Checker;
+import com.ssimon.cyclesactivity.Const;
 
 public class CheckerTest {
     static final private double DOUBLEMAX = 5.1;

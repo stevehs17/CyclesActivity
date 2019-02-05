@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import util.Checker;
+import com.ssimon.cyclesactivity.util.Checker;
 
 public class DatabaseManager {
     static private DatabaseHelper databaseHelper = null;
