@@ -20,13 +20,14 @@ public class DatabaseHelperTest {
         DatabaseHelper dh = DatabaseHelper.getInstance(context);
         SQLiteDatabase db = dh.getWritableDatabase();
         db.execSQL(Contract.Recipe.DELETE_TABLE);
+        db.execSQL(Contract.Volume.DELETE_TABLE);
 
-        //db.execSQL(Contract.Volume.DELETE_TABLE);
         //db.execSQL(Contract.Cycle.DELETE_TA/BLE);
 
         db.execSQL(Contract.Recipe.CREATE_TABLE);
 
-        //db.execSQL(Contract.Volume.CREATE_TABLE);
+        db.execSQL(Contract.Volume.CREATE_TABLE);
+
         //db.execSQL(Contract.Cycle.CREATE_TABLE);
     }
 }
