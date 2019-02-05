@@ -1,4 +1,7 @@
-Add database code, onClickSaveCycles.
+Add unit tests for Dao methods.
+Add methods to access db off main thread.
+Finish onClickSaveCycles.
+
 
 DONE
 Use Checker in CyclesActivity, etc.

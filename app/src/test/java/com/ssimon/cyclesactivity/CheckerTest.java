@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.Checker;
+
 public class CheckerTest {
     static final private double DOUBLEMAX = 5.1;
     static final private double DOUBLEMIN = 2.1;

@@ -9,23 +9,31 @@
  language governing permissions and limitations under the License.
 */
 
-package com.ssimon.cyclesactivity;
+package model;
+
+import util.Checker;
+import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;
 import java.util.List;
 
-class Volume implements Serializable {
+public class Coffee implements Serializable {
     final private long id;
-    final private List<Cycle> cycles;
+    final private String name;
+    final private List<Volume> volumes;
 
-    Volume(long id, List<Cycle> cycles) {
+    public Coffee(long id, String name, List<Volume> volumes) {
         if (id != Const.UNSET_DATABASE_ID)
             Checker.atLeast(id, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(cycles);
+        Checker.notNullOrEmpty(name);
+        Checker.notNullOrEmpty(volumes);
+
         this.id = id;
-        this.cycles = cycles;
+        this.name = name;
+        this.volumes = volumes;
     }
 
     long id() { return id; }
-    List<Cycle> cycles() { return cycles; }
+    String name() { return name; }
+    public List<Volume> volumes() { return volumes; }
 }

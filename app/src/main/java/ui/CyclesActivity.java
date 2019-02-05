@@ -9,9 +9,8 @@
  language governing permissions and limitations under the License.
 */
 
-package com.ssimon.cyclesactivity;
+package ui;
 
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -24,9 +23,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.ssimon.cyclesactivity.Const;
+import com.ssimon.cyclesactivity.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import model.Coffee;
+import model.Cycle;
+import util.Checker;
 
 public class CyclesActivity extends AppCompatActivity {
     static final private int FIRST_PARM_ROW_INDEX = 1;

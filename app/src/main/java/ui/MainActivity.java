@@ -9,14 +9,20 @@
  language governing permissions and limitations under the License.
 */
 
-package com.ssimon.cyclesactivity;
+package ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.ssimon.cyclesactivity.R;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Coffee;
+import model.Cycle;
+import model.Volume;
 
 public class MainActivity extends AppCompatActivity {
     static final String EXTRA_COFFEE = "EXTRA_COFFEE";
