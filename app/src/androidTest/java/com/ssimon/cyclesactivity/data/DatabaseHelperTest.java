@@ -22,11 +22,9 @@ public class DatabaseHelperTest {
         db.execSQL(Contract.Recipe.DELETE_TABLE);
         db.execSQL(Contract.Volume.DELETE_TABLE);
         db.execSQL(Contract.Cycle.DELETE_TABLE);
-
         db.execSQL(Contract.Recipe.CREATE_TABLE);
-
         db.execSQL(Contract.Volume.CREATE_TABLE);
-
         db.execSQL(Contract.Cycle.CREATE_TABLE);
+        assertTrue(db.isOpen());
     }
 }
