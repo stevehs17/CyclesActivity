@@ -20,7 +20,7 @@ public class CycleDao {
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
 
         String query = String.format("SELECT * FROM %s WHERE %s = ? ORDER BY %s",
-                TABLE_NAME, Col.VOLUME_ID, Col.INDEX);
+                TABLE_NAME, Col.VOLUME_ID, Col.CYCLE_INDEX);
         String[] args = { String.valueOf(volumeId) };
         Cursor c = db.rawQuery(query, args);
         if (!c.moveToFirst())
@@ -63,7 +63,7 @@ public class CycleDao {
         cv.put(Col.VOLUME_MILLILITERS, cycle.volumeMl());
         cv.put(Col.BREW_TIME_SECONDS, cycle.brewSeconds());
         cv.put(Col.VACUUM_TIME_SECONDS, cycle.vacuumSeconds());
-        cv.put(Col.INDEX, index);
+        cv.put(Col.CYCLE_INDEX, index);
         db.insertOrThrow(TABLE_NAME, null, cv);
     }
 

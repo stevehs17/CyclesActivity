@@ -27,6 +27,6 @@ public class DatabaseHelperTest {
 
         db.execSQL(Contract.Volume.CREATE_TABLE);
 
-        //db.execSQL(Contract.Cycle.CREATE_TABLE);
+        db.execSQL(Contract.Cycle.CREATE_TABLE);
     }
 }
