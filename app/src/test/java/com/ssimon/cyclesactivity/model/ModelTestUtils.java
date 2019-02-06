@@ -5,7 +5,7 @@ import com.ssimon.cyclesactivity.Const;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestUtils {
+public class ModelTestUtils {
     static final long DB_ID = Const.MIN_DATABASE_ID;
     static final int VOLUME = Cycle.MIN_VOLUME;
     static final int BREWTIME = Cycle.MIN_BREWTIME;
