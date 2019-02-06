@@ -15,7 +15,7 @@ import static com.ssimon.cyclesactivity.data.Contract.Cycle.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Cycle.TABLE_NAME;
 
 public class CycleDao {
-    static List<Cycle> getVolumeCycles(SQLiteDatabase db, long volumeId) {
+    static List<Cycle> getCycles(SQLiteDatabase db, long volumeId) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
 
@@ -27,11 +27,10 @@ public class CycleDao {
             throw new IllegalStateException("no cycles for Volume id = " + volumeId);
         List<Cycle> cycles = new ArrayList<>();
         do {
-            long id = c.getLong(c.getColumnIndexOrThrow(Col.ID));
-            int volume = c.getInt(c.getColumnIndexOrThrow(Col.VOLUME_ID));
+            int volumeMl = c.getInt(c.getColumnIndexOrThrow(Col.VOLUME_MILLILITERS));
             int brewTime = c.getInt(c.getColumnIndexOrThrow(Col.BREW_TIME_SECONDS));
             int vacuumTime = c.getInt(c.getColumnIndexOrThrow(Col.VACUUM_TIME_SECONDS));
-            cycles.add(new Cycle(id, volume, brewTime, vacuumTime));
+            cycles.add(new Cycle(volumeId, volumeMl, brewTime, vacuumTime));
         } while (c.moveToNext());
         c.close();
         return cycles;

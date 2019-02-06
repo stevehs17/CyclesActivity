@@ -30,6 +30,6 @@ public class Volume implements Serializable {
         this.cycles = cycles;
     }
 
-    long id() { return id; }
+    public long id() { return id; }
     public List<Cycle> cycles() { return cycles; }
 }

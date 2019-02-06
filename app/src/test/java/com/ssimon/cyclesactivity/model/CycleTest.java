@@ -1,7 +1,6 @@
 package com.ssimon.cyclesactivity.model;
 
 import com.ssimon.cyclesactivity.Const;
-import com.ssimon.cyclesactivity.util.Checker;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

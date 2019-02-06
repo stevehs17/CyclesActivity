@@ -26,25 +26,25 @@ public class Cycle implements Serializable {
     static final public int MAX_VACUUMTIME = 999;
     static final public int MIN_LASTCYCLE_VACUUMTIME = 20;
 
-    final private long id;
+    final private long volumeId;
     final private int volumeMl;
     final private int brewSeconds;
     final private int vacuumSeconds;
 
-    public Cycle(long id, int volumeMl, int brewSeconds, int vacuumSeconds) {
-        if (id != Const.UNSET_DATABASE_ID)
-            Checker.atLeast(id, Const.MIN_DATABASE_ID);
+    public Cycle(long volumeId, int volumeMl, int brewSeconds, int vacuumSeconds) {
+        if (volumeId != Const.UNSET_DATABASE_ID)
+            Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
         Checker.inRange(volumeMl, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME);
         Checker.inRange(brewSeconds, Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME);
         Checker.inRange(vacuumSeconds, Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME);
 
-        this.id = id;
+        this.volumeId = volumeId;
         this.volumeMl = volumeMl;
         this.brewSeconds = brewSeconds;
         this.vacuumSeconds = vacuumSeconds;
     }
 
-    long id() { return id; }
+    public long volumeId() { return volumeId; }
     public int volumeMl() { return volumeMl; }
     public int brewSeconds() { return brewSeconds; }
     public int vacuumSeconds() { return vacuumSeconds; }

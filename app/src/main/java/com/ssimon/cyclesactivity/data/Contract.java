@@ -40,14 +40,14 @@ public class Contract {
 
         static abstract class Col {
             static final String ID = BaseColumns._ID;
-            static final String RECIPE_ID = "recipe_id";
+            static final String COFFEE_ID = "recipe_id";
         }
 
         static final String CREATE_TABLE =
                 CREATE + TABLE_NAME + OPEN_PAREN
                 + Col.ID + INTEGER  + PRIMARY_KEY + COMMA
-                + Col.RECIPE_ID + INTEGER + NOT_NULL + COMMA
-                + FOREIGN_KEY + OPEN_PAREN + Col.RECIPE_ID + CLOSE_PAREN
+                + Col.COFFEE_ID + INTEGER + NOT_NULL + COMMA
+                + FOREIGN_KEY + OPEN_PAREN + Col.COFFEE_ID + CLOSE_PAREN
                     + REFERENCES + Coffee.TABLE_NAME
                     + OPEN_PAREN + Coffee.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
                 + CLOSE_PAREN;

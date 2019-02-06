@@ -1,17 +1,51 @@
 package com.ssimon.cyclesactivity.data;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.ssimon.cyclesactivity.Const;
+import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.ssimon.cyclesactivity.data.Contract.Coffee.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Coffee.TABLE_NAME;
 
 
 public class CoffeeDao {
-    static long insertRecipe(SQLiteDatabase db, com.ssimon.cyclesactivity.model.Coffee cof) {
+    static List<Coffee> getCoffees(SQLiteDatabase db) {
+        Checker.notNull(db);
+
+        /*
+        String query = String.format("SELECT * FROM %s ORDER BY %s COLLATE NO CASE ASC",
+                TABLE_NAME, Col.NAME);
+        */
+        String query = String.format("SELECT * FROM %s",
+                TABLE_NAME);
+        Cursor c = db.rawQuery(query, null);
+        List<Coffee> coffees = new ArrayList<>();
+        if (!c.moveToFirst())
+            throw new IllegalStateException("No coffees found");
+        do {
+            long id = c.getLong(c.getColumnIndexOrThrow(Col.ID));
+            String name = c.getString(c.getColumnIndexOrThrow(Col.NAME));
+            List<Volume> volumes = VolumeDao.getVolumes(db, id);
+            long volumeId = c.getLong(c.getColumnIndexOrThrow(Col.DEFAULT_VOLUME_ID));
+            volumeId = (volumeId == Const.UNSET_DATABASE_ID)
+                    ? volumes.get(0).id()
+                    : volumeId;
+            coffees.add(new Coffee(id, name, volumes));
+        } while (c.moveToNext());
+        c.close();
+        return coffees;
+    }
+
+
+    static long insertCoffee(SQLiteDatabase db, com.ssimon.cyclesactivity.model.Coffee cof) {
         Checker.notNull(db);
         Checker.notNull(cof);
 

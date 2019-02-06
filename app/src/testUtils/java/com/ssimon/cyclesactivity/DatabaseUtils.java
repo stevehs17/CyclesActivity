@@ -26,4 +26,22 @@ public class DatabaseUtils {
             throw new RuntimeException(e);
         }
     }
+
+    static public SQLiteDatabase getReadableleDb(Context ctx) {
+        try {
+            Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
+            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class);
+            m.setAccessible(true);
+            DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, ctx);
+            return dh.getReadableDatabase();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
