@@ -1,5 +1,7 @@
 package com.ssimon.cyclesactivity.model;
 
+import com.ssimon.cyclesactivity.ModelTestUtils;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

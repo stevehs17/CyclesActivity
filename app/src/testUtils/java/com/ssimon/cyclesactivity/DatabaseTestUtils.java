@@ -1,16 +1,18 @@
-package com.ssimon.cyclesactivity.data;
+package com.ssimon.cyclesactivity;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.ssimon.cyclesactivity.data.DatabaseHelper;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class DatabaseTestUtils {
-    static SQLiteDatabase getWritableDb(Context ctx) {
+    static public SQLiteDatabase getWritableDb(Context ctx) {
         try {
             Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
-            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class );
+            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class);
             m.setAccessible(true);
             DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, ctx);
             return dh.getWritableDatabase();

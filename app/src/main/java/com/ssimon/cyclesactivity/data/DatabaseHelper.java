@@ -31,10 +31,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(Contract.Recipe.CREATE_TABLE);
-        db.execSQL(Contract.Volume.CREATE_TABLE);
-        db.execSQL(Contract.Cycle.CREATE_TABLE);
-        onConfigure(db);
+        db.execSQL(Contract.Recipe.DELETE_TABLE);
+        db.execSQL(Contract.Volume.DELETE_TABLE);
+        db.execSQL(Contract.Cycle.DELETE_TABLE);
+        onCreate(db);
     }
 
     @Override
