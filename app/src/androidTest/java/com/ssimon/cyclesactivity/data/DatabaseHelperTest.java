@@ -31,9 +31,10 @@ public class DatabaseHelperTest {
 
     @Test
     public void testDbReflect() {
-          try {
+        try {
             Class<?> c = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
             Method m = c.getDeclaredMethod("getInstance", android.content.Context.class );
+            m.setAccessible(true);
             DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, context);
             SQLiteDatabase db = dh.getWritableDatabase();
             db.execSQL(Contract.Recipe.DELETE_TABLE);
