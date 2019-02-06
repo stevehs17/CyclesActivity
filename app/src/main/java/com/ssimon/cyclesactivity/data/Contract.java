@@ -17,7 +17,7 @@ public class Contract {
     static final private String TEXT = " TEXT ";
     static final private String UNIQUE = " UNIQUE ";
 
-    static abstract class Recipe implements BaseColumns {
+    static abstract class Coffee implements BaseColumns {
         static final String TABLE_NAME = "recipe";
 
         static abstract class Col {
@@ -48,8 +48,8 @@ public class Contract {
                 + Col.ID + INTEGER  + PRIMARY_KEY + COMMA
                 + Col.RECIPE_ID + INTEGER + NOT_NULL + COMMA
                 + FOREIGN_KEY + OPEN_PAREN + Col.RECIPE_ID + CLOSE_PAREN
-                    + REFERENCES + Recipe.TABLE_NAME
-                    + OPEN_PAREN + Recipe.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
+                    + REFERENCES + Coffee.TABLE_NAME
+                    + OPEN_PAREN + Coffee.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
                 + CLOSE_PAREN;
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;
     }
@@ -74,8 +74,8 @@ public class Contract {
                 + Col.VACUUM_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
                 + Col.VOLUME_ID + INTEGER + NOT_NULL + COMMA
                 + FOREIGN_KEY + OPEN_PAREN + Col.VOLUME_ID + CLOSE_PAREN
-                    + REFERENCES + Recipe.TABLE_NAME
-                    + OPEN_PAREN + Recipe.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
+                    + REFERENCES + Coffee.TABLE_NAME
+                    + OPEN_PAREN + Coffee.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
                 + CLOSE_PAREN;
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;
     }

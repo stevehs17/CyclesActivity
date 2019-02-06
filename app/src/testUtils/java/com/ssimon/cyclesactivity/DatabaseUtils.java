@@ -8,7 +8,7 @@ import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class DatabaseTestUtils {
+public class DatabaseUtils {
     static public SQLiteDatabase getWritableDb(Context ctx) {
         try {
             Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");

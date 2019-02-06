@@ -8,7 +8,7 @@ import com.ssimon.cyclesactivity.model.Volume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelTestUtils {
+public class ModelUtils {
     static final public long DB_ID = Const.MIN_DATABASE_ID;
     static final public int VOLUME = Cycle.MIN_VOLUME;
     static final public int BREWTIME = Cycle.MIN_BREWTIME;

@@ -33,7 +33,7 @@ public class Coffee implements Serializable {
         this.volumes = volumes;
     }
 
-    long id() { return id; }
-    String name() { return name; }
+    public long id() { return id; }
+    public String name() { return name; }
     public List<Volume> volumes() { return volumes; }
 }
