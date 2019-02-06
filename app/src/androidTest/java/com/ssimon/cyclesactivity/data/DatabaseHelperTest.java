@@ -15,12 +15,15 @@ public class DatabaseHelperTest {
 
     @Test
     public void test_create_tables_and_open_db_Success() {
-        try {
+        //try {
+            /*
             Class<?> c = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
             Method m = c.getDeclaredMethod("getInstance", android.content.Context.class );
             m.setAccessible(true);
             DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, context);
             SQLiteDatabase db = dh.getWritableDatabase();
+            */
+            SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
             db.execSQL(Contract.Recipe.DELETE_TABLE);
             db.execSQL(Contract.Volume.DELETE_TABLE);
             db.execSQL(Contract.Cycle.DELETE_TABLE);
@@ -28,6 +31,7 @@ public class DatabaseHelperTest {
             db.execSQL(Contract.Volume.CREATE_TABLE);
             db.execSQL(Contract.Cycle.CREATE_TABLE);
             assertTrue(db.isOpen());
+        /*
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -37,6 +41,7 @@ public class DatabaseHelperTest {
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         }
+        */
     }
 
 }
