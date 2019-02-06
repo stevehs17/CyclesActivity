@@ -14,30 +14,14 @@ import static org.junit.Assert.assertTrue;
 public class DatabaseHelperTest {
     final private Context context = InstrumentationRegistry.getTargetContext();
 
-    /*
     @Test
-    public void testDb() {
-        DatabaseHelper dh = DatabaseHelper.getInstance(context);
-        SQLiteDatabase db = dh.getWritableDatabase();
-        db.execSQL(Contract.Recipe.DELETE_TABLE);
-        db.execSQL(Contract.Volume.DELETE_TABLE);
-        db.execSQL(Contract.Cycle.DELETE_TABLE);
-        db.execSQL(Contract.Recipe.CREATE_TABLE);
-        db.execSQL(Contract.Volume.CREATE_TABLE);
-        db.execSQL(Contract.Cycle.CREATE_TABLE);
-        assertTrue(db.isOpen());
-    }
-    */
-
-    @Test
-    public void testDbReflect() {
+    public void test_create_tables_and_open_db_Success() {
         try {
             Class<?> c = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
             Method m = c.getDeclaredMethod("getInstance", android.content.Context.class );
             m.setAccessible(true);
             DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, context);
             SQLiteDatabase db = dh.getWritableDatabase();
-            db.execSQL(Contract.Recipe.DELETE_TABLE);
             db.execSQL(Contract.Recipe.DELETE_TABLE);
             db.execSQL(Contract.Volume.DELETE_TABLE);
             db.execSQL(Contract.Cycle.DELETE_TABLE);
@@ -47,12 +31,12 @@ public class DatabaseHelperTest {
             assertTrue(db.isOpen());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        } catch (IllegalAccessException e1) {
-            throw new RuntimeException(e1);
-        } catch (NoSuchMethodException e2) {
-            throw new RuntimeException(e2);
-        } catch (InvocationTargetException e3) {
-            throw new RuntimeException(e3);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
     }
 
