@@ -11,7 +11,7 @@ public class CycleTest {
     public void new_Cycle_min_Succeeds() throws Exception {
         Cycle c = new Cycle(Const.MIN_DATABASE_ID, Cycle.MIN_VOLUME,
                 Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
-        assertEquals(Const.MIN_DATABASE_ID, c.id());
+        assertEquals(Const.MIN_DATABASE_ID, c.volumeId());
         assertEquals(Cycle.MIN_VOLUME, c.volumeMl());
         assertEquals(Cycle.MIN_BREWTIME, c.brewSeconds());
         assertEquals(Cycle.MIN_VACUUMTIME, c.vacuumSeconds());
@@ -21,7 +21,7 @@ public class CycleTest {
     public void new_Cycle_max_Succeeds() throws Exception {
         Cycle c = new Cycle(Const.MIN_DATABASE_ID, Cycle.MAX_VOLUME,
                 Cycle.MAX_BREWTIME, Cycle.MAX_VACUUMTIME);
-        assertEquals(Const.MIN_DATABASE_ID, c.id());
+        assertEquals(Const.MIN_DATABASE_ID, c.volumeId());
         assertEquals(Cycle.MAX_VOLUME, c.volumeMl());
         assertEquals(Cycle.MAX_BREWTIME, c.brewSeconds());
         assertEquals(Cycle.MAX_VACUUMTIME, c.vacuumSeconds());
@@ -31,7 +31,7 @@ public class CycleTest {
     public void new_Cycle_UNSET_DATABASE_ID_Succeeds() throws Exception {
         Cycle c = new Cycle(Const.UNSET_DATABASE_ID, Cycle.MIN_VOLUME,
                 Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
-        assertEquals(Const.UNSET_DATABASE_ID, c.id());
+        assertEquals(Const.UNSET_DATABASE_ID, c.volumeId());
         assertEquals(Cycle.MIN_VOLUME, c.volumeMl());
         assertEquals(Cycle.MIN_BREWTIME, c.brewSeconds());
         assertEquals(Cycle.MIN_VACUUMTIME, c.vacuumSeconds());
