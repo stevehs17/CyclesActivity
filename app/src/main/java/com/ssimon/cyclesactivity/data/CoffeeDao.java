@@ -20,12 +20,14 @@ public class CoffeeDao {
     static List<Coffee> getCoffees(SQLiteDatabase db) {
         Checker.notNull(db);
 
-        /*
-        String query = String.format("SELECT * FROM %s ORDER BY %s COLLATE NO CASE ASC",
+
+        String query = String.format("SELECT * FROM %s ORDER BY %s COLLATE NOCASE ASC",
                 TABLE_NAME, Col.NAME);
-        */
+
+        /*
         String query = String.format("SELECT * FROM %s",
                 TABLE_NAME);
+        */
         Cursor c = db.rawQuery(query, null);
         List<Coffee> coffees = new ArrayList<>();
         if (!c.moveToFirst())
@@ -43,7 +45,6 @@ public class CoffeeDao {
         c.close();
         return coffees;
     }
-
 
     static long insertCoffee(SQLiteDatabase db, com.ssimon.cyclesactivity.model.Coffee cof) {
         Checker.notNull(db);
