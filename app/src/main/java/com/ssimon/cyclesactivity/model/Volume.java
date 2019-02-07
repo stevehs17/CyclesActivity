@@ -32,4 +32,11 @@ public class Volume implements Serializable {
 
     public long id() { return id; }
     public List<Cycle> cycles() { return cycles; }
+
+    public int totalVolume() {
+        int n = 0;
+        for (Cycle c : cycles())
+            n += c.volumeMl();
+        return n;
+    }
 }

@@ -126,4 +126,40 @@ public class CoffeeDaoTest {
         assertEquals(cyc2.brewSeconds(), cyc2Out.brewSeconds());
         assertEquals(cyc2.vacuumSeconds(), cyc2Out.vacuumSeconds());
     }
+
+    @Test
+    public void getCoffees_sortvolumes_Success() {
+        final int volumeMl = Cycle.MIN_VOLUME;
+        Cycle c1 = new Cycle(Const.MIN_DATABASE_ID, volumeMl, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
+
+        List<Cycle> cs = new ArrayList<>();
+        cs.add(c1);
+        cs.add(c1);
+        cs.add(c1);
+        Volume v = new Volume(Const.MIN_DATABASE_ID, cs);
+        List<Volume> vs = new ArrayList<>();
+        vs.add(v);
+
+        cs = new ArrayList<>();
+        cs.add(c1);
+        v = new Volume(Const.MIN_DATABASE_ID, cs);
+        vs.add(v);
+
+        cs = new ArrayList<>();
+        cs.add(c1);
+        cs.add(c1);
+        v = new Volume(Const.MIN_DATABASE_ID, cs);
+        vs.add(v);
+
+        Coffee cof = new Coffee(Const.MIN_DATABASE_ID, "test", vs);
+        DatabaseHelperTest dht = new DatabaseHelperTest();
+        dht.reset_tables_and_open_db_Success();
+        SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+        CoffeeDao.insertCoffee(db, cof);
+        List<Coffee> coffees = CoffeeDao.getCoffees(db);
+        List<Volume> vols = coffees.get(0).volumes();
+        assertEquals(Cycle.MIN_VOLUME, vols.get(0).totalVolume());
+        assertEquals(Cycle.MIN_VOLUME * 2, vols.get(1).totalVolume());
+        assertEquals(Cycle.MIN_VOLUME * 3, vols.get(2).totalVolume());
+    }
 }

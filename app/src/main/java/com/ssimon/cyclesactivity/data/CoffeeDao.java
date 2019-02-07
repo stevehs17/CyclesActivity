@@ -19,15 +19,8 @@ import static com.ssimon.cyclesactivity.data.Contract.Coffee.TABLE_NAME;
 public class CoffeeDao {
     static List<Coffee> getCoffees(SQLiteDatabase db) {
         Checker.notNull(db);
-
-
         String query = String.format("SELECT * FROM %s ORDER BY %s COLLATE NOCASE ASC",
                 TABLE_NAME, Col.NAME);
-
-        /*
-        String query = String.format("SELECT * FROM %s",
-                TABLE_NAME);
-        */
         Cursor c = db.rawQuery(query, null);
         List<Coffee> coffees = new ArrayList<>();
         if (!c.moveToFirst())
@@ -37,6 +30,7 @@ public class CoffeeDao {
             String name = c.getString(c.getColumnIndexOrThrow(Col.NAME));
             List<Volume> volumes = VolumeDao.getVolumes(db, id);
             long volumeId = c.getLong(c.getColumnIndexOrThrow(Col.DEFAULT_VOLUME_ID));
+            // TODO
             volumeId = (volumeId == Const.UNSET_DATABASE_ID)
                     ? volumes.get(0).id()
                     : volumeId;
@@ -49,7 +43,6 @@ public class CoffeeDao {
     static long insertCoffee(SQLiteDatabase db, com.ssimon.cyclesactivity.model.Coffee cof) {
         Checker.notNull(db);
         Checker.notNull(cof);
-
         db.beginTransaction();
         try {
             ContentValues cv = new ContentValues();

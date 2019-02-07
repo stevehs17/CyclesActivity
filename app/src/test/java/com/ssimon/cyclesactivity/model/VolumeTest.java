@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class VolumeTest {
 
     @Test
-    public void new_Volume_Succeeds() throws Exception {
+    public void new_Volume_Succeeds() {
         Cycle c = new Cycle(Const.MIN_DATABASE_ID, Cycle.MIN_VOLUME,
                 Cycle.MIN_BREWTIME, Cycle.MAX_VACUUMTIME);
         List<Cycle> cs = new ArrayList<>();
@@ -27,7 +27,7 @@ public class VolumeTest {
     }
 
     @Test
-    public void new_Volume_null_cycles_Fails() throws Exception {
+    public void new_Volume_null_cycles_Fails() {
         try {
             Volume v = new Volume(Const.MIN_DATABASE_ID, null);
         } catch (NullPointerException unused) {
@@ -37,12 +37,21 @@ public class VolumeTest {
     }
 
     @Test
-    public void new_Volume_empty_cycles_Fails() throws Exception {
+    public void new_Volume_empty_cycles_Fails() {
         try {
              Volume v = new Volume(Const.MIN_DATABASE_ID, new ArrayList<Cycle>());
         } catch (IllegalStateException unused) {
             return;
         }
         throw new RuntimeException("test failed");
+    }
+
+    @Test
+    public void totalVolume_Succeeds() {
+        List<Cycle> cycles = new ArrayList<>();
+        cycles.add(new Cycle(Const.MIN_DATABASE_ID, Cycle.MIN_VOLUME, Cycle.MIN_VOLUME, Cycle.MIN_VACUUMTIME));
+        cycles.add(new Cycle(Const.MIN_DATABASE_ID, Cycle.MAX_VOLUME, Cycle.MIN_VOLUME, Cycle.MIN_VACUUMTIME));
+        Volume v = new Volume(Const.MIN_DATABASE_ID, cycles);
+        assertEquals(Cycle.MIN_VOLUME + Cycle.MAX_VOLUME, v.totalVolume());
     }
 }

@@ -82,5 +82,4 @@ public class Contract {
 
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;
     }
-
 }
