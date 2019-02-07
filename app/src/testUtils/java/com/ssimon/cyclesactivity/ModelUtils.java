@@ -29,8 +29,16 @@ public class ModelUtils {
         return new Volume(DB_ID, createCycleList());
     }
 
+    /*
     static public List<Volume> createVolumeList() {
         List<Volume> list = new ArrayList<>();
+        list.add(createVolume());
+        return list;
+    }
+    */
+    static public List<Volume> createVolumeList() {
+        List<Volume> list = new ArrayList<>();
+        list.add(createVolume());
         list.add(createVolume());
         return list;
     }

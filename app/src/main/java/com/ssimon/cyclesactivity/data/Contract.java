@@ -32,6 +32,7 @@ public class Contract {
                 + Col.NAME + TEXT + NOT_NULL + UNIQUE + COMMA
                 + Col.DEFAULT_VOLUME_ID + INTEGER + NOT_NULL
                 + CLOSE_PAREN;
+
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;
     }
 
@@ -51,6 +52,7 @@ public class Contract {
                     + REFERENCES + Coffee.TABLE_NAME
                     + OPEN_PAREN + Coffee.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
                 + CLOSE_PAREN;
+
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;
     }
 
@@ -65,18 +67,19 @@ public class Contract {
             static final String VOLUME_ID = "volume_id";
         }
 
-        static final String CREATE_TABLE =
-                CREATE + TABLE_NAME + OPEN_PAREN
-                + Col.ID + INTEGER + PRIMARY_KEY + COMMA
-                + Col.CYCLE_INDEX + INTEGER + NOT_NULL + COMMA
-                + Col.BREW_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
-                + Col.VOLUME_MILLILITERS + INTEGER + NOT_NULL + COMMA
-                + Col.VACUUM_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
-                + Col.VOLUME_ID + INTEGER + NOT_NULL + COMMA
-                + FOREIGN_KEY + OPEN_PAREN + Col.VOLUME_ID + CLOSE_PAREN
-                    + REFERENCES + Coffee.TABLE_NAME
-                    + OPEN_PAREN + Coffee.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
-                + CLOSE_PAREN;
+       static final String CREATE_TABLE =
+            CREATE + TABLE_NAME + OPEN_PAREN
+            + Col.ID + INTEGER + PRIMARY_KEY + COMMA
+            + Col.CYCLE_INDEX + INTEGER + NOT_NULL + COMMA
+            + Col.BREW_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
+            + Col.VOLUME_MILLILITERS + INTEGER + NOT_NULL + COMMA
+            + Col.VACUUM_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
+            + Col.VOLUME_ID + INTEGER + NOT_NULL + COMMA
+            + FOREIGN_KEY + OPEN_PAREN + Col.VOLUME_ID + CLOSE_PAREN
+            + REFERENCES + Volume.TABLE_NAME
+            + OPEN_PAREN + Volume.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
+            + CLOSE_PAREN;
+
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;
     }
 

@@ -77,7 +77,6 @@ public class CoffeeDaoTest {
         assertEquals(cyc.vacuumSeconds(), cycOut.vacuumSeconds());
     }
 
-    /*
     @Test
     public void getCoffees_multipleitemlists_validate_values_Success() {
         final int volumeMl = (Cycle.MAX_VOLUME + Cycle.MIN_BREWTIME)/2;
@@ -111,21 +110,20 @@ public class CoffeeDaoTest {
 
         Volume volOut = cofOut.volumes().get(1);
         assertNotEquals(vol.id(), volOut.id());
-        assertEquals(1, volOut.id());
+        assertEquals(2, volOut.id());
 
         Cycle cycOut = volOut.cycles().get(0);
         assertNotEquals(cyc.volumeId(), cycOut.volumeId());
-        assertEquals(1, cycOut.volumeId());
+        assertEquals(2, cycOut.volumeId());
         assertEquals(cyc.volumeMl(), cycOut.volumeMl());
         assertEquals(cyc.brewSeconds(), cycOut.brewSeconds());
         assertEquals(cyc.vacuumSeconds(), cycOut.vacuumSeconds());
 
         Cycle cyc2Out = volOut.cycles().get(1);
         assertNotEquals(cyc.volumeId(), cyc2Out.volumeId());
-        assertEquals(1, cyc2Out.volumeId());
+        assertEquals(2, cyc2Out.volumeId());
         assertEquals(cyc2.volumeMl(), cyc2Out.volumeMl());
         assertEquals(cyc2.brewSeconds(), cyc2Out.brewSeconds());
         assertEquals(cyc2.vacuumSeconds(), cyc2Out.vacuumSeconds());
     }
-    */
 }
