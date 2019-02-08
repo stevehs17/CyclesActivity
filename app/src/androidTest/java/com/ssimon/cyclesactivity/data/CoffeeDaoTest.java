@@ -51,7 +51,7 @@ public class CoffeeDaoTest {
         Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
         List<Volume> vols = new ArrayList<>();
         vols.add(vol);
-        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols);
+        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols, Const.UNSET_DATABASE_ID);
 
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
@@ -64,6 +64,9 @@ public class CoffeeDaoTest {
         assertNotEquals(cof.id(), cofOut.id());
         assertEquals(1, cofOut.id());
         assertEquals(cof.name(), cofOut.name());
+        assertNotEquals(cof.defaultVolumeId(), cofOut.defaultVolumeId());
+        assertEquals(1, cofOut.defaultVolumeId());
+
 
         Volume volOut = cofOut.volumes().get(0);
         assertNotEquals(vol.id(), volOut.id());
@@ -94,7 +97,7 @@ public class CoffeeDaoTest {
         List<Volume> vols = new ArrayList<>();
         vols.add(vol);
         vols.add(vol);
-        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols);
+        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols, Const.UNSET_DATABASE_ID);
 
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
@@ -151,7 +154,7 @@ public class CoffeeDaoTest {
         v = new Volume(Const.MIN_DATABASE_ID, cs);
         vs.add(v);
 
-        Coffee cof = new Coffee(Const.MIN_DATABASE_ID, "test", vs);
+        Coffee cof = new Coffee(Const.MIN_DATABASE_ID, "test", vs, Const.MIN_DATABASE_ID);
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
         SQLiteDatabase db = DatabaseUtils.getWritableDb(context);

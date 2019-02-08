@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         List<Volume> volumes = new ArrayList<>();
         volumes.add(v);
         volumes.add(v);
-        Coffee cof = new Coffee(5, "coffee", volumes);
+        Coffee cof = new Coffee(5, "coffee", volumes, 1);
         Intent i = new Intent(this, CyclesActivity.class);
         i.putExtra(EXTRA_COFFEE, cof);
         i.putExtra(EXTRA_VOLUME_IDX, 1);

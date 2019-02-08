@@ -58,6 +58,7 @@ public class Contract {
 
     static abstract class Cycle implements BaseColumns {
         static final String TABLE_NAME = "cycle";
+
         static abstract class Col {
             static final String ID = "_id";
             static final String CYCLE_INDEX = "cycle_index";
@@ -76,8 +77,8 @@ public class Contract {
             + Col.VACUUM_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
             + Col.VOLUME_ID + INTEGER + NOT_NULL + COMMA
             + FOREIGN_KEY + OPEN_PAREN + Col.VOLUME_ID + CLOSE_PAREN
-            + REFERENCES + Volume.TABLE_NAME
-            + OPEN_PAREN + Volume.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
+                + REFERENCES + Volume.TABLE_NAME
+                + OPEN_PAREN + Volume.Col.ID + CLOSE_PAREN + ON_DELETE_CASCADE
             + CLOSE_PAREN;
 
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;

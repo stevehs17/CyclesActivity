@@ -1,7 +1,23 @@
-Add unit tests for Dao methods.
 Implement default volume id.
+Test cascading deletes
+Remove volumeID field from Cycle
+Implement Coffee cache
 Add methods to access db off main thread.
 Finish onClickSaveCycles.
+Test for cycleActivity:
+    set parm buttons, get parm buttons, compare values
+Where put button to delete volume?
+Tie together MAX_NUM_CYCLES and cycle table layout
+    Create table programmatically?
+Tie together references to columns in XML and in code
+    Use resource IDs?
+CyclesActivity layouts
+    Reduce sizes to improve spacing and grouping
+        (so views with related functionality are visually grouped together)
+    Increase size of +, - buttons
+    Can +, - buttons and seekbar all be the same color (since functionality is related)?
+    Revert widths for cycle parameter column sizes to explicit
+        widths and margins, in place of the current 0dp/weight=1 width specifications
 
 
 DONE

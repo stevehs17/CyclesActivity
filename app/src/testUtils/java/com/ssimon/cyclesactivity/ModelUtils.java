@@ -44,6 +44,6 @@ public class ModelUtils {
     }
 
     static public Coffee createCoffee() {
-        return new Coffee(DB_ID, NAME, createVolumeList());
+        return new Coffee(DB_ID, NAME, createVolumeList(), DB_ID);
     }
 }

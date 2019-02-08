@@ -21,19 +21,24 @@ public class Coffee implements Serializable {
     final private long id;
     final private String name;
     final private List<Volume> volumes;
+    final private long defaultVolumeId;
 
-    public Coffee(long id, String name, List<Volume> volumes) {
+    public Coffee(long id, String name, List<Volume> volumes, long defaultVolumeId) {
         if (id != Const.UNSET_DATABASE_ID)
             Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(name);
         Checker.notNullOrEmpty(volumes);
+        if (defaultVolumeId != Const.UNSET_DATABASE_ID)
+            Checker.atLeast(defaultVolumeId, Const.MIN_DATABASE_ID);
 
         this.id = id;
         this.name = name;
         this.volumes = volumes;
+        this.defaultVolumeId = defaultVolumeId;
     }
 
     public long id() { return id; }
     public String name() { return name; }
     public List<Volume> volumes() { return volumes; }
+    public long defaultVolumeId() { return defaultVolumeId; }
 }
