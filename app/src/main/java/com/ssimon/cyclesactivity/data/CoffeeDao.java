@@ -40,7 +40,20 @@ public class CoffeeDao {
         return coffees;
     }
 
-    static long insertCoffee(SQLiteDatabase db, com.ssimon.cyclesactivity.model.Coffee cof) {
+    static public void insertCoffees(SQLiteDatabase db, List<Coffee> coffees) {
+        Checker.notNull(db);
+        Checker.notNullOrEmpty(coffees);
+        db.beginTransaction();
+        try {
+            for (Coffee c : coffees)
+                insertCoffee(db, c);
+            db.setTransactionSuccessful();
+        }  finally {
+            db.endTransaction();
+        }
+    }
+
+    static long insertCoffee(SQLiteDatabase db, Coffee cof) {
         Checker.notNull(db);
         Checker.notNull(cof);
         db.beginTransaction();

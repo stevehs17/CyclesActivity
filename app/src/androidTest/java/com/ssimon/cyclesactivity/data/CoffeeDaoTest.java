@@ -166,7 +166,28 @@ public class CoffeeDaoTest {
         final int numCycles = 10;
 
         List<Coffee> coffees = createCoffees(numCoffees, numVolumes, numCycles);
+        assertEquals(numCoffees, coffees.size());
+        assertEquals(numVolumes, coffees.get(numCoffees-1).volumes().size() );
+        assertEquals(numCycles, coffees.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
         validateCoffees(coffees);
+    }
+
+
+    @Test
+    public void save_and_retrieve_many_coffees_Success() {
+        final int numCoffees = 50;
+        final int numVolumes = 5;
+        final int numCycles = 6;
+
+        DatabaseHelperTest dht = new DatabaseHelperTest();
+        dht.reset_tables_and_open_db_Success();
+        SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+        List<Coffee> coffees = createCoffees(numCoffees, numVolumes, numCycles);
+        validateCoffees(coffees);
+        CoffeeDao.insertCoffees(db, coffees);
+        db = DatabaseUtils.getReadableleDb(context);
+        List<Coffee> coffeesOut = CoffeeDao.getCoffees(db);
+        validateCoffees(coffeesOut);
     }
 
 
