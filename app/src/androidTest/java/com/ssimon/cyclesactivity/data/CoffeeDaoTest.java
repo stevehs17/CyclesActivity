@@ -163,7 +163,7 @@ public class CoffeeDaoTest {
     public void create_and_validate_many_coffees_Success() {
         final int numCoffees = 1;
         final int numVolumes = 1;
-        final int numCycles = 1;
+        final int numCycles = 2;
 
         List<Coffee> coffees = createCoffees(numCoffees, numVolumes, numCycles);
         validateCoffees(coffees);
