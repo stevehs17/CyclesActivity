@@ -161,9 +161,9 @@ public class CoffeeDaoTest {
 
     @Test
     public void create_and_validate_many_coffees_Success() {
-        final int numCoffees = 1;
-        final int numVolumes = 2;
-        final int numCycles = 2;
+        final int numCoffees = 100;
+        final int numVolumes = 50;
+        final int numCycles = 10;
 
         List<Coffee> coffees = createCoffees(numCoffees, numVolumes, numCycles);
         validateCoffees(coffees);
@@ -224,9 +224,6 @@ public class CoffeeDaoTest {
     }
 
     private String name(int i) {
-        String s = "a";
-        for (int j = i; j > 0; j--)
-            s += s;
-        return s;
+       return String.valueOf(i);
     }
 }
