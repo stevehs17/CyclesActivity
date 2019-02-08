@@ -30,7 +30,7 @@ public class CycleDao {
             int volumeMl = c.getInt(c.getColumnIndexOrThrow(Col.VOLUME_MILLILITERS));
             int brewTime = c.getInt(c.getColumnIndexOrThrow(Col.BREW_TIME_SECONDS));
             int vacuumTime = c.getInt(c.getColumnIndexOrThrow(Col.VACUUM_TIME_SECONDS));
-            cycles.add(new Cycle(volumeId, volumeMl, brewTime, vacuumTime));
+            cycles.add(new Cycle(volumeMl, brewTime, vacuumTime));
         } while (c.moveToNext());
         c.close();
         return cycles;

@@ -23,7 +23,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.R;
 
 import java.util.ArrayList;
@@ -101,7 +100,7 @@ public class CyclesActivity extends AppCompatActivity {
                 b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
                 s = b.getText().toString();
                 int vac = Integer.valueOf(s);
-                cycles.add(new Cycle(Const.UNSET_DATABASE_ID, vol, brew, vac));
+                cycles.add(new Cycle(vol, brew, vac));
             } else {
                 break;
             }

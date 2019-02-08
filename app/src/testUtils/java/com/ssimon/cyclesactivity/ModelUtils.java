@@ -1,6 +1,5 @@
 package com.ssimon.cyclesactivity;
 
-import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
@@ -16,7 +15,7 @@ public class ModelUtils {
     static final public String NAME = "COFFEE_NAME";
 
     static public Cycle createCycle() {
-        return new Cycle(DB_ID, VOLUME, BREWTIME, VACUUMTIME);
+        return new Cycle(VOLUME, BREWTIME, VACUUMTIME);
     }
 
     static public List<Cycle> createCycleList() {
@@ -29,13 +28,6 @@ public class ModelUtils {
         return new Volume(DB_ID, createCycleList());
     }
 
-    /*
-    static public List<Volume> createVolumeList() {
-        List<Volume> list = new ArrayList<>();
-        list.add(createVolume());
-        return list;
-    }
-    */
     static public List<Volume> createVolumeList() {
         List<Volume> list = new ArrayList<>();
         list.add(createVolume());

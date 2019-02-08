@@ -13,7 +13,7 @@ public class VolumeTest {
 
     @Test
     public void new_Volume_Succeeds() {
-        Cycle c = new Cycle(Const.MIN_DATABASE_ID, Cycle.MIN_VOLUME,
+        Cycle c = new Cycle(Cycle.MIN_VOLUME,
                 Cycle.MIN_BREWTIME, Cycle.MAX_VACUUMTIME);
         List<Cycle> cs = new ArrayList<>();
         cs.add(c);
@@ -49,8 +49,8 @@ public class VolumeTest {
     @Test
     public void totalVolume_Succeeds() {
         List<Cycle> cycles = new ArrayList<>();
-        cycles.add(new Cycle(Const.MIN_DATABASE_ID, Cycle.MIN_VOLUME, Cycle.MIN_VOLUME, Cycle.MIN_VACUUMTIME));
-        cycles.add(new Cycle(Const.MIN_DATABASE_ID, Cycle.MAX_VOLUME, Cycle.MIN_VOLUME, Cycle.MIN_VACUUMTIME));
+        cycles.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_VOLUME, Cycle.MIN_VACUUMTIME));
+        cycles.add(new Cycle(Cycle.MAX_VOLUME, Cycle.MIN_VOLUME, Cycle.MIN_VACUUMTIME));
         Volume v = new Volume(Const.MIN_DATABASE_ID, cycles);
         assertEquals(Cycle.MIN_VOLUME + Cycle.MAX_VOLUME, v.totalVolume());
     }

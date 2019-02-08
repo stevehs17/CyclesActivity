@@ -2,7 +2,6 @@ package com.ssimon.cyclesactivity.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.Const;
@@ -45,7 +44,7 @@ public class CoffeeDaoTest {
         final int vacuumTime = (Cycle.MIN_VACUUMTIME+ Cycle.MAX_VACUUMTIME)/2;
         final String name = "aname";
 
-        Cycle cyc = new Cycle(Const.UNSET_DATABASE_ID, volumeMl, brewTime, vacuumTime);
+        Cycle cyc = new Cycle(volumeMl, brewTime, vacuumTime);
         List<Cycle> cycles = new ArrayList<>();
         cycles.add(cyc);
         Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
@@ -64,17 +63,12 @@ public class CoffeeDaoTest {
         assertNotEquals(cof.id(), cofOut.id());
         assertEquals(1, cofOut.id());
         assertEquals(cof.name(), cofOut.name());
-        assertNotEquals(cof.defaultVolumeId(), cofOut.defaultVolumeId());
-        assertEquals(1, cofOut.defaultVolumeId());
-
 
         Volume volOut = cofOut.volumes().get(0);
         assertNotEquals(vol.id(), volOut.id());
         assertEquals(1, volOut.id());
 
         Cycle cycOut = volOut.cycles().get(0);
-        assertNotEquals(cyc.volumeId(), cycOut.volumeId());
-        assertEquals(1, cycOut.volumeId());
         assertEquals(cyc.volumeMl(), cycOut.volumeMl());
         assertEquals(cyc.brewSeconds(), cycOut.brewSeconds());
         assertEquals(cyc.vacuumSeconds(), cycOut.vacuumSeconds());
@@ -87,10 +81,10 @@ public class CoffeeDaoTest {
         final int vacuumTime = (Cycle.MIN_VACUUMTIME+ Cycle.MAX_VACUUMTIME)/2;
         final String name = "aname";
 
-        Cycle cyc = new Cycle(Const.UNSET_DATABASE_ID, volumeMl, brewTime, vacuumTime);
+        Cycle cyc = new Cycle(volumeMl, brewTime, vacuumTime);
         List<Cycle> cycles = new ArrayList<>();
         cycles.add(cyc);
-        Cycle cyc2 = new Cycle(Const.UNSET_DATABASE_ID, volumeMl+1, brewTime+2, vacuumTime+3);
+        Cycle cyc2 = new Cycle(volumeMl+1, brewTime+2, vacuumTime+3);
         cycles.add(cyc2);
 
         Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
@@ -116,15 +110,11 @@ public class CoffeeDaoTest {
         assertEquals(2, volOut.id());
 
         Cycle cycOut = volOut.cycles().get(0);
-        assertNotEquals(cyc.volumeId(), cycOut.volumeId());
-        assertEquals(2, cycOut.volumeId());
         assertEquals(cyc.volumeMl(), cycOut.volumeMl());
         assertEquals(cyc.brewSeconds(), cycOut.brewSeconds());
         assertEquals(cyc.vacuumSeconds(), cycOut.vacuumSeconds());
 
         Cycle cyc2Out = volOut.cycles().get(1);
-        assertNotEquals(cyc.volumeId(), cyc2Out.volumeId());
-        assertEquals(2, cyc2Out.volumeId());
         assertEquals(cyc2.volumeMl(), cyc2Out.volumeMl());
         assertEquals(cyc2.brewSeconds(), cyc2Out.brewSeconds());
         assertEquals(cyc2.vacuumSeconds(), cyc2Out.vacuumSeconds());
@@ -133,7 +123,7 @@ public class CoffeeDaoTest {
     @Test
     public void getCoffees_sortvolumes_Success() {
         final int volumeMl = Cycle.MIN_VOLUME;
-        Cycle c1 = new Cycle(Const.MIN_DATABASE_ID, volumeMl, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
+        Cycle c1 = new Cycle(volumeMl, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
 
         List<Cycle> cs = new ArrayList<>();
         cs.add(c1);
@@ -164,5 +154,69 @@ public class CoffeeDaoTest {
         assertEquals(Cycle.MIN_VOLUME, vols.get(0).totalVolume());
         assertEquals(Cycle.MIN_VOLUME * 2, vols.get(1).totalVolume());
         assertEquals(Cycle.MIN_VOLUME * 3, vols.get(2).totalVolume());
+    }
+
+    static final private long NOID = Const.UNSET_DATABASE_ID;
+
+    /*
+    private List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
+        List<Coffee> coffees = new ArrayList<>();
+        for (int i = 0; i < numCoffees; i++) {
+            List<Volume> volumes = new ArrayList<>();
+            for (int j = 0; j < numVolumes; j++) {
+                List<Cycle> cycles = new ArrayList<>();
+                for (int k = 0; k < numCycles; k++) {
+                    cycles.add(new Cycle(NOID, volume(i, j, k), brewtime(i, j, k), vactime(i, j, k)));
+                }
+                volumes.add(new Volume(NOID, cycles));
+            }
+            coffees.add(new Coffee(NOID, name(i), volumes, NOID));
+        }
+        return coffees;
+    }
+
+
+    private void validateCoffees(List<Coffee> coffees) {
+        for (int i = 0; i < coffees.size(); i++) {
+            Coffee cof = coffees.get(i);
+            assertEquals(Const.MIN_DATABASE_ID + i, cof.id());
+            assertEquals(name(i), cof.name());
+            List<Volume> vols = cof.volumes();
+            for (int j = 0; j < vols.size(); j++) {
+                Volume vol = vols.get(j);
+                assertEquals(Const.MIN_DATABASE_ID + 10*i + j, vol.id());
+                List<Cycle> cycles = vol.cycles();
+                for (int k = 0; k < cycles.size(); k++) {
+                    assertEquals();
+                    assertEquals();
+                }
+
+            }
+        }
+    }
+    */
+
+    private int volume(int i, int j, int k) {
+        return parm(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, i, j, k);
+    }
+
+    private int brewtime(int i, int j, int k) {
+        return parm(Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, i, j, k);
+    }
+
+    private int vactime(int i, int j, int k) {
+        return parm(Cycle.MIN_VACUUMTIME+1, Cycle.MAX_VACUUMTIME, i, j, k);
+    }
+
+    private int parm(int min, int max, int i, int j, int k) {
+        int n = min + i*100 + j*10 + k;
+        return n > max ? min : n;
+    }
+
+    private String name(int i) {
+        String s = "a";
+        for (int j = i; j >= 0; j--)
+            s += s;
+        return s;
     }
 }
