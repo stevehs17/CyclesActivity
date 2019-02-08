@@ -158,7 +158,18 @@ public class CoffeeDaoTest {
 
     static final private long NOID = Const.UNSET_DATABASE_ID;
 
-    /*
+
+    @Test
+    public void create_and_validate_many_coffees_Success() {
+        final int numCoffees = 1;
+        final int numVolumes = 1;
+        final int numCycles = 1;
+
+        List<Coffee> coffees = createCoffees(numCoffees, numVolumes, numCycles);
+        validateCoffees(coffees);
+    }
+
+
     private List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
         List<Coffee> coffees = new ArrayList<>();
         for (int i = 0; i < numCoffees; i++) {
@@ -166,7 +177,7 @@ public class CoffeeDaoTest {
             for (int j = 0; j < numVolumes; j++) {
                 List<Cycle> cycles = new ArrayList<>();
                 for (int k = 0; k < numCycles; k++) {
-                    cycles.add(new Cycle(NOID, volume(i, j, k), brewtime(i, j, k), vactime(i, j, k)));
+                    cycles.add(new Cycle(volume(i, j, k), brewtime(i, j, k), vactime(i, j, k)));
                 }
                 volumes.add(new Volume(NOID, cycles));
             }
@@ -175,26 +186,25 @@ public class CoffeeDaoTest {
         return coffees;
     }
 
-
     private void validateCoffees(List<Coffee> coffees) {
         for (int i = 0; i < coffees.size(); i++) {
             Coffee cof = coffees.get(i);
-            assertEquals(Const.MIN_DATABASE_ID + i, cof.id());
+            //assertEquals(Const.MIN_DATABASE_ID + i, cof.id());
             assertEquals(name(i), cof.name());
             List<Volume> vols = cof.volumes();
             for (int j = 0; j < vols.size(); j++) {
                 Volume vol = vols.get(j);
-                assertEquals(Const.MIN_DATABASE_ID + 10*i + j, vol.id());
+                //assertEquals(Const.MIN_DATABASE_ID + 10*i + j, vol.id());
                 List<Cycle> cycles = vol.cycles();
                 for (int k = 0; k < cycles.size(); k++) {
-                    assertEquals();
-                    assertEquals();
+                    Cycle cyc = cycles.get(k);
+                    assertEquals(volume(i, j, k), cyc.volumeMl());
+                    assertEquals(brewtime(i, j, k), cyc.brewSeconds());
+                    assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
                 }
-
             }
         }
     }
-    */
 
     private int volume(int i, int j, int k) {
         return parm(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, i, j, k);
@@ -215,7 +225,7 @@ public class CoffeeDaoTest {
 
     private String name(int i) {
         String s = "a";
-        for (int j = i; j >= 0; j--)
+        for (int j = i; j > 0; j--)
             s += s;
         return s;
     }
