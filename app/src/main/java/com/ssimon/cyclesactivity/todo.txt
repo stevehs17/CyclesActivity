@@ -1,11 +1,9 @@
-Implement test that uses loops to create large numbers of coffee, with large numbers
-    of volume, with large numbers of cycles.
+Fix name()
 Test cascading deletes
-Remove volumeID field from Cycle
 Implement Coffee cache
 Add methods to access db off main thread.
 Finish onClickSaveCycles.
-Test for cycleActivity:
+Test for CyclesActivity:
     set parm buttons, get parm buttons, compare values
 Where put button to delete volume?
 Tie together MAX_NUM_CYCLES and cycle table layout
@@ -24,3 +22,7 @@ CyclesActivity layouts
 DONE
 Use Checker in CyclesActivity, etc.
 Implement default volume id.
+Implement test that uses loops to create large numbers of coffee, with large numbers
+    of volume, with large numbers of cycles.
+Remove volumeID field from Cycle
+

@@ -197,9 +197,8 @@ public class CoffeeDaoTest {
             List<Volume> volumes = new ArrayList<>();
             for (int j = 0; j < numVolumes; j++) {
                 List<Cycle> cycles = new ArrayList<>();
-                for (int k = 0; k < numCycles; k++) {
+                for (int k = 0; k < numCycles; k++) 
                     cycles.add(new Cycle(volume(i, j, k), brewtime(i, j, k), vactime(i, j, k)));
-                }
                 volumes.add(new Volume(NOID, cycles));
             }
             coffees.add(new Coffee(NOID, name(i), volumes, NOID));
@@ -244,7 +243,17 @@ public class CoffeeDaoTest {
         return n > max ? min : n;
     }
 
+    /*
     private String name(int i) {
        return String.valueOf(i);
+    }
+    */
+
+    private String name(int i) {
+        String base = "a";
+        String s = "";
+        for (int j = 0; j <= i; j++)
+            s += base;
+        return s;
     }
 }
