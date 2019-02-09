@@ -262,9 +262,12 @@ public class CoffeeDaoTest {
             List<Volume> vols2 = cof2.volumes();
             assertEquals(vols1.size(), vols2.size());
 
-            /*
             for (int j = 0; j < vols1.size(); j++) {
-                Volume vol = vols.get(j);
+                Volume v1 = vols1.get(j);
+                Volume v2 = vols2.get(j);
+                assertEquals(v1.id(), v2.id());
+
+                /*
                 List<Cycle> cycles = vol.cycles();
                 for (int k = 0; k < cycles.size(); k++) {
                     Cycle cyc = cycles.get(k);
@@ -272,8 +275,8 @@ public class CoffeeDaoTest {
                     assertEquals(brewtime(i, j, k), cyc.brewSeconds());
                     assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
                 }
+                */
             }
-            */
         }
 
     }
