@@ -39,14 +39,12 @@ public class VolumeDao {
         return volumes;
     }
 
-
     static private class TotalVolumeSorter implements Comparator<Volume> {
         @Override
         public int compare(Volume v1, Volume v2) {
             return v1.totalVolume() - v2.totalVolume();
         }
     }
-
 
     static public void insertVolumes(SQLiteDatabase db, long recipeId, List<Volume> vols) {
         Checker.notNull(db);
