@@ -174,7 +174,7 @@ public class CoffeeDaoTest {
     @Test
     public void save_and_retrieve_many_coffees_Success() {
         final int numCoffees = 50;
-        final int numVolumes = 5;
+        final int numVolumes = 10;
         final int numCycles = 6;
 
         DatabaseHelperTest dht = new DatabaseHelperTest();
@@ -188,9 +188,8 @@ public class CoffeeDaoTest {
         assertEquals(numCoffees, coffeesOut.size());
         assertEquals(numVolumes, coffeesOut.get(numCoffees-1).volumes().size() );
         assertEquals(numCycles, coffeesOut.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
-        validateCoffees(coffeesOut);
+        validateCoffees(coffees, coffeesOut);
     }
-
 
     private List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
         List<Coffee> coffees = new ArrayList<>();
@@ -247,5 +246,32 @@ public class CoffeeDaoTest {
         for (int j = 0; j <= i; j++)
             s += base;
         return s;
+    }
+
+    private void validateCoffees(List<Coffee> cs1, List<Coffee> cs2) {
+        assertEquals(cs1.size(), cs2.size());
+        assertEquals(cs1.get(cs1.size()-1).volumes().size(), cs2.get(cs2.size()-1).volumes().size() );
+        assertEquals(cs1.get(cs1.size()-1).volumes().get(cs1.get(0).volumes().size()-1).cycles().size(),
+                cs2.get(cs2.size()-1).volumes().get(cs2.get(0).volumes().size()-1).cycles().size() );
+
+        for (int i = 0; i < cs1.size(); i++) {
+            Coffee cof1 = cs1.get(i);
+            Coffee cof2 = cs1.get(i);
+            assertEquals(cof1.id(), cof2.id());
+/*
+            List<Volume> vols = cof.volumes();
+            for (int j = 0; j < vols.size(); j++) {
+                Volume vol = vols.get(j);
+                List<Cycle> cycles = vol.cycles();
+                for (int k = 0; k < cycles.size(); k++) {
+                    Cycle cyc = cycles.get(k);
+                    assertEquals(volume(i, j, k), cyc.volumeMl());
+                    assertEquals(brewtime(i, j, k), cyc.brewSeconds());
+                    assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
+                }
+            }
+        */
+        }
+
     }
 }
