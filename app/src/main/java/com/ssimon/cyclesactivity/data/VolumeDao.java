@@ -3,6 +3,7 @@ package com.ssimon.cyclesactivity.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.util.Checker;
@@ -18,6 +19,8 @@ import static com.ssimon.cyclesactivity.data.Contract.Volume.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Volume.TABLE_NAME;
 
 public class VolumeDao {
+    static final private String TAG = "Dao";
+
     static public List<Volume> getVolumes(SQLiteDatabase db, long coffeeId) {
         Checker.notNull(db);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
