@@ -157,7 +157,7 @@ public class CoffeeDaoTest {
     }
 
     static final private long NOID = Const.UNSET_DATABASE_ID;
-    
+
     @Test
     public void create_and_validate_many_coffees_Success() {
         final int numCoffees = 100;
@@ -185,6 +185,9 @@ public class CoffeeDaoTest {
         CoffeeDao.insertCoffees(db, coffees);
         db = DatabaseUtils.getReadableleDb(context);
         List<Coffee> coffeesOut = CoffeeDao.getCoffees(db);
+        assertEquals(numCoffees, coffeesOut.size());
+        assertEquals(numVolumes, coffeesOut.get(numCoffees-1).volumes().size() );
+        assertEquals(numCycles, coffeesOut.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
         validateCoffees(coffeesOut);
     }
 
