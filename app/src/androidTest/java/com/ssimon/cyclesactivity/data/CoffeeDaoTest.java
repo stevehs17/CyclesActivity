@@ -258,6 +258,8 @@ public class CoffeeDaoTest {
             Coffee cof1 = cs1.get(i);
             Coffee cof2 = cs1.get(i);
             assertEquals(cof1.id(), cof2.id());
+            assertEquals(cof1.name(), cof2.name());
+            assertEquals(cof1.defaultVolumeId(), cof2.defaultVolumeId());
 /*
             List<Volume> vols = cof.volumes();
             for (int j = 0; j < vols.size(); j++) {
