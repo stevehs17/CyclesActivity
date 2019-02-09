@@ -1,4 +1,3 @@
-Fix name()
 Test cascading deletes
 Implement Coffee cache
 Add methods to access db off main thread.
@@ -25,4 +24,6 @@ Implement default volume id.
 Implement test that uses loops to create large numbers of coffee, with large numbers
     of volume, with large numbers of cycles.
 Remove volumeID field from Cycle
+Fix name()
+
 
