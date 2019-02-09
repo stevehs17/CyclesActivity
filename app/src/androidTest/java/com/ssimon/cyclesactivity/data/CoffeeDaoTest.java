@@ -157,8 +157,7 @@ public class CoffeeDaoTest {
     }
 
     static final private long NOID = Const.UNSET_DATABASE_ID;
-
-
+    
     @Test
     public void create_and_validate_many_coffees_Success() {
         final int numCoffees = 100;
@@ -171,7 +170,6 @@ public class CoffeeDaoTest {
         assertEquals(numCycles, coffees.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
         validateCoffees(coffees);
     }
-
 
     @Test
     public void save_and_retrieve_many_coffees_Success() {
@@ -209,12 +207,9 @@ public class CoffeeDaoTest {
     private void validateCoffees(List<Coffee> coffees) {
         for (int i = 0; i < coffees.size(); i++) {
             Coffee cof = coffees.get(i);
-            //assertEquals(Const.MIN_DATABASE_ID + i, cof.id());
-            assertEquals(name(i), cof.name());
             List<Volume> vols = cof.volumes();
             for (int j = 0; j < vols.size(); j++) {
                 Volume vol = vols.get(j);
-                //assertEquals(Const.MIN_DATABASE_ID + 10*i + j, vol.id());
                 List<Cycle> cycles = vol.cycles();
                 for (int k = 0; k < cycles.size(); k++) {
                     Cycle cyc = cycles.get(k);
@@ -243,13 +238,7 @@ public class CoffeeDaoTest {
         return n > max ? min : n;
     }
 
-    /*
-    private String name(int i) {
-       return String.valueOf(i);
-    }
-    */
-
-    private String name(int i) {
+   private String name(int i) {
         String base = "a";
         String s = "";
         for (int j = 0; j <= i; j++)
