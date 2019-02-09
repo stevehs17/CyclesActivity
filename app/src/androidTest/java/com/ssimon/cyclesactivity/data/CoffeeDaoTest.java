@@ -173,7 +173,7 @@ public class CoffeeDaoTest {
     @Test
     public void save_and_retrieve_many_coffees_Success() {
         final int numCoffees = 50;
-        final int numVolumes = 10;
+        final int numVolumes = 50;
         final int numCycles = 6;
 
         List<Coffee> coffees = createCoffees(numCoffees, numVolumes, numCycles);
