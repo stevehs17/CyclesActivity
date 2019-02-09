@@ -250,9 +250,6 @@ public class CoffeeDaoTest {
 
     private void validateCoffees(List<Coffee> cs1, List<Coffee> cs2) {
         assertEquals(cs1.size(), cs2.size());
-        assertEquals(cs1.get(cs1.size()-1).volumes().size(), cs2.get(cs2.size()-1).volumes().size() );
-        assertEquals(cs1.get(cs1.size()-1).volumes().get(cs1.get(0).volumes().size()-1).cycles().size(),
-                cs2.get(cs2.size()-1).volumes().get(cs2.get(0).volumes().size()-1).cycles().size() );
 
         for (int i = 0; i < cs1.size(); i++) {
             Coffee cof1 = cs1.get(i);
@@ -260,9 +257,13 @@ public class CoffeeDaoTest {
             assertEquals(cof1.id(), cof2.id());
             assertEquals(cof1.name(), cof2.name());
             assertEquals(cof1.defaultVolumeId(), cof2.defaultVolumeId());
-/*
-            List<Volume> vols = cof.volumes();
-            for (int j = 0; j < vols.size(); j++) {
+
+            List<Volume> vols1 = cof1.volumes();
+            List<Volume> vols2 = cof2.volumes();
+            assertEquals(vols1.size(), vols2.size());
+
+            /*
+            for (int j = 0; j < vols1.size(); j++) {
                 Volume vol = vols.get(j);
                 List<Cycle> cycles = vol.cycles();
                 for (int k = 0; k < cycles.size(); k++) {
@@ -272,7 +273,7 @@ public class CoffeeDaoTest {
                     assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
                 }
             }
-        */
+            */
         }
 
     }
