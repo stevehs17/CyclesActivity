@@ -67,4 +67,10 @@ public class CoffeeDao {
             db.endTransaction();
         }
     }
+
+    static void deleteCoffee(SQLiteDatabase db, long id) {
+        Checker.notNull(db);
+        Checker.atLeast(id, Const.MIN_DATABASE_ID);
+        DatabaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, id);
+    }
 }

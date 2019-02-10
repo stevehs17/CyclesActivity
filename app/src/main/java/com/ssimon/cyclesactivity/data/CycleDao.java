@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -36,6 +37,26 @@ public class CycleDao {
         return cycles;
     }
 
+    static List<Cycle> getCycles(SQLiteDatabase db) {
+        Checker.notNull(db);
+
+        String query = String.format("SELECT * FROM %s", TABLE_NAME);
+        Cursor c = db.rawQuery(query, null);
+        List<Cycle> cycles = new ArrayList<>();
+        if (!c.moveToFirst())
+            return cycles;
+        do {
+            int volumeMl = c.getInt(c.getColumnIndexOrThrow(Col.VOLUME_MILLILITERS));
+            int brewTime = c.getInt(c.getColumnIndexOrThrow(Col.BREW_TIME_SECONDS));
+            int vacuumTime = c.getInt(c.getColumnIndexOrThrow(Col.VACUUM_TIME_SECONDS));
+            cycles.add(new Cycle(volumeMl, brewTime, vacuumTime));
+        } while (c.moveToNext());
+        c.close();
+        return cycles;
+    }
+
+
+
     static void insertCycles(SQLiteDatabase db, long volumeId, List<Cycle> cycles) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
@@ -66,5 +87,17 @@ public class CycleDao {
         db.insertOrThrow(TABLE_NAME, null, cv);
     }
 
+    static void deleteCycles(SQLiteDatabase db, long volumeId) {
+        Checker.notNull(db);
+        Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
 
+        String where = Col.VOLUME_ID + "=?";
+        String[] whereArgs = {Long.toString(volumeId)};
+        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
+        Checker.inRange(numDeleted, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+    }
+
+    static void deleteCycle(SQLiteDatabase db, long cycleId) {
+        DatabaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, cycleId);
+    }
 }

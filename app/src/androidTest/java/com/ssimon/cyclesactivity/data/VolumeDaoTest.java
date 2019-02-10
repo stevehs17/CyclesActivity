@@ -80,9 +80,9 @@ public class VolumeDaoTest {
 
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         Cursor c = db.rawQuery(query, null);
-        if (!c.moveToFirst())
-            throw new IllegalStateException("No volumes found");
         List<Volume> volumes = new ArrayList<>();
+        if (!c.moveToFirst())
+            return volumes;
         Log.v(TAG, "");
         do {
             long coffeeId = c.getLong(c.getColumnIndexOrThrow(Contract.Volume.Col.COFFEE_ID));
