@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.Const;
-import com.ssimon.cyclesactivity.DatabaseUtils;
 import com.ssimon.cyclesactivity.ModelUtils;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;

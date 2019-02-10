@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.Const;
-import com.ssimon.cyclesactivity.DatabaseUtils;
 import com.ssimon.cyclesactivity.ModelUtils;
 import com.ssimon.cyclesactivity.model.*;
 
@@ -15,7 +14,7 @@ import org.junit.Test;
 import java.util.List;
 
 public class CycleDaoTest {
-    final private Context context = InstrumentationRegistry.getTargetContext();
+    static final private Context context = InstrumentationRegistry.getTargetContext();
 
     @Test
     public void insertCycles_Failure() {

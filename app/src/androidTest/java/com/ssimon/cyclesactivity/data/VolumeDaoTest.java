@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 import android.util.Log;
 
-import com.ssimon.cyclesactivity.DatabaseUtils;
 import com.ssimon.cyclesactivity.ModelUtils;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -17,7 +16,6 @@ import com.ssimon.cyclesactivity.util.Checker;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.ssimon.cyclesactivity.data.Contract.Volume.TABLE_NAME;
