@@ -44,4 +44,9 @@ public class Cycle implements Serializable {
     public int volumeMl() { return volumeMl; }
     public int brewSeconds() { return brewSeconds; }
     public int vacuumSeconds() { return vacuumSeconds; }
+
+    public String toString() {
+        final String fmt = "\t\tvolume = %d, brewtime = %d, vactime = %d\n";
+        return String.format(fmt, volumeMl(), brewSeconds(), vacuumSeconds());
+    }
 }

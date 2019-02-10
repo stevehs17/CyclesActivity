@@ -67,14 +67,4 @@ public class CoffeeTest {
         }
         throw new RuntimeException("test failed");
     }
-
-    @Test
-    public void createManyCoffees_Success() {
-        int numCoffees = 1;
-        int numVolumes = 1;
-        int numCycles = 1;
-
-        List<Coffee> cs = ModelUtils.createCoffees(numCoffees, numVolumes, numCycles);
-        ModelUtils.validateCoffees(cs);
-    }
 }

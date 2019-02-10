@@ -228,4 +228,14 @@ public class CoffeeDaoTest {
         vols = VolumeDaoTest.getAndPrintVolumes(db);
         assertEquals(0, vols.size());
     }
+
+    @Test
+    public void createManyCoffees_Success() {
+        int numCoffees = 100;
+        int numVolumes = 100;
+        int numCycles = Cycle.MAX_NUM_CYCLES;
+
+        List<Coffee> cs = ModelUtils.createCoffees(numCoffees, numVolumes, numCycles);
+        ModelUtils.validateCoffees(cs);
+    }
 }

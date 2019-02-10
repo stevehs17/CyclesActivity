@@ -75,7 +75,7 @@ public class VolumeDaoTest {
         volumes = getAndPrintVolumes(db);
     }
 
-    static  List<Volume> getAndPrintVolumes(SQLiteDatabase db) {
+    static List<Volume> getAndPrintVolumes(SQLiteDatabase db) {
         Checker.notNull(db);
 
         String query = String.format("SELECT * FROM %s", TABLE_NAME);

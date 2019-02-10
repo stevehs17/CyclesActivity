@@ -1,5 +1,7 @@
 package com.ssimon.cyclesactivity;
 
+import android.util.Log;
+
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
@@ -16,6 +18,7 @@ public class ModelUtils {
     static final public int VACUUMTIME = Cycle.MIN_VACUUMTIME;
     static final public String NAME = "COFFEE_NAME";
     static final private long NOID = Const.UNSET_DATABASE_ID;
+    static final private String TAG = "ModelUtils";
 
     static public Cycle createCycle() {
         return new Cycle(VOLUME, BREWTIME, VACUUMTIME);
@@ -76,6 +79,7 @@ public class ModelUtils {
                 List<Cycle> cycles = new ArrayList<>();
                 for (int k = 0; k < numCycles; k++) {
                     Cycle cy = new Cycle(vol, brew, vac);
+                    //Log.v(TAG, cy.toString());
                     cycles.add(cy);
                     vol = incrVol(vol);
                     brew = incrBrew(brew);
@@ -85,7 +89,13 @@ public class ModelUtils {
             }
             coffees.add(new Coffee(NOID, name(i), volumes, NOID));
         }
+        printCoffees(coffees);
         return coffees;
+    }
+
+    static private void printCoffees(List<Coffee> cs) {
+        for (Coffee c : cs)
+            Log.v(TAG,c.toString());
     }
 
     static public void validateCoffees(List<Coffee> coffees) {;
@@ -113,22 +123,30 @@ public class ModelUtils {
     }
 
     static private int incrVol(int vol) {
-        return (vol++ > Cycle.MAX_VOLUME)
-                ? START_VOLUME
-                : vol;
+        ++vol;
+        if (vol > Cycle.MAX_VOLUME)
+            return START_VOLUME;
+        else
+            return vol;
     }
 
     static private int incrBrew(int brew) {
-        return (brew++ > Cycle.MAX_BREWTIME)
-                ? START_VOLUME
-                : brew;
+        ++brew;
+        if (brew > Cycle.MAX_BREWTIME)
+            return START_BREWTIME;
+        else
+            return brew;
     }
 
+
     static private int incrVac(int vac) {
-        return (vac++ > Cycle.MAX_VACUUMTIME)
-                ? START_VACUUMTIME
-                : vac;
+        ++vac;
+        if (vac > Cycle.MAX_VACUUMTIME)
+            return START_VACUUMTIME;
+        else
+            return vac;
     }
+
 
     static private String name(int i) {
         String base = "a";

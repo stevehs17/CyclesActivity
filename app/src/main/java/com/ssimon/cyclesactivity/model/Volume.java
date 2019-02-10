@@ -24,7 +24,8 @@ public class Volume implements Serializable {
     public Volume(long id, List<Cycle> cycles) {
         if (id != Const.UNSET_DATABASE_ID)
             Checker.atLeast(id, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(cycles);
+        Checker.notNull(cycles);
+        Checker.inRange(cycles.size(), Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
 
         this.id = id;
         this.cycles = cycles;
@@ -38,5 +39,12 @@ public class Volume implements Serializable {
         for (Cycle c : cycles())
             n += c.volumeMl();
         return n;
+    }
+
+    public String toString() {
+        String s = String.format("\tVolumeId = %d\n", id());
+        for (Cycle c : cycles())
+            s += c.toString();
+        return s;
     }
 }
