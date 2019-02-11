@@ -1,5 +1,7 @@
 package com.ssimon.cyclesactivity;
 
+import android.util.Log;
+
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
@@ -16,6 +18,7 @@ public class ModelUtils {
     static final public int VACUUMTIME = Cycle.MIN_VACUUMTIME;
     static final public String NAME = "COFFEE_NAME";
     static final private long NOID = Const.UNSET_DATABASE_ID;
+    static final private String TAG = "ModelUtils";
 
     static public Cycle createCycle() {
         return new Cycle(VOLUME, BREWTIME, VACUUMTIME);
@@ -42,6 +45,7 @@ public class ModelUtils {
         return new Coffee(DB_ID, NAME, createVolumeList(), DB_ID);
     }
 
+    /*
     static public List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
         List<Coffee> coffees = new ArrayList<>();
         for (int i = 0; i < numCoffees; i++) {
@@ -56,40 +60,93 @@ public class ModelUtils {
         }
         return coffees;
     }
+    */
 
-    static public void validateCoffees(List<Coffee> coffees) {
+    static final private int START_VOLUME = Cycle.MIN_VOLUME;
+    static final private int START_BREWTIME = Cycle.MIN_BREWTIME;
+    static final private int START_VACUUMTIME = Cycle.MIN_VACUUMTIME + 1;
+
+
+    static public List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
+        int vol = START_VOLUME;
+        int brew = START_BREWTIME;
+        int vac = START_VACUUMTIME;
+
+        List<Coffee> coffees = new ArrayList<>();
+        for (int i = 0; i < numCoffees; i++) {
+            List<Volume> volumes = new ArrayList<>();
+            for (int j = 0; j < numVolumes; j++) {
+                List<Cycle> cycles = new ArrayList<>();
+                for (int k = 0; k < numCycles; k++) {
+                    Cycle cy = new Cycle(vol, brew, vac);
+                    //Log.v(TAG, cy.toString());
+                    cycles.add(cy);
+                    vol = incrVol(vol);
+                    brew = incrBrew(brew);
+                    vac = incrVac(vac);
+                }
+                volumes.add(new Volume(NOID, cycles));
+            }
+            coffees.add(new Coffee(NOID, name(i), volumes, NOID));
+        }
+        printCoffees(coffees);
+        return coffees;
+    }
+
+    static private void printCoffees(List<Coffee> cs) {
+        for (Coffee c : cs)
+            Log.v(TAG,c.toString());
+    }
+
+    static public void validateCoffees(List<Coffee> coffees) {;
+        int vol = START_VOLUME;
+        int brew = START_BREWTIME;
+        int vac = START_VACUUMTIME;
+
         for (int i = 0; i < coffees.size(); i++) {
             Coffee cof = coffees.get(i);
             List<Volume> vols = cof.volumes();
             for (int j = 0; j < vols.size(); j++) {
-                Volume vol = vols.get(j);
-                List<Cycle> cycles = vol.cycles();
+                Volume v = vols.get(j);
+                List<Cycle> cycles = v.cycles();
                 for (int k = 0; k < cycles.size(); k++) {
                     Cycle cyc = cycles.get(k);
-                    assertEquals(volume(i, j, k), cyc.volumeMl());
-                    assertEquals(brewtime(i, j, k), cyc.brewSeconds());
-                    assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
+                    assertEquals(vol, cyc.volumeMl());
+                    assertEquals(brew, cyc.brewSeconds());
+                    assertEquals(vac, cyc.vacuumSeconds());
+                    vol = incrVol(vol);
+                    brew = incrBrew(brew);
+                    vac = incrVac(vac);
                 }
             }
         }
     }
 
-    static private int volume(int i, int j, int k) {
-        return parm(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, i, j, k);
+    static private int incrVol(int vol) {
+        ++vol;
+        if (vol > Cycle.MAX_VOLUME)
+            return START_VOLUME;
+        else
+            return vol;
     }
 
-    static private int brewtime(int i, int j, int k) {
-        return parm(Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, i, j, k);
+    static private int incrBrew(int brew) {
+        ++brew;
+        if (brew > Cycle.MAX_BREWTIME)
+            return START_BREWTIME;
+        else
+            return brew;
     }
 
-    static private int vactime(int i, int j, int k) {
-        return parm(Cycle.MIN_VACUUMTIME+1, Cycle.MAX_VACUUMTIME, i, j, k);
+
+    static private int incrVac(int vac) {
+        ++vac;
+        if (vac > Cycle.MAX_VACUUMTIME)
+            return START_VACUUMTIME;
+        else
+            return vac;
     }
 
-    static private int parm(int min, int max, int i, int j, int k) {
-        int n = min + i*100 + j*10 + k;
-        return n > max ? min : n;
-    }
 
     static private String name(int i) {
         String base = "a";
@@ -126,4 +183,41 @@ public class ModelUtils {
             }
         }
     }
+
+
+       /*
+    static public void validateCoffees(List<Coffee> coffees) {
+        for (int i = 0; i < coffees.size(); i++) {
+            Coffee cof = coffees.get(i);
+            List<Volume> vols = cof.volumes();
+            for (int j = 0; j < vols.size(); j++) {
+                Volume vol = vols.get(j);
+                List<Cycle> cycles = vol.cycles();
+                for (int k = 0; k < cycles.size(); k++) {
+                    Cycle cyc = cycles.get(k);
+                    assertEquals(volume(i, j, k), cyc.volumeMl());
+                    assertEquals(brewtime(i, j, k), cyc.brewSeconds());
+                    assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
+                }
+            }
+        }
+    }
+
+    static private int volume(int i, int j, int k) {
+        return parm(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, i, j, k);
+    }
+
+    static private int brewtime(int i, int j, int k) {
+        return parm(Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, i, j, k);
+    }
+
+    static private int vactime(int i, int j, int k) {
+        return parm(Cycle.MIN_VACUUMTIME+1, Cycle.MAX_VACUUMTIME, i, j, k);
+    }
+
+    static private int parm(int min, int max, int i, int j, int k) {
+        int n = min + i*100 + j*10 + k;
+        return n > max ? min : n;
+    }
+    */
 }

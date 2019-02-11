@@ -17,6 +17,7 @@ import com.ssimon.cyclesactivity.Const;
 import java.io.Serializable;
 
 public class Cycle implements Serializable {
+    static final public int MIN_NUM_CYCLES = 1;
     static final public int MAX_NUM_CYCLES = 6;
     static final public int MIN_VOLUME = 180;
     static final public int MAX_VOLUME = 1670;
@@ -43,4 +44,9 @@ public class Cycle implements Serializable {
     public int volumeMl() { return volumeMl; }
     public int brewSeconds() { return brewSeconds; }
     public int vacuumSeconds() { return vacuumSeconds; }
+
+    public String toString() {
+        final String fmt = "\t\tvolume = %d, brewtime = %d, vactime = %d\n";
+        return String.format(fmt, volumeMl(), brewSeconds(), vacuumSeconds());
+    }
 }

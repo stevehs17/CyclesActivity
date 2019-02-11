@@ -41,4 +41,12 @@ public class Coffee implements Serializable {
     public String name() { return name; }
     public List<Volume> volumes() { return volumes; }
     public long defaultVolumeId() { return defaultVolumeId; }
+
+    public String toString() {
+        String fmt = "CoffeeId = %d, name = %s, defaultVolId = %d\n";
+        String s = String.format(fmt, id(), name(), defaultVolumeId());
+        for (Volume v : volumes())
+            s += v.toString();
+        return s;
+    }
 }

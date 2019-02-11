@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.Const;
-import com.ssimon.cyclesactivity.DatabaseUtils;
+import com.ssimon.cyclesactivity.DatabaseTestUtils;
 import com.ssimon.cyclesactivity.ModelUtils;
 import com.ssimon.cyclesactivity.model.*;
 
@@ -15,14 +15,14 @@ import org.junit.Test;
 import java.util.List;
 
 public class CycleDaoTest {
-    final private Context context = InstrumentationRegistry.getTargetContext();
+    static final private Context context = InstrumentationRegistry.getTargetContext();
 
     @Test
     public void insertCycles_Failure() {
         try {
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
-            SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+            SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
             List<Cycle> cs = ModelUtils.createCycleList();
             CycleDao.insertCycles(db, Const.MIN_DATABASE_ID, cs);
         } catch (SQLiteConstraintException e) {
@@ -36,7 +36,7 @@ public class CycleDaoTest {
         try {
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
-            SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+            SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
             Cycle c = ModelUtils.createCycle();
             CycleDao.insertCycle(db, Const.MIN_DATABASE_ID, c, 0);
         } catch (SQLiteConstraintException e) {

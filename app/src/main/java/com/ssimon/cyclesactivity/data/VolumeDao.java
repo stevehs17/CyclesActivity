@@ -78,4 +78,20 @@ public class VolumeDao {
             db.endTransaction();
         }
     }
+
+    static void deleteVolumes(SQLiteDatabase db, long coffeeId) {
+        Checker.notNull(db);
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+
+        String where = Col.COFFEE_ID + "=?";
+        String[] whereArgs = {Long.toString(coffeeId)};
+        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
+        Checker.atLeast(numDeleted, 1);
+
+
+    }
+
+    static void deleteVolume(SQLiteDatabase db, long id) {
+        DatabaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, id);
+    }
 }
