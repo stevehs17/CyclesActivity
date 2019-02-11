@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
+import com.ssimon.cyclesactivity.DatabaseTestUtils;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -13,12 +15,12 @@ public class DatabaseHelperTest {
 
     @Test
     public void reset_tables_and_open_db_Success() {
-        SQLiteDatabase db = DatabaseUtils.
+        SQLiteDatabase db = getResetDatabase();
         assertTrue(db.isOpen());
     }
 
     static private SQLiteDatabase getResetDatabase() {
-        SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
         db.execSQL(Contract.Coffee.DELETE_TABLE);
         db.execSQL(Contract.Volume.DELETE_TABLE);
         db.execSQL(Contract.Cycle.DELETE_TABLE);

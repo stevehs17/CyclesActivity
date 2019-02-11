@@ -1,12 +1,14 @@
-package com.ssimon.cyclesactivity.data;
+package com.ssimon.cyclesactivity;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ssimon.cyclesactivity.data.DatabaseHelper;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class DatabaseUtils {
+public class DatabaseTestUtils {
     static public SQLiteDatabase getWritableDb(Context ctx) {
         try {
             Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
@@ -43,14 +45,5 @@ public class DatabaseUtils {
         }
     }
 
-    static public SQLiteDatabase getResetDatabase() {
-        SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
-        db.execSQL(Contract.Coffee.DELETE_TABLE);
-        db.execSQL(Contract.Volume.DELETE_TABLE);
-        db.execSQL(Contract.Cycle.DELETE_TABLE);
-        db.execSQL(Contract.Coffee.CREATE_TABLE);
-        db.execSQL(Contract.Volume.CREATE_TABLE);
-        db.execSQL(Contract.Cycle.CREATE_TABLE);
-        return db;
-    }
+
 }
