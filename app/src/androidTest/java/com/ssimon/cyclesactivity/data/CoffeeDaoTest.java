@@ -31,6 +31,13 @@ public class CoffeeDaoTest {
     }
 
     @Test
+    public void insertCoffee2_Success() {
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+        Coffee c = ModelUtils.createCoffee();
+        CoffeeDao.insertCoffee(db, c);
+    }
+
+    @Test
     public void getCoffees_Success() {
         insertCoffee_Success();
         SQLiteDatabase db = DatabaseTestUtils.getReadableleDb(context);
@@ -237,5 +244,25 @@ public class CoffeeDaoTest {
 
         List<Coffee> cs = ModelUtils.createCoffees(numCoffees, numVolumes, numCycles);
         ModelUtils.validateCoffees(cs);
+    }
+
+    @Test
+    public void saveAndRetrieveManyCoffees_Success() {
+        int numCofs = 1;
+        int numVols = 1;
+        int numCycs = 1;
+
+        List<Coffee> cs = ModelUtils.createCoffees(numCofs, numVols, numCycs);
+        ModelUtils.validateCoffees(cs);
+
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+        CoffeeDao.insertCoffees(db, cs);
+        List<Coffee> csOut = CoffeeDao.getCoffees(db);
+        ModelUtils.validateCoffees(csOut);
+
+        db = DatabaseTestUtils.getCleanWritableDb(context);
+        CoffeeDao.insertCoffees(db, csOut);
+        List<Coffee> csOutOut = CoffeeDao.getCoffees(db);
+        ModelUtils.newValidateCoffees(csOut, csOutOut);
     }
 }

@@ -184,6 +184,16 @@ public class ModelUtils {
         }
     }
 
+    static public void newValidateCoffees(List<Coffee> cs1, List<Coffee> cs2) {
+        assertEquals(cs1.size(), cs2.size());
+        for (int i = 0; i < cs1.size(); i++) {
+            Coffee cof1 = cs1.get(i);
+            Coffee cof2 = cs2.get(i);
+            assertEquals(cof1.id(), cof2.id());
+            assertEquals(cof1.name(), cof2.name());
+            assertEquals(cof1.defaultVolumeId(), cof2.defaultVolumeId());
+        }
+    }
 
        /*
     static public void validateCoffees(List<Coffee> coffees) {

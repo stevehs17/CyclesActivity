@@ -45,6 +45,25 @@ public class DatabaseTestUtils {
         }
     }
 
+    static public SQLiteDatabase getCleanWritableDb(Context ctx) {
+        try {
+            Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
+            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class);
+            m.setAccessible(true);
+            DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, ctx);
+            SQLiteDatabase db = dh.getWritableDatabase();
+            dh.onUpgrade(db, 0, 0);
+            return db;
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
