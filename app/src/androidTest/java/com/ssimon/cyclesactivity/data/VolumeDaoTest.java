@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 import android.util.Log;
 
+import com.ssimon.cyclesactivity.DatabaseTestUtils;
 import com.ssimon.cyclesactivity.ModelUtils;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -30,7 +31,7 @@ public class VolumeDaoTest {
         try {
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
-            SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+            SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
             List<Volume> vs = ModelUtils.createVolumeList();
             VolumeDao.insertVolumes(db, ModelUtils.DB_ID, vs);
         } catch (SQLiteConstraintException e) {
@@ -44,7 +45,7 @@ public class VolumeDaoTest {
         try {
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
-            SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+            SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
             Volume v = ModelUtils.createVolume();
             VolumeDao.insertVolume(db, ModelUtils.DB_ID, v);
         } catch (SQLiteConstraintException e) {
@@ -63,7 +64,7 @@ public class VolumeDaoTest {
         ModelUtils.validateCoffees(coffees);
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
-        SQLiteDatabase db = DatabaseUtils.getWritableDb(context);
+        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
         CoffeeDao.insertCoffees(db, coffees);
         List<Volume> volumes = getAndPrintVolumes(db);
 
