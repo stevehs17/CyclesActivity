@@ -248,9 +248,15 @@ public class CoffeeDaoTest {
 
     @Test
     public void saveAndRetrieveManyCoffees_Success() {
-        int numCofs = 1;
-        int numVols = 1;
-        int numCycs = 1;
+        /* fails
+        int numCofs = 10;
+        int numVols = 25;
+        int numCycs = 6;
+        */
+
+        int numCofs = 10;
+        int numVols = 25;
+        int numCycs = 6;
 
         List<Coffee> cs = ModelUtils.createCoffees(numCofs, numVols, numCycs);
         ModelUtils.validateCoffees(cs);
@@ -258,11 +264,16 @@ public class CoffeeDaoTest {
         SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, cs);
         List<Coffee> csOut = CoffeeDao.getCoffees(db);
-        ModelUtils.validateCoffees(csOut);
 
         db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, csOut);
         List<Coffee> csOutOut = CoffeeDao.getCoffees(db);
-        ModelUtils.newValidateCoffees(csOut, csOutOut);
+        ModelUtils.validateCoffees(csOut, csOutOut);
+        //ModelUtils.newValidateCoffees(csOut, csOutOut);
+
+        db = DatabaseTestUtils.getCleanWritableDb(context);
+        CoffeeDao.insertCoffees(db, csOutOut);
+        List<Coffee> csOutOutOut = CoffeeDao.getCoffees(db);
+        ModelUtils.newValidateCoffees(csOutOutOut, csOutOut);
     }
 }
