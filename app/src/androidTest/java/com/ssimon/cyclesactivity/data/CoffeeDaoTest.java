@@ -199,7 +199,7 @@ public class CoffeeDaoTest {
         int numCycs = 6;
         */
         int numCofs = 50;
-        int numVols = 25;
+        int numVols = 50;
         int numCycs = 6;
 
         List<Coffee> cs = ModelTestUtils.createCoffees(numCofs, numVols, numCycs);
