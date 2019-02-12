@@ -11,14 +11,14 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class ModelUtils {
+public class ModelTestUtils {
     static final public long DB_ID = Const.MIN_DATABASE_ID;
     static final public int VOLUME = Cycle.MIN_VOLUME;
     static final public int BREWTIME = Cycle.MIN_BREWTIME;
     static final public int VACUUMTIME = Cycle.MIN_VACUUMTIME;
     static final public String NAME = "COFFEE_NAME";
     static final private long NOID = Const.UNSET_DATABASE_ID;
-    static final private String TAG = "ModelUtils";
+    static final private String TAG = "ModelTestUtils";
 
     static public Cycle createCycle() {
         return new Cycle(VOLUME, BREWTIME, VACUUMTIME);
@@ -45,27 +45,9 @@ public class ModelUtils {
         return new Coffee(DB_ID, NAME, createVolumeList(), DB_ID);
     }
 
-    /*
-    static public List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
-        List<Coffee> coffees = new ArrayList<>();
-        for (int i = 0; i < numCoffees; i++) {
-            List<Volume> volumes = new ArrayList<>();
-            for (int j = 0; j < numVolumes; j++) {
-                List<Cycle> cycles = new ArrayList<>();
-                for (int k = 0; k < numCycles; k++)
-                    cycles.add(new Cycle(volume(i, j, k), brewtime(i, j, k), vactime(i, j, k)));
-                volumes.add(new Volume(NOID, cycles));
-            }
-            coffees.add(new Coffee(NOID, name(i), volumes, NOID));
-        }
-        return coffees;
-    }
-    */
-
     static final private int START_VOLUME = Cycle.MIN_VOLUME;
     static final private int START_BREWTIME = Cycle.MIN_BREWTIME;
     static final private int START_VACUUMTIME = Cycle.MIN_VACUUMTIME + 1;
-
 
     static public List<Coffee> createCoffees(int numCoffees, int numVolumes, int numCycles) {
         int vol = START_VOLUME;
@@ -79,7 +61,6 @@ public class ModelUtils {
                 List<Cycle> cycles = new ArrayList<>();
                 for (int k = 0; k < numCycles; k++) {
                     Cycle cy = new Cycle(vol, brew, vac);
-                    //Log.v(TAG, cy.toString());
                     cycles.add(cy);
                     vol = incrVol(vol);
                     brew = incrBrew(brew);
@@ -98,7 +79,7 @@ public class ModelUtils {
             Log.v(TAG,c.toString());
     }
 
-    static public void validateCoffees(List<Coffee> coffees) {;
+    static public void validateCoffeesNoIds(List<Coffee> coffees) {;
         int vol = START_VOLUME;
         int brew = START_BREWTIME;
         int vac = START_VACUUMTIME;
@@ -156,7 +137,7 @@ public class ModelUtils {
         return s;
     }
 
-    static public void validateCoffees(List<Coffee> cs1, List<Coffee> cs2) {
+    static public void validateCoffeesNoIds(List<Coffee> cs1, List<Coffee> cs2) {
         assertEquals(cs1.size(), cs2.size());
         for (int i = 0; i < cs1.size(); i++) {
             Coffee cof1 = cs1.get(i);
@@ -196,7 +177,7 @@ public class ModelUtils {
     }
 
        /*
-    static public void validateCoffees(List<Coffee> coffees) {
+    static public void validateCoffeesNoIds(List<Coffee> coffees) {
         for (int i = 0; i < coffees.size(); i++) {
             Coffee cof = coffees.get(i);
             List<Volume> vols = cof.volumes();

@@ -8,7 +8,7 @@ import android.support.test.InstrumentationRegistry;
 import android.util.Log;
 
 import com.ssimon.cyclesactivity.DatabaseTestUtils;
-import com.ssimon.cyclesactivity.ModelUtils;
+import com.ssimon.cyclesactivity.ModelTestUtils;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
@@ -32,8 +32,8 @@ public class VolumeDaoTest {
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
             SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
-            List<Volume> vs = ModelUtils.createVolumeList();
-            VolumeDao.insertVolumes(db, ModelUtils.DB_ID, vs);
+            List<Volume> vs = ModelTestUtils.createVolumeList();
+            VolumeDao.insertVolumes(db, ModelTestUtils.DB_ID, vs);
         } catch (SQLiteConstraintException e) {
             return;
         }
@@ -46,8 +46,8 @@ public class VolumeDaoTest {
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
             SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
-            Volume v = ModelUtils.createVolume();
-            VolumeDao.insertVolume(db, ModelUtils.DB_ID, v);
+            Volume v = ModelTestUtils.createVolume();
+            VolumeDao.insertVolume(db, ModelTestUtils.DB_ID, v);
         } catch (SQLiteConstraintException e) {
             return;
         }
@@ -60,8 +60,8 @@ public class VolumeDaoTest {
         final int numVolumes = 25;
         final int numCycles = 6;
 
-        List<Coffee> coffees = ModelUtils.createCoffees(numCoffees, numVolumes, numCycles);
-        ModelUtils.validateCoffees(coffees);
+        List<Coffee> coffees = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
+        ModelTestUtils.validateCoffeesNoIds(coffees);
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
         SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);

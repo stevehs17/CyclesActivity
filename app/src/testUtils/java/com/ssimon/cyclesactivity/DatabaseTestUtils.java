@@ -26,7 +26,7 @@ public class DatabaseTestUtils {
         return db;
     }
 
-    private static DatabaseHelper getDatabaseHelper(Context ctx) {
+    static private DatabaseHelper getDatabaseHelper(Context ctx) {
         try {
             Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
             Method m = cl.getDeclaredMethod("getInstance", Context.class);
