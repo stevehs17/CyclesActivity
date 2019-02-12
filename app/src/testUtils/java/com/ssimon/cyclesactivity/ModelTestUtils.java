@@ -144,7 +144,6 @@ public class ModelTestUtils {
             Coffee cof2 = cs2.get(i);
             assertEquals(cof1.id(), cof2.id());
             assertEquals(cof1.name(), cof2.name());
-            //assertEquals(cof1.defaultVolumeId(), cof2.defaultVolumeId());
             List<Volume> vols1 = cof1.volumes();
             List<Volume> vols2 = cof2.volumes();
             assertEquals(vols1.size(), vols2.size());
@@ -173,42 +172,13 @@ public class ModelTestUtils {
             assertEquals(cof1.id(), cof2.id());
             assertEquals(cof1.name(), cof2.name());
             assertEquals(cof1.defaultVolumeId(), cof2.defaultVolumeId());
+
+            List<Volume> vs1 = cof1.volumes();
+            List<Volume> vs2 = cof2.volumes();
+            assertEquals(vs1.size(), vs2.size());
+
+
+
         }
     }
-
-       /*
-    static public void validateCoffeesNoIds(List<Coffee> coffees) {
-        for (int i = 0; i < coffees.size(); i++) {
-            Coffee cof = coffees.get(i);
-            List<Volume> vols = cof.volumes();
-            for (int j = 0; j < vols.size(); j++) {
-                Volume vol = vols.get(j);
-                List<Cycle> cycles = vol.cycles();
-                for (int k = 0; k < cycles.size(); k++) {
-                    Cycle cyc = cycles.get(k);
-                    assertEquals(volume(i, j, k), cyc.volumeMl());
-                    assertEquals(brewtime(i, j, k), cyc.brewSeconds());
-                    assertEquals(vactime(i, j, k), cyc.vacuumSeconds());
-                }
-            }
-        }
-    }
-
-    static private int volume(int i, int j, int k) {
-        return parm(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, i, j, k);
-    }
-
-    static private int brewtime(int i, int j, int k) {
-        return parm(Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, i, j, k);
-    }
-
-    static private int vactime(int i, int j, int k) {
-        return parm(Cycle.MIN_VACUUMTIME+1, Cycle.MAX_VACUUMTIME, i, j, k);
-    }
-
-    static private int parm(int min, int max, int i, int j, int k) {
-        int n = min + i*100 + j*10 + k;
-        return n > max ? min : n;
-    }
-    */
 }

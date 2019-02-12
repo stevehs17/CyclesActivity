@@ -23,15 +23,6 @@ public class CoffeeDaoTest {
 
     @Test
     public void insertCoffee_Success() {
-        DatabaseHelperTest dht = new DatabaseHelperTest();
-        dht.reset_tables_and_open_db_Success();
-        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
-        Coffee c = ModelTestUtils.createCoffee();
-        CoffeeDao.insertCoffee(db, c);
-    }
-
-    @Test
-    public void insertCoffee2_Success() {
         SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         Coffee c = ModelTestUtils.createCoffee();
         CoffeeDao.insertCoffee(db, c);
@@ -45,7 +36,7 @@ public class CoffeeDaoTest {
     }
 
     @Test
-    public void getCoffees_singleitemlists_validate_values_Success() {
+    public void getCoffees_singleitemlists_validate_values_Success2() {
         final int volumeMl = (Cycle.MAX_VOLUME + Cycle.MIN_BREWTIME)/2;
         final int brewTime = (Cycle.MIN_BREWTIME + Cycle.MAX_BREWTIME)/2;
         final int vacuumTime = (Cycle.MIN_VACUUMTIME+ Cycle.MAX_VACUUMTIME)/2;
@@ -59,9 +50,7 @@ public class CoffeeDaoTest {
         vols.add(vol);
         Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols, Const.UNSET_DATABASE_ID);
 
-        DatabaseHelperTest dht = new DatabaseHelperTest();
-        dht.reset_tables_and_open_db_Success();
-        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffee(db, cof);
 
         db = DatabaseTestUtils.getReadableleDb(context);
@@ -100,9 +89,7 @@ public class CoffeeDaoTest {
         vols.add(vol);
         Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols, Const.UNSET_DATABASE_ID);
 
-        DatabaseHelperTest dht = new DatabaseHelperTest();
-        dht.reset_tables_and_open_db_Success();
-        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffee(db, cof);
 
         db = DatabaseTestUtils.getReadableleDb(context);
@@ -152,58 +139,13 @@ public class CoffeeDaoTest {
         vs.add(v);
 
         Coffee cof = new Coffee(Const.MIN_DATABASE_ID, "test", vs, Const.MIN_DATABASE_ID);
-        DatabaseHelperTest dht = new DatabaseHelperTest();
-        dht.reset_tables_and_open_db_Success();
-        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffee(db, cof);
         List<Coffee> coffees = CoffeeDao.getCoffees(db);
         List<Volume> vols = coffees.get(0).volumes();
         assertEquals(Cycle.MIN_VOLUME, vols.get(0).totalVolume());
         assertEquals(Cycle.MIN_VOLUME * 2, vols.get(1).totalVolume());
         assertEquals(Cycle.MIN_VOLUME * 3, vols.get(2).totalVolume());
-    }
-
-    @Test
-    public void create_and_validate_many_coffees_Success() {
-        //final int numCoffees = 50;
-        final int numCoffees = 5;
-        //final int numVolumes = 25;
-        final int numVolumes = 2;
-        final int numCycles = 6;
-
-        List<Coffee> coffees = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
-        assertEquals(numCoffees, coffees.size());
-        assertEquals(numVolumes, coffees.get(numCoffees-1).volumes().size() );
-        assertEquals(numCycles, coffees.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
-        ModelTestUtils.validateCoffeesNoIds(coffees);
-    }
-
-    @Test
-    public void save_and_retrieve_many_coffees_Success() {
-        //final int numCoffees = 50;
-        final int numCoffees = 5;
-        //final int numVolumes = 25;
-        final int numVolumes = 2;
-        final int numCycles = 6;
-
-        List<Coffee> coffees = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
-        ModelTestUtils.validateCoffeesNoIds(coffees);
-        DatabaseHelperTest dht = new DatabaseHelperTest();
-        dht.reset_tables_and_open_db_Success();
-        SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
-        CoffeeDao.insertCoffees(db, coffees);
-        db = DatabaseTestUtils.getReadableleDb(context);
-        List<Coffee> coffeesOut = CoffeeDao.getCoffees(db);
-        assertEquals(numCoffees, coffeesOut.size());
-        assertEquals(numVolumes, coffeesOut.get(numCoffees-1).volumes().size() );
-        assertEquals(numCycles, coffeesOut.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
-
-        dht.reset_tables_and_open_db_Success();
-        db = DatabaseTestUtils.getWritableDb(context);
-        CoffeeDao.insertCoffees(db, coffeesOut);
-        db = DatabaseTestUtils.getReadableleDb(context);
-        List<Coffee> coffeesOut2 = CoffeeDao.getCoffees(db);
-        ModelTestUtils.validateCoffeesNoIds(coffeesOut, coffeesOut2);
     }
 
     @Test
@@ -243,18 +185,20 @@ public class CoffeeDaoTest {
         int numCycles = Cycle.MAX_NUM_CYCLES;
 
         List<Coffee> cs = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
+        assertEquals(numCoffees, cs.size());
+        assertEquals(numVolumes, cs.get(numCoffees-1).volumes().size() );
+        assertEquals(numCycles, cs.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
         ModelTestUtils.validateCoffeesNoIds(cs);
     }
 
     @Test
     public void saveAndRetrieveManyCoffees_Success() {
-        /* fails
+        /*
         int numCofs = 10;
         int numVols = 25;
         int numCycs = 6;
         */
-
-        int numCofs = 10;
+        int numCofs = 50;
         int numVols = 25;
         int numCycs = 6;
 
@@ -269,7 +213,6 @@ public class CoffeeDaoTest {
         CoffeeDao.insertCoffees(db, csOut);
         List<Coffee> csOutOut = CoffeeDao.getCoffees(db);
         ModelTestUtils.validateCoffeesNoIds(csOut, csOutOut);
-        //ModelTestUtils.newValidateCoffees(csOut, csOutOut);
 
         db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, csOutOut);
