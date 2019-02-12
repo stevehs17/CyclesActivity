@@ -25,13 +25,15 @@ public class VolumeDaoTest {
     static final private String TAG = "Dao";
     final private Context context = InstrumentationRegistry.getTargetContext();
 
-
     @Test
     public void insertVolumes_Failure() {
         try {
+            /*
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
             SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+            */
+            SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
             List<Volume> vs = ModelTestUtils.createVolumeList();
             VolumeDao.insertVolumes(db, ModelTestUtils.DB_ID, vs);
         } catch (SQLiteConstraintException e) {
@@ -43,9 +45,13 @@ public class VolumeDaoTest {
     @Test
     public void insertVolume_Failure() {
         try {
+            /*
             DatabaseHelperTest dht = new DatabaseHelperTest();
             dht.reset_tables_and_open_db_Success();
             SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+            */
+            SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+
             Volume v = ModelTestUtils.createVolume();
             VolumeDao.insertVolume(db, ModelTestUtils.DB_ID, v);
         } catch (SQLiteConstraintException e) {
@@ -62,14 +68,18 @@ public class VolumeDaoTest {
 
         List<Coffee> coffees = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
         ModelTestUtils.validateCoffeesNoIds(coffees);
+        /*
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
         SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+        */
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, coffees);
         List<Volume> volumes = getAndPrintVolumes(db);
 
         List<Coffee> coffeesOut = CoffeeDao.getCoffees(db);
-        dht.reset_tables_and_open_db_Success();
+        //dht.reset_tables_and_open_db_Success();
+        db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, coffeesOut);
         volumes = getAndPrintVolumes(db);
     }

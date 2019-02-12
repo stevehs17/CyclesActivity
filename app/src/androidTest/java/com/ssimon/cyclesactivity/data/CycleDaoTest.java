@@ -15,7 +15,7 @@ import org.junit.Test;
 import java.util.List;
 
 public class CycleDaoTest {
-    static final private Context context = InstrumentationRegistry.getTargetContext();
+    final private Context context = InstrumentationRegistry.getTargetContext();
 
     @Test
     public void insertCycles_Failure() {
