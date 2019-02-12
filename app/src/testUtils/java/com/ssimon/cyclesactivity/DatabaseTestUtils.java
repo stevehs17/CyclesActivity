@@ -10,50 +10,28 @@ import java.lang.reflect.Method;
 
 public class DatabaseTestUtils {
     static public SQLiteDatabase getWritableDb(Context ctx) {
-        try {
-            Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
-            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class);
-            m.setAccessible(true);
-            DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, ctx);
-            return dh.getWritableDatabase();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+        DatabaseHelper dh = getDatabaseHelper(ctx);
+        return dh.getWritableDatabase();
     }
 
     static public SQLiteDatabase getReadableleDb(Context ctx) {
-        try {
-            Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
-            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class);
-            m.setAccessible(true);
-            DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, ctx);
-            return dh.getReadableDatabase();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+        DatabaseHelper dh = getDatabaseHelper(ctx);
+        return dh.getReadableDatabase();
     }
 
     static public SQLiteDatabase getCleanWritableDb(Context ctx) {
+        DatabaseHelper dh = getDatabaseHelper(ctx);
+        SQLiteDatabase db = dh.getWritableDatabase();
+        dh.onUpgrade(db, 0, 0);
+        return db;
+    }
+
+    private static DatabaseHelper getDatabaseHelper(Context ctx) {
         try {
             Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
-            Method m = cl.getDeclaredMethod("getInstance", android.content.Context.class);
+            Method m = cl.getDeclaredMethod("getInstance", Context.class);
             m.setAccessible(true);
-            DatabaseHelper dh  = (DatabaseHelper) m.invoke(null, ctx);
-            SQLiteDatabase db = dh.getWritableDatabase();
-            dh.onUpgrade(db, 0, 0);
-            return db;
+            return (DatabaseHelper) m.invoke(null, ctx);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -64,7 +42,4 @@ public class DatabaseTestUtils {
             throw new RuntimeException(e);
         }
     }
-
-
-
 }
