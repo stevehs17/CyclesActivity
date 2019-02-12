@@ -177,7 +177,20 @@ public class ModelTestUtils {
             List<Volume> vs2 = cof2.volumes();
             assertEquals(vs1.size(), vs2.size());
 
+            for (int j = 0; j < vs1.size(); j++) {
+                Volume v1 = vs1.get(j);
+                Volume v2 = vs2.get(j);
+                assertEquals(v1.id(), v2.id());
 
+                List<Cycle> cys1 = v1.cycles();
+                List<Cycle> cys2 = v2.cycles();
+                assertEquals(cys1.size(), cys2.size());
+
+
+
+
+
+            }
 
         }
     }
