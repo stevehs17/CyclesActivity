@@ -164,7 +164,7 @@ public class ModelTestUtils {
         }
     }
 
-    static public void newValidateCoffees(List<Coffee> cs1, List<Coffee> cs2) {
+    static public void validateCoffeesWithIds(List<Coffee> cs1, List<Coffee> cs2) {
         assertEquals(cs1.size(), cs2.size());
         for (int i = 0; i < cs1.size(); i++) {
             Coffee cof1 = cs1.get(i);
@@ -186,12 +186,14 @@ public class ModelTestUtils {
                 List<Cycle> cys2 = v2.cycles();
                 assertEquals(cys1.size(), cys2.size());
 
-
-
-
-
+                for (int k = 0; k < cys1.size(); k++) {
+                    Cycle c1 = cys1.get(k);
+                    Cycle c2 = cys2.get(k);
+                    assertEquals(c1.volumeMl(), c2.volumeMl());
+                    assertEquals(c1.brewSeconds(), c2.brewSeconds());
+                    assertEquals(c1.vacuumSeconds(), c2.vacuumSeconds());
+                }
             }
-
         }
     }
 }

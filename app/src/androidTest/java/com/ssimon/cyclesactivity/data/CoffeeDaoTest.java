@@ -193,11 +193,6 @@ public class CoffeeDaoTest {
 
     @Test
     public void saveAndRetrieveManyCoffees_Success() {
-        /*
-        int numCofs = 10;
-        int numVols = 25;
-        int numCycs = 6;
-        */
         int numCofs = 50;
         int numVols = 50;
         int numCycs = 6;
@@ -217,6 +212,6 @@ public class CoffeeDaoTest {
         db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, csOutOut);
         List<Coffee> csOutOutOut = CoffeeDao.getCoffees(db);
-        ModelTestUtils.newValidateCoffees(csOutOutOut, csOutOut);
+        ModelTestUtils.validateCoffeesWithIds(csOutOutOut, csOutOut);
     }
 }
