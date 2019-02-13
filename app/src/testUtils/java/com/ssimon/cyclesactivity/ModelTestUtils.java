@@ -166,6 +166,7 @@ public class ModelTestUtils {
 
     static public void validateCoffeesWithIds(List<Coffee> cs1, List<Coffee> cs2) {
         assertEquals(cs1.size(), cs2.size());
+
         for (int i = 0; i < cs1.size(); i++) {
             Coffee cof1 = cs1.get(i);
             Coffee cof2 = cs2.get(i);

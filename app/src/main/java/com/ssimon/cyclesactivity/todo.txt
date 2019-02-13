@@ -1,5 +1,4 @@
-Improve save/retrieve test to check ids.
-Improve test code organization.
+Change get coffees code so doesn't reset default volume id if not set.
 Implement Coffee cache
 Add methods to access db off main thread.
 Finish onClickSaveCycles.
@@ -10,6 +9,9 @@ Tie together MAX_NUM_CYCLES and cycle table layout
     Create table programmatically?
 Tie together references to columns in XML and in code
     Use resource IDs?
+Special case last vacuum mintime
+Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
+Implement total volume.
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping
         (so views with related functionality are visually grouped together)
@@ -27,6 +29,9 @@ Implement test that uses loops to create large numbers of coffee, with large num
 Remove volumeID field from Cycle
 Fix name()
 Test cascading deletes
+Improve save/retrieve test to check ids.
+Improve test code organization.
+
 
 
 
