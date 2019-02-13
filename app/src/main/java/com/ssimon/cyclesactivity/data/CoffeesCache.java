@@ -14,7 +14,7 @@ public class CoffeesCache {
 
     static public void setCoffees(List<Coffee> cs) {
         Checker.notNullOrEmpty(cs);
-        coffees.set(Collections.unmodifiableList(cs));
+        coffees.set(cs);
         AndroidUtils.postStickyEvent(new CoffeesRefreshEvent());
     }
 

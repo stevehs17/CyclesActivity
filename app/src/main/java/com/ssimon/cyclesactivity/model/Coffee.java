@@ -15,6 +15,7 @@ import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 public class Coffee implements Serializable {
@@ -33,7 +34,7 @@ public class Coffee implements Serializable {
 
         this.id = id;
         this.name = name;
-        this.volumes = volumes;
+        this.volumes = Collections.unmodifiableList(volumes);
         this.defaultVolumeId = defaultVolumeId;
     }
 

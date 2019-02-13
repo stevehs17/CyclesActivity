@@ -15,6 +15,7 @@ import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 public class Volume implements Serializable {
@@ -28,7 +29,7 @@ public class Volume implements Serializable {
         Checker.inRange(cycles.size(), Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
 
         this.id = id;
-        this.cycles = cycles;
+        this.cycles = Collections.unmodifiableList(cycles);
     }
 
     public long id() { return id; }

@@ -10,6 +10,7 @@ import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.ssimon.cyclesactivity.data.Contract.Coffee.Col;
@@ -35,7 +36,7 @@ public class CoffeeDao {
             coffees.add(new Coffee(id, name, volumes, volumeId));
         } while (c.moveToNext());
         c.close();
-        return coffees;
+        return Collections.unmodifiableList(coffees);
     }
 
     static public void insertCoffees(SQLiteDatabase db, List<Coffee> coffees) {
