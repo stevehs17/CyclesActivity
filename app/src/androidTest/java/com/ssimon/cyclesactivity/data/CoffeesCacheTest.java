@@ -36,7 +36,7 @@ public class CoffeesCacheTest {
         ModelTestUtils.validateCoffeesWithIds(cs, csOut);
     }
 
-    private List<Coffee> coffees = null;
+    volatile private List<Coffee> coffees = null;
 
     @Test
     public void receiveCoffeeRefreshEvent_Success() {
@@ -48,7 +48,8 @@ public class CoffeesCacheTest {
         assertEquals(null, coffees);
         CoffeesCache.setCoffees(cs);
         AndroidUtils.registerEventBus(this);
-        SystemClock.sleep(100); // allow time to receive event
+        while (coffees == null)
+            ;
         AndroidUtils.unregisterEventBus(this);
         assertNotEquals(null,coffees);
     }

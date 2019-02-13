@@ -15,6 +15,8 @@ Implement total volume.
 Make lists of volumes and cycles unmodifiable.
 Create separate getTestInstance() for DatabaseHelper, which creates db with different name from
     non-test (so won't overwrite).
+Need to make lists inside Coffee, Volume classes unmodifiable.
+
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping
         (so views with related functionality are visually grouped together)
