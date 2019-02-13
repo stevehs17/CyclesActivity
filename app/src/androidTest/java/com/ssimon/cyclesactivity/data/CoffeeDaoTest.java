@@ -155,9 +155,12 @@ public class CoffeeDaoTest {
         final int numCycles = 6;
 
         List<Coffee> coffees = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
+        /*
         DatabaseHelperTest dht = new DatabaseHelperTest();
         dht.reset_tables_and_open_db_Success();
         SQLiteDatabase db = DatabaseTestUtils.getWritableDb(context);
+        */
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         CoffeeDao.insertCoffees(db, coffees);
 
         List<Volume> vols = VolumeDaoTest.getAndPrintVolumes(db);

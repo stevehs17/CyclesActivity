@@ -37,20 +37,6 @@ public class VolumeDaoTest {
         throw new RuntimeException("test failed");
     }
 
-    /*
-    @Test
-    public void insertVolume_Failure() {
-        try {
-            SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
-            Volume v = ModelTestUtils.createVolume();
-            VolumeDao.insertVolume(db, ModelTestUtils.DB_ID, v);
-        } catch (SQLiteConstraintException e) {
-            return;
-        }
-        throw new RuntimeException("test failed");
-    }
-    */
-
     @Test
     public void insertVolume_Failure() {
         try {
