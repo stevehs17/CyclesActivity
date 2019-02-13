@@ -27,6 +27,13 @@ public class DatabaseTestUtils {
     }
 
     static private DatabaseHelper getDatabaseHelper(Context ctx) {
+        return DatabaseHelper.getInstance(ctx);
+    }
+
+
+
+    /*
+    static private DatabaseHelper getDatabaseHelper(Context ctx) {
         try {
             Class<?> cl = Class.forName("com.ssimon.cyclesactivity.data.DatabaseHelper");
             Method m = cl.getDeclaredMethod("getInstance", Context.class);
@@ -42,4 +49,5 @@ public class DatabaseTestUtils {
             throw new RuntimeException(e);
         }
     }
+    */
 }

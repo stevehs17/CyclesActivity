@@ -18,10 +18,11 @@ import static org.junit.Assert.assertTrue;
 public class DatabaseHelperTest {
     final private Context context = InstrumentationRegistry.getTargetContext();
 
+    /*
     @Test
     public void resetTablesAndOpenDb_Success() {
         SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
-        //assertTrue(db.isOpen());
+        assertTrue(db.isOpen());
     }
 
     @Test
@@ -35,7 +36,32 @@ public class DatabaseHelperTest {
         Volume v = ModelTestUtils.createVolume();
         DatabaseHelper dh = DatabaseHelper.getInstance(context);
         dh.saveVolume(cout.id(), v.cycles());
+    */
 
+    @Test
+    public void resetTablesAndOpenDb_Success() {
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+        assertTrue(db.isOpen());
+    }
+
+    @Test
+    public void saveVolume_Success() {
+        DatabaseHelper dh = DatabaseHelper.getInstance(context);
+        SQLiteDatabase db = dh.getWritableDatabase();
+        dh.onUpgrade(db, 0, 0);
+        Coffee c = ModelTestUtils.createCoffee();
+        CoffeeDao.insertCoffee(db, c);
+        List<Coffee> cs = CoffeeDao.getCoffees(db);
+        Coffee cout = cs.get(0);
+        Volume v = ModelTestUtils.createVolume();
+        dh.saveVolume(cout.id(), v.cycles());
+/*
+        List<Coffee> cs = CoffeeDao.getCoffees(db);
+        Coffee cout = cs.get(0);
+        Volume v = ModelTestUtils.createVolume();
+        DatabaseHelper dh = DatabaseHelper.getInstance(context);
+        dh.saveVolume(cout.id(), v.cycles());
+*/
 
     }
 }

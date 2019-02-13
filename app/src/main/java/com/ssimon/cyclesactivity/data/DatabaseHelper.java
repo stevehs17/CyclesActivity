@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             singleton = new DatabaseHelper(c.getApplicationContext());
         return singleton;
     }
-
+q
     private DatabaseHelper(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
     }
