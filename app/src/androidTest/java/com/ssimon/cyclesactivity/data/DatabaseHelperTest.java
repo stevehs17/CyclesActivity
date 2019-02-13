@@ -18,29 +18,17 @@ import static org.junit.Assert.assertTrue;
 public class DatabaseHelperTest {
     final private Context context = InstrumentationRegistry.getTargetContext();
 
-    /*
     @Test
-    public void resetTablesAndOpenDb_Success() {
-        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+    public void openWritableDb_Success() {
+        DatabaseHelper dh = DatabaseHelper.getInstance(context);
+        SQLiteDatabase db = dh.getWritableDatabase();
         assertTrue(db.isOpen());
     }
 
     @Test
-    public void saveVolume_Success() {
-        Coffee c = ModelTestUtils.createCoffee();
-        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
-        CoffeeDao.insertCoffee(db, c);
-
-        List<Coffee> cs = CoffeeDao.getCoffees(db);
-        Coffee cout = cs.get(0);
-        Volume v = ModelTestUtils.createVolume();
+    public void openReadableDb_Success() {
         DatabaseHelper dh = DatabaseHelper.getInstance(context);
-        dh.saveVolume(cout.id(), v.cycles());
-    */
-
-    @Test
-    public void resetTablesAndOpenDb_Success() {
-        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+        SQLiteDatabase db = dh.getReadableDatabase();
         assertTrue(db.isOpen());
     }
 
@@ -48,20 +36,18 @@ public class DatabaseHelperTest {
     public void saveVolume_Success() {
         DatabaseHelper dh = DatabaseHelper.getInstance(context);
         SQLiteDatabase db = dh.getWritableDatabase();
-        dh.onUpgrade(db, 0, 0);
         Coffee c = ModelTestUtils.createCoffee();
+        List<Coffee> cs;
+        try {
+            cs = CoffeeDao.getCoffees(db);
+            CoffeeDao.deleteCoffees(db, cs);
+        } catch (IllegalStateException ignored) {
+            // no coffees found
+        }
         CoffeeDao.insertCoffee(db, c);
-        List<Coffee> cs = CoffeeDao.getCoffees(db);
+        cs = CoffeeDao.getCoffees(db);
         Coffee cout = cs.get(0);
         Volume v = ModelTestUtils.createVolume();
         dh.saveVolume(cout.id(), v.cycles());
-/*
-        List<Coffee> cs = CoffeeDao.getCoffees(db);
-        Coffee cout = cs.get(0);
-        Volume v = ModelTestUtils.createVolume();
-        DatabaseHelper dh = DatabaseHelper.getInstance(context);
-        dh.saveVolume(cout.id(), v.cycles());
-*/
-
     }
 }
