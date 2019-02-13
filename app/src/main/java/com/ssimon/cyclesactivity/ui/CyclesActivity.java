@@ -59,14 +59,12 @@ public class CyclesActivity extends AppCompatActivity {
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         setDecrementButton();
         setIncrementButton();
-        Coffee cof = (Coffee) getIntent().getSerializableExtra(MainActivity.EXTRA_COFFEE);
-        int volumeIdx = getIntent().getIntExtra(MainActivity.EXTRA_VOLUME_IDX, -1);
+        Coffee cof = (Coffee) getIntent().getSerializableExtra(VolumesActivity.EXTRA_COFFEE);
+        int volumeIdx = getIntent().getIntExtra(VolumesActivity.EXTRA_VOLUME_IDX, -1);
         Checker.inRange(volumeIdx, 0, Cycle.MAX_NUM_CYCLES - 1);
         setParmButtonValues(cof.volumes().get(volumeIdx).cycles());
         setDefaultParmButton();
     }
-
-
 
     /*
     public void onClickSaveCycles(View unused) {
@@ -80,11 +78,14 @@ public class CyclesActivity extends AppCompatActivity {
             DatabaseManager.savevolume(vol, coffee);
         }
     }
-    */
+
 
     public void onClickSaveCycles(View unused) {
         List<Cycle> cycles = parmButtonToCycles();
+        Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
+        DatabaseHelper.savevolume(vol, coffeeId);
     }
+    */
 
     private List<Cycle> parmButtonToCycles() {
         List<Cycle> cycles = new ArrayList<>();
@@ -107,17 +108,6 @@ public class CyclesActivity extends AppCompatActivity {
         }
         return cycles;
     }
-
-
-
-
-
-
-
-
-
-
-
 
     private void setParmButtonValues(List<Cycle> cycles) {
         Checker.notNullOrEmpty(cycles);

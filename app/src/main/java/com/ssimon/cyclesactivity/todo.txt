@@ -1,5 +1,4 @@
-Change get coffees code so doesn't reset default volume id if not set.
-Implement Coffee cache
+Change get coffees code so doesn't reset default volume id if not set. (?)
 Add methods to access db off main thread.
 Finish onClickSaveCycles.
 Test for CyclesActivity:
@@ -12,10 +11,10 @@ Tie together references to columns in XML and in code
 Special case last vacuum mintime
 Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
 Implement total volume.
-Make lists of volumes and cycles unmodifiable.
 Create separate getTestInstance() for DatabaseHelper, which creates db with different name from
     non-test (so won't overwrite).
-Need to make lists inside Coffee, Volume classes unmodifiable.
+Figure out how user should specify default volume.
+    In ManageCoffees or ManageVolumes?
 
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping
@@ -36,6 +35,9 @@ Fix name()
 Test cascading deletes
 Improve save/retrieve test to check ids.
 Improve test code organization.
+Implement Coffee cache
+Make lists of volumes and cycles unmodifiable.
+
 
 
 

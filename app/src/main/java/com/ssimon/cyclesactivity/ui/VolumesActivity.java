@@ -24,7 +24,7 @@ import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
 
-public class MainActivity extends AppCompatActivity {
+public class VolumesActivity extends AppCompatActivity {
     static final String EXTRA_COFFEE = "EXTRA_COFFEE";
     static final String EXTRA_VOLUME_IDX = "EXTRA_VOLUME_IDX";
 
