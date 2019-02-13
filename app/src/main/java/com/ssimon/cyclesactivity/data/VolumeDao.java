@@ -49,6 +49,7 @@ public class VolumeDao {
         }
     }
 
+    /*
     static public void insertVolumes(SQLiteDatabase db, long recipeId, List<Volume> vols) {
         Checker.notNull(db);
         Checker.atLeast(recipeId, Const.MIN_DATABASE_ID);
@@ -73,6 +74,36 @@ public class VolumeDao {
             cv.put(Col.COFFEE_ID, recipeId);
             long volumeId = db.insertOrThrow(TABLE_NAME, null, cv);
             CycleDao.insertCycles(db, volumeId, vol.cycles());
+            db.setTransactionSuccessful();
+        }  finally {
+            db.endTransaction();
+        }
+    }
+    */
+    static public void insertVolumes(SQLiteDatabase db, long recipeId, List<Volume> vols) {
+        Checker.notNull(db);
+        Checker.atLeast(recipeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(vols);
+        db.beginTransaction();
+        try {
+            for (Volume v : vols)
+                insertVolume(db, recipeId, v.cycles());
+            db.setTransactionSuccessful();
+        }  finally {
+            db.endTransaction();
+        }
+    }
+
+    static public void insertVolume(SQLiteDatabase db, long recipeId, List<Cycle> cycles) {
+        Checker.notNull(db);
+        Checker.atLeast(recipeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(cycles);
+        db.beginTransaction();
+        try {
+            ContentValues cv = new ContentValues();
+            cv.put(Col.COFFEE_ID, recipeId);
+            long volumeId = db.insertOrThrow(TABLE_NAME, null, cv);
+            CycleDao.insertCycles(db, volumeId, cycles);
             db.setTransactionSuccessful();
         }  finally {
             db.endTransaction();
