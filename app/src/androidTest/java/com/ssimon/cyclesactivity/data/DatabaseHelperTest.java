@@ -5,8 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.DatabaseTestUtils;
+import com.ssimon.cyclesactivity.ModelTestUtils;
+import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Volume;
 
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,8 +19,23 @@ public class DatabaseHelperTest {
     final private Context context = InstrumentationRegistry.getTargetContext();
 
     @Test
-    public void reset_tables_and_open_db_Success() {
+    public void resetTablesAndOpenDb_Success() {
         SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
         assertTrue(db.isOpen());
+    }
+
+    @Test
+    public void saveVolume_Success() {
+        Coffee c = ModelTestUtils.createCoffee();
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+        CoffeeDao.insertCoffee(db, c);
+
+        List<Coffee> cs = CoffeeDao.getCoffees(db);
+        Coffee cout = cs.get(0);
+        Volume v = ModelTestUtils.createVolume();
+        DatabaseHelper dh = DatabaseHelper.getInstance(context);
+        dh.saveVolume(cout.id(), v.cycles());
+
+
     }
 }

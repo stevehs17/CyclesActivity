@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final private String DATABASE_NAME = "groundcontrol_database.db";
     static private DatabaseHelper singleton = null;
 
-    static synchronized private DatabaseHelper getInstance(Context c) {
+    static synchronized public DatabaseHelper getInstance(Context c) {
         Checker.notNull(c);
         if (singleton == null)
             singleton = new DatabaseHelper(c.getApplicationContext());
