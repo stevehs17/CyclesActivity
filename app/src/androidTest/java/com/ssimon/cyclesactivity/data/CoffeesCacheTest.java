@@ -1,14 +1,28 @@
 package com.ssimon.cyclesactivity.data;
 
+import android.content.Context;
+import android.os.SystemClock;
+import android.support.test.InstrumentationRegistry;
+
 import com.ssimon.cyclesactivity.ModelTestUtils;
+import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
-
-import org.junit.Test;
+import com.ssimon.cyclesactivity.util.AndroidUtils;
 
 import java.util.List;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+
+
 public class CoffeesCacheTest {
+    final private Context context = InstrumentationRegistry.getTargetContext();
 
     @Test
     public void setAndGetCoffeesCache_Success() {
@@ -22,4 +36,32 @@ public class CoffeesCacheTest {
         ModelTestUtils.validateCoffeesWithIds(cs, csOut);
     }
 
+    private List<Coffee> coffees = null;
+
+    @Test
+    public void receiveCoffeeRefreshEvent_Success() {
+        int nCofs = 2;
+        int nVols = 2;
+        int nCycles = Cycle.MAX_NUM_CYCLES;
+
+        List<Coffee> cs = ModelTestUtils.createCoffees(nCofs, nVols, nCycles);
+        assertEquals(null, coffees);
+        CoffeesCache.setCoffees(cs);
+        AndroidUtils.registerEventBus(this);
+        SystemClock.sleep(100); // allow time to receive event
+        AndroidUtils.unregisterEventBus(this);
+        assertNotEquals(null,coffees);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onReceiveEvent(CoffeesRefreshEvent e) {
+        AndroidUtils.removeStickyEvent(e);
+        List<Coffee> cs = CoffeesCache.getCoffees();
+        if (cs == null) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(context);
+            dh.refreshCoffeesCache();
+        } else {
+            coffees = cs;
+        }
+    }
 }
