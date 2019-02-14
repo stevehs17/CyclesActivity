@@ -43,6 +43,8 @@ CyclesActivity layouts
         widths and margins, in place of the current 0dp/weight=1 width specifications
 Add icons to improve appearance of list items
 Clean up test code
+Improve Espresso test that navigates edit hierarchy
+    Set database and Validate specific activities
 
 DONE
 Use Checker in CyclesActivity, etc.

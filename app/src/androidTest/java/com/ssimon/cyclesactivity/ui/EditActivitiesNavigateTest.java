@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CoffeesActivityTest2 {
+public class EditActivitiesNavigateTest {
 
     @Rule
     public ActivityTestRule<CoffeesActivity> mActivityTestRule = new ActivityTestRule<>(CoffeesActivity.class);
