@@ -43,4 +43,8 @@ public class CoffeesActivityTest {
     }
     */
 
+    @Test
+    public void coffeesActivityTest() {
+        return;
+    }
 }

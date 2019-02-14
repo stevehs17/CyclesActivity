@@ -191,7 +191,8 @@ public class CoffeeDaoTest {
 
     @Test
     public void saveAndRetrieveManyCoffees_Success() {
-        int numCofs = 50;
+        //int numCofs = 50;
+        int numCofs = 25; // reduced number to speed up tests
         int numVols = 50;
         int numCycs = 6;
 

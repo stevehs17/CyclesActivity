@@ -71,8 +71,15 @@ public class CoffeeDao {
 
     static void deleteCoffees(SQLiteDatabase db, List<Coffee> cs) {
         Checker.notNull(db);
-        for (Coffee c : cs)
-            deleteCoffee(db, c.id());
+        Checker.notNullOrEmpty(cs);
+        db.beginTransaction();
+        try {
+            for (Coffee c : cs)
+                deleteCoffee(db, c.id());
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
     }
 
     static void deleteCoffee(SQLiteDatabase db, long id) {
