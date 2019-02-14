@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,9 +27,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 public class CoffeesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
     private List<Coffee> coffees = null;
     private CoffeesAdapter adapter = null;
     private long selectedCoffeeId = -1;
+
+    static final private String TAG = "CoffeesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
         selectedCoffeeId = (Long) item.getTag(R.id.coffee_id);
+        Log.v(TAG, "selectedCoffeeId = " + selectedCoffeeId);
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
@@ -105,6 +110,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
 
     public void onClickEditCoffee(View unused) {
         Intent i = new Intent(this, VolumesActivity.class);
+        i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
         startActivity(i);
     }
 }

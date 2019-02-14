@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.R;
 
 import java.util.ArrayList;
@@ -24,15 +25,20 @@ import java.util.List;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
+import com.ssimon.cyclesactivity.util.Checker;
 
 public class VolumesActivity extends AppCompatActivity {
-    static final String EXTRA_COFFEE = "EXTRA_COFFEE";
     static final String EXTRA_VOLUME_IDX = "EXTRA_VOLUME_IDX";
+
+    static final String EXTRA_COFFEE = "EXTRA_COFFEE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.volumes_activity);
+        long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
     }
 
     public void onClickEditVolume(View unused) {
