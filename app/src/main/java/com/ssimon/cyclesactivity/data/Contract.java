@@ -18,7 +18,7 @@ public class Contract {
     static final private String UNIQUE = " UNIQUE ";
 
     static abstract class Coffee implements BaseColumns {
-        static final String TABLE_NAME = "recipe";
+        static final String TABLE_NAME = "coffee";
 
         static abstract class Col {
             static final String ID = BaseColumns._ID;
@@ -41,7 +41,7 @@ public class Contract {
 
         static abstract class Col {
             static final String ID = BaseColumns._ID;
-            static final String COFFEE_ID = "recipe_id";
+            static final String COFFEE_ID = "coffee_id";
         }
 
         static final String CREATE_TABLE =

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_items">
+        <item>Mexican</item>
+        <item>Decaf</item>
+        <item>House</item>
+        <item>Mexican</item>
+        <item>Decaf</item>
+        <item>House</item>
+        <item>Mexican</item>
+        <item>Decaf</item>
+        <item>House</item>
+        <item>Mexican</item>
+        <item>Decaf</item>
+        <item>House</item>
+    </string-array>
+</resources>

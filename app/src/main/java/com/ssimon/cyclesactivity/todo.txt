@@ -15,6 +15,9 @@ Create separate getTestInstance() for DatabaseHelper, which creates db with diff
     non-test (so won't overwrite).
 Figure out how user should specify default volume.
     In ManageCoffees or ManageVolumes?
+Add findViewByIdOrThrow().
+Add Checker methods where can add a name (for cases where there are multiple parameters
+    that use the same Checker method).
 
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping
