@@ -14,6 +14,7 @@ package com.ssimon.cyclesactivity.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ssimon.cyclesactivity.R;
 
@@ -31,7 +32,10 @@ public class VolumesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.volumes_activity);
+    }
+
+    public void onClickEditVolume(View unused) {
         Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_BREWTIME + 30, Cycle.MIN_VACUUMTIME + 40);
         ArrayList<Cycle> cycles = new ArrayList<>();
         cycles.add(c);

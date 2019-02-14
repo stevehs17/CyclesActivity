@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="list_items">
-        <item>Mexican</item>
-        <item>Decaf</item>
-        <item>House</item>
-        <item>Mexican</item>
-        <item>Decaf</item>
-        <item>House</item>
-        <item>Mexican</item>
-        <item>Decaf</item>
-        <item>House</item>
-        <item>Mexican</item>
-        <item>Decaf</item>
-        <item>House</item>
-    </string-array>
+        <item>100 mL</item>
+        <item>157 mL</item>
+        <item>200 mL</item>
+        <item>1000 mL</item>
+        <item>1500 mL</item>
+        <item>2000 mL</item>
+    ®</string-array>
 </resources>

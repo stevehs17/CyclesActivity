@@ -1,3 +1,6 @@
+"Manage Coffees" -> "Coffees", etc.
+"Edit Coffee" -> "Edit", etc.
+Make lists single choice mode.
 When create database, provide some default recipes.
     To add, can call methods in CoffeeDao.
 General strategy for managing Coffee data:

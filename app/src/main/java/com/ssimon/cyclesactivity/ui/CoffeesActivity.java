@@ -1,6 +1,7 @@
 package com.ssimon.cyclesactivity.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.AndroidUtils;
-import com.ssimon.cyclesactivity.util.Checker;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -91,5 +91,10 @@ public class CoffeesActivity extends AppCompatActivity {
                 name = v.findViewById(android.R.id.text1);
             }
         }
+    }
+
+    public void onClickEditCoffee(View unused) {
+        Intent i = new Intent(this, VolumesActivity.class);
+        startActivity(i);
     }
 }

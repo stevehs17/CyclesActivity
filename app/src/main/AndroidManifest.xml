@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.CoffeesActivity"
-            android:label="Manage Coffees"
+            android:label="Coffees"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,12 +19,12 @@
         </activity>
         <activity
             android:name=".ui.VolumesActivity"
-            android:label="Manage Volumes"
+            android:label="Volumes"
             android:parentActivityName=".ui.CoffeesActivity"
             />
         <activity
             android:name=".ui.CyclesActivity"
-            android:label="Manage Cycles"
+            android:label="Cycles"
             android:parentActivityName=".ui.VolumesActivity"
             />
     </application>

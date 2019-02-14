@@ -15,7 +15,7 @@
     <!--
     <TextView
         style="@style/HeadingText"
-        android:text="Coffees"
+        android:text="Volumes"
         />
     <ListView
         android:id="@+id/list_coffees"
@@ -26,14 +26,15 @@
         />
     -->
     <ListView
-        android:id="@+id/list_coffees"
+        android:id="@+id/list_volumes"
         android:layout_width="350dp"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:entries="@array/list_items"
         />
     <Button
         style="@style/Button"
         android:text="Edit"
-        android:onClick="onClickEditCoffee"
+        android:onClick="onClickEditVolume"
         />
 </LinearLayout>
