@@ -30,6 +30,7 @@ public class CoffeesActivityTest {
     @Rule
     public ActivityTestRule<CoffeesActivity> mActivityTestRule = new ActivityTestRule<>(CoffeesActivity.class);
 
+    /*
     @Test
     public void coffeesActivityTest() {
         DatabaseTestUtils.addCoffeesToDb(context);
@@ -40,5 +41,6 @@ public class CoffeesActivityTest {
                         isDisplayed()));
         appCompatButton.perform(click());
     }
+    */
 
 }

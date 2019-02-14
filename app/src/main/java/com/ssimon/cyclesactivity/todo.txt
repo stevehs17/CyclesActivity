@@ -1,3 +1,7 @@
+Provide default recipe.
+Fix espresso test.
+Implement selection of coffee, volume, working.
+
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
 Make lists single choice mode.
@@ -36,7 +40,7 @@ CyclesActivity layouts
     Can +, - buttons and seekbar all be the same color (since functionality is related)?
     Revert widths for cycle parameter column sizes to explicit
         widths and margins, in place of the current 0dp/weight=1 width specifications
-
+Add icons to improve appearance of list items
 
 DONE
 Use Checker in CyclesActivity, etc.
