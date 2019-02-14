@@ -37,9 +37,9 @@ public class CoffeeDaoTest {
 
     @Test
     public void getCoffees_singleitemlists_validate_values_Success2() {
-        final int volumeMl = (Cycle.MAX_VOLUME + Cycle.MIN_BREWTIME)/2;
-        final int brewTime = (Cycle.MIN_BREWTIME + Cycle.MAX_BREWTIME)/2;
-        final int vacuumTime = (Cycle.MIN_VACUUMTIME+ Cycle.MAX_VACUUMTIME)/2;
+        final int volumeMl = (Cycle.MAX_VOLUME + Cycle.MIN_BREWTIME) / 2;
+        final int brewTime = (Cycle.MIN_BREWTIME + Cycle.MAX_BREWTIME) / 2;
+        final int vacuumTime = (Cycle.MIN_VACUUMTIME + Cycle.MAX_VACUUMTIME) / 2;
         final String name = "aname";
 
         Cycle cyc = new Cycle(volumeMl, brewTime, vacuumTime);
@@ -72,15 +72,15 @@ public class CoffeeDaoTest {
 
     @Test
     public void getCoffees_multipleitemlists_validate_values_Success() {
-        final int volumeMl = (Cycle.MAX_VOLUME + Cycle.MIN_BREWTIME)/2;
-        final int brewTime = (Cycle.MIN_BREWTIME + Cycle.MAX_BREWTIME)/2;
-        final int vacuumTime = (Cycle.MIN_VACUUMTIME+ Cycle.MAX_VACUUMTIME)/2;
+        final int volumeMl = (Cycle.MAX_VOLUME + Cycle.MIN_BREWTIME) / 2;
+        final int brewTime = (Cycle.MIN_BREWTIME + Cycle.MAX_BREWTIME) / 2;
+        final int vacuumTime = (Cycle.MIN_VACUUMTIME + Cycle.MAX_VACUUMTIME) / 2;
         final String name = "aname";
 
         Cycle cyc = new Cycle(volumeMl, brewTime, vacuumTime);
         List<Cycle> cycles = new ArrayList<>();
         cycles.add(cyc);
-        Cycle cyc2 = new Cycle(volumeMl+1, brewTime+2, vacuumTime+3);
+        Cycle cyc2 = new Cycle(volumeMl + 1, brewTime + 2, vacuumTime + 3);
         cycles.add(cyc2);
 
         Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
@@ -184,8 +184,8 @@ public class CoffeeDaoTest {
 
         List<Coffee> cs = ModelTestUtils.createCoffees(numCoffees, numVolumes, numCycles);
         assertEquals(numCoffees, cs.size());
-        assertEquals(numVolumes, cs.get(numCoffees-1).volumes().size() );
-        assertEquals(numCycles, cs.get(numCoffees-1).volumes().get(numVolumes-1).cycles().size() );
+        assertEquals(numVolumes, cs.get(numCoffees - 1).volumes().size());
+        assertEquals(numCycles, cs.get(numCoffees - 1).volumes().get(numVolumes - 1).cycles().size());
         ModelTestUtils.validateCoffeesNoIds(cs);
     }
 
@@ -211,5 +211,18 @@ public class CoffeeDaoTest {
         CoffeeDao.insertCoffees(db, csOutOut);
         List<Coffee> csOutOutOut = CoffeeDao.getCoffees(db);
         ModelTestUtils.validateCoffeesWithIds(csOutOutOut, csOutOut);
+    }
+
+    @Test
+    public void createAndSaveSomeCoffees_Success() {
+        int numCofs = 5;
+        int numVols = 2;
+        int numCycs = 6;
+
+        List<Coffee> cs = ModelTestUtils.createCoffees(numCofs, numVols, numCycs);
+        ModelTestUtils.validateCoffeesNoIds(cs);
+
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(context);
+        CoffeeDao.insertCoffees(db, cs);
     }
 }
