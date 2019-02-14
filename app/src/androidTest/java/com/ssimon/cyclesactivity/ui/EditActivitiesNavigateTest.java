@@ -29,21 +29,33 @@ public class EditActivitiesNavigateTest {
     public ActivityTestRule<CoffeesActivity> mActivityTestRule = new ActivityTestRule<>(CoffeesActivity.class);
 
     @Test
-    public void coffeesActivityTest2() {
+    public void navigateEditActivities2_Success() {
+        descendToVolumes();
+        descendToCycles();
+        ascendToVolumes();
+        ascendToCoffees();
+    }
+
+    private void descendToVolumes() {
         ViewInteraction appCompatButton = onView(
                 allOf(withText("Edit"),
                         withParent(allOf(withId(R.id.activity_managecoffees),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         appCompatButton.perform(click());
+    }
 
+
+    private void descendToCycles() {
         ViewInteraction appCompatButton2 = onView(
                 allOf(withText("Edit"),
                         withParent(allOf(withId(R.id.activity_managecoffees),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
         appCompatButton2.perform(click());
+    }
 
+    private void ascendToVolumes() {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
                         withParent(allOf(withId(R.id.action_bar),
@@ -51,13 +63,19 @@ public class EditActivitiesNavigateTest {
                         isDisplayed()));
         appCompatImageButton.perform(click());
 
-        ViewInteraction appCompatImageButton2 = onView(
+    }
+
+    private void ascendToCoffees() {
+        ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
                         withParent(allOf(withId(R.id.action_bar),
                                 withParent(withId(R.id.action_bar_container)))),
                         isDisplayed()));
-        appCompatImageButton2.perform(click());
+        appCompatImageButton.perform(click());
 
     }
+
+
+
 
 }
