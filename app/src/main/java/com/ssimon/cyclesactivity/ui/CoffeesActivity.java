@@ -1,5 +1,6 @@
 package com.ssimon.cyclesactivity.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,14 +25,17 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-public class CoffeesActivity extends AppCompatActivity {
-    List<Coffee> coffees = null;
-    CoffeesAdapter adapter = null;
+public class CoffeesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    private List<Coffee> coffees = null;
+    private CoffeesAdapter adapter = null;
+    private long selectedCoffeeId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffees_activity);
+        ListView lv = (ListView) findViewById(R.id.list_coffees);
+        lv.setOnItemClickListener(this);
     }
 
     @Override
@@ -44,6 +49,11 @@ public class CoffeesActivity extends AppCompatActivity {
     protected void onStop() {
         AndroidUtils.unregisterEventBus(this);
         super.onStop();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
+        selectedCoffeeId = (Long) item.getTag(R.id.coffee_id);
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
