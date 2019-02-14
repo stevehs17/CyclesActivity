@@ -42,6 +42,7 @@ CyclesActivity layouts
     Revert widths for cycle parameter column sizes to explicit
         widths and margins, in place of the current 0dp/weight=1 width specifications
 Add icons to improve appearance of list items
+Clean up test code
 
 DONE
 Use Checker in CyclesActivity, etc.

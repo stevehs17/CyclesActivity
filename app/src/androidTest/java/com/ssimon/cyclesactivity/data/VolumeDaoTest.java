@@ -49,6 +49,7 @@ public class VolumeDaoTest {
         throw new RuntimeException("test failed");
     }
 
+    /*
     @Test
     public void printManyVolumes_Success() {
         final int numCoffees = 50;
@@ -66,6 +67,7 @@ public class VolumeDaoTest {
         CoffeeDao.insertCoffees(db, coffeesOut);
         volumes = getAndPrintVolumes(db);
     }
+    */
 
     static List<Volume> getAndPrintVolumes(SQLiteDatabase db) {
         Checker.notNull(db);
