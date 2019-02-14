@@ -36,16 +36,9 @@ public class DatabaseHelperTest {
     public void saveVolume_Success() {
         DatabaseHelper dh = DatabaseHelper.getInstance(context);
         SQLiteDatabase db = dh.getWritableDatabase();
-        Coffee c = ModelTestUtils.createCoffee();
-        List<Coffee> cs;
-        try {
-            cs = CoffeeDao.getCoffees(db);
-            CoffeeDao.deleteCoffees(db, cs);
-        } catch (IllegalStateException ignored) {
-            // no coffees found
-        }
-        CoffeeDao.insertCoffee(db, c);
-        cs = CoffeeDao.getCoffees(db);
+        CoffeeDao.deleteCoffees(db);
+        CoffeeDao.insertCoffee(db, ModelTestUtils.createCoffee());
+        List<Coffee> cs = CoffeeDao.getCoffees(db);
         Coffee cout = cs.get(0);
         Volume v = ModelTestUtils.createVolume();
         dh.saveVolume(cout.id(), v.cycles());

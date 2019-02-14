@@ -36,6 +36,15 @@ class DatabaseUtils {
         vs.add(v);
         Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, "Default", vs, Const.UNSET_DATABASE_ID);
         List<Coffee> cofs = new ArrayList<>();
+        cofs.add(cof);
+        cof = new Coffee(Const.UNSET_DATABASE_ID, "Default1", vs, Const.UNSET_DATABASE_ID);
+        cofs.add(cof);
+        cof = new Coffee(Const.UNSET_DATABASE_ID, "Default2", vs, Const.UNSET_DATABASE_ID);
+        cofs.add(cof);
+        cof = new Coffee(Const.UNSET_DATABASE_ID, "Default3", vs, Const.UNSET_DATABASE_ID);
+        cofs.add(cof);
+        cof = new Coffee(Const.UNSET_DATABASE_ID, "Default4", vs, Const.UNSET_DATABASE_ID);
+        cofs.add(cof);
         return cofs;
     }
 }

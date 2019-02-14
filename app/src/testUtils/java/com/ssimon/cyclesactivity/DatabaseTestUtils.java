@@ -23,7 +23,7 @@ public class DatabaseTestUtils {
     static public SQLiteDatabase getCleanWritableDb(Context ctx) {
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
-        dh.onUpgrade(db, 0, 0);
+        CoffeeDao.deleteCoffees(db);
         return db;
     }
 

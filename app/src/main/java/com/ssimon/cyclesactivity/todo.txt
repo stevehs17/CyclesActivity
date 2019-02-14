@@ -32,7 +32,8 @@ Figure out how user should specify default volume.
 Add findViewByIdOrThrow().
 Add Checker methods where can add a name (for cases where there are multiple parameters
     that use the same Checker method).
-
+Fix access of methods used by test code
+    Some are public just for test code; see if that can be fixed.
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping
         (so views with related functionality are visually grouped together)
