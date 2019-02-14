@@ -81,7 +81,7 @@ public class CoffeesActivity extends AppCompatActivity {
             }
             Coffee c = getItem(position);
             h.name.setText(c.name());
-            v.setTag(R.id.coffee, c);
+            v.setTag(R.id.coffee_id, c.id());
             return v;
         }
 
