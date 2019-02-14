@@ -1,3 +1,10 @@
+When create database, provide some default recipes.
+    To add, can call methods in CoffeeDao.
+General strategy for managing Coffee data:
+    All three manage activities get coffee list from cache in onStart().
+        In onStart(), they register event bus and then post refresh event.
+Make refresh coffee event non-sticky if, in fact, it's not needed since refresh coffee event is always sent in onPause().
+Improve rigor of deleteCoffees() -- use transactions, validate parameters.
 Change get coffees code so doesn't reset default volume id if not set. (?)
 Add methods to access db off main thread.
 Finish onClickSaveCycles.
@@ -18,7 +25,6 @@ Figure out how user should specify default volume.
 Add findViewByIdOrThrow().
 Add Checker methods where can add a name (for cases where there are multiple parameters
     that use the same Checker method).
-Make refresh coffee event non-sticky if, in fact, it's not needed since refresh coffee event is always sent in onPause().
 
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping
