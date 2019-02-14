@@ -215,9 +215,9 @@ public class CoffeeDaoTest {
 
     @Test
     public void createAndSaveSomeCoffees_Success() {
-        int numCofs = 5;
-        int numVols = 2;
-        int numCycs = 6;
+        int numCofs = 50;
+        int numVols = 1;
+        int numCycs = 1;
 
         List<Coffee> cs = ModelTestUtils.createCoffees(numCofs, numVols, numCycs);
         ModelTestUtils.validateCoffeesNoIds(cs);

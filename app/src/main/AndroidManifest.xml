@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ssimon.cyclesactivity">
+    package="com.ssimon.cyclesactivity"
+    >
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Manage Cycles"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CoffeesActivity">
+        <activity
+            android:name=".ui.CoffeesActivity"
+            android:label="Manage Coffees"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.VolumesActivity"/>
-        <activity android:name=".ui.CyclesActivity"/>
+        <activity
+            android:name=".ui.VolumesActivity"
+            android:label="Manage Volumes"
+            android:parentActivityName=".ui.CoffeesActivity"
+            />
+        <activity
+            android:name=".ui.CyclesActivity"
+            android:label="Manage Cycles"
+            android:parentActivityName=".ui.VolumesActivity"
+            />
     </application>
 </manifest>

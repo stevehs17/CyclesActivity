@@ -18,6 +18,7 @@ Figure out how user should specify default volume.
 Add findViewByIdOrThrow().
 Add Checker methods where can add a name (for cases where there are multiple parameters
     that use the same Checker method).
+Make refresh coffee event non-sticky if, in fact, it's not needed since refresh coffee event is always sent in onPause().
 
 CyclesActivity layouts
     Reduce sizes to improve spacing and grouping

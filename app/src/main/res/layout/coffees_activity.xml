@@ -13,15 +13,23 @@
     android:orientation="vertical"
     >
     <TextView
-        style="@style/LabelText"
+        style="@style/HeadingText"
         android:text="Coffees"
         />
+    <!--
     <ListView
         android:id="@+id/list_coffees"
         android:layout_width="350dp"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:entries="@array/list_items"
+        />
+    -->
+    <ListView
+        android:id="@+id/list_coffees"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         />
     <Button
         style="@style/Button"
