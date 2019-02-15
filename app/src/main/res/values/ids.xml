@@ -2,4 +2,5 @@
 <resources>
     <item type="id" name="holder"/>
     <item type="id" name="coffee_id"/>
+    <item type="id" name="volume_id"/>
 </resources>

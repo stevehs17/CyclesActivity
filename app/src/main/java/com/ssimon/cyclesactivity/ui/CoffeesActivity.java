@@ -96,6 +96,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
                     lv.getAdapter().getItemId(0));
         } else {
             adapter.notifyDataSetChanged();
+            //todo: will probably need to click 0th item, as above
         }
     }
 

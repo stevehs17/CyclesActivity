@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(Contract.Coffee.CREATE_TABLE);
         db.execSQL(Contract.Volume.CREATE_TABLE);
         db.execSQL(Contract.Cycle.CREATE_TABLE);
-        List<Coffee> defaults = DatabaseUtils.createDefaultCoffees();
+        List<Coffee> defaults = DatabaseUtils.createDefaultCoffees2();
         CoffeeDao.insertCoffees(db, defaults);
     }
 
