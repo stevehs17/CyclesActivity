@@ -16,8 +16,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,12 +42,16 @@ import com.ssimon.cyclesactivity.util.Checker;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class VolumesActivity extends AppCompatActivity {
+public class VolumesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     static final String EXTRA_VOLUME_IDX = "EXTRA_VOLUME_IDX";
     static final String EXTRA_COFFEE = "EXTRA_COFFEE";
 
+    static final String EXTRA_VOLUMEID = "EXTRA_VOLUMEID";
+
     private List<Volume> volumes = null;
     private VolumesAdapter adapter = null;
+
+    private long selectedVolumeId = -1;
 
 
     @Override
@@ -54,6 +60,9 @@ public class VolumesActivity extends AppCompatActivity {
         setContentView(R.layout.volumes_activity);
         long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        ListView lv = (ListView) findViewById(R.id.list_volumes);
+        lv.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -69,6 +78,12 @@ public class VolumesActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
+        selectedVolumeId = (Long) item.getTag(R.id.volume_id);
+        Log.v(CoffeesActivity.TAG, "selectedVolumeId = " + selectedVolumeId);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeesRefreshEvent e) {
         List<Coffee> coffees = CoffeesCache.getCoffees();
@@ -78,7 +93,7 @@ public class VolumesActivity extends AppCompatActivity {
         } else if (adapter == null) {
             long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            volumes = getVolumesByCoffeeId(coffeeId, coffees);
+            volumes = AndroidUtils.getVolumesByCoffeeId(coffeeId, coffees);
             adapter = new VolumesAdapter(this, volumes);
             ListView lv = (ListView) findViewById(R.id.list_volumes);
             lv.setAdapter(adapter);
@@ -92,13 +107,15 @@ public class VolumesActivity extends AppCompatActivity {
         }
     }
 
-    private List<Volume> getVolumesByCoffeeId(long coffeeId, List<Coffee> coffees) {
+    /*
+    List<Volume> getVolumesByCoffeeId(long coffeeId, List<Coffee> coffees) {
         for (Coffee c : coffees) {
             if (c.id() == coffeeId)
                 return c.volumes();
         }
         throw new IllegalStateException("No coffee found with id = " + coffeeId);
     }
+    */
 
     private class VolumesAdapter extends ArrayAdapter<Volume> {
         public VolumesAdapter(Context ctx, List<Volume> coffees) {
@@ -132,6 +149,7 @@ public class VolumesActivity extends AppCompatActivity {
     }
 
 
+    /*
     public void onClickEditVolume(View unused) {
         Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_BREWTIME + 30, Cycle.MIN_VACUUMTIME + 40);
         ArrayList<Cycle> cycles = new ArrayList<>();
@@ -150,6 +168,34 @@ public class VolumesActivity extends AppCompatActivity {
         Intent i = new Intent(this, CyclesActivity.class);
         i.putExtra(EXTRA_COFFEE, cof);
         i.putExtra(EXTRA_VOLUME_IDX, 1);
+        startActivity(i);
+    }
+    */
+
+    public void onClickEditVolume(View unused) {
+        Intent i = new Intent(this, CyclesActivity.class);
+        long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        i.putExtra(CoffeesActivity.EXTRA_COFFEEID, coffeeId);
+        i.putExtra(EXTRA_VOLUMEID, selectedVolumeId);
+
+
+        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_BREWTIME + 30, Cycle.MIN_VACUUMTIME + 40);
+        ArrayList<Cycle> cycles = new ArrayList<>();
+        cycles.add(c);
+        cycles.add(c);
+        cycles.add(c);
+        cycles.add(c);
+        cycles.add(c);
+        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
+        cycles.add(c);
+        Volume v = new Volume(1, cycles);
+        List<Volume> volumes = new ArrayList<>();
+        volumes.add(v);
+        volumes.add(v);
+        Coffee cof = new Coffee(5, "coffee", volumes, 1);
+        i.putExtra(EXTRA_COFFEE, cof);
+        i.putExtra(EXTRA_VOLUME_IDX, 1);
+
         startActivity(i);
     }
 }

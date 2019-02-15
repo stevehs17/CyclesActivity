@@ -1,6 +1,5 @@
 package com.ssimon.cyclesactivity.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -32,7 +31,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     private CoffeesAdapter adapter = null;
     private long selectedCoffeeId = -1;
 
-    static final private String TAG = "CoffeesActivity";
+    static final String TAG = "CoffeesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -45,6 +45,9 @@ Add icons to improve appearance of list items
 Clean up test code
 Improve Espresso test that navigates edit hierarchy
     Set database and Validate specific activities
+Add methods: getIntentExtraOrThrow*
+Make sure event callbacks in one activity aren't getting called in virtue of message being
+    sent from another.
 
 DONE
 Use Checker in CyclesActivity, etc.

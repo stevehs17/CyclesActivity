@@ -18,20 +18,29 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.ssimon.cyclesactivity.data.CoffeesCache;
+import com.ssimon.cyclesactivity.data.DatabaseHelper;
+import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.util.AndroidUtils;
 import com.ssimon.cyclesactivity.util.Checker;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class CyclesActivity extends AppCompatActivity {
     static final private int FIRST_PARM_ROW_INDEX = 1;
@@ -59,33 +68,37 @@ public class CyclesActivity extends AppCompatActivity {
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         setDecrementButton();
         setIncrementButton();
-        Coffee cof = (Coffee) getIntent().getSerializableExtra(VolumesActivity.EXTRA_COFFEE);
-        int volumeIdx = getIntent().getIntExtra(VolumesActivity.EXTRA_VOLUME_IDX, -1);
-        Checker.inRange(volumeIdx, 0, Cycle.MAX_NUM_CYCLES - 1);
-        setParmButtonValues(cof.volumes().get(volumeIdx).cycles());
-        setDefaultParmButton();
     }
 
-    /*
-    public void onClickSaveCycles(View unused) {
-        List<Cycle> cycles = parmButtonToCycles();
-        validateCycles(cycles);
-        Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
-        if (volumeExists(vol, coffee.volumes())) {
-            OverwriteVolumeDialog ovd = OverwriteVolumeDialog.newInstance(vol, coffee);
-            ovd.show();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AndroidUtils.registerEventBus(this);
+        AndroidUtils.postEvent(new CoffeesRefreshEvent());
+    }
+
+    @Override
+    protected void onStop() {
+        AndroidUtils.unregisterEventBus(this);
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setCycleTable(CoffeesRefreshEvent e) {
+        List<Coffee> coffees = CoffeesCache.getCoffees();
+        if (coffees == null) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            dh.refreshCoffeesCache();
         } else {
-            DatabaseManager.savevolume(vol, coffee);
+            long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+            long volumeId = getIntent().getLongExtra(VolumesActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
+            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+            List<Cycle> cycles = AndroidUtils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
+            setParmButtonValues(cycles);
+            setDefaultParmButton();
         }
     }
-
-
-    public void onClickSaveCycles(View unused) {
-        List<Cycle> cycles = parmButtonToCycles();
-        Volume vol = new Volume(Const.UNSET_DATABASE_ID, cycles);
-        DatabaseHelper.savevolume(vol, coffeeId);
-    }
-    */
 
     private List<Cycle> parmButtonToCycles() {
         List<Cycle> cycles = new ArrayList<>();
