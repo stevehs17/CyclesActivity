@@ -1,7 +1,5 @@
 package com.ssimon.cyclesactivity.util;
 
-import android.content.Context;
-
 import com.ssimon.cyclesactivity.message.MessageEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -11,7 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-public class AndroidUtils {
+public class Utils {
     static public void postEvent(MessageEvent e) {
         Checker.notNull(e);
         EventBus.getDefault().post(e);
@@ -46,7 +44,7 @@ public class AndroidUtils {
     }
 
     static public List<Cycle> getCyclesByCoffeeAndVolumeIds(long coffeeId, long volumeId, List<Coffee> coffees) {
-        List<Volume> vols = AndroidUtils.getVolumesByCoffeeId(coffeeId, coffees);
+        List<Volume> vols = Utils.getVolumesByCoffeeId(coffeeId, coffees);
         for (Volume v : vols)
             if (v.id() == volumeId)
                 return v.cycles();

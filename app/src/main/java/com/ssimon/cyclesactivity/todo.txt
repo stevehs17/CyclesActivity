@@ -1,3 +1,4 @@
+Add LeakCanary.
 Provide default recipe.
 Fix espresso test.
 Implement selection of coffee, volume, working.

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -36,7 +35,7 @@ import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
-import com.ssimon.cyclesactivity.util.AndroidUtils;
+import com.ssimon.cyclesactivity.util.Utils;
 import com.ssimon.cyclesactivity.util.Checker;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -73,13 +72,13 @@ public class CyclesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        AndroidUtils.registerEventBus(this);
-        AndroidUtils.postEvent(new CoffeesRefreshEvent());
+        Utils.registerEventBus(this);
+        Utils.postEvent(new CoffeesRefreshEvent());
     }
 
     @Override
     protected void onStop() {
-        AndroidUtils.unregisterEventBus(this);
+        Utils.unregisterEventBus(this);
         super.onStop();
     }
 
@@ -94,7 +93,7 @@ public class CyclesActivity extends AppCompatActivity {
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
             long volumeId = getIntent().getLongExtra(VolumesActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            List<Cycle> cycles = AndroidUtils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
+            List<Cycle> cycles = Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
             setParmButtonValues(cycles);
             setDefaultParmButton();
         }

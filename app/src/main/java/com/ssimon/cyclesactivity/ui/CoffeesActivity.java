@@ -18,7 +18,7 @@ import com.ssimon.cyclesactivity.data.CoffeesCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
-import com.ssimon.cyclesactivity.util.AndroidUtils;
+import com.ssimon.cyclesactivity.util.Utils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,14 +44,14 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onStart() {
         super.onStart();
-        AndroidUtils.registerEventBus(this);
-        //AndroidUtils.postStickyEvent(new CoffeesRefreshEvent());
-        AndroidUtils.postEvent(new CoffeesRefreshEvent());
+        Utils.registerEventBus(this);
+        //Utils.postStickyEvent(new CoffeesRefreshEvent());
+        Utils.postEvent(new CoffeesRefreshEvent());
     }
 
     @Override
     protected void onStop() {
-        AndroidUtils.unregisterEventBus(this);
+        Utils.unregisterEventBus(this);
         super.onStop();
     }
 
@@ -64,7 +64,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     /*
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeesRefreshEvent e) {
-        AndroidUtils.removeStickyEvent(e);
+        Utils.removeStickyEvent(e);
         coffees = CoffeesCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);

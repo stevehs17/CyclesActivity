@@ -36,7 +36,7 @@ import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
-import com.ssimon.cyclesactivity.util.AndroidUtils;
+import com.ssimon.cyclesactivity.util.Utils;
 import com.ssimon.cyclesactivity.util.Checker;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -68,13 +68,13 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onStart() {
         super.onStart();
-        AndroidUtils.registerEventBus(this);
-        AndroidUtils.postEvent(new CoffeesRefreshEvent());
+        Utils.registerEventBus(this);
+        Utils.postEvent(new CoffeesRefreshEvent());
     }
 
     @Override
     protected void onStop() {
-        AndroidUtils.unregisterEventBus(this);
+        Utils.unregisterEventBus(this);
         super.onStop();
     }
 
@@ -93,7 +93,7 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
         } else if (adapter == null) {
             long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            volumes = AndroidUtils.getVolumesByCoffeeId(coffeeId, coffees);
+            volumes = Utils.getVolumesByCoffeeId(coffeeId, coffees);
             adapter = new VolumesAdapter(this, volumes);
             ListView lv = (ListView) findViewById(R.id.list_volumes);
             lv.setAdapter(adapter);

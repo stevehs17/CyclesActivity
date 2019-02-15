@@ -47,7 +47,7 @@ public class CoffeeDao {
             for (Coffee c : coffees)
                 insertCoffee(db, c);
             db.setTransactionSuccessful();
-        }  finally {
+        } finally {
             db.endTransaction();
         }
     }
