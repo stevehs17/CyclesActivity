@@ -14,7 +14,6 @@ public class CoffeesCache {
     static void setCoffees(List<Coffee> cs) {
         Checker.notNullOrEmpty(cs);
         coffees.set(cs);
-        //Utils.postStickyEvent(new CoffeesRefreshEvent());
         Utils.postEvent(new CoffeesRefreshEvent());
     }
 

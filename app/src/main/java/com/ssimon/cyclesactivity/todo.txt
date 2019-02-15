@@ -1,7 +1,8 @@
+Populate db for espresso test.
+Create separate test and prod dbs.
 Add LeakCanary.
-Provide default recipe.
-Fix espresso test.
-Implement selection of coffee, volume, working.
+
+
 
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
@@ -62,6 +63,10 @@ Improve save/retrieve test to check ids.
 Improve test code organization.
 Implement Coffee cache
 Make lists of volumes and cycles unmodifiable.
+Provide default recipe.
+Fix espresso test.
+Implement selection of coffee, volume, working.
+
 
 
 

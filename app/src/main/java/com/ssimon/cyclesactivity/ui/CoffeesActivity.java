@@ -45,7 +45,6 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     protected void onStart() {
         super.onStart();
         Utils.registerEventBus(this);
-        //Utils.postStickyEvent(new CoffeesRefreshEvent());
         Utils.postEvent(new CoffeesRefreshEvent());
     }
 
@@ -61,25 +60,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
         Log.v(TAG, "selectedCoffeeId = " + selectedCoffeeId);
     }
 
-    /*
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void setCoffeeList(CoffeesRefreshEvent e) {
-        Utils.removeStickyEvent(e);
-        coffees = CoffeesCache.getCoffees();
-        if (coffees == null) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeesCache();
-        } else if (adapter == null) {
-            adapter = new CoffeesAdapter(this, coffees);
-            ListView lv = (ListView) findViewById(R.id.list_coffees);
-            lv.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
-    }
-    */
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
+   @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeesRefreshEvent e) {
         coffees = CoffeesCache.getCoffees();
         if (coffees == null) {
@@ -100,7 +81,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private class CoffeesAdapter extends ArrayAdapter<Coffee> {
-        public CoffeesAdapter(Context ctx, List<Coffee> coffees) {
+        CoffeesAdapter(Context ctx, List<Coffee> coffees) {
             super(ctx, 0, coffees);
         }
 

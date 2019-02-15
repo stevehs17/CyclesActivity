@@ -36,7 +36,6 @@ public class CoffeesCacheTest {
 
     volatile private List<Coffee> coffees;
 
-    /*
     @Test
     public void receiveCoffeeRefreshEvent_Success() {
         int nCofs = 2;
@@ -46,37 +45,6 @@ public class CoffeesCacheTest {
         List<Coffee> cs = ModelTestUtils.createCoffees(nCofs, nVols, nCycles);
         assertEquals(null, coffees);
         coffees = null;
-        CoffeesCache.setCoffees(cs);
-        Utils.registerEventBus(this);
-        while (coffees == null)
-            ;
-        Utils.unregisterEventBus(this);
-        assertNotEquals(null,coffees);
-    }
-
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onReceiveEvent(CoffeesRefreshEvent e) {
-        Utils.removeStickyEvent(e);
-        List<Coffee> cs = CoffeesCache.getCoffees();
-        if (cs == null) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(context);
-            dh.refreshCoffeesCache();
-        } else {
-            coffees = cs;
-        }
-    }
-    */
-
-    @Test
-    public void receiveCoffeeRefreshEvent_Success() {
-        int nCofs = 2;
-        int nVols = 2;
-        int nCycles = Cycle.MAX_NUM_CYCLES;
-
-        List<Coffee> cs = ModelTestUtils.createCoffees(nCofs, nVols, nCycles);
-        assertEquals(null, coffees);
-        coffees = null;
-        //CoffeesCache.setCoffees(cs);
         Utils.registerEventBus(this);
         CoffeesCache.setCoffees(cs);
         while (coffees == null)
