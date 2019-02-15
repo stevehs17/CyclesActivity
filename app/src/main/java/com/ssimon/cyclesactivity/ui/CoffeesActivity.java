@@ -90,6 +90,10 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
             adapter = new CoffeesAdapter(this, coffees);
             ListView lv = (ListView) findViewById(R.id.list_coffees);
             lv.setAdapter(adapter);
+            lv.setItemChecked(0, true);
+
+            lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
+                    lv.getAdapter().getItemId(0));
         } else {
             adapter.notifyDataSetChanged();
         }
@@ -106,7 +110,8 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
             ViewHolder h;
 
             if (v == null) {
-                v = getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
+                //v = getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
+                v = getLayoutInflater().inflate(android.R.layout.simple_list_item_activated_1, null);
                 h = new ViewHolder(v);
                 v.setTag(R.id.holder, h);
             } else {
