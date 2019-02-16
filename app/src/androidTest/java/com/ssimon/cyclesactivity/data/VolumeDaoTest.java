@@ -77,14 +77,14 @@ public class VolumeDaoTest {
         List<Volume> volumes = new ArrayList<>();
         if (!c.moveToFirst())
             return volumes;
-        Log.v(TAG, "");
+        //Log.v(TAG, "");
         do {
             long coffeeId = c.getLong(c.getColumnIndexOrThrow(Contract.Volume.Col.COFFEE_ID));
             long volumeId = c.getLong(c.getColumnIndexOrThrow(Contract.Volume.Col.ID));
             List<Cycle> cycles = CycleDao.getCycles(db, volumeId);
             Volume v = new Volume(volumeId, cycles);
-            Log.v(TAG, String.format("Coffee ID = %d, Volume ID = %d, Total Volume = %d",
-                    coffeeId, volumeId, v.totalVolume()));
+            //Log.v(TAG, String.format("Coffee ID = %d, Volume ID = %d, Total Volume = %d",
+            //        coffeeId, volumeId, v.totalVolume()));
             volumes.add(v);
         } while (c.moveToNext());
         c.close();

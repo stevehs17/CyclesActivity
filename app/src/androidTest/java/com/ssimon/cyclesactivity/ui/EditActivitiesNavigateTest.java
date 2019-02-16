@@ -44,10 +44,16 @@ public class EditActivitiesNavigateTest {
     @Before
     public void PrepareDatabase() {
         Context ctx = InstrumentationRegistry.getTargetContext();
+        /*
         SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(ctx);
+        */
+        //Context ctx = InstrumentationRegistry.getContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        SQLiteDatabase db = dh.getWritableDatabase();
+        CoffeeDao.deleteCoffees(db);
         List<Coffee> cs = ModelTestUtils.createCoffees(1, 1, 1);
         CoffeeDao.insertCoffees(db, cs);
-        activityRule.launchActivity(null); //launches the test activity
+        activityRule.launchActivity(null);
     }
     @Test
     public void navigateEditActivities2_Success() {

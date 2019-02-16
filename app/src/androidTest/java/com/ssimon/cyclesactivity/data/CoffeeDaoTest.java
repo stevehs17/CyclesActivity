@@ -193,7 +193,8 @@ public class CoffeeDaoTest {
     public void saveAndRetrieveManyCoffees_Success() {
         //int numCofs = 50;
         int numCofs = 25; // reduced number to speed up tests
-        int numVols = 50;
+        //int numVols = 50;
+        int numVols = 15; // reduced number to speed up tests
         int numCycs = 6;
 
         List<Coffee> cs = ModelTestUtils.createCoffees(numCofs, numVols, numCycs);
