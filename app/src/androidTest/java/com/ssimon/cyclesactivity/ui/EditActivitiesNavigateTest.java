@@ -1,16 +1,28 @@
 package com.ssimon.cyclesactivity.ui;
 
 
+import android.content.Context;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.ssimon.cyclesactivity.DatabaseTestUtils;
+import com.ssimon.cyclesactivity.ModelTestUtils;
 import com.ssimon.cyclesactivity.R;
+import com.ssimon.cyclesactivity.data.CoffeeDao;
+import com.ssimon.cyclesactivity.data.DatabaseHelper;
+import com.ssimon.cyclesactivity.model.Coffee;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -26,8 +38,17 @@ import static org.hamcrest.Matchers.allOf;
 public class EditActivitiesNavigateTest {
 
     @Rule
-    public ActivityTestRule<CoffeesActivity> mActivityTestRule = new ActivityTestRule<>(CoffeesActivity.class);
+    public ActivityTestRule<CoffeesActivity> activityRule = new ActivityTestRule<>
+            (CoffeesActivity.class, false, false);
 
+    @Before
+    public void PrepareDatabase() {
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        SQLiteDatabase db = DatabaseTestUtils.getCleanWritableDb(ctx);
+        List<Coffee> cs = ModelTestUtils.createCoffees(1, 1, 1);
+        CoffeeDao.insertCoffees(db, cs);
+        activityRule.launchActivity(null); //launches the test activity
+    }
     @Test
     public void navigateEditActivities2_Success() {
         descendToVolumes();
