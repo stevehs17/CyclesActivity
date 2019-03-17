@@ -70,7 +70,7 @@ public class ModelTestUtils {
             }
             coffees.add(new Coffee(NOID, name(i), volumes, NOID));
         }
-        printCoffees(coffees);
+        //printCoffees(coffees);
         return coffees;
     }
 

@@ -1,6 +1,8 @@
 Populate db for espresso test.
-Create separate test and prod dbs.
+Try updating gradle and running tests in separate processes
+Refactor db tests based on GC2 design
 Add LeakCanary.
+Proceed with implementation
 
 
 

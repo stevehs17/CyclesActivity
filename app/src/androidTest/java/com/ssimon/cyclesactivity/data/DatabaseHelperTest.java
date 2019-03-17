@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class DatabaseHelperTest {
     final private Context context = InstrumentationRegistry.getTargetContext();
+    static SQLiteDatabase db = null;
 
     @Test
     public void openWritableDb_Success() {
