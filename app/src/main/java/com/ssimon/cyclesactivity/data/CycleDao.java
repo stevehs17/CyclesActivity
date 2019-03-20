@@ -37,6 +37,8 @@ public class CycleDao {
         return cycles;
     }
 
+
+    /* for testing */
     static List<Cycle> getCycles(SQLiteDatabase db) {
         Checker.notNull(db);
 
@@ -54,8 +56,6 @@ public class CycleDao {
         c.close();
         return cycles;
     }
-
-
 
     static void insertCycles(SQLiteDatabase db, long volumeId, List<Cycle> cycles) {
         Checker.notNull(db);
@@ -76,7 +76,7 @@ public class CycleDao {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
         Checker.notNull(cycle);
-        Checker.inRange(index, 0, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(index, 0, Cycle.MAX_NUM_CYCLES - 1);
 
         ContentValues cv = new ContentValues();
         cv.put(Col.VOLUME_ID, volumeId);
@@ -85,19 +85,5 @@ public class CycleDao {
         cv.put(Col.VACUUM_TIME_SECONDS, cycle.vacuumSeconds());
         cv.put(Col.CYCLE_INDEX, index);
         db.insertOrThrow(TABLE_NAME, null, cv);
-    }
-
-    static void deleteCycles(SQLiteDatabase db, long volumeId) {
-        Checker.notNull(db);
-        Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
-
-        String where = Col.VOLUME_ID + "=?";
-        String[] whereArgs = {Long.toString(volumeId)};
-        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
-        Checker.inRange(numDeleted, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
-    }
-
-    static void deleteCycle(SQLiteDatabase db, long cycleId) {
-        DatabaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, cycleId);
     }
 }

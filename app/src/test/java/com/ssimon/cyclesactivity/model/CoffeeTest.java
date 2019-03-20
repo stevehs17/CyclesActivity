@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 public class CoffeeTest {
 
     @Test
-    public void new_Coffee_Succeeds() {
-        Coffee cof = new Coffee(ModelTestUtils.DB_ID, ModelTestUtils.NAME, ModelTestUtils.createVolumeList(),
-                ModelTestUtils.DB_ID);
+    public void newCoffee_Succeeds() {
+        Coffee cof = new Coffee(ModelTestUtils.DB_ID, ModelTestUtils.NAME,
+                ModelTestUtils.createVolumeList(), ModelTestUtils.DB_ID);
         Cycle cyc = cof.volumes().get(0).cycles().get(0);
         assertEquals(ModelTestUtils.DB_ID, cof.id());
         assertEquals(ModelTestUtils.NAME, cof.name());
@@ -24,7 +24,7 @@ public class CoffeeTest {
     }
 
     @Test
-    public void new_Coffee_null_name_Fails() {
+    public void newCoffeeNullName_Fails() {
         try {
             Coffee c = new Coffee(ModelTestUtils.DB_ID, null, ModelTestUtils.createVolumeList(),
                     ModelTestUtils.DB_ID);
@@ -35,7 +35,7 @@ public class CoffeeTest {
     }
 
     @Test
-    public void new_Coffee_empty_name_Fails() {
+    public void newCoffeeEmptyName_Fails() {
         try {
             Coffee c = new Coffee(ModelTestUtils.DB_ID, "", ModelTestUtils.createVolumeList(),
                     ModelTestUtils.DB_ID);
@@ -46,7 +46,7 @@ public class CoffeeTest {
     }
 
     @Test
-    public void new_Coffee_null_volumes_Fails() {
+    public void newCoffeeNullVolumes_Fails() {
         try {
             Coffee c = new Coffee(ModelTestUtils.DB_ID, ModelTestUtils.NAME, null,
                     ModelTestUtils.DB_ID);
@@ -57,7 +57,7 @@ public class CoffeeTest {
     }
 
     @Test
-    public void new_Coffee_empty_volumes_Fails() {
+    public void newCoffeeEmptyVolumes_Fails() {
         try {
             Coffee c = new Coffee(ModelTestUtils.DB_ID, ModelTestUtils.NAME, new ArrayList<Volume>(),
                     ModelTestUtils.DB_ID);

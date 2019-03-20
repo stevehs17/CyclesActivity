@@ -27,7 +27,7 @@ class DatabaseUtils {
         if (numDeleted != 1)
             throw new IllegalStateException("instead of 1 deleted there were " + numDeleted);
     }
-
+/*
    static List<Coffee> createDefaultCoffees() {
         Cycle cyc = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_LASTCYCLE_VACUUMTIME);
         List<Cycle> cycs = new ArrayList<>();
@@ -52,6 +52,7 @@ class DatabaseUtils {
         cofs.add(cof);
         return cofs;
     }
+    */
 
     static List<Coffee> createDefaultCoffees2() {
         final int nCofs = 5, nVols = 5, nCycs = 5;
