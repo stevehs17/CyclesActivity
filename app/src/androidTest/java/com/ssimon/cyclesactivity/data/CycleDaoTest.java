@@ -3,11 +3,9 @@ package com.ssimon.cyclesactivity.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.Const;
-import com.ssimon.cyclesactivity.DatabaseTestUtils;
 import com.ssimon.cyclesactivity.ModelTestUtils;
 import com.ssimon.cyclesactivity.model.*;
 

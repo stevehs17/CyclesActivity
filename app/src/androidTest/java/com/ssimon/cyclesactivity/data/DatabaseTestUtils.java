@@ -1,8 +1,9 @@
-package com.ssimon.cyclesactivity;
+package com.ssimon.cyclesactivity.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ssimon.cyclesactivity.ModelTestUtils;
 import com.ssimon.cyclesactivity.data.CoffeeDao;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.model.Coffee;

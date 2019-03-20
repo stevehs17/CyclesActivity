@@ -13,19 +13,22 @@ import com.ssimon.cyclesactivity.util.Checker;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    static final private int DATABASE_VERSION = 1;
-    static final private String DATABASE_NAME = "groundcontrol_database.db";
     static private DatabaseHelper singleton = null;
 
-    static synchronized public DatabaseHelper getInstance(Context c) {
+    static public DatabaseHelper getInstance(Context c) {
+        return getInstance(c, Contract.DATABASE_NAME);
+    }
+
+    static synchronized public DatabaseHelper getInstance(Context c, String name) {
         Checker.notNull(c);
+        Checker.notNullOrEmpty(name);
         if (singleton == null)
-            singleton = new DatabaseHelper(c.getApplicationContext());
+            singleton = new DatabaseHelper(c.getApplicationContext(), name);
         return singleton;
     }
 
-    private DatabaseHelper(Context c) {
-        super(c, DATABASE_NAME, null, DATABASE_VERSION);
+    private DatabaseHelper(Context c, String name) {
+        super(c, name, null, Contract.DATABASE_VERSION);
     }
 
     @Override

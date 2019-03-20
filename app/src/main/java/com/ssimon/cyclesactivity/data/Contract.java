@@ -3,6 +3,9 @@ package com.ssimon.cyclesactivity.data;
 import android.provider.BaseColumns;
 
 public class Contract {
+    static final int DATABASE_VERSION = 1;
+    static final String DATABASE_NAME = "groundcontrol_database.db";
+
     static final private String CLOSE_PAREN = " ) ";
     static final private String COMMA = " , ";
     static final private String CREATE = " CREATE TABLE ";
