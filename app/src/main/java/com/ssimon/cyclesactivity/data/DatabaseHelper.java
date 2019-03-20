@@ -15,20 +15,15 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     static private DatabaseHelper singleton = null;
 
-    static public DatabaseHelper getInstance(Context c) {
-        return getInstance(c, Contract.DATABASE_NAME);
-    }
-
-    static synchronized public DatabaseHelper getInstance(Context c, String name) {
+    static synchronized public DatabaseHelper getInstance(Context c) {
         Checker.notNull(c);
-        Checker.notNullOrEmpty(name);
         if (singleton == null)
-            singleton = new DatabaseHelper(c.getApplicationContext(), name);
+            singleton = new DatabaseHelper(c.getApplicationContext());
         return singleton;
     }
 
-    private DatabaseHelper(Context c, String name) {
-        super(c, name, null, Contract.DATABASE_VERSION);
+    private DatabaseHelper(Context c) {
+        super(c, Contract.DATABASE_NAME, null, Contract.DATABASE_VERSION);
     }
 
     @Override

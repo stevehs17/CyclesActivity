@@ -2,6 +2,7 @@ package com.ssimon.cyclesactivity.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.ModelTestUtils;
 import com.ssimon.cyclesactivity.data.CoffeeDao;
@@ -11,6 +12,20 @@ import com.ssimon.cyclesactivity.model.Coffee;
 import java.util.List;
 
 public class DatabaseTestUtils {
+    static public SQLiteDatabase getNewWritableTestDb() {
+        Context c = InstrumentationRegistry.getTargetContext();
+        String name = "test.db";
+        c.deleteDatabase(name);
+        DatabaseHelper dh = DatabaseHelper.getInstance(c);
+        SQLiteDatabase db = dh.getWritableDatabase();
+        db.execSQL(Contract.Coffee.CREATE_TABLE);
+        db.execSQL(Contract.Volume.CREATE_TABLE);
+        db.execSQL(Contract.Cycle.CREATE_TABLE);
+        return db;
+    }
+
+
+    /***** can thest be eliminated? *******/
     static public SQLiteDatabase getWritableDb(Context ctx) {
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         return dh.getWritableDatabase();
