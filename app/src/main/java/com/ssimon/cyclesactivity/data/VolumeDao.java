@@ -79,6 +79,7 @@ public class VolumeDao {
         }
     }
 
+    /* Can this be deleted? */
     static void deleteVolumes(SQLiteDatabase db, long coffeeId) {
         Checker.notNull(db);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);

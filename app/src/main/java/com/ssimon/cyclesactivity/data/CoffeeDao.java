@@ -30,9 +30,6 @@ public class CoffeeDao {
             String name = c.getString(c.getColumnIndexOrThrow(Col.NAME));
             List<Volume> volumes = VolumeDao.getVolumes(db, id);
             long volumeId = c.getLong(c.getColumnIndexOrThrow(Col.DEFAULT_VOLUME_ID));
-            volumeId = (volumeId == Const.UNSET_DATABASE_ID)
-                    ? volumes.get(0).id()
-                    : volumeId;
             coffees.add(new Coffee(id, name, volumes, volumeId));
         } while (c.moveToNext());
         c.close();

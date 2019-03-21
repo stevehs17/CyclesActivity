@@ -37,26 +37,6 @@ public class CycleDao {
         return cycles;
     }
 
-
-    /* for testing */
-    static List<Cycle> getCycles(SQLiteDatabase db) {
-        Checker.notNull(db);
-
-        String query = String.format("SELECT * FROM %s", TABLE_NAME);
-        Cursor c = db.rawQuery(query, null);
-        List<Cycle> cycles = new ArrayList<>();
-        if (!c.moveToFirst())
-            return cycles;
-        do {
-            int volumeMl = c.getInt(c.getColumnIndexOrThrow(Col.VOLUME_MILLILITERS));
-            int brewTime = c.getInt(c.getColumnIndexOrThrow(Col.BREW_TIME_SECONDS));
-            int vacuumTime = c.getInt(c.getColumnIndexOrThrow(Col.VACUUM_TIME_SECONDS));
-            cycles.add(new Cycle(volumeMl, brewTime, vacuumTime));
-        } while (c.moveToNext());
-        c.close();
-        return cycles;
-    }
-
     static void insertCycles(SQLiteDatabase db, long volumeId, List<Cycle> cycles) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
