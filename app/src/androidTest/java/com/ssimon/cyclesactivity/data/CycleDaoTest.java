@@ -26,6 +26,7 @@ public class CycleDaoTest {
     public void insertCycles_Succeeds() {
         db.execSQL("PRAGMA foreign_keys = OFF;");
         CycleDao.insertCycles(db, VOL_ID, CYCLES);
+        db.execSQL("PRAGMA foreign_keys = ON;");
     }
 
     /*
@@ -41,10 +42,12 @@ public class CycleDaoTest {
     }
     */
 
+    /*
     @Test
     public void getCycles_Succeeds() {
         insertCycles_Succeeds();
         List<Cycle> cs = CycleDao.getCycles(db, VOL_ID);
         DatabaseTestUtils.assertCyclesEqual(CYCLES, cs);
     }
+    */
 }
