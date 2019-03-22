@@ -26,7 +26,8 @@ class DatabaseTestUtils {
 
     public static void setupDatabase() {} // called to execute static block
 
-    static void setupTables(Context c) {
+    static void setupTables() {
+        Context c = InstrumentationRegistry.getTargetContext();
         DatabaseHelper dh = DatabaseHelper.getInstance(c);
         SQLiteDatabase db = dh.getWritableDatabase();
         db.execSQL(Contract.Coffee.DELETE_TABLE);

@@ -1,9 +1,7 @@
 package com.ssimon.cyclesactivity.data;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
@@ -21,11 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoffeeDaoTest {
-    static private final Context sContext = InstrumentationRegistry.getTargetContext();
-    static final private int NVOLS = 2;
-    static final private List<Volume> VOLUMES = DatabaseTestUtils.createVolumes(NVOLS);
-    static final private long COF_ID = 1;
-
     @BeforeClass
     static public void setupDatabase() {
         DatabaseTestUtils.setupDatabase();
@@ -33,7 +26,7 @@ public class CoffeeDaoTest {
 
     @Before
     public void setupTables() {
-        DatabaseTestUtils.setupTables(sContext);
+        DatabaseTestUtils.setupTables();
     }
 
     @Test
@@ -50,7 +43,8 @@ public class CoffeeDaoTest {
         Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols,
                 Const.UNSET_DATABASE_ID);
         cofs.add(cof);
-        DatabaseHelper dh = DatabaseHelper.getInstance(sContext);
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cofs);
         List<Coffee> cofsOut = CoffeeDao.getCoffees(db);
@@ -82,7 +76,8 @@ public class CoffeeDaoTest {
         Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols,
                 Const.UNSET_DATABASE_ID);
         cofs.add(cof);
-        DatabaseHelper dh = DatabaseHelper.getInstance(sContext);
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cofs);
         List<Coffee> cofsOut = CoffeeDao.getCoffees(db);
@@ -112,7 +107,8 @@ public class CoffeeDaoTest {
                 Const.UNSET_DATABASE_ID);
         cofs.add(cof);
 
-        DatabaseHelper dh = DatabaseHelper.getInstance(sContext);
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cofs);
         long n = DatabaseUtils.queryNumEntries(db, Contract.Coffee.TABLE_NAME);
