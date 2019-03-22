@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class DbaseUtils {
+public class DbaseUtils {
     static void deleteTableRow(SQLiteDatabase db, String table, String col, long id) {
         Checker.notNull(db);
         Checker.notNullOrEmpty(table);
