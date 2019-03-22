@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -12,10 +13,15 @@ import static org.junit.Assert.assertTrue;
 public class DatabaseHelperTest {
     private DatabaseHelper dbHelper;
 
+    @BeforeClass
+    static public void setupDatabase() {
+        DatabaseTestUtils.setupDatabase();
+    }
+
     @Before
     public void resetDb() {
         final Context c = InstrumentationRegistry.getTargetContext();
-        c.deleteDatabase(Contract.DATABASE_NAME);
+        //c.deleteDatabase(Contract.DATABASE_NAME);
         dbHelper = dbHelper.getInstance(c);
     }
 

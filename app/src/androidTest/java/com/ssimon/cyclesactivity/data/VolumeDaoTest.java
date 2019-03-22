@@ -1,30 +1,50 @@
 package com.ssimon.cyclesactivity.data;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
 
 public class VolumeDaoTest {
+    static private final Context sContext = InstrumentationRegistry.getTargetContext();
     static final private int NVOLS = 2;
     static final private List<Volume> VOLUMES = DatabaseTestUtils.createVolumes(NVOLS);
     static final private long COF_ID = 1;
-    private SQLiteDatabase db;
+    /*
+    private SQLiteDatabase db = DatabaseTestUtils.getNewWritableTestDb();
+
 
     @Before
     public void resetDb() {
-        db = DatabaseTestUtils.getNewWritableTestDb();
+//        db = DatabaseTestUtils.getNewWritableTestDb();
     }
+    */
+
+    @BeforeClass
+    static public void setupDatabase() {
+        DatabaseTestUtils.setupDatabase();
+    }
+
+    @Before
+    public void setupTables() {
+        DatabaseTestUtils.setupTables(sContext);
+    }
+
 
     @Test
     public void insertVolumes_Succeeds() {
+        DatabaseHelper dh = DatabaseHelper.getInstance(sContext);
+        SQLiteDatabase db = dh.getWritableDatabase();
         db.execSQL("PRAGMA foreign_keys = OFF;");
         VolumeDao.insertVolumes(db, COF_ID, VOLUMES);
         db.execSQL("PRAGMA foreign_keys = ON;");
@@ -32,6 +52,8 @@ public class VolumeDaoTest {
 
     @Test
     public void insertVolumesConstraintViolation_Fails() {
+        DatabaseHelper dh = DatabaseHelper.getInstance(sContext);
+        SQLiteDatabase db = dh.getWritableDatabase();
         try {
             VolumeDao.insertVolumes(db, COF_ID, VOLUMES);
         } catch (SQLiteConstraintException unused) {
@@ -42,6 +64,8 @@ public class VolumeDaoTest {
 
     @Test
     public void getVolumes_Succeeds() {
+        DatabaseHelper dh = DatabaseHelper.getInstance(sContext);
+        SQLiteDatabase db = dh.getWritableDatabase();
         db.execSQL("PRAGMA foreign_keys = OFF;");
         VolumeDao.insertVolumes(db, COF_ID, VOLUMES);
         List<Volume> vs = VolumeDao.getVolumes(db, COF_ID);

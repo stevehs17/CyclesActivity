@@ -17,13 +17,35 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 class DatabaseTestUtils {
+    static {
+        Context c = InstrumentationRegistry.getTargetContext();
+        c.deleteDatabase(Contract.DATABASE_NAME);
+    }
+
+    private DatabaseTestUtils() {}
+
+    public static void setupDatabase() {} // called to execute static block
+
+    static void setupTables(Context c) {
+        DatabaseHelper dh = DatabaseHelper.getInstance(c);
+        SQLiteDatabase db = dh.getWritableDatabase();
+        db.execSQL(Contract.Coffee.DELETE_TABLE);
+        db.execSQL(Contract.Volume.DELETE_TABLE);
+        db.execSQL(Contract.Cycle.DELETE_TABLE);
+        db.execSQL(Contract.Coffee.CREATE_TABLE);
+        db.execSQL(Contract.Volume.CREATE_TABLE);
+        db.execSQL(Contract.Cycle.CREATE_TABLE);
+    }
+
+    /*
     static public SQLiteDatabase getNewWritableTestDb() {
         Context c = InstrumentationRegistry.getTargetContext();
         //c.deleteDatabase(Contract.DATABASE_NAME);
         DatabaseHelper dh = DatabaseHelper.getInstance(c);
         SQLiteDatabase db = dh.getWritableDatabase();
 
-        /*
+
+
         db.execSQL(Contract.Coffee.DELETE_TABLE);
         db.execSQL(Contract.Volume.DELETE_TABLE);
         db.execSQL(Contract.Cycle.DELETE_TABLE);
@@ -31,9 +53,10 @@ class DatabaseTestUtils {
         db.execSQL(Contract.Coffee.CREATE_TABLE);
         db.execSQL(Contract.Volume.CREATE_TABLE);
         db.execSQL(Contract.Cycle.CREATE_TABLE);
-        */
+
         return db;
     }
+    */
 
     static List<Cycle> createCycles(int ncycles) {
         List<Cycle> cs = new ArrayList<>();
