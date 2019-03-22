@@ -36,7 +36,6 @@ public class CoffeeDaoTest {
         DatabaseTestUtils.setupTables(sContext);
     }
 
-
     @Test
     public void createAndReadCoffeesSimple_Succeeds() {
         List<Cycle> cys = new ArrayList<>();
@@ -131,19 +130,5 @@ public class CoffeeDaoTest {
         assertEquals(0, n);
         n = DatabaseUtils.queryNumEntries(db, Contract.Cycle.TABLE_NAME);
         assertEquals(0, n);
-
-
-
-        /*
-        c = db.rawQuery("select count(*) from " + Contract.Coffee.TABLE_NAME, null);
-        ncofs = c.getCount();
-        assertEquals(0, ncofs);
-        c = db.rawQuery("select count(*) from " + Contract.Volume.TABLE_NAME, null);
-        nvols = c.getCount();
-        assertEquals(0, nvols);
-        c = db.rawQuery("select count(*) from " + Contract.Cycle.TABLE_NAME, null);
-        ncycs = c.getCount();
-        assertEquals(0, ncycs);
-        */
     }
 }
