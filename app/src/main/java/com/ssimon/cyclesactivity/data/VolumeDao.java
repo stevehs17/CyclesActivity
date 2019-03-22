@@ -3,7 +3,6 @@ package com.ssimon.cyclesactivity.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.util.Checker;
@@ -93,6 +92,6 @@ public class VolumeDao {
     }
 
     static void deleteVolume(SQLiteDatabase db, long id) {
-        DatabaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, id);
+        DbaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, id);
     }
 }

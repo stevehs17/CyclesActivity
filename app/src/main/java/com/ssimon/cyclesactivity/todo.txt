@@ -3,7 +3,7 @@ Try updating gradle and running tests in separate processes
 Refactor db tests based on GC2 design
 Add LeakCanary.
 Proceed with implementation
-
+Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
 
 
 "Manage Coffees" -> "Coffees", etc.
