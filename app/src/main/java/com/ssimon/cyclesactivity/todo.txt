@@ -1,6 +1,6 @@
 Populate db for espresso test.
-Try updating gradle and running tests in separate processes
-Refactor db tests based on GC2 design
+Add Coffee constructors that leave out IDs, for cases where they're not known
+    (instead of passing in UNSET)
 Add LeakCanary.
 Proceed with implementation
 Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
@@ -68,6 +68,9 @@ Make lists of volumes and cycles unmodifiable.
 Provide default recipe.
 Fix espresso test.
 Implement selection of coffee, volume, working.
+Try updating gradle and running tests in separate processes
+Refactor db tests based on GC2 design
+
 
 
 
