@@ -21,7 +21,6 @@ public class DatabaseHelperTest {
     @Before
     public void resetDb() {
         final Context c = InstrumentationRegistry.getTargetContext();
-        //c.deleteDatabase(Contract.DATABASE_NAME);
         dbHelper = dbHelper.getInstance(c);
     }
 
