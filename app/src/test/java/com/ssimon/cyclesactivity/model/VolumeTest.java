@@ -40,7 +40,7 @@ public class VolumeTest {
         assertEquals(Cycle.MIN_BREWTIME, cout.brewSeconds());
         assertEquals(Cycle.MAX_VACUUMTIME, cout.vacuumSeconds());
     }
-    
+
     @Test
     public void newVolumeNullCycles_Fails() {
         try {

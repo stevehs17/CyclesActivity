@@ -11,6 +11,7 @@ import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -122,7 +123,9 @@ public class DbaseUtils {
     }
 
     /*
-    List<Coffee> createNaturalTemplate() {
+
+
+    Coffee createNaturalTemplate() {
         List<Cycle> c = new ArrayList<>();
         // Volume 0
         c.add(new Cycle(1000, 142, 80));
@@ -139,10 +142,12 @@ public class DbaseUtils {
         c.add(new Cycle(1000, 1, 110));
 
         List<Volume> v = new ArrayList<>();
-        v.add(new )
-    }
-    */
+        v.add(new Volume(Arrays.asList(c.get(0), c.get(1))));
 
+
+    }
+
+*/
 
     /*
 
