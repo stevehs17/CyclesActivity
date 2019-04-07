@@ -17,8 +17,8 @@ public class CoffeeTest {
         List<Volume> vs = new ArrayList<>();
         vs.add(new Volume(Const.MIN_DATABASE_ID, cs));
         String name = "n";
-        Coffee c = new Coffee(Const.UNSET_DATABASE_ID, name, vs, Const.MIN_DATABASE_ID);
-        assertEquals(Const.UNSET_DATABASE_ID, c.id());
+        Coffee c = new Coffee(Const.MIN_DATABASE_ID, name, vs, Const.MIN_DATABASE_ID);
+        assertEquals(Const.MIN_DATABASE_ID, c.id());
         assertEquals(name, c.name());
         assertEquals(Const.MIN_DATABASE_ID, c.defaultVolumeId());
         Volume v = c.volumes().get(0);
@@ -48,12 +48,10 @@ public class CoffeeTest {
         assertEquals(Cycle.MIN_VACUUMTIME, cy.vacuumSeconds());
     }
 
-
-
     @Test
     public void newCoffeeBadId_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID - 1, "n", volumes(), Const.UNSET_DATABASE_ID);
+            Coffee c = new Coffee(Const.UNSET_DATABASE_ID, "n", volumes(), Const.MIN_DATABASE_ID);
         } catch (IllegalStateException unused) {
             return;
         }
@@ -63,7 +61,7 @@ public class CoffeeTest {
     @Test
     public void newCoffeeBadDefaultVolId_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID, "n", volumes(), Const.UNSET_DATABASE_ID - 1);
+            Coffee c = new Coffee(Const.MIN_DATABASE_ID, "n", volumes(), Const.UNSET_DATABASE_ID);
         } catch (IllegalStateException unused) {
             return;
         }
@@ -81,11 +79,10 @@ public class CoffeeTest {
         throw new RuntimeException("test failed");
     }
 
-
     @Test
     public void newCoffeeEmptyName_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID, "", volumes(), Const.UNSET_DATABASE_ID );
+            Coffee c = new Coffee("", volumes());
         } catch (IllegalStateException unused) {
             return;
         }
@@ -95,7 +92,7 @@ public class CoffeeTest {
     @Test
     public void newCoffeeNullVolumes_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID, "n", null, Const.UNSET_DATABASE_ID );
+            Coffee c = new Coffee("n", null);
         } catch (NullPointerException unused) {
             return;
         }
@@ -105,7 +102,7 @@ public class CoffeeTest {
     @Test
     public void newCoffeeEmptyVolumes_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID, "n", new ArrayList<Volume>(), Const.UNSET_DATABASE_ID );
+            Coffee c = new Coffee("n", new ArrayList<Volume>());
         } catch (IllegalStateException unused) {
             return;
         }

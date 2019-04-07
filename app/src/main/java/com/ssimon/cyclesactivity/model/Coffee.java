@@ -44,8 +44,7 @@ public class Coffee implements Serializable {
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(name);
         Checker.notNullOrEmpty(volumes);
-        if (defaultVolumeId != Const.UNSET_DATABASE_ID)
-            Checker.atLeast(defaultVolumeId, Const.MIN_DATABASE_ID);
+        Checker.atLeast(defaultVolumeId, Const.MIN_DATABASE_ID);
 
         this.id = id;
         this.name = name;
