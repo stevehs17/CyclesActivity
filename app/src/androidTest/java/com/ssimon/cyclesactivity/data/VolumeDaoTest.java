@@ -28,7 +28,6 @@ public class VolumeDaoTest {
         DatabaseTestUtils.setupTables();
     }
 
-
     @Test
     public void insertVolumes_Succeeds() {
         Context ctx = InstrumentationRegistry.getTargetContext();

@@ -27,6 +27,21 @@ public class VolumeTest {
     }
 
     @Test
+    public void newVolumeNoId_Succeeds() {
+        Cycle c = new Cycle(Cycle.MIN_VOLUME,
+                Cycle.MIN_BREWTIME, Cycle.MAX_VACUUMTIME);
+        List<Cycle> cs = new ArrayList<>();
+        cs.add(c);
+        Volume v = new Volume(cs);
+        assertEquals(Const.UNSET_DATABASE_ID, v.id());
+        cs = v.cycles();
+        Cycle cout = cs.get(0);
+        assertEquals(Cycle.MIN_VOLUME, cout.volumeMl());
+        assertEquals(Cycle.MIN_BREWTIME, cout.brewSeconds());
+        assertEquals(Cycle.MAX_VACUUMTIME, cout.vacuumSeconds());
+    }
+    
+    @Test
     public void newVolumeNullCycles_Fails() {
         try {
             Volume v = new Volume(Const.MIN_DATABASE_ID, null);

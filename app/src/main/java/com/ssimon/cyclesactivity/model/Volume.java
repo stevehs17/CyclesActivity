@@ -22,9 +22,16 @@ public class Volume implements Serializable {
     final private long id;
     final private List<Cycle> cycles;
 
+    public Volume(List<Cycle> cycles) {
+        Checker.notNull(cycles);
+        Checker.inRange(cycles.size(), Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+
+        this.id = Const.UNSET_DATABASE_ID;
+        this.cycles = Collections.unmodifiableList(cycles);
+    }
+
     public Volume(long id, List<Cycle> cycles) {
-        if (id != Const.UNSET_DATABASE_ID)
-            Checker.atLeast(id, Const.MIN_DATABASE_ID);
+        Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNull(cycles);
         Checker.inRange(cycles.size(), Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
 
