@@ -1,8 +1,8 @@
-Rewrite data te
+Rewrite data tests
 Populate db for espresso test.
-Add Coffee constructors that leave out IDs, for cases where they're not known
-    (instead of passing in UNSET)
-
+Fix Coffee constructors
+    Should just sort volumes once; this may require allowing UNSET_DB_ID as a legal
+    parameter vaue.
 Add LeakCanary.
 Proceed with implementation
 Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
