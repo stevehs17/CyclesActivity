@@ -1,12 +1,18 @@
-Rewrite data tests
-Populate db for espresso test.
 Fix Coffee constructors
     Should just sort volumes once; this may require allowing UNSET_DB_ID as a legal
     parameter vaue.
 Add LeakCanary.
 Proceed with implementation
 Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
-
+Switch to use of index rather than db id for default volume id?
+Figure out better way to organize code in DbaseUtils
+    Move default coffee code to elsewhere
+    Then can change name to DaoUtils
+Rather than storing default volume id with Coffee, maybe should store it with BrewActivity?
+    Use separate table from Coffee?
+        That table will have a single column, Vol Id, and Coffee Id will be a foreign key.
+            For cache: can use Map from Cof Id to Vol Id
+     Then: remove default vol id from Coffee class!
 
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
@@ -72,6 +78,10 @@ Fix espresso test.
 Implement selection of coffee, volume, working.
 Try updating gradle and running tests in separate processes
 Refactor db tests based on GC2 design
+
+Rewrite data tests
+Populate db for espresso test.
+
 
 
 

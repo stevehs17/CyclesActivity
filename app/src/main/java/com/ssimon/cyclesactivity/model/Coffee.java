@@ -61,8 +61,6 @@ public class Coffee implements Serializable {
         }
     }
 
-
-
     public long id() { return id; }
     public String name() { return name; }
     public List<Volume> volumes() { return volumes; }
