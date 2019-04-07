@@ -11,11 +11,13 @@
 
 package com.ssimon.cyclesactivity.model;
 
+import com.ssimon.cyclesactivity.data.VolumeDao;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Coffee implements Serializable {
@@ -44,9 +46,19 @@ public class Coffee implements Serializable {
 
         this.id = Const.UNSET_DATABASE_ID;
         this.name = name;
+        Collections.sort(volumes, new TotalVolumeSorter());
         this.volumes = Collections.unmodifiableList(volumes);
         this.defaultVolumeId = Const.UNSET_DATABASE_ID;
     }
+
+    static private class TotalVolumeSorter implements Comparator<Volume> {
+        @Override
+        public int compare(Volume v1, Volume v2) {
+            return v1.totalVolume() - v2.totalVolume();
+        }
+    }
+
+
 
     public long id() { return id; }
     public String name() { return name; }

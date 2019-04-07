@@ -37,7 +37,6 @@ public class VolumeDao {
             volumes.add(new Volume(volumeId, cycles));
         } while (c.moveToNext());
         c.close();
-        Collections.sort(volumes, new TotalVolumeSorter());
         return volumes;
     }
 
