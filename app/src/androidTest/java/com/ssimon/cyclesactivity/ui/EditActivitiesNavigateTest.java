@@ -49,7 +49,8 @@ public class EditActivitiesNavigateTest {
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.deleteCoffees(db);
-        List<Coffee> cs = DbaseUtils.createCoffees(1, 1, 1);
+        //List<Coffee> cs = DbaseUtils.createCoffees(1, 1, 1);
+        List<Coffee> cs = DbaseUtils.createDefaultCoffeeTemplates();
         CoffeeDao.insertCoffees(db, cs);
         activityRule.launchActivity(null);
     }

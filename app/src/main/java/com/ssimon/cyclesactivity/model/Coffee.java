@@ -26,6 +26,8 @@ public class Coffee implements Serializable {
     final private List<Volume> volumes;
     final private long defaultVolumeId;
 
+    // todo: figure out how to consolidate this and other constructor, so didn't repeat sorting code
+    // (may need to go back to allowing UNSET_DB_ID as value for coffee id)s
     public Coffee(long id, String name, List<Volume> volumes, long defaultVolumeId) {
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(name);
@@ -35,6 +37,7 @@ public class Coffee implements Serializable {
 
         this.id = id;
         this.name = name;
+        Collections.sort(volumes, new TotalVolumeSorter());
         this.volumes = Collections.unmodifiableList(volumes);
         this.defaultVolumeId = defaultVolumeId;
     }

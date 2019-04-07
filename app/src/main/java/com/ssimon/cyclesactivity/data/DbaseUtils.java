@@ -29,7 +29,7 @@ public class DbaseUtils {
             throw new IllegalStateException("instead of 1 deleted there were " + numDeleted);
     }
 
-    static List<Coffee> createDefaultCoffeeTemplates() {
+    static public List<Coffee> createDefaultCoffeeTemplates() {
         List<Coffee> c = new ArrayList<>();
         c.add(createDarkBlendTemplate());
         c.add(createEastAfricanTemplate());
