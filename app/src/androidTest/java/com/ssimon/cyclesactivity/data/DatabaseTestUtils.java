@@ -69,7 +69,7 @@ class DatabaseTestUtils {
             int ncycles = Cycle.MIN_NUM_CYCLES + i;
             ncycles = (ncycles > Cycle.MAX_NUM_CYCLES ? Cycle.MIN_NUM_CYCLES : ncycles);
             List<Cycle> cycles = createCycles(ncycles);
-            vs.add(new Volume(Const.UNSET_DATABASE_ID, cycles));
+            vs.add(new Volume(cycles));
         }
         return Collections.unmodifiableList(vs);
     }

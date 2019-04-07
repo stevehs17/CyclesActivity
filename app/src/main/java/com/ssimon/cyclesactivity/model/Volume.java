@@ -53,8 +53,6 @@ public class Volume implements Serializable {
         return String.format("%d ml", totalVolume());
     }
 
-
-
     public String toString() {
         String s = String.format("\tVolumeId = %d\n", id());
         for (Cycle c : cycles())

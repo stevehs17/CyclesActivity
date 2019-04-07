@@ -61,7 +61,7 @@ public class CoffeeTest {
     @Test
     public void newCoffeeBadDefaultVolId_Fails() {
         try {
-            Coffee c = new Coffee(Const.MIN_DATABASE_ID, "n", volumes(), Const.UNSET_DATABASE_ID);
+            Coffee c = new Coffee(Const.MIN_DATABASE_ID, "n", volumes(), Const.UNSET_DATABASE_ID - 1);
         } catch (IllegalStateException unused) {
             return;
         }

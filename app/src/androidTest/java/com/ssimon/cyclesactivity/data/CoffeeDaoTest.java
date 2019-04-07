@@ -37,11 +37,10 @@ public class CoffeeDaoTest {
         int vac = Cycle.MIN_VACUUMTIME + 1;
         cys.add(new Cycle(vol, brew, vac));
         List<Volume> vols = new ArrayList<>();
-        vols.add(new Volume(Const.UNSET_DATABASE_ID, cys));
+        vols.add(new Volume(cys));
         List<Coffee> cofs = new ArrayList<>();
         String name = "name";
-        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols,
-                Const.UNSET_DATABASE_ID);
+        Coffee cof = new Coffee(name, vols);
         cofs.add(cof);
         Context ctx = InstrumentationRegistry.getTargetContext();
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
@@ -68,13 +67,12 @@ public class CoffeeDaoTest {
         cys.add(new Cycle(vol, brew, vac));
         cys.add(new Cycle(vol, brew, vac));
         List<Volume> vols = new ArrayList<>();
-        vols.add(new Volume(Const.UNSET_DATABASE_ID, cys));
+        vols.add(new Volume(cys));
         cys.add(new Cycle(vol, brew, vac));
-        vols.add(new Volume(Const.UNSET_DATABASE_ID, cys));
+        vols.add(new Volume(cys));
         List<Coffee> cofs = new ArrayList<>();
         String name = "name";
-        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols,
-                Const.UNSET_DATABASE_ID);
+        Coffee cof = new Coffee(name, vols);
         cofs.add(cof);
         Context ctx = InstrumentationRegistry.getTargetContext();
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
@@ -100,11 +98,10 @@ public class CoffeeDaoTest {
         int vac = Cycle.MIN_VACUUMTIME + 1;
         cys.add(new Cycle(vol, brew, vac));
         List<Volume> vols = new ArrayList<>();
-        vols.add(new Volume(Const.UNSET_DATABASE_ID, cys));
+        vols.add(new Volume(cys));
         List<Coffee> cofs = new ArrayList<>();
         String name = "name";
-        Coffee cof = new Coffee(Const.UNSET_DATABASE_ID, name, vols,
-                Const.UNSET_DATABASE_ID);
+        Coffee cof = new Coffee(name, vols);
         cofs.add(cof);
 
         Context ctx = InstrumentationRegistry.getTargetContext();

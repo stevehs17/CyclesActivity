@@ -31,7 +31,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(Contract.Coffee.CREATE_TABLE);
         db.execSQL(Contract.Volume.CREATE_TABLE);
         db.execSQL(Contract.Cycle.CREATE_TABLE);
-        List<Coffee> defaults = DbaseUtils.createDefaultCoffees2();
+        //List<Coffee> defaults = DbaseUtils.createDefaultCoffees2();
+        List<Coffee> defaults = DbaseUtils.createDefaultCoffeeTemplates();
         CoffeeDao.insertCoffees(db, defaults);
     }
 
