@@ -1,6 +1,3 @@
-Use ROW_ID for cycles instead of index.
-Might also want to sort by ROW_ID for volumes for testing purpose
-    - So can compare what's created with what's read.
 Add stress tests for db code
     I.e.: have large numbers of coffees -- 30 and 10*30
 Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
@@ -77,17 +74,18 @@ Fix espresso test.
 Implement selection of coffee, volume, working.
 Try updating gradle and running tests in separate processes
 Refactor db tests based on GC2 design
-
 Rewrite data tests
 Populate db for espresso test.
-
 Fix Coffee constructors
     Should just sort volumes once; this may require allowing UNSET_DB_ID as a legal
     parameter vaue.
 Add LeakCanary.
-
 When create database, provide some default recipes.
     To add, can call methods in CoffeeDao.
+Use ROW_ID for cycles instead of index.
+Might also want to sort by ROW_ID for volumes for testing purpose
+    - So can compare what's created with what's read.
+
 
 
 

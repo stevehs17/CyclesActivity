@@ -12,7 +12,6 @@
 package com.ssimon.cyclesactivity.model;
 
 import com.ssimon.cyclesactivity.util.Checker;
-import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;
 
