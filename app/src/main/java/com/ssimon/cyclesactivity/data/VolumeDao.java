@@ -24,10 +24,6 @@ public class VolumeDao {
         Checker.notNull(db);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
 
-        /*
-        String query = String.format("SELECT * FROM %s WHERE %s = ?",
-                TABLE_NAME, Col.COFFEE_ID);
-                */
         String query = String.format("SELECT * FROM %s WHERE %s = ? ORDER BY rowid ASC",
                 TABLE_NAME, Col.COFFEE_ID);
         String[] args = {String.valueOf(coffeeId)};
@@ -42,13 +38,6 @@ public class VolumeDao {
         } while (c.moveToNext());
         c.close();
         return volumes;
-    }
-
-    static private class TotalVolumeSorter implements Comparator<Volume> {
-        @Override
-        public int compare(Volume v1, Volume v2) {
-            return v1.totalVolume() - v2.totalVolume();
-        }
     }
 
     static public void insertVolumes(SQLiteDatabase db, long recipeId, List<Volume> vols) {
@@ -79,19 +68,6 @@ public class VolumeDao {
         }  finally {
             db.endTransaction();
         }
-    }
-
-    /* Can this be deleted? */
-    static void deleteVolumes(SQLiteDatabase db, long coffeeId) {
-        Checker.notNull(db);
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-
-        String where = Col.COFFEE_ID + "=?";
-        String[] whereArgs = {Long.toString(coffeeId)};
-        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
-        Checker.atLeast(numDeleted, 1);
-
-
     }
 
     static void deleteVolume(SQLiteDatabase db, long id) {
