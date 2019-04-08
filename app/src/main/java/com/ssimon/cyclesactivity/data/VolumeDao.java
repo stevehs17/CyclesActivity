@@ -10,16 +10,12 @@ import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.model.Volume;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static com.ssimon.cyclesactivity.data.Contract.Volume.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Volume.TABLE_NAME;
 
 public class VolumeDao {
-    static final private String TAG = "Dao";
-
     static public List<Volume> getVolumes(SQLiteDatabase db, long coffeeId) {
         Checker.notNull(db);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);

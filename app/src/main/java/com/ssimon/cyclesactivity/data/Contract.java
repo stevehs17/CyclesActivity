@@ -61,18 +61,7 @@ public class Contract {
     static abstract class Cycle implements BaseColumns {
         static final String TABLE_NAME = "cycle";
 
-        /*
-        static abstract class Col {
-            static final String ID = "_id";
-            static final String CYCLE_INDEX = "cycle_index";
-            static final String BREW_TIME_SECONDS = "brew_time_seconds";
-            static final String VOLUME_MILLILITERS = "volume_milliliters";
-            static final String VACUUM_TIME_SECONDS = "vacuum_time_seconds";
-            static final String VOLUME_ID = "volume_id";
-        }
-        */
-
-        static abstract class Col {
+      static abstract class Col {
             static final String ID = "_id";
             static final String BREW_TIME_SECONDS = "brew_time_seconds";
             static final String VOLUME_MILLILITERS = "volume_milliliters";
