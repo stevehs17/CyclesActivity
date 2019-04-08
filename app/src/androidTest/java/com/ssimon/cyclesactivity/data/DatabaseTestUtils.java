@@ -4,11 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
-import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
-
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,10 +40,10 @@ class DatabaseTestUtils {
         for (int i = 0; i < ncycles; i++) {
             int vol = Cycle.MIN_VOLUME + 10*i;
             vol = (vol > Cycle.MAX_VOLUME ? Cycle.MIN_VOLUME : vol);
-            int brew = Cycle.MIN_BREWTIME + i;
-            brew = (brew > Cycle.MAX_BREWTIME ? Cycle.MIN_BREWTIME : brew);
-            int vac = Cycle.MIN_VACUUMTIME + i;
-            vac = (vac > Cycle.MAX_VACUUMTIME ? Cycle.MAX_VACUUMTIME : vac);
+            int brew = Cycle.MIN_TIME + i;
+            brew = (brew > Cycle.MAX_TIME ? Cycle.MIN_TIME : brew);
+            int vac = Cycle.MIN_TIME + i;
+            vac = (vac > Cycle.MAX_TIME ? Cycle.MAX_TIME : vac);
             cs.add(new Cycle(vol, brew, vac));
         }
         return Collections.unmodifiableList(cs);

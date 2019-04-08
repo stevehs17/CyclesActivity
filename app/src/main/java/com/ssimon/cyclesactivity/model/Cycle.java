@@ -20,10 +20,10 @@ public class Cycle implements Serializable {
     static final public int MAX_NUM_CYCLES = 6;
     static final public int MIN_VOLUME = 180;
     static final public int MAX_VOLUME = 1670;
-    static final public int MIN_BREWTIME = 1;
-    static final public int MAX_BREWTIME = 999;
-    static final public int MIN_VACUUMTIME = 1;
-    static final public int MAX_VACUUMTIME = 999;
+    static final public int MIN_TIME = 1;
+    static final public int MAX_TIME = 999;
+    //static final public int MIN_VACUUMTIME = 1;
+    //static final public int MAX_VACUUMTIME = 999;
     static final public int MIN_LASTCYCLE_VACUUMTIME = 20;
 
     final private int volumeMl;
@@ -32,8 +32,8 @@ public class Cycle implements Serializable {
 
     public Cycle(int volumeMl, int brewSeconds, int vacuumSeconds) {
         Checker.inRange(volumeMl, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME);
-        Checker.inRange(brewSeconds, Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME);
-        Checker.inRange(vacuumSeconds, Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME);
+        Checker.inRange(brewSeconds, Cycle.MIN_TIME, Cycle.MAX_TIME);
+        Checker.inRange(vacuumSeconds, Cycle.MIN_TIME, Cycle.MAX_TIME);
 
         this.volumeMl = volumeMl;
         this.brewSeconds = brewSeconds;

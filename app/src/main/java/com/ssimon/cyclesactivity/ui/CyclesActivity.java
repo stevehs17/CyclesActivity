@@ -208,11 +208,11 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     public void onClickBrewSecs(View v) {
-        setCurrentParmButton(v, Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, BREWTIMES);
+        setCurrentParmButton(v, Cycle.MIN_TIME, Cycle.MAX_TIME, BREWTIMES);
     }
 
     public void onClickVacuumSecs(View v) {
-        setCurrentParmButton(v, Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME, VACUUMTIMES);
+        setCurrentParmButton(v, Cycle.MIN_TIME, Cycle.MAX_TIME, VACUUMTIMES);
     }
 
     private void setCurrentParmButton(View v, int minVal, int maxVal, List<Integer> values) {
@@ -263,7 +263,7 @@ public class CyclesActivity extends AppCompatActivity {
                 Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
                 b.setText(Integer.toString(Cycle.MIN_VOLUME));
                 b = (Button) tr.getChildAt(BREWTIME_COLUMN);
-                b.setText(Integer.toString(Cycle.MIN_BREWTIME));
+                b.setText(Integer.toString(Cycle.MIN_TIME));
                 b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
                 b.setText(Integer.toString(Cycle.MIN_LASTCYCLE_VACUUMTIME));
                 break;
@@ -289,12 +289,12 @@ public class CyclesActivity extends AppCompatActivity {
 
     static private List<Integer> getBrewTimes() {
         final int increment = 1;
-        return getIntegerList(Cycle.MIN_BREWTIME, Cycle.MAX_BREWTIME, increment);
+        return getIntegerList(Cycle.MIN_TIME, Cycle.MAX_TIME, increment);
     }
 
     static List<Integer> getVacuumTimes() {
         final int increment = 1;
-        return getIntegerList(Cycle.MIN_VACUUMTIME, Cycle.MAX_VACUUMTIME, increment);
+        return getIntegerList(Cycle.MIN_TIME, Cycle.MAX_TIME, increment);
     }
 
     static private List<Integer> getIntegerList(int min, int max, int increment) {

@@ -32,8 +32,8 @@ public class CoffeeDaoTest {
     public void createAndReadCoffeesSimple_Succeeds() {
         List<Cycle> cys = new ArrayList<>();
         int vol = Cycle.MIN_VOLUME;
-        int brew = Cycle.MIN_BREWTIME;
-        int vac = Cycle.MIN_VACUUMTIME + 1;
+        int brew = Cycle.MIN_TIME;
+        int vac = Cycle.MIN_TIME + 1;
         cys.add(new Cycle(vol, brew, vac));
         List<Volume> vols = new ArrayList<>();
         vols.add(new Volume(cys));
@@ -60,8 +60,8 @@ public class CoffeeDaoTest {
     public void createAndReadCoffeesMultiple_Succeeds() {
         List<Cycle> cys = new ArrayList<>();
         int vol = Cycle.MIN_VOLUME;
-        int brew = Cycle.MIN_BREWTIME;
-        int vac = Cycle.MIN_VACUUMTIME + 1;
+        int brew = Cycle.MIN_TIME;
+        int vac = Cycle.MIN_TIME + 1;
         cys.add(new Cycle(vol, brew, vac));
         cys.add(new Cycle(vol, brew, vac));
         List<Volume> vols = new ArrayList<>();
@@ -91,8 +91,8 @@ public class CoffeeDaoTest {
     public void deleteCoffee_Succeeds() {
         List<Cycle> cys = new ArrayList<>();
         int vol = Cycle.MIN_VOLUME;
-        int brew = Cycle.MIN_BREWTIME;
-        int vac = Cycle.MIN_VACUUMTIME + 1;
+        int brew = Cycle.MIN_TIME;
+        int vac = Cycle.MIN_TIME + 1;
         cys.add(new Cycle(vol, brew, vac));
         List<Volume> vols = new ArrayList<>();
         vols.add(new Volume(cys));

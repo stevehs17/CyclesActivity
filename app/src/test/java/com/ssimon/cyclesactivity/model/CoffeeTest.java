@@ -13,7 +13,7 @@ public class CoffeeTest {
     @Test
     public void newCoffee_Succeeds() {
         List<Cycle> cs = new ArrayList<>();
-        cs.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME));
+        cs.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_TIME));
         List<Volume> vs = new ArrayList<>();
         vs.add(new Volume(Const.MIN_DATABASE_ID, cs));
         String name = "n";
@@ -24,14 +24,14 @@ public class CoffeeTest {
         assertEquals(Const.MIN_DATABASE_ID, v.id());
         Cycle cy = v.cycles().get(0);
         assertEquals(Cycle.MIN_VOLUME, cy.volumeMl());
-        assertEquals(Cycle.MIN_BREWTIME, cy.brewSeconds());
-        assertEquals(Cycle.MIN_VACUUMTIME, cy.vacuumSeconds());
+        assertEquals(Cycle.MIN_TIME, cy.brewSeconds());
+        assertEquals(Cycle.MIN_TIME, cy.vacuumSeconds());
     }
 
     @Test
     public void newCoffeeNoIds_Succeeds() {
         List<Cycle> cs = new ArrayList<>();
-        cs.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME));
+        cs.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_TIME));
         List<Volume> vs = new ArrayList<>();
         vs.add(new Volume(Const.MIN_DATABASE_ID, cs));
         String name = "n";
@@ -42,8 +42,8 @@ public class CoffeeTest {
         assertEquals(Const.MIN_DATABASE_ID, v.id());
         Cycle cy = v.cycles().get(0);
         assertEquals(Cycle.MIN_VOLUME, cy.volumeMl());
-        assertEquals(Cycle.MIN_BREWTIME, cy.brewSeconds());
-        assertEquals(Cycle.MIN_VACUUMTIME, cy.vacuumSeconds());
+        assertEquals(Cycle.MIN_TIME, cy.brewSeconds());
+        assertEquals(Cycle.MIN_TIME, cy.vacuumSeconds());
     }
 
     @Test
@@ -98,7 +98,7 @@ public class CoffeeTest {
 
     private List<Volume> volumes() {
         List<Cycle> cs = new ArrayList<>();
-        cs.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME));
+        cs.add(new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_TIME));
         List<Volume> vs = new ArrayList<>();
         vs.add(new Volume(Const.MIN_DATABASE_ID, cs));
         return vs;

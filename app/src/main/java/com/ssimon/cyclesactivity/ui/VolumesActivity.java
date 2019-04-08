@@ -151,14 +151,14 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
 
     /*
     public void onClickEditVolume(View unused) {
-        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_BREWTIME + 30, Cycle.MIN_VACUUMTIME + 40);
+        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_TIME + 30, Cycle.MIN_VACUUMTIME + 40);
         ArrayList<Cycle> cycles = new ArrayList<>();
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
-        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
+        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_VACUUMTIME);
         cycles.add(c);
         Volume v = new Volume(1, cycles);
         List<Volume> volumes = new ArrayList<>();
@@ -179,14 +179,14 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
         i.putExtra(EXTRA_VOLUMEID, selectedVolumeId);
 
 
-        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_BREWTIME + 30, Cycle.MIN_VACUUMTIME + 40);
+        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_TIME + 30, Cycle.MIN_TIME + 40);
         ArrayList<Cycle> cycles = new ArrayList<>();
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
         cycles.add(c);
-        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_BREWTIME, Cycle.MIN_VACUUMTIME);
+        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_TIME);
         cycles.add(c);
         Volume v = new Volume(1, cycles);
         List<Volume> volumes = new ArrayList<>();
