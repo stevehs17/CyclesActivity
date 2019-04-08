@@ -3,6 +3,7 @@
     package="com.ssimon.cyclesactivity"
     >
     <application
+        android:name=".CanaryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Manage Cycles"
