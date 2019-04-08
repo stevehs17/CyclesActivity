@@ -1,10 +1,14 @@
-package com.ssimon.cyclesactivity.model;
+package com.ssimon.cyclesactivity.util;
+
+import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.model.Volume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Creator {
+public class ModelUtils {
     static public List<Coffee> createDefaultCoffeeTemplates() {
         List<Coffee> c = new ArrayList<>();
         c.add(createDarkBlendTemplate());
