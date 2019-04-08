@@ -48,7 +48,6 @@ public class CoffeeDaoTest {
         List<Coffee> cofsOut = CoffeeDao.getCoffees(db);
         Coffee cofOut = cofsOut.get(0);
         assertEquals(cof.name(), cofOut.name());
-        assertEquals(cof.defaultVolumeId(), cofOut.defaultVolumeId());
         assertEquals(cof.volumes().size(), cofOut.volumes().size());
         List<Cycle> cycsOut = cofOut.volumes().get(0).cycles();
         Cycle cycOut = cycsOut.get(0);
@@ -80,7 +79,6 @@ public class CoffeeDaoTest {
         List<Coffee> cofsOut = CoffeeDao.getCoffees(db);
         Coffee cofOut = cofsOut.get(0);
         assertEquals(cof.name(), cofOut.name());
-        assertEquals(cof.defaultVolumeId(), cofOut.defaultVolumeId());
         assertEquals(cof.volumes().size(), cofOut.volumes().size());
         List<Cycle> cycsOut = cofOut.volumes().get(0).cycles();
         Cycle cycOut = cycsOut.get(0);

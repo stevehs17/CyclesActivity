@@ -43,18 +43,18 @@ public class DbaseUtils {
         final String name = "Dark Blend (template)";
 
         List<Cycle> c = new ArrayList<>();
-        //name = "Dark Blend (template)";
+        // V0
         c.add(new Cycle(1000, 141, 80));
         c.add(new Cycle(200, 37, 55));
-        //name = "Dark Blend (template)";
+        // V1
         c.add(new Cycle(750, 141, 80));
         c.add(new Cycle(750, 28, 100));
         c.add(new Cycle(500, 11, 85));
-        //name = "Dark Blend (template)";
+        // V2
         c.add(new Cycle(1125, 140, 85));
         c.add(new Cycle(1125, 26, 105));
         c.add(new Cycle(750, 10, 110));
-        //name = "Dark Blend (template)";
+        // V3
         c.add(new Cycle(1400, 140, 90));
         c.add(new Cycle(1400, 25, 105));
         c.add(new Cycle(1000, 10, 110));
@@ -73,18 +73,18 @@ public class DbaseUtils {
         final String name = "East African (template)";
 
         List<Cycle> c = new ArrayList<>();
-        //name = "East African (template)";
+        // V0
         c.add(new Cycle(1000, 139, 80));   // 0
         c.add(new Cycle(200, 32, 55));     // 1
-        //name = "East African (template)";
+        // V1
         c.add(new Cycle(750, 139, 80));    // 2
         c.add(new Cycle(750, 27, 100));    // 3
         c.add(new Cycle(500, 6, 85));      // 4
-        //name = "East African (template)";
+        // V2
         c.add(new Cycle(1125, 138, 85));   // 5
         c.add(new Cycle(1125, 25, 105));   // 6
         c.add(new Cycle(750, 6, 110));     // 7
-        //name = "East African (template)";
+        // V3
         c.add(new Cycle(1400, 137, 90));   // 8
         c.add(new Cycle(1400, 23, 105));   // 9
         c.add(new Cycle(1000, 5, 110));    // 10
@@ -102,18 +102,18 @@ public class DbaseUtils {
         final String name = "Latin American(template)";
 
         List<Cycle> c = new ArrayList<>();
-        // name = "Latin America (template)";
+        // V0
         c.add(new Cycle(1000, 139, 34));        // 0
         c.add(new Cycle(200, 34, 55));          // 1
-        // name = "Latin America (template)";
+        // V1
         c.add(new Cycle(750, 139, 80));         // 2
         c.add(new Cycle(750, 27, 100));         // 3
         c.add(new Cycle(500, 100, 85));         // 4
-        // name = "Latin America (template)";
+        // V2
         c.add(new Cycle(1125, 138, 85));        // 5
         c.add(new Cycle(1125, 25, 105));        // 6
         c.add(new Cycle(750, 7, 110));          // 7
-        // name = "Latin America (template)";
+        // V3
         c.add(new Cycle(1400, 138, 90));        // 8
         c.add(new Cycle(1400, 23, 105));        // 9
         c.add(new Cycle(1000, 6, 110));         // 10
@@ -131,18 +131,18 @@ public class DbaseUtils {
         final String name = "Light Blend (template)";
 
         List<Cycle> c = new ArrayList<>();
-        //name = "Light Blend (template)";
+        // V0
         c.add(new Cycle(1000, 140, 80));    // 0
         c.add(new Cycle(200, 35, 55));      // 1
-        //name = "Light Blend (template)";
+        // V1
         c.add(new Cycle(750, 140, 80));     // 2
         c.add(new Cycle(750, 28, 100));     // 3
         c.add(new Cycle(500, 9, 85));       // 4
-        //name = "Light Blend (template)";
+        // V2
         c.add(new Cycle(1125, 139, 85));    // 5
         c.add(new Cycle(1125, 25, 105));    // 6
         c.add(new Cycle(750, 8, 110));      // 7
-        //name = "Light Blend (template)";
+        // V3
         c.add(new Cycle(1400, 139, 90));    // 8
         c.add(new Cycle(1400, 24, 105));    // 9
         c.add(new Cycle(1000, 8, 110));     // 10

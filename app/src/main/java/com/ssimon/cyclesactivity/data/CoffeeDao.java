@@ -29,8 +29,7 @@ public class CoffeeDao {
             long id = c.getLong(c.getColumnIndexOrThrow(Col.ID));
             String name = c.getString(c.getColumnIndexOrThrow(Col.NAME));
             List<Volume> volumes = VolumeDao.getVolumes(db, id);
-            long volumeId = c.getLong(c.getColumnIndexOrThrow(Col.DEFAULT_VOLUME_ID));
-            coffees.add(new Coffee(id, name, volumes, volumeId));
+            coffees.add(new Coffee(id, name, volumes));
         } while (c.moveToNext());
         c.close();
         return Collections.unmodifiableList(coffees);
@@ -56,7 +55,6 @@ public class CoffeeDao {
         try {
             ContentValues cv = new ContentValues();
             cv.put(Col.NAME, cof.name());
-            cv.put(Col.DEFAULT_VOLUME_ID, Const.UNSET_DATABASE_ID);
             long id = db.insertOrThrow(TABLE_NAME, null, cv);
             VolumeDao.insertVolumes(db, id, cof.volumes());
             db.setTransactionSuccessful();

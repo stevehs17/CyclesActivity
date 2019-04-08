@@ -17,10 +17,9 @@ public class CoffeeTest {
         List<Volume> vs = new ArrayList<>();
         vs.add(new Volume(Const.MIN_DATABASE_ID, cs));
         String name = "n";
-        Coffee c = new Coffee(Const.MIN_DATABASE_ID, name, vs, Const.MIN_DATABASE_ID);
+        Coffee c = new Coffee(Const.MIN_DATABASE_ID, name, vs);
         assertEquals(Const.MIN_DATABASE_ID, c.id());
         assertEquals(name, c.name());
-        assertEquals(Const.MIN_DATABASE_ID, c.defaultVolumeId());
         Volume v = c.volumes().get(0);
         assertEquals(Const.MIN_DATABASE_ID, v.id());
         Cycle cy = v.cycles().get(0);
@@ -39,7 +38,6 @@ public class CoffeeTest {
         Coffee c = new Coffee(name, vs);
         assertEquals(Const.UNSET_DATABASE_ID, c.id());
         assertEquals(name, c.name());
-        assertEquals(Const.UNSET_DATABASE_ID, c.defaultVolumeId());
         Volume v = c.volumes().get(0);
         assertEquals(Const.MIN_DATABASE_ID, v.id());
         Cycle cy = v.cycles().get(0);
@@ -51,23 +49,12 @@ public class CoffeeTest {
     @Test
     public void newCoffeeBadId_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID, "n", volumes(), Const.MIN_DATABASE_ID);
+            Coffee c = new Coffee(Const.UNSET_DATABASE_ID - 1, "n", volumes());
         } catch (IllegalStateException unused) {
             return;
         }
         throw new RuntimeException("test failed");
     }
-
-    @Test
-    public void newCoffeeBadDefaultVolId_Fails() {
-        try {
-            Coffee c = new Coffee(Const.MIN_DATABASE_ID, "n", volumes(), Const.UNSET_DATABASE_ID - 1);
-        } catch (IllegalStateException unused) {
-            return;
-        }
-        throw new RuntimeException("test failed");
-    }
-
 
     @Test
     public void newCoffeeNullName_Fails() {

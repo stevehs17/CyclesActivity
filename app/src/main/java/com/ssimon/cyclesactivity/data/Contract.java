@@ -27,14 +27,12 @@ public class Contract {
         static abstract class Col {
             static final String ID = BaseColumns._ID;
             static final String NAME = "name";
-            static final String DEFAULT_VOLUME_ID = "default_volume_id";
-        }
+         }
 
         static final String CREATE_TABLE =
                 CREATE + TABLE_NAME + OPEN_PAREN
                 + Col.ID + INTEGER  + PRIMARY_KEY + COMMA
-                + Col.NAME + TEXT + NOT_NULL + UNIQUE + COMMA
-                + Col.DEFAULT_VOLUME_ID + INTEGER + NOT_NULL
+                + Col.NAME + TEXT + NOT_NULL + UNIQUE
                 + CLOSE_PAREN;
 
         static final String DELETE_TABLE = DROP_TABLE_IF_EXISTS + TABLE_NAME;

@@ -24,35 +24,24 @@ public class Coffee implements Serializable {
     final private long id;
     final private String name;
     final private List<Volume> volumes;
-    final private long defaultVolumeId;
 
-    // todo: figure out how to consolidate this and other constructor, so didn't repeat sorting code
-    // (may need to go back to allowing UNSET_DB_ID as value for coffee id)s
-    public Coffee(long id, String name, List<Volume> volumes, long defaultVolumeId) {
-        Checker.atLeast(id, Const.MIN_DATABASE_ID);
+    public Coffee(String name, List<Volume> volumes) {
+       this(Const.UNSET_DATABASE_ID, name, volumes);
+    }
+
+     public Coffee(long id, String name, List<Volume> volumes) {
+        if (id != Const.UNSET_DATABASE_ID)
+            Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(name);
         Checker.notNullOrEmpty(volumes);
-        if (defaultVolumeId != Const.UNSET_DATABASE_ID)
-            Checker.atLeast(defaultVolumeId, Const.MIN_DATABASE_ID);
 
         this.id = id;
         this.name = name;
         Collections.sort(volumes, new TotalVolumeSorter());
         this.volumes = Collections.unmodifiableList(volumes);
-        this.defaultVolumeId = defaultVolumeId;
     }
 
 
-    public Coffee(String name, List<Volume> volumes) {
-        Checker.notNullOrEmpty(name);
-        Checker.notNullOrEmpty(volumes);
-
-        this.id = Const.UNSET_DATABASE_ID;
-        this.name = name;
-        Collections.sort(volumes, new TotalVolumeSorter());
-        this.volumes = Collections.unmodifiableList(volumes);
-        this.defaultVolumeId = Const.UNSET_DATABASE_ID;
-    }
 
     static private class TotalVolumeSorter implements Comparator<Volume> {
         @Override
@@ -64,11 +53,10 @@ public class Coffee implements Serializable {
     public long id() { return id; }
     public String name() { return name; }
     public List<Volume> volumes() { return volumes; }
-    public long defaultVolumeId() { return defaultVolumeId; }
 
     public String toString() {
-        String fmt = "CoffeeId = %d, name = %s, defaultVolId = %d\n";
-        String s = String.format(fmt, id(), name(), defaultVolumeId());
+        String fmt = "CoffeeId = %d, name = %s";
+        String s = String.format(fmt, id(), name());
         for (Volume v : volumes())
             s += v.toString();
         return s;

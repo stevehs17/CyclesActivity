@@ -192,7 +192,7 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
         List<Volume> volumes = new ArrayList<>();
         volumes.add(v);
         volumes.add(v);
-        Coffee cof = new Coffee(5, "coffee", volumes, 1);
+        Coffee cof = new Coffee(5, "coffee", volumes);
         i.putExtra(EXTRA_COFFEE, cof);
         i.putExtra(EXTRA_VOLUME_IDX, 1);
 
