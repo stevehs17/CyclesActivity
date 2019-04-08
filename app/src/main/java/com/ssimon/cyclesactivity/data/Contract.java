@@ -61,6 +61,7 @@ public class Contract {
     static abstract class Cycle implements BaseColumns {
         static final String TABLE_NAME = "cycle";
 
+        /*
         static abstract class Col {
             static final String ID = "_id";
             static final String CYCLE_INDEX = "cycle_index";
@@ -69,11 +70,19 @@ public class Contract {
             static final String VACUUM_TIME_SECONDS = "vacuum_time_seconds";
             static final String VOLUME_ID = "volume_id";
         }
+        */
 
-       static final String CREATE_TABLE =
+        static abstract class Col {
+            static final String ID = "_id";
+            static final String BREW_TIME_SECONDS = "brew_time_seconds";
+            static final String VOLUME_MILLILITERS = "volume_milliliters";
+            static final String VACUUM_TIME_SECONDS = "vacuum_time_seconds";
+            static final String VOLUME_ID = "volume_id";
+        }
+
+        static final String CREATE_TABLE =
             CREATE + TABLE_NAME + OPEN_PAREN
             + Col.ID + INTEGER + PRIMARY_KEY + COMMA
-            + Col.CYCLE_INDEX + INTEGER + NOT_NULL + COMMA
             + Col.BREW_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
             + Col.VOLUME_MILLILITERS + INTEGER + NOT_NULL + COMMA
             + Col.VACUUM_TIME_SECONDS + INTEGER + NOT_NULL + COMMA
