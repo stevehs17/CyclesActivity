@@ -17,6 +17,7 @@ public class CycleDaoTest {
     static final private int NCYCLES = Cycle.MAX_NUM_CYCLES;
     static final private List<Cycle> CYCLES = DatabaseTestUtils.createCycles(NCYCLES);
     static final private long VOL_ID = 1;
+    private SQLiteDatabase db;
 
     @BeforeClass
     static public void setupDatabase() {
@@ -26,27 +27,20 @@ public class CycleDaoTest {
     @Before
     public void setupTables() {
         DatabaseTestUtils.setupTables();
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        db = dh.getWritableDatabase();
     }
-
 
     @Test
     public void insertCycles_Succeeds() {
-        Context ctx = InstrumentationRegistry.getTargetContext();
-        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
-        SQLiteDatabase db = dh.getWritableDatabase();
-
         db.execSQL("PRAGMA foreign_keys = OFF;");
         CycleDao.insertCycles(db, VOL_ID, CYCLES);
         db.execSQL("PRAGMA foreign_keys = ON;");
     }
 
-
-
     @Test
     public void insertCyclesConstraintViolation_Fails() {
-        Context ctx = InstrumentationRegistry.getTargetContext();
-        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
-        SQLiteDatabase db = dh.getWritableDatabase();
         db.execSQL("PRAGMA foreign_keys = ON;");
         try {
             CycleDao.insertCycles(db, VOL_ID, CYCLES);
@@ -56,13 +50,8 @@ public class CycleDaoTest {
         throw new RuntimeException("constraint failed");
     }
 
-
-
     @Test
     public void getCycles_Succeeds() {
-        Context ctx = InstrumentationRegistry.getTargetContext();
-        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
-        SQLiteDatabase db = dh.getWritableDatabase();
         insertCycles_Succeeds();
         List<Cycle> cs = CycleDao.getCycles(db, VOL_ID);
         DatabaseTestUtils.assertCyclesEqual(CYCLES, cs);
