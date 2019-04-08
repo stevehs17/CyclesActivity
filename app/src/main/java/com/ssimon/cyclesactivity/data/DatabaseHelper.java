@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void refreshCoffeesCache() {
         SQLiteDatabase db = getReadableDatabase();
         List<Coffee> cs = CoffeeDao.getCoffees(db);
-        CoffeesCache.setCoffees(cs);
+        CoffeeCache.setCoffees(cs);
     }
 
     public void saveVolume(long coffeeId, List<Cycle> cycles) {

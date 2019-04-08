@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ssimon.cyclesactivity.R;
-import com.ssimon.cyclesactivity.data.CoffeesCache;
+import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
@@ -62,7 +62,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
 
    @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeesRefreshEvent e) {
-        coffees = CoffeesCache.getCoffees();
+        coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeesCache();

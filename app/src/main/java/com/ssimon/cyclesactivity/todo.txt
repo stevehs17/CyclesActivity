@@ -1,9 +1,5 @@
 Add stress tests for db code
     I.e.: have large numbers of coffees -- 30 and 10*30
-Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
-Figure out better way to organize code in DbaseUtils
-    Move default coffee code to elsewhere
-    Then can change name to DaoUtils
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
 Proceed with implementation
@@ -85,8 +81,10 @@ When create database, provide some default recipes.
 Use ROW_ID for cycles instead of index.
 Might also want to sort by ROW_ID for volumes for testing purpose
     - So can compare what's created with what's read.
-
-
+Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
+Figure out better way to organize code in DbaseUtils
+    Move default coffee code to elsewhere
+    Then can change name to DaoUtils
 
 
 

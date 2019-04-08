@@ -8,7 +8,7 @@ import com.ssimon.cyclesactivity.util.Checker;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class CoffeesCache {
+public class CoffeeCache {
     static private AtomicReference<List<Coffee>> coffees = new AtomicReference<>();
 
     static void setCoffees(List<Coffee> cs) {

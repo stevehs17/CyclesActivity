@@ -18,14 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoffeeDaoTest {
+    private SQLiteDatabase db;
+
     @BeforeClass
     static public void setupDatabase() {
         DatabaseTestUtils.setupDatabase();
     }
-
     @Before
     public void setupTables() {
         DatabaseTestUtils.setupTables();
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        db = dh.getWritableDatabase();
     }
 
     @Test
@@ -41,9 +45,6 @@ public class CoffeeDaoTest {
         String name = "name";
         Coffee cof = new Coffee(name, vols);
         cofs.add(cof);
-        Context ctx = InstrumentationRegistry.getTargetContext();
-        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
-        SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cofs);
         List<Coffee> cofsOut = CoffeeDao.getCoffees(db);
         Coffee cofOut = cofsOut.get(0);
@@ -72,9 +73,6 @@ public class CoffeeDaoTest {
         String name = "name";
         Coffee cof = new Coffee(name, vols);
         cofs.add(cof);
-        Context ctx = InstrumentationRegistry.getTargetContext();
-        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
-        SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cofs);
         List<Coffee> cofsOut = CoffeeDao.getCoffees(db);
         Coffee cofOut = cofsOut.get(0);
@@ -101,9 +99,6 @@ public class CoffeeDaoTest {
         Coffee cof = new Coffee(name, vols);
         cofs.add(cof);
 
-        Context ctx = InstrumentationRegistry.getTargetContext();
-        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
-        SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cofs);
         long n = DatabaseUtils.queryNumEntries(db, Contract.Coffee.TABLE_NAME);
         assertEquals(1, n);

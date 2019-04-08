@@ -30,7 +30,7 @@ import com.ssimon.cyclesactivity.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssimon.cyclesactivity.data.CoffeesCache;
+import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
@@ -86,7 +86,7 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeesRefreshEvent e) {
-        List<Coffee> coffees = CoffeesCache.getCoffees();
+        List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeesCache();
