@@ -64,7 +64,7 @@ public class CoffeeDao {
         }
     }
 
-     // for testing
+     // for testing -- so move to different file
     static public void deleteCoffees(SQLiteDatabase db) {
         Checker.notNull(db);
         List<Coffee> cs = null;

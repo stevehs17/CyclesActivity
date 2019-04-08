@@ -1,24 +1,16 @@
-Fix Coffee constructors
-    Should just sort volumes once; this may require allowing UNSET_DB_ID as a legal
-    parameter vaue.
-Add LeakCanary.
-Proceed with implementation
+Use ROW_ID for cycles instead of index.
+Might also want to sort by ROW_ID for volumes for testing purpose
+    - So can compare what's created with what's read.
+Add stress tests for db code
+    I.e.: have large numbers of coffees -- 30 and 10*30
 Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
-Switch to use of index rather than db id for default volume id?
 Figure out better way to organize code in DbaseUtils
     Move default coffee code to elsewhere
     Then can change name to DaoUtils
-Rather than storing default volume id with Coffee, maybe should store it with BrewActivity?
-    Use separate table from Coffee?
-        That table will have a single column, Vol Id, and Coffee Id will be a foreign key.
-            For cache: can use Map from Cof Id to Vol Id
-     Then: remove default vol id from Coffee class!
-
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
+Proceed with implementation
 Make lists single choice mode.
-When create database, provide some default recipes.
-    To add, can call methods in CoffeeDao.
 General strategy for managing Coffee data:
     All three manage activities get coffee list from cache in onStart().
         In onStart(), they register event bus and then post refresh event.
@@ -60,6 +52,13 @@ Improve Espresso test that navigates edit hierarchy
 Add methods: getIntentExtraOrThrow*
 Make sure event callbacks in one activity aren't getting called in virtue of message being
     sent from another.
+Rather than storing default volume id with Coffee, maybe should store it with BrewActivity?
+    Use separate table from Coffee?
+        That table will have a single column, Vol Id, and Coffee Id will be a foreign key.
+            For cache: can use Map from Cof Id to Vol Id
+     Then: remove default vol id from Coffee class!
+
+
 
 DONE
 Use Checker in CyclesActivity, etc.
@@ -81,6 +80,16 @@ Refactor db tests based on GC2 design
 
 Rewrite data tests
 Populate db for espresso test.
+
+Fix Coffee constructors
+    Should just sort volumes once; this may require allowing UNSET_DB_ID as a legal
+    parameter vaue.
+Add LeakCanary.
+
+When create database, provide some default recipes.
+    To add, can call methods in CoffeeDao.
+
+
 
 
 

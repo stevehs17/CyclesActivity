@@ -41,8 +41,6 @@ public class Coffee implements Serializable {
         this.volumes = Collections.unmodifiableList(volumes);
     }
 
-
-
     static private class TotalVolumeSorter implements Comparator<Volume> {
         @Override
         public int compare(Volume v1, Volume v2) {
