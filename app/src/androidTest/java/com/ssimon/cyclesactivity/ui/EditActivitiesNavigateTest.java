@@ -12,8 +12,9 @@ import android.test.suitebuilder.annotation.LargeTest;
 import com.ssimon.cyclesactivity.R;
 import com.ssimon.cyclesactivity.data.CoffeeDao;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
-import com.ssimon.cyclesactivity.data.DbaseUtils;
+import com.ssimon.cyclesactivity.data.DaoUtils;
 import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Creator;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,7 +46,7 @@ public class EditActivitiesNavigateTest {
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
         CoffeeDao.deleteCoffees(db);
-        List<Coffee> cs = DbaseUtils.createDefaultCoffeeTemplates();
+        List<Coffee> cs = Creator.createDefaultCoffeeTemplates();
         CoffeeDao.insertCoffees(db, cs);
         activityRule.launchActivity(null);
     }

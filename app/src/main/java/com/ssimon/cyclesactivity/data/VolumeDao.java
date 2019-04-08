@@ -67,6 +67,6 @@ public class VolumeDao {
     }
 
     static void deleteVolume(SQLiteDatabase db, long id) {
-        DbaseUtils.deleteTableRow(db, TABLE_NAME, Col.ID, id);
+        DaoUtils.deleteTableRow(db, TABLE_NAME, Col.ID, id);
     }
 }

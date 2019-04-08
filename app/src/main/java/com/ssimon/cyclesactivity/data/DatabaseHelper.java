@@ -7,6 +7,7 @@ import android.os.Process;
 
 import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Creator;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.util.Checker;
 
@@ -31,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(Contract.Coffee.CREATE_TABLE);
         db.execSQL(Contract.Volume.CREATE_TABLE);
         db.execSQL(Contract.Cycle.CREATE_TABLE);
-        List<Coffee> defaults = DbaseUtils.createDefaultCoffeeTemplates();
+        List<Coffee> defaults = Creator.createDefaultCoffeeTemplates();
         CoffeeDao.insertCoffees(db, defaults);
     }
 
