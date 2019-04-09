@@ -75,7 +75,6 @@ public class EditActivitiesNavigateTest {
         appCompatButton.perform(click());
     }
 
-
     private void descendToCycles() {
         ViewInteraction appCompatButton2 = onView(
                 allOf(withText("Edit"),

@@ -1,13 +1,11 @@
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
 Proceed with implementation
-Make lists single choice mode.
 General strategy for managing Coffee data:
     All three manage activities get coffee list from cache in onStart().
         In onStart(), they register event bus and then post refresh event.
+        Actually: all three should use the cache directly, for simplicity.
 Make refresh coffee event non-sticky if, in fact, it's not needed since refresh coffee event is always sent in onPause().
-Improve rigor of deleteCoffees() -- use transactions, validate parameters.
-Change get coffees code so doesn't reset default volume id if not set. (?)
 Add methods to access db off main thread.
 Finish onClickSaveCycles.
 Test for CyclesActivity:
@@ -85,7 +83,9 @@ Figure out better way to organize code in DbaseUtils
     Then can change name to DaoUtils
 Add stress tests for db code
     I.e.: have large numbers of coffees -- 30 and 10*30
-
+Make lists single choice mode.
+Improve rigor of deleteCoffees() -- use transactions, validate parameters.
+Change get coffees code so doesn't reset default volume id if not set. (?)
 
 
 

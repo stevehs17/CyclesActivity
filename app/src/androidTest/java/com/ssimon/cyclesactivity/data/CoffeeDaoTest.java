@@ -102,6 +102,22 @@ public class CoffeeDaoTest {
     }
 
     @Test
+    public void createAndReadCoffeesBigStressTest2_Succeeds() {
+        List<Coffee> c = DatabaseTestUtils.createCoffees(3000, 1);
+        CoffeeDao.insertCoffees(db, c);
+        List<Coffee> cOut = CoffeeDao.getCoffees(db);
+        DatabaseTestUtils.assertCoffeesEqual(c, cOut);
+    }
+
+    @Test
+    public void createAndReadCoffeesBigStressTest3_Succeeds() {
+        List<Coffee> c = DatabaseTestUtils.createCoffees(1, 3000);
+        CoffeeDao.insertCoffees(db, c);
+        List<Coffee> cOut = CoffeeDao.getCoffees(db);
+        DatabaseTestUtils.assertCoffeesEqual(c, cOut);
+    }
+
+    @Test
     public void deleteCoffee_Succeeds() {
         List<Cycle> cys = new ArrayList<>();
         int vol = Cycle.MIN_VOLUME;
