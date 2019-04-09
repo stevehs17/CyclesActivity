@@ -12,10 +12,12 @@ import android.test.suitebuilder.annotation.LargeTest;
 import com.ssimon.cyclesactivity.R;
 import com.ssimon.cyclesactivity.data.CoffeeDao;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
+import com.ssimon.cyclesactivity.data.DatabaseTestUtils;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.ModelUtils;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,12 +41,18 @@ public class EditActivitiesNavigateTest {
     public ActivityTestRule<CoffeesActivity> activityRule = new ActivityTestRule<>
             (CoffeesActivity.class, false, false);
 
+    @BeforeClass
+    static public void setupDatabase() {
+        DatabaseTestUtils.setupDatabase();
+    }
+
     @Before
-    public void PrepareDatabase() {
+    public void setupTables() {
+        DatabaseTestUtils.setupTables();
+
         Context ctx = InstrumentationRegistry.getTargetContext();
         DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
         SQLiteDatabase db = dh.getWritableDatabase();
-        CoffeeDao.deleteCoffees(db);
         List<Coffee> cs = ModelUtils.createDefaultCoffeeTemplates();
         CoffeeDao.insertCoffees(db, cs);
         activityRule.launchActivity(null);
@@ -96,8 +104,4 @@ public class EditActivitiesNavigateTest {
         appCompatImageButton.perform(click());
 
     }
-
-
-
-
 }

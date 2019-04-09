@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-class DatabaseTestUtils {
+public class DatabaseTestUtils {
     static {
         Context c = InstrumentationRegistry.getTargetContext();
         c.deleteDatabase(Contract.DATABASE_NAME);
@@ -24,9 +24,12 @@ class DatabaseTestUtils {
 
     private DatabaseTestUtils() {}
 
-    public static void setupDatabase() {} // called to execute static block
+    // This method exists to provide a means to execute the static code
+    // above, which doesn't work right if the same code insdie the static
+    // block is executed instead inside setupDatabase().
+    static public void setupDatabase() {}
 
-    static void setupTables() {
+    static public void setupTables() {
         Context c = InstrumentationRegistry.getTargetContext();
         DatabaseHelper dh = DatabaseHelper.getInstance(c);
         SQLiteDatabase db = dh.getWritableDatabase();

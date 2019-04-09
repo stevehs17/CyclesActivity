@@ -64,7 +64,9 @@ public class CoffeeDao {
         }
     }
 
+     // todo: see if can delete
      // for testing -- so move to different file
+   /*
     static public void deleteCoffees(SQLiteDatabase db) {
         Checker.notNull(db);
         List<Coffee> cs = null;
@@ -82,7 +84,7 @@ public class CoffeeDao {
             db.endTransaction();
         }
     }
-
+*/
     static void deleteCoffee(SQLiteDatabase db, long id) {
         Checker.notNull(db);
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
