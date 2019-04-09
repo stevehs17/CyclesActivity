@@ -14,8 +14,8 @@ import org.junit.Test;
 import java.util.List;
 
 public class CycleDaoTest {
-    static final private int NCYCLES = Cycle.MAX_NUM_CYCLES;
-    static final private List<Cycle> CYCLES = DatabaseTestUtils.createCycles(NCYCLES);
+    static final private List<Cycle> CYCLES = DatabaseTestUtils
+            .createCycles(Cycle.MAX_NUM_CYCLES);
     static final private long VOL_ID = 1;
     private SQLiteDatabase db;
 
@@ -56,7 +56,4 @@ public class CycleDaoTest {
         List<Cycle> cs = CycleDao.getCycles(db, VOL_ID);
         DatabaseTestUtils.assertCyclesEqual(CYCLES, cs);
     }
-
-
-
 }
