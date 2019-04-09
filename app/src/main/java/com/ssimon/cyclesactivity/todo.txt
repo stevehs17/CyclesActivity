@@ -1,5 +1,3 @@
-Add stress tests for db code
-    I.e.: have large numbers of coffees -- 30 and 10*30
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
 Proceed with implementation
@@ -85,6 +83,8 @@ Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
 Figure out better way to organize code in DbaseUtils
     Move default coffee code to elsewhere
     Then can change name to DaoUtils
+Add stress tests for db code
+    I.e.: have large numbers of coffees -- 30 and 10*30
 
 
 
