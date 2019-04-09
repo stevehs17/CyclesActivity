@@ -92,7 +92,6 @@ public class EditActivitiesNavigateTest {
                                 withParent(withId(R.id.action_bar_container)))),
                         isDisplayed()));
         appCompatImageButton.perform(click());
-
     }
 
     private void ascendToCoffees() {
@@ -102,6 +101,5 @@ public class EditActivitiesNavigateTest {
                                 withParent(withId(R.id.action_bar_container)))),
                         isDisplayed()));
         appCompatImageButton.perform(click());
-
     }
 }
