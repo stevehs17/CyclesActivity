@@ -64,27 +64,6 @@ public class CoffeeDao {
         }
     }
 
-     // todo: see if can delete
-     // for testing -- so move to different file
-   /*
-    static public void deleteCoffees(SQLiteDatabase db) {
-        Checker.notNull(db);
-        List<Coffee> cs = null;
-        try {
-            cs = getCoffees(db);
-        } catch (IllegalStateException unused) {
-            return;
-        }
-        db.beginTransaction();
-        try {
-            for (Coffee c : cs)
-                deleteCoffee(db, c.id());
-            db.setTransactionSuccessful();
-        } finally {
-            db.endTransaction();
-        }
-    }
-*/
     static void deleteCoffee(SQLiteDatabase db, long id) {
         Checker.notNull(db);
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
