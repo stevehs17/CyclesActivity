@@ -1,6 +1,3 @@
-"Manage Coffees" -> "Coffees", etc.
-"Edit Coffee" -> "Edit", etc.
-Proceed with implementation
 General strategy for managing Coffee data:
     All three manage activities get coffee list from cache in onStart().
         In onStart(), they register event bus and then post refresh event.
@@ -17,6 +14,7 @@ Tie together references to columns in XML and in code
     Use resource IDs?
 Special case last vacuum mintime
 Implement total volume.
+Add long press as alternative to "Edit" button for Coffee recipes.
 Create separate getTestInstance() for DatabaseHelper, which creates db with different name from
     non-test (so won't overwrite).
 Figure out how user should specify default volume.
@@ -86,9 +84,9 @@ Make lists single choice mode.
 Improve rigor of deleteCoffees() -- use transactions, validate parameters.
 Change get coffees code so doesn't reset default volume id if not set. (?)
 Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
-
-
-
+"Manage Coffees" -> "Coffees", etc.
+"Edit Coffee" -> "Edit", etc.
+Proceed with implementation
 
 
 

@@ -231,7 +231,8 @@ public class CycleActivity extends AppCompatActivity {
         String s = currentParmButton.getText().toString();
         int val = Integer.parseInt(s);
         int idx = currentParmValues.indexOf(val);
-        if (idx < 0) throw new IllegalStateException("idx = " + idx);
+        if (idx < 0)
+            throw new IllegalStateException("idx = " + idx);
         seekBar.setMax(currentParmValues.size() - 1);
         seekBar.setProgress(idx);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
@@ -243,7 +244,6 @@ public class CycleActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
                 setParmButton(idx);
             }
-
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         };
@@ -281,6 +281,10 @@ public class CycleActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    public void onClickSaveCycles(View unused) {
+        
     }
 
     static private List<Integer> getVolumes() {
