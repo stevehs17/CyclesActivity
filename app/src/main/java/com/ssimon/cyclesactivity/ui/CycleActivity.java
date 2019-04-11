@@ -47,6 +47,8 @@ public class CycleActivity extends AppCompatActivity {
     static final private int VOLUME_COLUMN = FIRST_PARM_COLUMN_INDEX;
     static final private int BREWTIME_COLUMN = VOLUME_COLUMN + 1;
     static final private int VACUUMTIME_COLUMN = BREWTIME_COLUMN + 1;
+    static final private int LAST_PARM_COLUMN_INDEX = VACUUMTIME_COLUMN;
+
     static final private List<Integer> VOLUMES = getVolumes();
     static final private List<Integer> BREWTIMES = getBrewTimes();
     static final private List<Integer> VACUUMTIMES = getVacuumTimes();
@@ -97,28 +99,6 @@ public class CycleActivity extends AppCompatActivity {
             setParmButtonValues(cycles);
             setDefaultParmButton();
         }
-    }
-
-    private List<Cycle> parmButtonToCycles() {
-        List<Cycle> cycles = new ArrayList<>();
-        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
-            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
-            if (tr.getVisibility() == View.VISIBLE) {
-                Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
-                String s = b.getText().toString();
-                int vol = Integer.valueOf(s);
-                b = (Button) tr.getChildAt(BREWTIME_COLUMN);
-                s = b.getText().toString();
-                int brew = Integer.valueOf(s);
-                b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
-                s = b.getText().toString();
-                int vac = Integer.valueOf(s);
-                cycles.add(new Cycle(vol, brew, vac));
-            } else {
-                break;
-            }
-        }
-        return cycles;
     }
 
     private void setParmButtonValues(List<Cycle> cycles) {
@@ -255,6 +235,7 @@ public class CycleActivity extends AppCompatActivity {
         currentParmButton.setText(Integer.toString(val));
     }
 
+/*
     public void onClickAddCycle(View unused) {
         for (int i = 2; i < parmTable.getChildCount(); i++) {
             View v = parmTable.getChildAt(i);
@@ -272,6 +253,30 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
+*/
+    public void onClickAddCycle(View unused) {
+        for (int i = 2; i < parmTable.getChildCount(); i++) {
+            View v = parmTable.getChildAt(i);
+            if (v.getVisibility() == View.INVISIBLE) {
+                TableRow tr = (TableRow) v;
+                tr.setVisibility(View.VISIBLE);
+                setRowButtonInt(tr, VOLUME_COLUMN, Cycle.MIN_VOLUME);
+                setRowButtonInt(tr, BREWTIME_COLUMN, Cycle.MIN_TIME);
+                setRowButtonInt(tr, VACUUMTIME_COLUMN, Cycle.MIN_TIME);
+                break;
+            }
+        }
+    }
+
+    private void setRowButtonInt(TableRow row, int column, int val) {
+        Checker.notNull(row);
+        Checker.inRange(column, FIRST_PARM_COLUMN_INDEX, LAST_PARM_COLUMN_INDEX);
+        Checker.greaterThan(val, 0);
+
+        Button b = (Button) row.getChildAt(column);
+        b.setText(Integer.toString(val));
+    }
+
     public void onClickDeleteCycle(View unused) {
         for (int i = parmTable.getChildCount() - 1; i > 1; i--) {
             View v = parmTable.getChildAt(i);
@@ -284,7 +289,33 @@ public class CycleActivity extends AppCompatActivity {
     }
 
     public void onClickSaveCycles(View unused) {
-        
+        List<Cycle> cs = parmButtonToCycles();
+        return;
+    }
+
+    private List<Cycle> parmButtonToCycles() {
+        List<Cycle> cycles = new ArrayList<>();
+        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
+            if (tr.getVisibility() == View.VISIBLE) {
+                int vol = getRowButtonInt(tr, VOLUME_COLUMN);
+                int brew = getRowButtonInt(tr, BREWTIME_COLUMN);
+                int vac = getRowButtonInt(tr, VACUUMTIME_COLUMN);
+                cycles.add(new Cycle(vol, brew, vac));
+            } else {
+                break;
+            }
+        }
+        return cycles;
+    }
+
+    private int getRowButtonInt(TableRow row, int column) {
+        Checker.notNull(row);
+        Checker.inRange(column, FIRST_PARM_COLUMN_INDEX, LAST_PARM_COLUMN_INDEX);
+
+        Button b = (Button) row.getChildAt(column);
+        String s = b.getText().toString();
+        return Integer.valueOf(s);
     }
 
     static private List<Integer> getVolumes() {
