@@ -17,7 +17,7 @@
         />
     <TextView
         style="@style/LabelText"
-        android:text="@string/cycles_txt_coffee"
+        android:text="@string/cycle_txt_coffee"
         />
     <Space
         android:layout_width="1dp"

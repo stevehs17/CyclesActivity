@@ -20,9 +20,20 @@
         android:choiceMode="singleChoice"
         android:listSelector="#666666"
         />
+    <include layout="@layout/common_spacer"/>
     <Button
         style="@style/Button"
-        android:text="Edit"
+        android:text="@string/coffee_btn_edit"
         android:onClick="onClickEditCoffee"
+        />
+    <Button
+        style="@style/Button"
+        android:text="@string/coffee_btn_create"
+        android:onClick="onClickCreateCoffee"
+        />
+    <Button
+        style="@style/Button"
+        android:text="@string/coffee_btn_delete"
+        android:onClick="onClickDeleteCoffee"
         />
 </LinearLayout>

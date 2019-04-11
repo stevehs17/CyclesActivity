@@ -2,6 +2,7 @@ package com.ssimon.cyclesactivity.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -110,6 +111,16 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
                 name = v.findViewById(android.R.id.text1);
             }
         }
+    }
+
+    public void onClickCreateCoffee(View unused) {
+    }
+
+    public void onClickDeleteCoffee(View unused) {
+        if (coffees.size() <= 1)
+            Log.v("test", "you must have at least one coffee");
+        else
+            DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
     }
 
     public void onClickEditCoffee(View unused) {

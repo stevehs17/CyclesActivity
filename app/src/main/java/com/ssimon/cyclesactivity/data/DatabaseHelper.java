@@ -71,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         @Override
         public void run() {
             super.run();
-            SQLiteDatabase db = getWritableDatabase();
+            SQLiteDatabase db = getReadableDatabase();
             List<Coffee> cs = CoffeeDao.getCoffees(db);
             CoffeeCache.setCoffees(cs);
         }
@@ -98,6 +98,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             super.run();
             SQLiteDatabase db = getWritableDatabase();
             VolumeDao.insertVolume(db, coffeeId, cycles);
+            refreshCoffeeCache();
+        }
+    }
+
+    public void deleteCoffee(long coffeeId) {
+        new DeleteCoffeeThread(coffeeId).start();
+    }
+
+    private class DeleteCoffeeThread extends BackgroundThread {
+        final private long coffeeId;
+
+        DeleteCoffeeThread(long coffeeId) {
+            super();
+            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+            this.coffeeId = coffeeId;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            SQLiteDatabase db = getWritableDatabase();
+            CoffeeDao.deleteCoffee(db, coffeeId);
             refreshCoffeeCache();
         }
     }

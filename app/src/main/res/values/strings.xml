@@ -1,18 +1,22 @@
 <resources>
-    <string name="app_name">CyclesActivity</string>
-    <string name="cycles_btn_addcycle">Add Cycle</string>
-    <string name="cycles_btn_deletecycle">Delete Cycle</string>
-    <string name="cycles_btn_savecycles">Save Cycles</string>
-    <string name="cycles_txt_1">1</string>
-    <string name="cycles_txt_2">2</string>
-    <string name="cycles_txt_3">3</string>
-    <string name="cycles_txt_4">4</string>
-    <string name="cycles_txt_5">5</string>
-    <string name="cycles_txt_6">6</string>
-    <string name="cycles_txt_brewsecs">Brew Secs</string>
-    <string name="cycles_txt_coffee">Coffee</string>
-    <string name="cycles_txt_cycle">Cycle</string>
-    <string name="cycles_txt_totalvolume">Total Volume</string>
-    <string name="cycles_txt_vacuumsecs">Vacuum Secs</string>
-    <string name="cycles_txt_volumeml">Volume mL</string>
+    <string name="app_name">GroundControl3</string>
+    <string name="coffee_btn_create">Create</string>
+    <string name="coffee_btn_delete">Delete</string>
+    <string name="coffee_btn_edit">Edit</string>
+
+    <string name="cycle_btn_addcycle">Add Cycle</string>
+    <string name="cycle_btn_deletecycle">Delete Cycle</string>
+    <string name="cycle_btn_savecycles">Save Cycles</string>
+    <string name="cycle_txt_1">1</string>
+    <string name="cycle_txt_2">2</string>
+    <string name="cycle_txt_3">3</string>
+    <string name="cycle_txt_4">4</string>
+    <string name="cycle_txt_5">5</string>
+    <string name="cycle_txt_6">6</string>
+    <string name="cycle_txt_brewsecs">Brew Secs</string>
+    <string name="cycle_txt_coffee">Coffee</string>
+    <string name="cycle_txt_cycle">Cycle</string>
+    <string name="cycle_txt_totalvolume">Total Volume</string>
+    <string name="cycle_txt_vacuumsecs">Vacuum Secs</string>
+    <string name="cycle_txt_volumeml">Volume mL</string>
 </resources>

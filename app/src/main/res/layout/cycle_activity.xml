@@ -14,7 +14,7 @@
         />
     <TextView
         style="@style/LabelText"
-        android:text="@string/cycles_txt_coffee"
+        android:text="@string/cycle_txt_coffee"
         />
     <TextView
         android:id="@+id/txt_totalvolume"
@@ -23,7 +23,7 @@
         />
     <TextView
         style="@style/LabelText"
-        android:text="@string/cycles_txt_totalvolume"
+        android:text="@string/cycle_txt_totalvolume"
         />
     <include layout="@layout/common_spacer"/>
     <include layout="@layout/cycle_partial_table"/>
