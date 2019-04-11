@@ -50,7 +50,7 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
 
     private List<Volume> volumes = null;
     private VolumesAdapter adapter = null;
-
+    private TextView coffeeText;
     private long selectedVolumeId = -1;
 
 
@@ -63,6 +63,7 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
         ListView lv = (ListView) findViewById(R.id.list_volumes);
         lv.setOnItemClickListener(this);
 
+        coffeeText = (TextView) findViewById(R.id.txt_coffee);
     }
 
     @Override
@@ -89,18 +90,25 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
         List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeesCache();
+            dh.refreshCoffeeCache();
         } else if (adapter == null) {
             long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+
+            Coffee c = Utils.getCoffeeById(coffeeId, coffees);
+            coffeeText.setText(c.name());
+            // todo: does this also need to be done if adapter not null?
+
+
             volumes = Utils.getVolumesByCoffeeId(coffeeId, coffees);
             adapter = new VolumesAdapter(this, volumes);
             ListView lv = (ListView) findViewById(R.id.list_volumes);
             lv.setAdapter(adapter);
             lv.setItemChecked(0, true);
-
             lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
                     lv.getAdapter().getItemId(0));
+
+
         } else {
             adapter.notifyDataSetChanged();
             //todo: will probably need to click 0th item, as above

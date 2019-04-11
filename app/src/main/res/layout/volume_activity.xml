@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_managecoffees"
+    style="@style/MatchParent"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/txt_coffee"
+        style="@style/HeadingText"
+        android:text="French Roast"
+        />
+    <TextView
+        style="@style/LabelText"
+        android:text="@string/cycles_txt_coffee"
+        />
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="8dp"/>
+    <ListView
+        android:id="@+id/list_volumes"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:choiceMode="singleChoice"
+        android:listSelector="#666666"
+        />
+    <Button
+        style="@style/Button"
+        android:text="Edit"
+        android:onClick="onClickEditVolume"
+        />
+</LinearLayout>
+
+    <!--
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -38,3 +77,4 @@
         android:onClick="onClickEditVolume"
         />
 </LinearLayout>
+-->

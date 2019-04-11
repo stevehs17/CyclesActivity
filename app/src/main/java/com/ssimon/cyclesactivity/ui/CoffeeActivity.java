@@ -60,12 +60,12 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         Log.v(TAG, "selectedCoffeeId = " + selectedCoffeeId);
     }
 
-   @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeeRefreshEvent e) {
         coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeesCache();
+            dh.refreshCoffeeCache();
         } else if (adapter == null) {
             adapter = new CoffeesAdapter(this, coffees);
             ListView lv = (ListView) findViewById(R.id.list_coffees);

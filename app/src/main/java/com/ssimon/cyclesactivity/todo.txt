@@ -1,5 +1,3 @@
-In Volumes screen: Display coffee name.
-In Cycles screen: get and display actual coffee name.
 For Cycles, save operation: need to figure out logic for
     replacing/adding volume (query to replace, otherwise create?)
 General strategy for managing Coffee data:
@@ -91,6 +89,8 @@ Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
 "Manage Coffees" -> "Coffees", etc.
 "Edit Coffee" -> "Edit", etc.
 Proceed with implementation
+In Volumes screen: Display coffee name.
+In Cycles screen: get and display actual coffee name.
 
 
 

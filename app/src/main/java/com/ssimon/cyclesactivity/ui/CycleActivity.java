@@ -69,7 +69,10 @@ public class CycleActivity extends AppCompatActivity {
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         setDecrementButton();
         setIncrementButton();
-    }
+
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+     }
 
     @Override
     protected void onStart() {
@@ -89,7 +92,7 @@ public class CycleActivity extends AppCompatActivity {
         List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeesCache();
+            dh.refreshCoffeeCache();
             // need to do this off main thread
         } else {
             long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
@@ -99,6 +102,10 @@ public class CycleActivity extends AppCompatActivity {
             List<Cycle> cycles = Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
             setParmButtonValues(cycles);
             setDefaultParmButton();
+
+            Coffee c = Utils.getCoffeeById(coffeeId, coffees);
+            TextView tv = (TextView) findViewById(R.id.txt_coffee);
+            tv.setText(c.name());
         }
     }
 

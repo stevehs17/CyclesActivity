@@ -1,5 +1,6 @@
 package com.ssimon.cyclesactivity.util;
 
+import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.message.MessageEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -35,20 +36,38 @@ public class Utils {
         EventBus.getDefault().unregister(o);
     }
 
+    static public Coffee getCoffeeById(long coffeeId, List<Coffee> coffees) {
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(coffees);
+
+        for (Coffee c : coffees) {
+            if (c.id() == coffeeId)
+                return c;
+        }
+        throw new IllegalArgumentException("No coffee found with id = " + coffeeId);
+    }
+
+
     static public List<Volume> getVolumesByCoffeeId(long coffeeId, List<Coffee> coffees) {
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(coffees);
+
         for (Coffee c : coffees) {
             if (c.id() == coffeeId)
                 return c.volumes();
         }
-        throw new IllegalStateException("No coffee found with id = " + coffeeId);
+        throw new IllegalArgumentException("No coffee found with id = " + coffeeId);
     }
 
     static public List<Cycle> getCyclesByCoffeeAndVolumeIds(long coffeeId, long volumeId, List<Coffee> coffees) {
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(coffees);
+
         List<Volume> vols = Utils.getVolumesByCoffeeId(coffeeId, coffees);
         for (Volume v : vols)
             if (v.id() == volumeId)
                 return v.cycles();
-        throw new IllegalStateException("No coffee found with id = " + coffeeId);
+        throw new IllegalArgumentException("No coffee with id = " + coffeeId + " and volume = " + volumeId + " found.");
     }
 
 

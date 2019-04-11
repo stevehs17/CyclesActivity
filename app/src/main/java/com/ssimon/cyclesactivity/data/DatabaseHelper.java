@@ -50,10 +50,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.setForeignKeyConstraintsEnabled(true);
     }
 
-    public void refreshCoffeesCache() {
+    /*
+    public void refreshCoffeeCache() {
         SQLiteDatabase db = getReadableDatabase();
         List<Coffee> cs = CoffeeDao.getCoffees(db);
         CoffeeCache.setCoffees(cs);
+    }
+    */
+
+    public void refreshCoffeeCache() {
+        new RefreshCoffeeCacheThread().start();
+    }
+
+
+    private class RefreshCoffeeCacheThread extends BackgroundThread {
+        RefreshCoffeeCacheThread() {
+            super();
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            SQLiteDatabase db = getWritableDatabase();
+            List<Coffee> cs = CoffeeDao.getCoffees(db);
+            CoffeeCache.setCoffees(cs);
+        }
     }
 
     public void saveVolume(long coffeeId, List<Cycle> cycles) {
@@ -77,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             super.run();
             SQLiteDatabase db = getWritableDatabase();
             VolumeDao.insertVolume(db, coffeeId, cycles);
-            refreshCoffeesCache();
+            refreshCoffeeCache();
         }
     }
 
