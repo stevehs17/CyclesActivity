@@ -90,6 +90,7 @@ public class CycleActivity extends AppCompatActivity {
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeesCache();
+            // need to do this off main thread
         } else {
             long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
@@ -101,26 +102,6 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    private void setParmButtonValues(List<Cycle> cycles) {
-        Checker.notNullOrEmpty(cycles);
-        int numCycles = cycles.size();
-        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
-            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
-            if (i < numCycles) {
-                Cycle c = cycles.get(i);
-                Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
-                b.setText(Integer.toString(c.volumeMl()));
-                b = (Button) tr.getChildAt(BREWTIME_COLUMN);
-                b.setText(Integer.toString(c.brewSeconds()));
-                b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
-                b.setText(Integer.toString(c.vacuumSeconds()));
-            } else {
-                tr.setVisibility(View.INVISIBLE);
-            }
-        }
-    }
-    */
     private void setParmButtonValues(List<Cycle> cycles) {
         Checker.notNullOrEmpty(cycles);
         int numCycles = cycles.size();
@@ -288,7 +269,10 @@ public class CycleActivity extends AppCompatActivity {
 
     public void onClickSaveCycles(View unused) {
         List<Cycle> cs = parmButtonToCycles();
-        return;
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        dh.saveVolume(coffeeId, cs);
     }
 
     private List<Cycle> parmButtonToCycles() {

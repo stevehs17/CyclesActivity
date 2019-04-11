@@ -11,12 +11,29 @@ import java.util.List;
 public class ModelUtils {
     static public List<Coffee> createDefaultCoffeeTemplates() {
         List<Coffee> c = new ArrayList<>();
+        /*
         c.add(createDarkBlendTemplate());
         c.add(createEastAfricanTemplate());
         c.add(createLatinAmericanTemplate());
         c.add(createLightBlendTemplate());
         c.add(createNaturalTemplate());
+        */
+        c.add(createTestCoffee());
         return c;
+    }
+
+    static Coffee createTestCoffee() {
+        final String name = "Test";
+
+        List<Cycle> c = new ArrayList<>();
+        // V0
+        c.add(new Cycle(1000, 141, 80));
+        c.add(new Cycle(200, 37, 55));
+
+        List<Volume> v = new ArrayList<>();
+        v.add(new Volume(Arrays.asList(c.get(0), c.get(1))));
+
+        return new Coffee(name, v);
     }
 
     static Coffee createDarkBlendTemplate() {

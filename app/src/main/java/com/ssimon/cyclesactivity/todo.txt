@@ -1,3 +1,7 @@
+In Volumes screen: Display coffee name.
+In Cycles screen: get and display actual coffee name.
+For Cycles, save operation: need to figure out logic for
+    replacing/adding volume (query to replace, otherwise create?)
 General strategy for managing Coffee data:
     All three manage activities get coffee list from cache in onStart().
         In onStart(), they register event bus and then post refresh event.
