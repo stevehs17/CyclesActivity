@@ -101,6 +101,7 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
+    /*
     private void setParmButtonValues(List<Cycle> cycles) {
         Checker.notNullOrEmpty(cycles);
         int numCycles = cycles.size();
@@ -114,6 +115,22 @@ public class CycleActivity extends AppCompatActivity {
                 b.setText(Integer.toString(c.brewSeconds()));
                 b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
                 b.setText(Integer.toString(c.vacuumSeconds()));
+            } else {
+                tr.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+    */
+    private void setParmButtonValues(List<Cycle> cycles) {
+        Checker.notNullOrEmpty(cycles);
+        int numCycles = cycles.size();
+        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
+            if (i < numCycles) {
+                Cycle c = cycles.get(i);
+                setRowButtonInt(tr, VOLUME_COLUMN, c.volumeMl());
+                setRowButtonInt(tr, BREWTIME_COLUMN, c.brewSeconds());
+                setRowButtonInt(tr, VACUUMTIME_COLUMN, c.vacuumSeconds());
             } else {
                 tr.setVisibility(View.INVISIBLE);
             }
@@ -235,25 +252,6 @@ public class CycleActivity extends AppCompatActivity {
         currentParmButton.setText(Integer.toString(val));
     }
 
-/*
-    public void onClickAddCycle(View unused) {
-        for (int i = 2; i < parmTable.getChildCount(); i++) {
-            View v = parmTable.getChildAt(i);
-            if (v.getVisibility() == View.INVISIBLE) {
-                TableRow tr = (TableRow) v;
-                tr.setVisibility(View.VISIBLE);
-                Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
-                b.setText(Integer.toString(Cycle.MIN_VOLUME));
-                b = (Button) tr.getChildAt(BREWTIME_COLUMN);
-                b.setText(Integer.toString(Cycle.MIN_TIME));
-                b = (Button) tr.getChildAt(VACUUMTIME_COLUMN);
-                b.setText(Integer.toString(Cycle.MIN_LASTCYCLE_VACUUMTIME));
-                break;
-            }
-        }
-    }
-
-*/
     public void onClickAddCycle(View unused) {
         for (int i = 2; i < parmTable.getChildCount(); i++) {
             View v = parmTable.getChildAt(i);
