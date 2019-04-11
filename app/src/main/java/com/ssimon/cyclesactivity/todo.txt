@@ -16,7 +16,6 @@ Tie together MAX_NUM_CYCLES and cycle table layout
 Tie together references to columns in XML and in code
     Use resource IDs?
 Special case last vacuum mintime
-Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
 Implement total volume.
 Create separate getTestInstance() for DatabaseHelper, which creates db with different name from
     non-test (so won't overwrite).
@@ -86,6 +85,8 @@ Add stress tests for db code
 Make lists single choice mode.
 Improve rigor of deleteCoffees() -- use transactions, validate parameters.
 Change get coffees code so doesn't reset default volume id if not set. (?)
+Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
+
 
 
 

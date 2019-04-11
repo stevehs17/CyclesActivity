@@ -32,7 +32,7 @@ import java.util.List;
 
 import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
-import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
+import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.util.Utils;
@@ -41,7 +41,7 @@ import com.ssimon.cyclesactivity.util.Checker;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class CyclesActivity extends AppCompatActivity {
+public class CycleActivity extends AppCompatActivity {
     static final private int FIRST_PARM_ROW_INDEX = 1;
     static final private int FIRST_PARM_COLUMN_INDEX = 1;
     static final private int VOLUME_COLUMN = FIRST_PARM_COLUMN_INDEX;
@@ -60,7 +60,7 @@ public class CyclesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cycles_activity);
+        setContentView(R.layout.cycle_activity);
         minValueText = (TextView) findViewById(R.id.txt_min_value);
         maxValueText = (TextView) findViewById(R.id.txt_max_value);
         seekBar = (SeekBar) findViewById(R.id.seek);
@@ -73,7 +73,7 @@ public class CyclesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeesRefreshEvent());
+        Utils.postEvent(new CoffeeRefreshEvent());
     }
 
     @Override
@@ -83,15 +83,15 @@ public class CyclesActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCycleTable(CoffeesRefreshEvent e) {
+    public void setCycleTable(CoffeeRefreshEvent e) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeesCache();
         } else {
-            long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            long volumeId = getIntent().getLongExtra(VolumesActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
+            long volumeId = getIntent().getLongExtra(VolumeActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
             List<Cycle> cycles = Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
             setParmButtonValues(cycles);
@@ -220,6 +220,7 @@ public class CyclesActivity extends AppCompatActivity {
         Checker.greaterThan(minVal, 0);
         Checker.lessThan(minVal, maxVal);
         Checker.notNullOrEmpty(values);
+        
         minValueText.setText(Integer.toString(minVal));
         maxValueText.setText(Integer.toString(maxVal));
         currentParmValues = values;

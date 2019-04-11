@@ -38,8 +38,8 @@ import static org.hamcrest.Matchers.allOf;
 public class EditActivitiesNavigateTest {
 
     @Rule
-    public ActivityTestRule<CoffeesActivity> activityRule = new ActivityTestRule<>
-            (CoffeesActivity.class, false, false);
+    public ActivityTestRule<CoffeeActivity> activityRule = new ActivityTestRule<>
+            (CoffeeActivity.class, false, false);
 
     @BeforeClass
     static public void setupDatabase() {

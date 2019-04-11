@@ -32,7 +32,7 @@ import java.util.List;
 
 import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
-import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
+import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
@@ -42,7 +42,7 @@ import com.ssimon.cyclesactivity.util.Checker;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class VolumesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class VolumeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     static final String EXTRA_VOLUME_IDX = "EXTRA_VOLUME_IDX";
     static final String EXTRA_COFFEE = "EXTRA_COFFEE";
 
@@ -57,8 +57,8 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.volumes_activity);
-        long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        setContentView(R.layout.volume_activity);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
         ListView lv = (ListView) findViewById(R.id.list_volumes);
         lv.setOnItemClickListener(this);
@@ -69,7 +69,7 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
     protected void onStart() {
         super.onStart();
         Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeesRefreshEvent());
+        Utils.postEvent(new CoffeeRefreshEvent());
     }
 
     @Override
@@ -81,17 +81,17 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
         selectedVolumeId = (Long) item.getTag(R.id.volume_id);
-        Log.v(CoffeesActivity.TAG, "selectedVolumeId = " + selectedVolumeId);
+        Log.v(CoffeeActivity.TAG, "selectedVolumeId = " + selectedVolumeId);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCoffeeList(CoffeesRefreshEvent e) {
+    public void setCoffeeList(CoffeeRefreshEvent e) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeesCache();
         } else if (adapter == null) {
-            long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
             volumes = Utils.getVolumesByCoffeeId(coffeeId, coffees);
             adapter = new VolumesAdapter(this, volumes);
@@ -165,7 +165,7 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
         volumes.add(v);
         volumes.add(v);
         Coffee cof = new Coffee(5, "coffee", volumes, 1);
-        Intent i = new Intent(this, CyclesActivity.class);
+        Intent i = new Intent(this, CycleActivity.class);
         i.putExtra(EXTRA_COFFEE, cof);
         i.putExtra(EXTRA_VOLUME_IDX, 1);
         startActivity(i);
@@ -173,9 +173,9 @@ public class VolumesActivity extends AppCompatActivity implements AdapterView.On
     */
 
     public void onClickEditVolume(View unused) {
-        Intent i = new Intent(this, CyclesActivity.class);
-        long coffeeId = getIntent().getLongExtra(CoffeesActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-        i.putExtra(CoffeesActivity.EXTRA_COFFEEID, coffeeId);
+        Intent i = new Intent(this, CycleActivity.class);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        i.putExtra(CoffeeActivity.EXTRA_COFFEEID, coffeeId);
         i.putExtra(EXTRA_VOLUMEID, selectedVolumeId);
 
 

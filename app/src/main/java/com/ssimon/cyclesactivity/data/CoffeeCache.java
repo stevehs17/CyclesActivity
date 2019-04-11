@@ -1,6 +1,6 @@
 package com.ssimon.cyclesactivity.data;
 
-import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
+import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;
 import com.ssimon.cyclesactivity.util.Checker;
@@ -14,7 +14,7 @@ public class CoffeeCache {
     static void setCoffees(List<Coffee> cs) {
         Checker.notNullOrEmpty(cs);
         coffees.set(cs);
-        Utils.postEvent(new CoffeesRefreshEvent());
+        Utils.postEvent(new CoffeeRefreshEvent());
     }
 
     static public List<Coffee> getCoffees() {

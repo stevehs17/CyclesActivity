@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.ssimon.cyclesactivity.R;
 import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
-import com.ssimon.cyclesactivity.message.CoffeesRefreshEvent;
+import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;
 
@@ -25,18 +25,18 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-public class CoffeesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
     private List<Coffee> coffees = null;
     private CoffeesAdapter adapter = null;
     private long selectedCoffeeId = -1;
 
-    static final String TAG = "CoffeesActivity";
+    static final String TAG = "CoffeeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.coffees_activity);
+        setContentView(R.layout.coffee_activity);
         ListView lv = (ListView) findViewById(R.id.list_coffees);
         lv.setOnItemClickListener(this);
     }
@@ -45,7 +45,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     protected void onStart() {
         super.onStart();
         Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeesRefreshEvent());
+        Utils.postEvent(new CoffeeRefreshEvent());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     }
 
    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCoffeeList(CoffeesRefreshEvent e) {
+    public void setCoffeeList(CoffeeRefreshEvent e) {
         coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
@@ -113,7 +113,7 @@ public class CoffeesActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void onClickEditCoffee(View unused) {
-        Intent i = new Intent(this, VolumesActivity.class);
+        Intent i = new Intent(this, VolumeActivity.class);
         i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
         startActivity(i);
     }

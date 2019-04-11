@@ -102,7 +102,7 @@ public class CoffeeDaoTest {
     }
 
     @Test
-    public void createAndReadCoffeesBigStressTest2_Succeeds() {
+    public void createAndReadManyCoffees_Succeeds() {
         List<Coffee> c = DatabaseTestUtils.createCoffees(3000, 1);
         CoffeeDao.insertCoffees(db, c);
         List<Coffee> cOut = CoffeeDao.getCoffees(db);
@@ -110,7 +110,7 @@ public class CoffeeDaoTest {
     }
 
     @Test
-    public void createAndReadCoffeesBigStressTest3_Succeeds() {
+    public void createAndReadCoffeeWithManyVolumes_Succeeds() {
         List<Coffee> c = DatabaseTestUtils.createCoffees(1, 3000);
         CoffeeDao.insertCoffees(db, c);
         List<Coffee> cOut = CoffeeDao.getCoffees(db);

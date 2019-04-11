@@ -34,41 +34,41 @@
         android:layout_height="wrap_content"
         >
         <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_1"/>
-        <include layout="@layout/cycles_partial_parameter_row"/>
+        <include layout="@layout/cycle_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_2"/>
-        <include layout="@layout/cycles_partial_parameter_row"/>
+        <include layout="@layout/cycle_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_3"/>
-        <include layout="@layout/cycles_partial_parameter_row"/>
+        <include layout="@layout/cycle_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_4"/>
-        <include layout="@layout/cycles_partial_parameter_row"/>
+        <include layout="@layout/cycle_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_5"/>
-        <include layout="@layout/cycles_partial_parameter_row"/>
+        <include layout="@layout/cycle_partial_parameter_row"/>
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <TextView style="@style/CyclesConstant" android:text="@string/cycles_txt_6"/>
-        <include layout="@layout/cycles_partial_parameter_row"/>
+        <include layout="@layout/cycle_partial_parameter_row"/>
     </TableRow>
 </TableLayout>

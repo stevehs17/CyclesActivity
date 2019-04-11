@@ -26,10 +26,10 @@
         android:text="@string/cycles_txt_totalvolume"
         />
     <include layout="@layout/common_spacer"/>
-    <include layout="@layout/cycles_partial_table"/>
+    <include layout="@layout/cycle_partial_table"/>
     <include layout="@layout/common_spacer"/>
-    <include layout="@layout/cycles_partial_seekbar"/>
-    <include layout="@layout/cycles_partial_seekbarbuttons"/>
+    <include layout="@layout/cycle_partial_seekbar"/>
+    <include layout="@layout/cycle_partial_seekbarbuttons"/>
     <include layout="@layout/common_spacer"/>
-    <include layout="@layout/cycles_partial_buttons"/>
+    <include layout="@layout/cycle_partial_buttons"/>
   </LinearLayout>
