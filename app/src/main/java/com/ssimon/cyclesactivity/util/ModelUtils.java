@@ -11,12 +11,12 @@ import java.util.List;
 public class ModelUtils {
     static public List<Coffee> createDefaultCoffeeTemplates() {
         List<Coffee> c = new ArrayList<>();
-/*
+
         c.add(createDarkBlendTemplate());
         c.add(createEastAfricanTemplate());
         c.add(createLatinAmericanTemplate());
         c.add(createLightBlendTemplate());
-*/
+
         c.add(createNaturalTemplate());
 
         c.add(createTestCoffee());

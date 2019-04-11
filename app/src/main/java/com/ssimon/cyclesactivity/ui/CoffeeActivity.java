@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -75,9 +76,26 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
 
             lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
                     lv.getAdapter().getItemId(0));
+            Button btn = (Button) findViewById(R.id.btn_delete);
+            if (coffees.size() == 1) {
+                btn.setEnabled(false);
+            } else {
+                btn.setEnabled(true);
+            }
         } else {
+            adapter.clear();
+            adapter.addAll(coffees);
             adapter.notifyDataSetChanged();
             //todo: will probably need to click 0th item, as above
+            ListView lv = (ListView) findViewById(R.id.list_coffees);
+            lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
+                    lv.getAdapter().getItemId(0));
+            Button btn = (Button) findViewById(R.id.btn_delete);
+            if (coffees.size() == 1) {
+                btn.setEnabled(false);
+            } else {
+                btn.setEnabled(true);
+            }
         }
     }
 
@@ -117,10 +135,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void onClickDeleteCoffee(View unused) {
-        if (coffees.size() <= 1)
-            Log.v("test", "you must have at least one coffee");
-        else
-            DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
+        DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
     }
 
     public void onClickEditCoffee(View unused) {
