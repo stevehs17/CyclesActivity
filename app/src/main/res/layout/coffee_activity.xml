@@ -28,8 +28,8 @@
         />
     <Button
         style="@style/Button"
-        android:text="@string/coffee_btn_create"
-        android:onClick="onClickCreateCoffee"
+        android:text="@string/coffee_btn_new"
+        android:onClick="onClickNewCoffee"
         />
     <Button
         android:id="@+id/btn_delete"

@@ -150,7 +150,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
-    public void onClickCreateCoffee(View unused) {
+    public void onClickNewCoffee(View unused) {
         CreateCoffeeDialog d = CreateCoffeeDialog.newInstance();
         //d.show(getSupportFragmentManager(), "");
         d.show(getSupportFragmentManager(), "");
