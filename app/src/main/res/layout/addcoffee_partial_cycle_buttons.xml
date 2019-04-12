@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/radiogroup_recipe_cycles"
+        android:orientation="horizontal"
+        style="@style/WrapContent" >
+
+        <RadioButton
+            android:text="1"
+            style="@style/cycle_radio_button" />
+
+        <RadioButton
+            android:text="2"
+            style="@style/cycle_radio_button" />
+
+        <RadioButton
+            android:text="3"
+            style="@style/cycle_radio_button" />
+
+        <RadioButton
+            android:text="4"
+            style="@style/cycle_radio_button" />
+
+        <RadioButton
+            android:text="5"
+            style="@style/cycle_radio_button" />
+
+        <RadioButton
+            android:text="6"
+            style="@style/cycle_radio_button" />
+
+    </RadioGroup>
+
+</merge>
