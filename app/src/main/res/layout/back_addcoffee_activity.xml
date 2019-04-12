@@ -12,52 +12,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ssimon.cyclesactivity.ui.AddcoffeeActivity"
     android:orientation="vertical"
-
-    android:focusableInTouchMode="true"
-
     >
 
-   <android.support.design.widget.TextInputLayout
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:theme="@style/EditTextHint"
-        >
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Coffee Name"
-            app:backgroundTint="@color/black"
-            />
-    </android.support.design.widget.TextInputLayout>    <include layout="@layout/common_spacer"/>
+        android:ems="10"
+        android:hint="My New Coffee"
+        android:backgroundTint="@android:color/black"
+        />
     <TextView
-        style="@style/WrapContent"
-        android:textAppearance="@style/Text.Medium"
-        android:text="Number of brew cycles:"
+        style="@style/LabelText"
+        android:text="Name"
+        />
+    <include layout="@layout/common_spacer"/>
+    <Spinner
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
+    <TextView
+        style="@style/LabelText"
+        android:text="Number of brew cycles"
         android:layout_gravity="start"
         />
-    <include layout="@layout/addcoffee_partial_cycle_buttons"/>
     <include layout="@layout/common_spacer"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
-        <TextView
-            style="@style/WrapContent"
-            android:textAppearance="@style/Text.Medium"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="15dp"
-            android:text="Brew Time (secs):"
-            />
-        <TextView
-            style="@style/WrapContent"
-            android:textAppearance="@style/Text.Medium"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="15dp"
-            android:text="321"
-            />
-    </LinearLayout>
+    <TextView
+        style="@style/HeadingText"
+        android:text="300"
+        />
+    <TextView
+        style="@style/LabelText"
+        android:text="Brew time (secs)"
+        />
     <include layout="@layout/cycle_partial_seekbar"/>
     <include layout="@layout/cycle_partial_seekbarbuttons"/>
     <include layout="@layout/common_spacer"/>

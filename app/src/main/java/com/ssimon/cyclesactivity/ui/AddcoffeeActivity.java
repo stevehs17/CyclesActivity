@@ -10,6 +10,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addcoffee_activity);
+        setContentView(R.layout.back_addcoffee_activity);
     }
 }
