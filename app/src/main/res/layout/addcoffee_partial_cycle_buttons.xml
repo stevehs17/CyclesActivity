@@ -6,13 +6,16 @@
     <RadioGroup
         android:id="@+id/radiogroup_recipe_cycles"
         android:orientation="horizontal"
-        style="@style/WrapContent" >
+        style="@style/WrapContent"
+        android:checkedButton="@+id/checked"
+        >
 
         <RadioButton
             android:text="1"
             style="@style/cycle_radio_button" />
 
         <RadioButton
+            android:id="@id/checked"
             android:text="2"
             style="@style/cycle_radio_button" />
 
