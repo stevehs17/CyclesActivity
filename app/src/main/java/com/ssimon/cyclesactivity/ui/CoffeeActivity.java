@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.ssimon.cyclesactivity.R;
 import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
+import com.ssimon.cyclesactivity.dialog.CreateCoffeeDialog;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;
@@ -43,18 +44,36 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         lv.setOnItemClickListener(this);
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
         Utils.registerEventBus(this);
         Utils.postEvent(new CoffeeRefreshEvent());
     }
+    */
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utils.registerEventBus(this);
+        Utils.postEvent(new CoffeeRefreshEvent());
+    }
+    /*
     @Override
     protected void onStop() {
         Utils.unregisterEventBus(this);
         super.onStop();
     }
+    */
+
+    @Override
+    protected void onPause() {
+        Utils.unregisterEventBus(this);
+        super.onPause();
+    }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
@@ -132,6 +151,9 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void onClickCreateCoffee(View unused) {
+        CreateCoffeeDialog d = CreateCoffeeDialog.newInstance();
+        //d.show(getSupportFragmentManager(), "");
+        d.show(getSupportFragmentManager(), "");
     }
 
     public void onClickDeleteCoffee(View unused) {

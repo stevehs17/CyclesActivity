@@ -66,6 +66,7 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
         coffeeText = (TextView) findViewById(R.id.txt_coffee);
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
@@ -77,6 +78,20 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onStop() {
         Utils.unregisterEventBus(this);
         super.onStop();
+    }
+    */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utils.registerEventBus(this);
+        Utils.postEvent(new CoffeeRefreshEvent());
+    }
+
+    @Override
+    protected void onPause() {
+        Utils.unregisterEventBus(this);
+        super.onPause();
     }
 
     @Override

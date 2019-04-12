@@ -74,6 +74,7 @@ public class CycleActivity extends AppCompatActivity {
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
      }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
@@ -85,6 +86,20 @@ public class CycleActivity extends AppCompatActivity {
     protected void onStop() {
         Utils.unregisterEventBus(this);
         super.onStop();
+    }
+    */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utils.registerEventBus(this);
+        Utils.postEvent(new CoffeeRefreshEvent());
+    }
+
+    @Override
+    protected void onPause() {
+        Utils.unregisterEventBus(this);
+        super.onPause();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
