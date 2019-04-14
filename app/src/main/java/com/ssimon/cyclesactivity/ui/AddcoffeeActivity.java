@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddcoffeeActivity extends AppCompatActivity {
+    static final private int DEFAULT_BREW_TIME = (Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME)/2;
     SeekBar seekBar;
     TextView brewTimeText;
 
@@ -28,17 +29,20 @@ public class AddcoffeeActivity extends AppCompatActivity {
         Spinner s = (Spinner) findViewById(R.id.spin_numcycles);
         s.setAdapter(aa);
         TextView min = (TextView) findViewById(R.id.txt_min_value);
-        min.setText(Integer.toString(Cycle.MIN_TIME));
+        min.setText(Integer.toString(Cycle.MIN_TOTAL_TIME));
         TextView max = (TextView) findViewById(R.id.txt_max_value);
         max.setText(Integer.toString(Cycle.MAX_TIME));
         seekBar = (SeekBar) findViewById(R.id.seek);
-        seekBar.setMax(Cycle.MAX_TIME - Cycle.MIN_TIME);
+        seekBar.setMax(Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
         ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
         decr.setOnClickListener(decrementListener());
         ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
         incr.setOnClickListener(incrementListener());
         brewTimeText = (TextView) findViewById(R.id.txt_brewtime);
+
+        int idx = DEFAULT_BREW_TIME - Cycle.MIN_TOTAL_TIME;
+        seekBar.setProgress(idx);
     }
 
     private View.OnClickListener decrementListener() {
@@ -64,7 +68,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar unused1, int value, boolean fromUser) {
-                value += Cycle.MIN_TIME;
+                value += Cycle.MIN_TOTAL_TIME;
                 brewTimeText.setText(Integer.toString(value));
             }
 
@@ -77,15 +81,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
             }
         };
     }
-
-    public void onClickDecrement(View unused) {
-        seekBar.setProgress(seekBar.getProgress() - 1);
-    }
-
-    public void onClickIncrement(View unused) {
-        seekBar.setProgress(seekBar.getProgress() + 1);
-    }
-
 
     private List<String> getCycleNumbers() {
         List<String> nums = new ArrayList<>();
