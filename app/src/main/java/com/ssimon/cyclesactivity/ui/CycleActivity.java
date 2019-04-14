@@ -74,21 +74,6 @@ public class CycleActivity extends AppCompatActivity {
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
      }
 
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeeRefreshEvent());
-    }
-
-    @Override
-    protected void onStop() {
-        Utils.unregisterEventBus(this);
-        super.onStop();
-    }
-    */
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -108,7 +93,6 @@ public class CycleActivity extends AppCompatActivity {
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
-            // need to do this off main thread
         } else {
             long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);

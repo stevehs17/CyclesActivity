@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">GroundControl3</string>
-    <string name="coffee_btn_new">New</string>
-    <string name="coffee_btn_delete">Delete</string>
-    <string name="coffee_btn_edit">Edit</string>
+    <string name="coffee_btn_add">Add Coffee</string>
+    <string name="coffee_btn_delete">Delete Coffee</string>
+    <string name="coffee_btn_edit">Edit Volumes</string>
+    <string name="coffee_btn_rename">Rename Coffee</string>
 
     <string name="cycle_btn_addcycle">Add Cycle</string>
     <string name="cycle_btn_deletecycle">Delete Cycle</string>
