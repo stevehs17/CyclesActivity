@@ -2,7 +2,6 @@ package com.ssimon.cyclesactivity.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import com.ssimon.cyclesactivity.R;
 import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
-import com.ssimon.cyclesactivity.dialog.CreateCoffeeDialog;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;

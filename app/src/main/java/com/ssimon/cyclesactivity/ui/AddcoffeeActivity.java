@@ -10,16 +10,15 @@ import com.ssimon.cyclesactivity.model.Cycle;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class AddcoffeeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.back_addcoffee_activity);
+        setContentView(R.layout.addcoffee_activity);
         List<String> items = getCycleNumbers();
-        ArrayAdapter<String> aa = new ArrayAdapter<>(this, R.layout.addcoffee_partial_spinner, items);
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this, R.layout.addcoffee_partial_spinneritem, items);
         Spinner s = (Spinner) findViewById(R.id.spin_numcycles);
         s.setAdapter(aa);
     }
