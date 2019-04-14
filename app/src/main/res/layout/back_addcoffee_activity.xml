@@ -14,9 +14,8 @@
     android:orientation="vertical"
     >
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+  <EditText
+        style="@style/HeadingText"
         android:ems="10"
         android:hint="My New Coffee"
         android:backgroundTint="@android:color/black"
@@ -27,8 +26,9 @@
         />
     <include layout="@layout/common_spacer"/>
     <Spinner
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/spin_numcycles"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
         />
     <TextView
         style="@style/LabelText"
