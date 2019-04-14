@@ -2,7 +2,9 @@ package com.ssimon.cyclesactivity.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -36,14 +38,27 @@ public class AddcoffeeActivity extends AppCompatActivity {
         seekBar.setMax(Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
         ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-        decr.setOnClickListener(decrementListener());
+        //decr.setOnClickListener(decrementListener());
         ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
-        incr.setOnClickListener(incrementListener());
+        //incr.setOnClickListener(incrementListener());
         brewTimeText = (TextView) findViewById(R.id.txt_brewtime);
 
         int idx = DEFAULT_BREW_TIME - Cycle.MIN_TOTAL_TIME;
         seekBar.setProgress(idx);
+
+        setDecrementButton();
+        setIncrementButton();
+
     }
+
+    private void setDecrementButton() {
+        setSeekBarButton(true);
+    }
+
+    private void setIncrementButton() {
+        setSeekBarButton(false);
+    }
+
 
     private View.OnClickListener decrementListener() {
         return new View.OnClickListener() {
@@ -88,4 +103,52 @@ public class AddcoffeeActivity extends AppCompatActivity {
             nums.add(String.valueOf(i));
         return nums;
     }
+
+    private void setSeekBarButton(final boolean isDecrement) {
+        final ImageButton btn = (ImageButton) findViewById(isDecrement ? R.id.btn_decrement
+                : R.id.btn_increment);
+        final Runnable repeater = new Runnable() {
+            @Override
+            public void run() {
+                if (isDecrement)
+                    decrement();
+                else
+                    increment();
+                final int milliseconds = 100;
+                btn.postDelayed(this, milliseconds);
+            }
+        };
+        btn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (isDecrement)
+                        decrement();
+                    else
+                        increment();
+                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                    v.removeCallbacks(repeater);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void decrement() {
+        int idx = seekBar.getProgress();
+        if (idx > 0) {
+            idx--;
+            seekBar.setProgress(idx);
+        }
+    }
+
+    private void increment() {
+        int idx = seekBar.getProgress();
+        if (idx < (Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME)) {
+            idx++;
+            seekBar.setProgress(idx);
+        }
+    }
+
 }
