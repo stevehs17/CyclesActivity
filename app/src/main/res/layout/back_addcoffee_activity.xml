@@ -27,7 +27,7 @@
     <include layout="@layout/common_spacer"/>
     <Spinner
         android:id="@+id/spin_numcycles"
-        android:layout_width="75dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         />
     <TextView

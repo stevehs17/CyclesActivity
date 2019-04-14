@@ -19,7 +19,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.back_addcoffee_activity);
         List<String> items = getCycleNumbers();
-        //ArrayAdapter<String> aa = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         ArrayAdapter<String> aa = new ArrayAdapter<>(this, R.layout.addcoffee_partial_spinner, items);
         Spinner s = (Spinner) findViewById(R.id.spin_numcycles);
         s.setAdapter(aa);
