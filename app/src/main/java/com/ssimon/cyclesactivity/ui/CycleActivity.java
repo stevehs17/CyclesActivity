@@ -168,7 +168,7 @@ public class CycleActivity extends AppCompatActivity {
         if (idx > 0) {
             idx--;
             seekBar.setProgress(idx);
-            setParmButton(idx);
+            //setParmButton(idx);
         }
     }
 
@@ -177,7 +177,7 @@ public class CycleActivity extends AppCompatActivity {
         if (idx < currentParmValues.size() - 1) {
             idx++;
             seekBar.setProgress(idx);
-            setParmButton(idx);
+            //setParmButton(idx);
         }
     }
 
