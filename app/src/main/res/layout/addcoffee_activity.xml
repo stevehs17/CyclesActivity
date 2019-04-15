@@ -17,7 +17,7 @@
         android:ems="10"
         android:hint="My New Coffee"
         android:backgroundTint="@android:color/black"
-        android:background="@android:color/transparent"
+        android:background="@null"
         />
     <TextView
         style="@style/LabelText"

@@ -1,5 +1,4 @@
 Remove extra underline from edittext in Add Coffee.
-Remove setting parms in cycles on clicks of buttons.
 Don't allow user to delete last coffee
 Don't allow user to delete last volume
 Don't allow user to delete last cycle
