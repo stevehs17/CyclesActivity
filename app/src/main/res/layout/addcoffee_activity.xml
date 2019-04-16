@@ -13,6 +13,7 @@
     android:orientation="vertical"
     >
   <EditText
+        android:id="@+id/edit_name"
         style="@style/HeadingText"
         android:ems="10"
         android:hint="My New Coffee"
@@ -48,8 +49,10 @@
     <include layout="@layout/cycle_partial_seekbarbuttons"/>
     <include layout="@layout/common_spacer"/>
     <Button
+        android:id="@+id/btn_create"
         style="@style/Button"
         android:layout_gravity="center_horizontal"
         android:text="Create"
+        android:onClick="onClickCreate"
         />
 </LinearLayout>

@@ -77,6 +77,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void saveCoffee(Coffee c) {
+        new SaveCoffeeThread(c).start();
+    }
+
+    private class SaveCoffeeThread extends BackgroundThread {
+        final private Coffee coffee;
+
+        SaveCoffeeThread(Coffee coffee) {
+            super();
+            Checker.notNull(coffee);
+            this.coffee = coffee;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            SQLiteDatabase db = getWritableDatabase();
+            CoffeeDao.insertCoffee(db, coffee);
+            refreshCoffeeCache();
+        }
+    }
+
+
     public void saveVolume(long coffeeId, List<Cycle> cycles) {
         new SaveVolumeThread(coffeeId, cycles).start();
     }

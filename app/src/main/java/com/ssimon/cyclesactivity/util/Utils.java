@@ -1,5 +1,7 @@
 package com.ssimon.cyclesactivity.util;
 
+import android.widget.Button;
+
 import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.message.MessageEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
@@ -70,6 +72,15 @@ public class Utils {
         throw new IllegalArgumentException("No coffee with id = " + coffeeId + " and volume = " + volumeId + " found.");
     }
 
+    static public void disableButton(Button b) {
+        b.setAlpha(0.5f);
+        b.setEnabled(false);
+    }
+
+    static public void enableButton(Button b) {
+        b.setAlpha(1f);
+        b.setEnabled(true);
+    }
 
 
 

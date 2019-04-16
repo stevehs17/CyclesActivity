@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -72,6 +73,7 @@ public class CycleActivity extends AppCompatActivity {
 
         long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+
      }
 
     @Override
