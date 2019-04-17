@@ -2,7 +2,7 @@ Remove extra underline from edittext in Add Coffee.
 Don't allow user to delete last coffee
 Don't allow user to delete last volume
 Don't allow user to delete last cycle
-Confirm deletion of coffee, or provide undo option.
+Prompt to delete coffee, or provide undo option.
 For Cycles, save operation: need to figure out logic for
     replacing/adding volume (query to replace, otherwise create?)
 General strategy for managing Coffee data:
