@@ -73,7 +73,6 @@ public class CycleActivity extends AppCompatActivity {
 
         long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-
      }
 
     @Override
@@ -107,6 +106,8 @@ public class CycleActivity extends AppCompatActivity {
             Coffee c = Utils.getCoffeeById(coffeeId, coffees);
             TextView tv = (TextView) findViewById(R.id.txt_coffee);
             tv.setText(c.name());
+
+            //throw new IllegalStateException();
         }
     }
 
@@ -222,6 +223,8 @@ public class CycleActivity extends AppCompatActivity {
         seekBar.setMax(currentParmValues.size() - 1);
         seekBar.setProgress(idx);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
+
+        //throw new IllegalStateException();
     }
 
     private SeekBar.OnSeekBarChangeListener seekBarListener() {

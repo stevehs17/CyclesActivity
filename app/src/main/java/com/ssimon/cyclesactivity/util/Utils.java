@@ -9,14 +9,41 @@ import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusBuilder;
 
 import java.util.List;
 
 public class Utils {
+    static final private EventBus eventBus =  EventBus
+            .builder()
+            .throwSubscriberException(true)
+            .build();
+
+    /*
     static public void postEvent(MessageEvent e) {
         Checker.notNull(e);
         EventBus.getDefault().post(e);
     }
+    */
+
+
+
+    static public void postEvent(MessageEvent e) {
+        Checker.notNull(e);
+        eventBus.post(e);
+     }
+
+    static public void registerEventBus(Object o) {
+        Checker.notNull(o);
+        eventBus.register(o);
+    }
+
+    static public void unregisterEventBus(Object o) {
+        Checker.notNull(o);
+        eventBus.unregister(o);
+    }
+
+
 
     static public void postStickyEvent(MessageEvent e) {
         Checker.notNull(e);
@@ -28,15 +55,6 @@ public class Utils {
         EventBus.getDefault().removeStickyEvent(e);
     }
 
-    static public void registerEventBus(Object o) {
-        Checker.notNull(o);
-        EventBus.getDefault().register(o);
-    }
-
-    static public void unregisterEventBus(Object o) {
-        Checker.notNull(o);
-        EventBus.getDefault().unregister(o);
-    }
 
     static public Coffee getCoffeeById(long coffeeId, List<Coffee> coffees) {
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);

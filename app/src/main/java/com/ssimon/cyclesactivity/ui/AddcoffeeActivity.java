@@ -290,8 +290,8 @@ public class AddcoffeeActivity extends AppCompatActivity {
 
     private List<Integer> numCyclesToAmounts(int n) {
         Checker.inRange(n, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
-        final int smallCup = 355;
-        final int largeCup = 473;
+        final int smallCup = 350;
+        final int largeCup = 470;
         final int smallPot = 1000;
         final int mediumPot = 3000;
         final int largePot = 5000;

@@ -114,10 +114,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
                 btn.setEnabled(true);
             }
         }
-        // todo: remove
-        Button btn = (Button) findViewById(R.id.btn_delete);
-        btn.setEnabled(false);
-        btn.setAlpha(.5f);
+
 
     }
 
