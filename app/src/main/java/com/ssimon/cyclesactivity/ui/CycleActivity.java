@@ -57,8 +57,10 @@ public class CycleActivity extends AppCompatActivity {
     private TextView minValueText, maxValueText;
     private SeekBar seekBar;
     private TableLayout parmTable;
+    private TextView totalVolumeText;
     private Button currentParmButton = null;
     private List<Integer> currentParmValues = null;
+    private boolean isVolumeColumn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class CycleActivity extends AppCompatActivity {
         maxValueText = (TextView) findViewById(R.id.txt_max_value);
         seekBar = (SeekBar) findViewById(R.id.seek);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
+        totalVolumeText = (TextView) findViewById(R.id.txt_totalvolume);
         setDecrementButton();
         setIncrementButton();
 
@@ -106,6 +109,9 @@ public class CycleActivity extends AppCompatActivity {
             Coffee c = Utils.getCoffeeById(coffeeId, coffees);
             TextView tv = (TextView) findViewById(R.id.txt_coffee);
             tv.setText(c.name());
+
+            setTotalVolume();
+
         }
     }
 
@@ -190,14 +196,17 @@ public class CycleActivity extends AppCompatActivity {
 
     public void onClickVolumeMl(View v) {
         setCurrentParmButton(v, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, VOLUMES);
+        isVolumeColumn = true;
     }
 
     public void onClickBrewSecs(View v) {
         setCurrentParmButton(v, Cycle.MIN_TIME, Cycle.MAX_TIME, BREWTIMES);
+        isVolumeColumn = false;
     }
 
     public void onClickVacuumSecs(View v) {
         setCurrentParmButton(v, Cycle.MIN_TIME, Cycle.MAX_TIME, VACUUMTIMES);
+        isVolumeColumn = false;
     }
 
     private void setCurrentParmButton(View v, int minVal, int maxVal, List<Integer> values) {
@@ -228,6 +237,8 @@ public class CycleActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
                 setParmButton(idx);
+                if (isVolumeColumn)
+                    setTotalVolume();
             }
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -252,6 +263,7 @@ public class CycleActivity extends AppCompatActivity {
                 break;
             }
         }
+        setTotalVolume();
     }
 
     private void setRowButtonInt(TableRow row, int column, int val) {
@@ -272,6 +284,7 @@ public class CycleActivity extends AppCompatActivity {
                 break;
             }
         }
+        setTotalVolume();
     }
 
     public void onClickSaveCycles(View unused) {
@@ -307,6 +320,19 @@ public class CycleActivity extends AppCompatActivity {
         return Integer.valueOf(s);
     }
 
+    private void setTotalVolume() {
+        int n = 0;
+        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+            TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
+            if (tr.getVisibility() == View.INVISIBLE)
+                break;
+            Button b = (Button) tr.getChildAt(VOLUME_COLUMN);
+            String s = b.getText().toString();
+            n += Integer.valueOf(s);
+        }
+        totalVolumeText.setText(Integer.toString(n));
+    }
+
     static private List<Integer> getVolumes() {
         final int increment = 10;
         return getIntegerList(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, increment);
@@ -331,4 +357,5 @@ public class CycleActivity extends AppCompatActivity {
             volumes.add(i);
         return Collections.unmodifiableList(volumes);
     }
+
 }
