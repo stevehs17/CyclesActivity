@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Cycle implements Serializable {
     static final public int MIN_NUM_CYCLES = 1;
     static final public int MAX_NUM_CYCLES = 6;
-    static final public int MIN_VOLUME = 180;
+    static final public int MIN_VOLUME = 160;
     static final public int MAX_VOLUME = 1670;
     static final public int MIN_TIME = 1;
     static final public int MAX_TIME = 999;

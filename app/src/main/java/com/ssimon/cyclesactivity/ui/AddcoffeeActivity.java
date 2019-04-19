@@ -276,7 +276,8 @@ public class AddcoffeeActivity extends AppCompatActivity {
 
         List<Volume> vols = new ArrayList<>();
         for (Integer amount : numCyclesToAmounts(numCycles)) {
-            int cycleAmount = amount/numCycles;
+            //int cycleAmount = amount/numCycles;
+            int cycleAmount = getCycleAmount(amount, numCycles);
             int cycleVacTime = getVacuumTimePerCycle(cycleAmount);
             List<Cycle> cycles = new ArrayList<>();
             for (Float factor : numCyclesToTimeFactors(numCycles)) {
@@ -286,6 +287,14 @@ public class AddcoffeeActivity extends AppCompatActivity {
             vols.add(new Volume(cycles));
         }
         return vols;
+    }
+
+    private int getCycleAmount(int totalVolume, int numCycles) {
+        Checker.inRange(numCycles, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+
+        int n = totalVolume/numCycles;
+        n = (n/10) * 10;
+        return n;
     }
 
     private List<Integer> numCyclesToAmounts(int n) {
