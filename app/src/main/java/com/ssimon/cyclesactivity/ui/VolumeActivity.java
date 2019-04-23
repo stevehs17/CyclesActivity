@@ -139,19 +139,16 @@ public class VolumeActivity extends AppCompatActivity {
        startActivity(i);
     }
 
-    /*
     public void onClickAddVolume(View unused) {
         Intent i = new Intent(this, CycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
         i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
         startActivity(i);
     }
-    */
 
     public void onClickDeleteVolume(View unused) {
         int n = volumeList.getCheckedItemPosition();
         Volume v = (Volume) volumeList.getItemAtPosition(n);
         DatabaseHelper.getInstance(this).deleteVolume(v.id());
     }
-
 }

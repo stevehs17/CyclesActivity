@@ -145,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         final private long volumeId;
 
         DeleteVolumeThread(long volumeId) {
-x            super();
+            super();
             Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
             this.volumeId = volumeId;
         }

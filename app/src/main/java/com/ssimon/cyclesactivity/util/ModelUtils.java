@@ -9,6 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ModelUtils {
+    static public List<Cycle> createDefaultCyclesTemplate() {
+        List<Cycle> c = new ArrayList<>();
+        c.add(new Cycle(1000, 142, 80));
+        c.add(new Cycle(200, 27, 55));
+        return c;
+    }
+
     static public List<Coffee> createDefaultCoffeeTemplates() {
         List<Coffee> c = new ArrayList<>();
 
@@ -180,5 +187,4 @@ public class ModelUtils {
 
         return new Coffee(name, v);
     }
-
 }

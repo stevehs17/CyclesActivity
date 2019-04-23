@@ -36,6 +36,7 @@ import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.util.ModelUtils;
 import com.ssimon.cyclesactivity.util.Utils;
 import com.ssimon.cyclesactivity.util.Checker;
 
@@ -74,8 +75,10 @@ public class CycleActivity extends AppCompatActivity {
         setDecrementButton();
         setIncrementButton();
 
+        /*
         long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        */
      }
 
     @Override
@@ -91,6 +94,7 @@ public class CycleActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    /*
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCycleTable(CoffeeRefreshEvent e) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
@@ -103,6 +107,35 @@ public class CycleActivity extends AppCompatActivity {
             long volumeId = getIntent().getLongExtra(VolumeActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
             List<Cycle> cycles = Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
+            setParmButtonValues(cycles);
+            setDefaultParmButton();
+
+            Coffee c = Utils.getCoffeeById(coffeeId, coffees);
+            TextView tv = (TextView) findViewById(R.id.txt_coffee);
+            tv.setText(c.name());
+
+            setTotalVolume();
+
+        }
+    }
+    */
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setCycleTable(CoffeeRefreshEvent e) {
+        List<Coffee> coffees = CoffeeCache.getCoffees();
+        if (coffees == null) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            dh.refreshCoffeeCache();
+        } else {
+            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+            long volumeId = getIntent().getLongExtra(VolumeActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
+            Checker.atLeast(coffeeId, Const.UNSET_DATABASE_ID);
+
+            List<Cycle> cycles = (volumeId == Const.UNSET_DATABASE_ID)
+                ? ModelUtils.createDefaultCyclesTemplate()
+                : Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
+
             setParmButtonValues(cycles);
             setDefaultParmButton();
 
@@ -175,7 +208,6 @@ public class CycleActivity extends AppCompatActivity {
         if (idx > 0) {
             idx--;
             seekBar.setProgress(idx);
-            //setParmButton(idx);
         }
     }
 
@@ -184,7 +216,6 @@ public class CycleActivity extends AppCompatActivity {
         if (idx < currentParmValues.size() - 1) {
             idx++;
             seekBar.setProgress(idx);
-            //setParmButton(idx);
         }
     }
 
