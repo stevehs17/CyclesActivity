@@ -1,4 +1,5 @@
 Manage Coffees
+    Determine how to deal with default selection
     Don't allow user to delete last coffee
     Rename coffee feature
     Prompt to delete coffee, or provide undo option.

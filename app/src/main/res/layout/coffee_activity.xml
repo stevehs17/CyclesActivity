@@ -16,6 +16,7 @@
         style="@style/LabelText"
         android:text="Coffees"
         />
+    <!--
     <ListView
         android:id="@+id/list_coffees"
         android:layout_width="350dp"
@@ -25,6 +26,12 @@
         android:choiceMode="singleChoice"
         android:listSelector="#666666"
         />
+        -->
+    <ListView
+        android:id="@+id/list_coffees"
+        style="@style/List"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +54,7 @@
         <Button
             style="@style/Button"
             android:text="@string/coffee_btn_add"
-            android:onClick="onClickNewCoffee"
+            android:onClick="onClickAddCoffee"
             />
         <Button
             android:id="@+id/btn_delete"

@@ -97,7 +97,7 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
         selectedVolumeId = (Long) item.getTag(R.id.volume_id);
-        Log.v(CoffeeActivity.TAG, "selectedVolumeId = " + selectedVolumeId);
+        //Log.v(CoffeeActivity.TAG, "selectedVolumeId = " + selectedVolumeId);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

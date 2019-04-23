@@ -30,16 +30,18 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
     private List<Coffee> coffees = null;
     private CoffeesAdapter adapter = null;
+    private Button deleteButton;
+    private ListView coffeeList;
     private long selectedCoffeeId = 0;
 
-    static final String TAG = "CoffeeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffee_activity);
-        ListView lv = (ListView) findViewById(R.id.list_coffees);
-        lv.setOnItemClickListener(this);
+        coffeeList = (ListView) findViewById(R.id.list_coffees);
+        coffeeList.setOnItemClickListener(this);
+        deleteButton = (Button) findViewById(R.id.btn_delete);
     }
 
     @Override
@@ -58,7 +60,6 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
         selectedCoffeeId = (Long) item.getTag(R.id.coffee_id);
-        Log.v(TAG, "selectedCoffeeId = " + selectedCoffeeId);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -69,36 +70,21 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
             dh.refreshCoffeeCache();
         } else if (adapter == null) {
             adapter = new CoffeesAdapter(this, coffees);
-            ListView lv = (ListView) findViewById(R.id.list_coffees);
-            lv.setAdapter(adapter);
-            lv.setItemChecked(0, true);
-            //todo: eliminate click
-            lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
-                    lv.getAdapter().getItemId(0));
-            Button btn = (Button) findViewById(R.id.btn_delete);
-            if (coffees.size() == 1) {
-                btn.setEnabled(false);
-            } else {
-                btn.setEnabled(true);
-            }
+            coffeeList.setAdapter(adapter);
         } else {
             adapter.clear();
             adapter.addAll(coffees);
             adapter.notifyDataSetChanged();
-            //todo: eliminate click
-            ListView lv = (ListView) findViewById(R.id.list_coffees);
-            lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
-                    lv.getAdapter().getItemId(0));
-            Button btn = (Button) findViewById(R.id.btn_delete);
-            if (coffees.size() == 1) {
-                btn.setEnabled(false);
-            } else {
-                btn.setEnabled(true);
-            }
         }
-
-
+        if (coffees != null && coffees.size() > 1)
+            Utils.enableButton(deleteButton);
+        else
+            Utils.disableButton(deleteButton);
+        if (adapter != null)
+            coffeeList.setItemChecked(0, true);
     }
+
+
 
     private class CoffeesAdapter extends ArrayAdapter<Coffee> {
         CoffeesAdapter(Context ctx, List<Coffee> coffees) {
@@ -131,19 +117,28 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
-    public void onClickNewCoffee(View unused) {
+    public void onClickAddCoffee(View unused) {
         Intent i = new Intent(this, AddcoffeeActivity.class);
-        i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
         startActivity(i);
     }
 
     public void onClickDeleteCoffee(View unused) {
-        DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
+        //DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
+        View v = coffeeList.getSelectedView();
+        long id = (Long) v.getTag(R.id.coffee_id);
+        DatabaseHelper.getInstance(this).deleteCoffee(id);
     }
 
     public void onClickEditCoffee(View unused) {
         Intent i = new Intent(this, VolumeActivity.class);
-        i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
+        //View v = coffeeList.getSelectedView();
+        //long id = (Long) v.getTag(R.id.coffee_id);
+
+        int n = coffeeList.getCheckedItemPosition();
+        Coffee c = (Coffee) coffeeList.getItemAtPosition(n);
+        //i.putExtra(EXTRA_COFFEEID, id);
+        //i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
+        i.putExtra(EXTRA_COFFEEID, c.id());
         startActivity(i);
     }
 }
