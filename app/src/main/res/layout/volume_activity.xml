@@ -30,15 +30,6 @@
         android:id="@+id/list_volumes"
         style="@style/List"
         />
-    <!--
-    <ListView
-        android:id="@+id/list_volumes"
-        android:layout_width="350dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:choiceMode="singleChoice"
-        />
-        -->
     <Button
         style="@style/Button"
         android:layout_gravity="center_horizontal"
@@ -58,6 +49,7 @@
             android:id="@+id/btn_delete"
             style="@style/Button"
             android:text="Delete Volume"
+            android:onClick="onClickDeleteVolume"
             />
     </LinearLayout>
 </LinearLayout>

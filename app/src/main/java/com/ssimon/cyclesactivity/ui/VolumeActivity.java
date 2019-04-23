@@ -18,7 +18,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,23 +29,20 @@ import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
-import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Utils;
-import com.ssimon.cyclesactivity.util.Checker;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.w3c.dom.Text;
 
 public class VolumeActivity extends AppCompatActivity {
     static final String EXTRA_VOLUMEID = "EXTRA_VOLUMEID";
     private ListView volumeList;
     private Button deleteButton;
-    private VolumesAdapter adapter = null;
+    private VolumeAdapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +77,7 @@ public class VolumeActivity extends AppCompatActivity {
         if (adapter == null) {
             TextView tv = (TextView) findViewById(R.id.txt_coffee);
             tv.setText(coffee.name());
-            adapter = new VolumesAdapter(this, volumes);
+            adapter = new VolumeAdapter(this, volumes);
             volumeList.setAdapter(adapter);
         } else {
             adapter.clear();
@@ -103,8 +99,8 @@ public class VolumeActivity extends AppCompatActivity {
         return id;
     }
 
-    private class VolumesAdapter extends ArrayAdapter<Volume> {
-        public VolumesAdapter(Context ctx, List<Volume> coffees) {
+    private class VolumeAdapter extends ArrayAdapter<Volume> {
+        public VolumeAdapter(Context ctx, List<Volume> coffees) {
             super(ctx, 0, coffees);
         }
 
@@ -150,11 +146,12 @@ public class VolumeActivity extends AppCompatActivity {
         i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
         startActivity(i);
     }
+    */
 
     public void onClickDeleteVolume(View unused) {
         int n = volumeList.getCheckedItemPosition();
         Volume v = (Volume) volumeList.getItemAtPosition(n);
         DatabaseHelper.getInstance(this).deleteVolume(v.id());
     }
-    */
+
 }
