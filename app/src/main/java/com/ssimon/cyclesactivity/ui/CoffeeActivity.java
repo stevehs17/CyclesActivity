@@ -26,7 +26,8 @@ import java.util.List;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+//public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class CoffeeActivity extends AppCompatActivity {
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
     private List<Coffee> coffees = null;
     private CoffeesAdapter adapter = null;
@@ -40,7 +41,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffee_activity);
         coffeeList = (ListView) findViewById(R.id.list_coffees);
-        coffeeList.setOnItemClickListener(this);
+        //coffeeList.setOnItemClickListener(this);
         deleteButton = (Button) findViewById(R.id.btn_delete);
     }
 
@@ -57,10 +58,12 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         super.onPause();
     }
 
+    /*
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
         selectedCoffeeId = (Long) item.getTag(R.id.coffee_id);
     }
+    */
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeeRefreshEvent e) {
@@ -122,22 +125,25 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         startActivity(i);
     }
 
+    /*
     public void onClickDeleteCoffee(View unused) {
         //DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
         View v = coffeeList.getSelectedView();
         long id = (Long) v.getTag(R.id.coffee_id);
         DatabaseHelper.getInstance(this).deleteCoffee(id);
     }
+    */
+
+    public void onClickDeleteCoffee(View unused) {
+        int n = coffeeList.getCheckedItemPosition();
+        Coffee c = (Coffee) coffeeList.getItemAtPosition(n);
+        DatabaseHelper.getInstance(this).deleteCoffee(c.id());
+    }
 
     public void onClickEditCoffee(View unused) {
         Intent i = new Intent(this, VolumeActivity.class);
-        //View v = coffeeList.getSelectedView();
-        //long id = (Long) v.getTag(R.id.coffee_id);
-
         int n = coffeeList.getCheckedItemPosition();
         Coffee c = (Coffee) coffeeList.getItemAtPosition(n);
-        //i.putExtra(EXTRA_COFFEEID, id);
-        //i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
         i.putExtra(EXTRA_COFFEEID, c.id());
         startActivity(i);
     }
