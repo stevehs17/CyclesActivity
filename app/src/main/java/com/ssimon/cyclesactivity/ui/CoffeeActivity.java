@@ -21,27 +21,24 @@ import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-//public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 public class CoffeeActivity extends AppCompatActivity {
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
     private List<Coffee> coffees = null;
     private CoffeesAdapter adapter = null;
-    private Button deleteButton;
     private ListView coffeeList;
-    private long selectedCoffeeId = 0;
-
+    private Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffee_activity);
         coffeeList = (ListView) findViewById(R.id.list_coffees);
-        //coffeeList.setOnItemClickListener(this);
         deleteButton = (Button) findViewById(R.id.btn_delete);
     }
 
@@ -57,13 +54,6 @@ public class CoffeeActivity extends AppCompatActivity {
         Utils.unregisterEventBus(this);
         super.onPause();
     }
-
-    /*
-    @Override
-    public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
-        selectedCoffeeId = (Long) item.getTag(R.id.coffee_id);
-    }
-    */
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeeRefreshEvent e) {
@@ -102,13 +92,12 @@ public class CoffeeActivity extends AppCompatActivity {
             if (v == null) {
                 v = getLayoutInflater().inflate(android.R.layout.simple_list_item_activated_1, null);
                 h = new ViewHolder(v);
-                v.setTag(R.id.holder, h);
+                v.setTag(h);
             } else {
-                h = (ViewHolder) v.getTag(R.id.holder);
+                h = (ViewHolder) v.getTag();
             }
             Coffee c = getItem(position);
             h.name.setText(c.name());
-            v.setTag(R.id.coffee_id, c.id());
             return v;
         }
 
@@ -124,15 +113,6 @@ public class CoffeeActivity extends AppCompatActivity {
         Intent i = new Intent(this, AddcoffeeActivity.class);
         startActivity(i);
     }
-
-    /*
-    public void onClickDeleteCoffee(View unused) {
-        //DatabaseHelper.getInstance(this).deleteCoffee(selectedCoffeeId);
-        View v = coffeeList.getSelectedView();
-        long id = (Long) v.getTag(R.id.coffee_id);
-        DatabaseHelper.getInstance(this).deleteCoffee(id);
-    }
-    */
 
     public void onClickDeleteCoffee(View unused) {
         int n = coffeeList.getCheckedItemPosition();
