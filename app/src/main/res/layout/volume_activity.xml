@@ -26,7 +26,11 @@
         style="@style/LabelText"
         android:text="Volumes"
         />
-
+    <ListView
+        android:id="@+id/list_volumes"
+        style="@style/List"
+        />
+    <!--
     <ListView
         android:id="@+id/list_volumes"
         android:layout_width="350dp"
@@ -34,11 +38,12 @@
         android:layout_weight="1"
         android:choiceMode="singleChoice"
         />
+        -->
     <Button
         style="@style/Button"
         android:layout_gravity="center_horizontal"
-        android:text="Edit Cycles"
-        android:onClick="onClickEditCycles"
+        android:text="Edit Volume"
+        android:onClick="onClickEditVolume"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,6 +52,7 @@
         <Button
             style="@style/Button"
             android:text="Add Volume"
+            android:onClick="onClickAddVolume"
             />
         <Button
             android:id="@+id/btn_delete"

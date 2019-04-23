@@ -19,6 +19,7 @@ import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -26,10 +27,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class CoffeeActivity extends AppCompatActivity {
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
-    private List<Coffee> coffees = null;
-    private CoffeeAdapter adapter = null;
     private ListView coffeeList;
     private Button deleteButton;
+    private CoffeeAdapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +54,14 @@ public class CoffeeActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeeRefreshEvent unused) {
-        coffees = CoffeeCache.getCoffees();
+        List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
-        } else if (adapter == null) {
+            return;
+        }
+        coffees = new ArrayList<>(coffees);
+        if (adapter == null) {
             adapter = new CoffeeAdapter(this, coffees);
             coffeeList.setAdapter(adapter);
         } else {
@@ -66,12 +69,11 @@ public class CoffeeActivity extends AppCompatActivity {
             adapter.addAll(coffees);
             adapter.notifyDataSetChanged();
         }
-        if (coffees != null && coffees.size() > 1)
+        if (coffees.size() > 1)
             Utils.enableButton(deleteButton);
         else
             Utils.disableButton(deleteButton);
-        if (adapter != null)
-            coffeeList.setItemChecked(0, true);
+        coffeeList.setItemChecked(0, true);
     }
 
     private class CoffeeAdapter extends ArrayAdapter<Coffee> {

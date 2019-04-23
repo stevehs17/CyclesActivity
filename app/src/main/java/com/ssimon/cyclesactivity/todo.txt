@@ -33,6 +33,7 @@ Manage Cycles
     Revert widths for cycle parameter column sizes to explicit
         widths and margins, in place of the current 0dp/weight=1 width specifications
 General
+    Make layout attributes consistent across activities.
     Add findViewByIdOrThrow().
     Add Checker methods where can add a name (for cases where there are multiple parameters
         that use the same Checker method).

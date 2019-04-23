@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,45 +40,21 @@ import java.util.List;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
-public class VolumeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    static final String EXTRA_VOLUME_IDX = "EXTRA_VOLUME_IDX";
-    static final String EXTRA_COFFEE = "EXTRA_COFFEE";
-
+public class VolumeActivity extends AppCompatActivity {
     static final String EXTRA_VOLUMEID = "EXTRA_VOLUMEID";
-
-    private List<Volume> volumes = null;
+    private ListView volumeList;
+    private Button deleteButton;
     private VolumesAdapter adapter = null;
-    private TextView coffeeText;
-    private long selectedVolumeId = -1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.volume_activity);
-        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-        ListView lv = (ListView) findViewById(R.id.list_volumes);
-        lv.setOnItemClickListener(this);
-
-        coffeeText = (TextView) findViewById(R.id.txt_coffee);
+        volumeList = (ListView) findViewById(R.id.list_volumes);
+        deleteButton = (Button) findViewById(R.id.btn_delete);
     }
-
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeeRefreshEvent());
-    }
-
-    @Override
-    protected void onStop() {
-        Utils.unregisterEventBus(this);
-        super.onStop();
-    }
-    */
 
     @Override
     protected void onResume() {
@@ -92,51 +69,39 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
         super.onPause();
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
-        selectedVolumeId = (Long) item.getTag(R.id.volume_id);
-        //Log.v(CoffeeActivity.TAG, "selectedVolumeId = " + selectedVolumeId);
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCoffeeList(CoffeeRefreshEvent e) {
+    public void setVolumeList(CoffeeRefreshEvent e) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeeCache();
-        } else if (adapter == null) {
-            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-
-            Coffee c = Utils.getCoffeeById(coffeeId, coffees);
-            coffeeText.setText(c.name());
-            // todo: does this also need to be done if adapter not null?
-
-
-            volumes = Utils.getVolumesByCoffeeId(coffeeId, coffees);
+            DatabaseHelper.getInstance(this). refreshCoffeeCache();
+            return;
+        }
+        Coffee coffee = Utils.getCoffeeById(getCoffeeId(), coffees);
+        List<Volume> volumes = new ArrayList<>(coffee.volumes());
+        if (adapter == null) {
+            TextView tv = (TextView) findViewById(R.id.txt_coffee);
+            tv.setText(coffee.name());
             adapter = new VolumesAdapter(this, volumes);
-            ListView lv = (ListView) findViewById(R.id.list_volumes);
-            lv.setAdapter(adapter);
-            lv.setItemChecked(0, true);
-            lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
-                    lv.getAdapter().getItemId(0));
-
-
+            volumeList.setAdapter(adapter);
         } else {
+            adapter.clear();
+            adapter.addAll(volumes);
             adapter.notifyDataSetChanged();
-            //todo: will probably need to click 0th item, as above
         }
+        if (coffee.volumes().size() == 1)
+            Utils.disableButton(deleteButton);
+        else
+            Utils.enableButton(deleteButton);
+        volumeList.setItemChecked(0, true);
     }
 
-    /*
-    List<Volume> getVolumesByCoffeeId(long coffeeId, List<Coffee> coffees) {
-        for (Coffee c : coffees) {
-            if (c.id() == coffeeId)
-                return c.volumes();
-        }
-        throw new IllegalStateException("No coffee found with id = " + coffeeId);
+    private long getCoffeeId() {
+        long id = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID,
+                Const.UNSET_DATABASE_ID);
+        if (id == Const.UNSET_DATABASE_ID)
+            throw new IllegalStateException("coffee ID not set");
+        return id;
     }
-    */
 
     private class VolumesAdapter extends ArrayAdapter<Volume> {
         public VolumesAdapter(Context ctx, List<Volume> coffees) {
@@ -151,13 +116,12 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
             if (v == null) {
                 v = getLayoutInflater().inflate(android.R.layout.simple_list_item_activated_1, null);
                 h = new ViewHolder(v);
-                v.setTag(R.id.holder, h);
+                v.setTag(h);
             } else {
-                h = (ViewHolder) v.getTag(R.id.holder);
+                h = (ViewHolder) v.getTag();
             }
             Volume vol = getItem(position);
             h.name.setText(vol.name());
-            v.setTag(R.id.volume_id, vol.id());
             return v;
         }
 
@@ -167,56 +131,30 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
                 name = v.findViewById(android.R.id.text1);
             }
         }
+
     }
 
+   public void onClickEditVolume(View unused) {
+       Intent i = new Intent(this, CycleActivity.class);
+       i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
+       int n = volumeList.getCheckedItemPosition();
+       Volume v = (Volume) volumeList.getItemAtPosition(n);
+       i.putExtra(EXTRA_VOLUMEID, v.id());
+       startActivity(i);
+    }
 
     /*
-    public void onClickEditCycles(View unused) {
-        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_TIME + 30, Cycle.MIN_VACUUMTIME + 40);
-        ArrayList<Cycle> cycles = new ArrayList<>();
-        cycles.add(c);
-        cycles.add(c);
-        cycles.add(c);
-        cycles.add(c);
-        cycles.add(c);
-        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_VACUUMTIME);
-        cycles.add(c);
-        Volume v = new Volume(1, cycles);
-        List<Volume> volumes = new ArrayList<>();
-        volumes.add(v);
-        volumes.add(v);
-        Coffee cof = new Coffee(5, "coffee", volumes, 1);
+    public void onClickAddVolume(View unused) {
         Intent i = new Intent(this, CycleActivity.class);
-        i.putExtra(EXTRA_COFFEE, cof);
-        i.putExtra(EXTRA_VOLUME_IDX, 1);
+        i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
+        i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
         startActivity(i);
+    }
+
+    public void onClickDeleteVolume(View unused) {
+        int n = volumeList.getCheckedItemPosition();
+        Volume v = (Volume) volumeList.getItemAtPosition(n);
+        DatabaseHelper.getInstance(this).deleteVolume(v.id());
     }
     */
-
-    public void onClickEditCycles(View unused) {
-        Intent i = new Intent(this, CycleActivity.class);
-        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-        i.putExtra(CoffeeActivity.EXTRA_COFFEEID, coffeeId);
-        i.putExtra(EXTRA_VOLUMEID, selectedVolumeId);
-
-
-        Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_TIME + 30, Cycle.MIN_TIME + 40);
-        ArrayList<Cycle> cycles = new ArrayList<>();
-        cycles.add(c);
-        cycles.add(c);
-        cycles.add(c);
-        cycles.add(c);
-        cycles.add(c);
-        c = new Cycle(Cycle.MIN_VOLUME, Cycle.MIN_TIME, Cycle.MIN_TIME);
-        cycles.add(c);
-        Volume v = new Volume(1, cycles);
-        List<Volume> volumes = new ArrayList<>();
-        volumes.add(v);
-        volumes.add(v);
-        Coffee cof = new Coffee(5, "coffee", volumes);
-        i.putExtra(EXTRA_COFFEE, cof);
-        i.putExtra(EXTRA_VOLUME_IDX, 1);
-
-        startActivity(i);
-    }
 }

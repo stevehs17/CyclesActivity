@@ -32,8 +32,7 @@ public class CoffeeDao {
             coffees.add(new Coffee(id, name, volumes));
         } while (c.moveToNext());
         c.close();
-        //return Collections.unmodifiableList(coffees);
-        return coffees;
+        return Collections.unmodifiableList(coffees);
     }
 
     static public void insertCoffees(SQLiteDatabase db, List<Coffee> coffees) {
