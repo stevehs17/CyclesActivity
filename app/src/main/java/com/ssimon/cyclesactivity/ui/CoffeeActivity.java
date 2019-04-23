@@ -42,36 +42,18 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
         lv.setOnItemClickListener(this);
     }
 
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeeRefreshEvent());
-    }
-    */
-
     @Override
     protected void onResume() {
         super.onResume();
         Utils.registerEventBus(this);
         Utils.postEvent(new CoffeeRefreshEvent());
     }
-    /*
-    @Override
-    protected void onStop() {
-        Utils.unregisterEventBus(this);
-        super.onStop();
-    }
-    */
 
     @Override
     protected void onPause() {
         Utils.unregisterEventBus(this);
         super.onPause();
     }
-
-
 
     @Override
     public void onItemClick(AdapterView<?> unused1, View item, int unused2, long unused3) {
@@ -129,7 +111,6 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
             ViewHolder h;
 
             if (v == null) {
-                //v = getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
                 v = getLayoutInflater().inflate(android.R.layout.simple_list_item_activated_1, null);
                 h = new ViewHolder(v);
                 v.setTag(R.id.holder, h);
@@ -151,10 +132,6 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void onClickNewCoffee(View unused) {
-        /*
-        CreateCoffeeDialog d = CreateCoffeeDialog.newInstance();
-        d.show(getSupportFragmentManager(), "");
-        */
         Intent i = new Intent(this, AddcoffeeActivity.class);
         i.putExtra(EXTRA_COFFEEID, selectedCoffeeId);
         startActivity(i);
