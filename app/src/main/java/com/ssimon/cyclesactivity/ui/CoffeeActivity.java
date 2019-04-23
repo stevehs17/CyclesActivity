@@ -21,10 +21,10 @@ import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.util.Utils;
 
+import java.util.List;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";

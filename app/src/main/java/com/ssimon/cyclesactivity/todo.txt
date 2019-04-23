@@ -7,6 +7,7 @@ Manage Coffees
     Add long press as alternative to "Edit" button for Coffee recipes.
 Add coffee
     Have coffee just added be selected when go back to CoffeeActivity.
+    Improve appearance of errors in edit volumes
 Manage Volumes
     Don't allow user to delete last volume
     Add volume feature
