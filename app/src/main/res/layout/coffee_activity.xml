@@ -12,18 +12,23 @@
     tools:context="com.ssimon.cyclesactivity.ui.CoffeeActivity"
     android:orientation="vertical"
     >
+    <TextView
+        style="@style/LabelText"
+        android:text="Coffees"
+        />
     <ListView
         android:id="@+id/list_coffees"
         android:layout_width="350dp"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginBottom="24dp"
         android:choiceMode="singleChoice"
         android:listSelector="#666666"
         />
-    <include layout="@layout/common_spacer"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         >
         <Button
             style="@style/Button"

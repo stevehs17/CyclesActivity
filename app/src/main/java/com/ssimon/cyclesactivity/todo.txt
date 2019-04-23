@@ -1,48 +1,50 @@
-Remove extra underline from edittext in Add Coffee.
-Don't allow user to delete last coffee
-Don't allow user to delete last volume
-Don't allow user to delete last cycle
-Prompt to delete coffee, or provide undo option.
-For Cycles, save operation: need to figure out logic for
-    replacing/adding volume (query to replace, otherwise create?)
-General strategy for managing Coffee data:
-    All three manage activities get coffee list from cache in onStart().
-        In onStart(), they register event bus and then post refresh event.
-        Actually: all three should use the cache directly, for simplicity.
-Make refresh coffee event non-sticky if, in fact, it's not needed since refresh coffee event is always sent in onPause().
-Add methods to access db off main thread.
-Finish onClickSaveCycles.
-Test for CyclesActivity:
-    set parm buttons, get parm buttons, compare values
-Where put button to delete volume?
-Tie together MAX_NUM_CYCLES and cycle table layout
-    Create table programmatically?
-Tie together references to columns in XML and in code
-    Use resource IDs?
-Special case last vacuum mintime
-Implement total volume.
-Add long press as alternative to "Edit" button for Coffee recipes.
-Create separate getTestInstance() for DatabaseHelper, which creates db with different name from
-    non-test (so won't overwrite).
-Figure out how user should specify default volume.
-    In ManageCoffees or ManageVolumes?
-Add findViewByIdOrThrow().
-Add Checker methods where can add a name (for cases where there are multiple parameters
-    that use the same Checker method).
-Fix access of methods used by test code
-    Some are public just for test code; see if that can be fixed.
-CyclesActivity layouts
+Manage Coffees
+    Don't allow user to delete last coffee
+    Rename coffee feature
+    Prompt to delete coffee, or provide undo option.
+    Eliminate extra clicks on startup
+    Eliminate 2nd color in list
+    Add long press as alternative to "Edit" button for Coffee recipes.
+Add coffee
+    Have coffee just added be selected when go back to CoffeeActivity.
+Manage Volumes
+    Don't allow user to delete last volume
+    Add volume feature
+    Prompt to delete volume, or provide undo option.
+    Is this where default volume should be specified?
+Manage Cycles
+    Don't allow user to delete last cycle
+    For save feature:
+        Prompt to replace existing volume
+        Indicate if new volume
+    Display original volume
+    Create table programmatically so can base number of cycles on MAX_NUM_CYCLES.
+    Tie together references to columns in XML and in code
+        Use resource IDs?
+    Special case last vacuum mintime
+    Test for CyclesActivity:
+        set parm buttons, get parm buttons, compare values
     Reduce sizes to improve spacing and grouping
         (so views with related functionality are visually grouped together)
     Increase size of +, - buttons
     Can +, - buttons and seekbar all be the same color (since functionality is related)?
     Revert widths for cycle parameter column sizes to explicit
         widths and margins, in place of the current 0dp/weight=1 width specifications
-Add icons to improve appearance of list items
+General
+    Add findViewByIdOrThrow().
+    Add Checker methods where can add a name (for cases where there are multiple parameters
+        that use the same Checker method).
+    Add methods: getIntentExtraOrThrow*
+    Fix access of methods used by test code
+        Some are public just for test code; see if that can be fixed.
+    Add icons to improve appearance of list items
+    Work out app color scheme
+
+
+DONE
 Clean up test code
 Improve Espresso test that navigates edit hierarchy
     Set database and Validate specific activities
-Add methods: getIntentExtraOrThrow*
 Make sure event callbacks in one activity aren't getting called in virtue of message being
     sent from another.
 Rather than storing default volume id with Coffee, maybe should store it with BrewActivity?
@@ -50,55 +52,5 @@ Rather than storing default volume id with Coffee, maybe should store it with Br
         That table will have a single column, Vol Id, and Coffee Id will be a foreign key.
             For cache: can use Map from Cof Id to Vol Id
      Then: remove default vol id from Coffee class!
-
-
-
-DONE
-Use Checker in CyclesActivity, etc.
-Implement default volume id.
-Implement test that uses loops to create large numbers of coffee, with large numbers
-    of volume, with large numbers of cycles.
-Remove volumeID field from Cycle
-Fix name()
-Test cascading deletes
-Improve save/retrieve test to check ids.
-Improve test code organization.
-Implement Coffee cache
-Make lists of volumes and cycles unmodifiable.
-Provide default recipe.
-Fix espresso test.
-Implement selection of coffee, volume, working.
-Try updating gradle and running tests in separate processes
-Refactor db tests based on GC2 design
-Rewrite data tests
-Populate db for espresso test.
-Fix Coffee constructors
-    Should just sort volumes once; this may require allowing UNSET_DB_ID as a legal
-    parameter vaue.
-Add LeakCanary.
-When create database, provide some default recipes.
-    To add, can call methods in CoffeeDao.
-Use ROW_ID for cycles instead of index.
-Might also want to sort by ROW_ID for volumes for testing purpose
-    - So can compare what's created with what's read.
-Change MIN/MAX_BREW/VACUUMTIME to MIN/MAX_TIME
-Figure out better way to organize code in DbaseUtils
-    Move default coffee code to elsewhere
-    Then can change name to DaoUtils
-Add stress tests for db code
-    I.e.: have large numbers of coffees -- 30 and 10*30
-Make lists single choice mode.
-Improve rigor of deleteCoffees() -- use transactions, validate parameters.
-Change get coffees code so doesn't reset default volume id if not set. (?)
-Can coalesce BREWTIME and VACUUMTIME since same range and resolution.
-"Manage Coffees" -> "Coffees", etc.
-"Edit Coffee" -> "Edit", etc.
-Proceed with implementation
-In Volumes screen: Display coffee name.
-In Cycles screen: get and display actual coffee name.
-
-
-
-
-
+     Where put button to delete volume?
 

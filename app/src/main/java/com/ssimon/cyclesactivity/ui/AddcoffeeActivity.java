@@ -209,6 +209,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
             Coffee c = new Coffee(name, vols);
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.saveCoffee(c);
+            finish();
         } catch (GroundControlException unused1) {
         }
     }
@@ -276,7 +277,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
 
         List<Volume> vols = new ArrayList<>();
         for (Integer amount : numCyclesToAmounts(numCycles)) {
-            //int cycleAmount = amount/numCycles;
             int cycleAmount = getCycleAmount(amount, numCycles);
             int cycleVacTime = getVacuumTimePerCycle(cycleAmount);
             List<Cycle> cycles = new ArrayList<>();

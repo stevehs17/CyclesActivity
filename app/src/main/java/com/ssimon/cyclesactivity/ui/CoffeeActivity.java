@@ -30,7 +30,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
     static final String EXTRA_COFFEEID = "EXTRA_COFFEEID";
     private List<Coffee> coffees = null;
     private CoffeesAdapter adapter = null;
-    private long selectedCoffeeId = -1;
+    private long selectedCoffeeId = 0;
 
     static final String TAG = "CoffeeActivity";
 
@@ -90,7 +90,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
             ListView lv = (ListView) findViewById(R.id.list_coffees);
             lv.setAdapter(adapter);
             lv.setItemChecked(0, true);
-
+            //todo: eliminate click
             lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
                     lv.getAdapter().getItemId(0));
             Button btn = (Button) findViewById(R.id.btn_delete);
@@ -103,7 +103,7 @@ public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnI
             adapter.clear();
             adapter.addAll(coffees);
             adapter.notifyDataSetChanged();
-            //todo: will probably need to click 0th item, as above
+            //todo: eliminate click
             ListView lv = (ListView) findViewById(R.id.list_coffees);
             lv.performItemClick(lv.getAdapter().getView(0, null, null), 0,
                     lv.getAdapter().getItemId(0));

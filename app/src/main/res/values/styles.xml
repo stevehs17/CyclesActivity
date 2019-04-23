@@ -9,7 +9,7 @@
 
 
     <style name="Button">
-        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_width">165dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:theme">@style/ButtonThemeRed</item>
         <item name="android:textAppearance">@style/Text.Medium.White</item>

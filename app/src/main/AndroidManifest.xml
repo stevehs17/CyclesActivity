@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.CoffeeActivity"
-            android:label="Coffees">
+            android:label="Manage Coffees">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -19,12 +19,12 @@
         </activity>
         <activity
             android:name=".ui.VolumeActivity"
-            android:label="Volumes"
+            android:label="Manage Volumes"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.CoffeeActivity"/>
         <activity
             android:name=".ui.CycleActivity"
-            android:label="Cycles"
+            android:label="Manage Cycles"
             android:parentActivityName=".ui.VolumeActivity"
             />
         <activity

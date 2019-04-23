@@ -173,7 +173,7 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
 
 
     /*
-    public void onClickEditVolume(View unused) {
+    public void onClickEditCycles(View unused) {
         Cycle c = new Cycle(Cycle.MIN_VOLUME + 500, Cycle.MIN_TIME + 30, Cycle.MIN_VACUUMTIME + 40);
         ArrayList<Cycle> cycles = new ArrayList<>();
         cycles.add(c);
@@ -195,7 +195,7 @@ public class VolumeActivity extends AppCompatActivity implements AdapterView.OnI
     }
     */
 
-    public void onClickEditVolume(View unused) {
+    public void onClickEditCycles(View unused) {
         Intent i = new Intent(this, CycleActivity.class);
         long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, coffeeId);
