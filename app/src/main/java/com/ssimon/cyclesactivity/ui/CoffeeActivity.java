@@ -53,7 +53,7 @@ public class CoffeeActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCoffeeList(CoffeeRefreshEvent e) {
+    public void setCoffeeList(CoffeeRefreshEvent unused) {
         coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
