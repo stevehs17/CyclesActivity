@@ -75,7 +75,7 @@ public class EditActivitiesNavigateTest {
 
     private void descendToCycles() {
         ViewInteraction appCompatButton2 = onView(
-                allOf(withText("Edit Cycles"),
+                allOf(withText("Edit Volume"),
                         withParent(allOf(withId(R.id.activity_managecoffees),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));

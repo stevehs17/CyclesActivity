@@ -14,6 +14,7 @@ Manage Volumes
     Add volume feature
     Prompt to delete volume, or provide undo option.
     Is this where default volume should be specified?
+    Add long press as alternative to "Edit" button for Coffee recipes.
 Manage Cycles
     Don't allow user to delete last cycle
     For save feature:
