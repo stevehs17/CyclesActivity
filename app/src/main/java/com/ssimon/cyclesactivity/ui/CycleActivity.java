@@ -11,6 +11,8 @@
 
 package com.ssimon.cyclesactivity.ui;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -36,6 +38,7 @@ import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.ModelUtils;
 import com.ssimon.cyclesactivity.util.Utils;
 import com.ssimon.cyclesactivity.util.Checker;
@@ -318,15 +321,7 @@ public class CycleActivity extends AppCompatActivity {
         setTotalVolume();
     }
 
-    public void onClickSaveCycles(View unused) {
-        List<Cycle> cs = parmButtonToCycles();
-        DatabaseHelper dh = DatabaseHelper.getInstance(this);
-        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-        dh.saveVolume(coffeeId, cs);
-    }
-
-    private List<Cycle> parmButtonToCycles() {
+   private List<Cycle> parmButtonToCycles() {
         List<Cycle> cycles = new ArrayList<>();
         for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
             TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
@@ -387,6 +382,90 @@ public class CycleActivity extends AppCompatActivity {
         for (int i = min; i <= max; i += increment)
             volumes.add(i);
         return Collections.unmodifiableList(volumes);
+    }
+
+
+    public void onClickSaveCycles(View unused) {
+        List<Cycle> cs = parmButtonToCycles();
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        dh.saveVolume(coffeeId, cs);
+    }
+
+/*
+    public void onClickSaveCycles(View unused) {
+        List<Cycle> cs = parmButtonToCycles();
+        if (volumeInUse(coffee.volumes(), cycles))
+            promptToOverwrite(coffee.id);
+
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        dh.saveVolume(coffeeId, cs);
+    }
+    */
+
+    private boolean volumeInUse(List<Volume> volumes, List<Cycle> cycles) {
+        int totalVolume = 0;
+        for (Cycle c : cycles)
+            totalVolume += c.volumeMl();
+        for (Volume v : volumes) {
+            if (v.totalVolume() == totalVolume)
+                return true;
+        }
+        return false;
+    }
+
+
+    private void promptToOverwrite(final long coffeeId, final List<Cycle> cycles) {
+        DialogInterface.OnClickListener list = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        DatabaseHelper dh = DatabaseHelper.getInstance(CycleActivity.this);
+                        dh.saveVolume(coffeeId, cycles);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder build = new AlertDialog.Builder(this);
+        build.setMessage("Overwrite existing volume?")
+                .setPositiveButton("Yes", list)
+                .setNegativeButton("No", list)
+                .show();
+    }
+
+    private void promptToOverwrite2(final long coffeeId, final List<Cycle> cycles) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Confirm");
+        builder.setMessage("Are you sure?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }

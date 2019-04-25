@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -73,7 +74,9 @@ public class CoffeeActivity extends AppCompatActivity {
             Utils.enableButton(deleteButton);
         else
             Utils.disableButton(deleteButton);
-        coffeeList.setItemChecked(0, true);
+        int n = coffeeList.getCheckedItemPosition();
+        if (n == AdapterView.INVALID_POSITION)
+            coffeeList.setItemChecked(0, true);
     }
 
     private class CoffeeAdapter extends ArrayAdapter<Coffee> {
