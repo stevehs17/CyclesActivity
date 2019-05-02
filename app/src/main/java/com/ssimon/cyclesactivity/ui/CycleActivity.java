@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -77,12 +76,7 @@ public class CycleActivity extends AppCompatActivity {
         totalVolumeText = (TextView) findViewById(R.id.txt_totalvolume);
         setDecrementButton();
         setIncrementButton();
-
-        /*
-        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-        */
-     }
+    }
 
     @Override
     protected void onResume() {
@@ -97,34 +91,8 @@ public class CycleActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    /*
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCycleTable(CoffeeRefreshEvent e) {
-        List<Coffee> coffees = CoffeeCache.getCoffees();
-        if (coffees == null) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeeCache();
-        } else {
-            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
-            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            long volumeId = getIntent().getLongExtra(VolumeActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
-            Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            List<Cycle> cycles = Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
-            setParmButtonValues(cycles);
-            setDefaultParmButton();
-
-            Coffee c = Utils.getCoffeeById(coffeeId, coffees);
-            TextView tv = (TextView) findViewById(R.id.txt_coffee);
-            tv.setText(c.name());
-
-            setTotalVolume();
-
-        }
-    }
-    */
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCycleTable(CoffeeRefreshEvent e) {
+    public void setCycleTable(CoffeeRefreshEvent unused ) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
@@ -185,7 +153,7 @@ public class CycleActivity extends AppCompatActivity {
                     decrement();
                 else
                     increment();
-                final int milliseconds = 100;
+                final int milliseconds = 200;
                 btn.postDelayed(this, milliseconds);
             }
         };
@@ -193,11 +161,7 @@ public class CycleActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
                 if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (isDecrement)
-                        decrement();
-                    else
-                        increment();
-                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
+                    v.post(repeater);
                 } else if (e.getAction() == MotionEvent.ACTION_UP) {
                     v.removeCallbacks(repeater);
                 }

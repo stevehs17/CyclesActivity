@@ -95,6 +95,28 @@ public class VolumeActivity extends AppCompatActivity {
             volumeList.setItemChecked(0, true);
     }
 
+    public void onClickEditVolume(View unused) {
+        Intent i = new Intent(this, CycleActivity.class);
+        i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
+        int n = volumeList.getCheckedItemPosition();
+        Volume v = (Volume) volumeList.getItemAtPosition(n);
+        i.putExtra(EXTRA_VOLUMEID, v.id());
+        startActivity(i);
+    }
+
+    public void onClickAddVolume(View unused) {
+        Intent i = new Intent(this, CycleActivity.class);
+        i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
+        i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
+        startActivity(i);
+    }
+
+    public void onClickDeleteVolume(View unused) {
+        int n = volumeList.getCheckedItemPosition();
+        Volume v = (Volume) volumeList.getItemAtPosition(n);
+        DatabaseHelper.getInstance(this).deleteVolume(v.id());
+    }
+
     private long getCoffeeId() {
         long id = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID,
                 Const.UNSET_DATABASE_ID);
@@ -134,25 +156,4 @@ public class VolumeActivity extends AppCompatActivity {
 
     }
 
-   public void onClickEditVolume(View unused) {
-       Intent i = new Intent(this, CycleActivity.class);
-       i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
-       int n = volumeList.getCheckedItemPosition();
-       Volume v = (Volume) volumeList.getItemAtPosition(n);
-       i.putExtra(EXTRA_VOLUMEID, v.id());
-       startActivity(i);
-    }
-
-    public void onClickAddVolume(View unused) {
-        Intent i = new Intent(this, CycleActivity.class);
-        i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
-        i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
-        startActivity(i);
-    }
-
-    public void onClickDeleteVolume(View unused) {
-        int n = volumeList.getCheckedItemPosition();
-        Volume v = (Volume) volumeList.getItemAtPosition(n);
-        DatabaseHelper.getInstance(this).deleteVolume(v.id());
-    }
 }
