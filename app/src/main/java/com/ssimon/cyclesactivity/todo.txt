@@ -1,17 +1,11 @@
 Manage Cycles
-    Refactor
-        can currentParmValues be eliminated as a field?
-    Disable delete button so can't to delete last cycle
-    Disable add button so can't have more than 6 cycles.
-    For save feature:
-        Prompt to replace existing volume
-        Indicate if new volume
-    Display original volume
-
+    Need to set cycle number text
+        Overload setParmRow, with optional cycle number
     Special case last vacuum mintime
-    Create table programmatically so can base number of cycles on MAX_NUM_CYCLES.
-    Tie together references to columns in XML and in code
-        Use resource IDs?
+        Go back to separate onClick methods for brewTime and vacTime
+        When initialize parm table, add tags to vacTime buttons with row number
+        Can then compare stored row index with last visible cycle index to determine range
+
     Test for CyclesActivity:
         set parm buttons, get parm buttons, compare values
     Reduce sizes to improve spacing and grouping
@@ -65,5 +59,20 @@ Rather than storing default volume id with Coffee, maybe should store it with Br
             Figure out why "u uu" initially appeared as first item on list of coffees.
 
       Don't allow user to delete last volume
+
+
+        Refactor
+              can currentParmValues be eliminated as a field?
+          Disable delete button so can't to delete last cycle
+          Disable add button so can't have more than 6 cycles.
+          For save feature:
+              Prompt to replace existing volume
+              Indicate if new volume
+          Display original volume
+
+          Create table programmatically so can base number of cycles on MAX_NUM_CYCLES.
+          Tie together references to columns in XML and in code
+              Use resource IDs?
+
 
 
