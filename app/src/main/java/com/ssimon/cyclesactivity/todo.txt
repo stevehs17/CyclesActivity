@@ -23,7 +23,7 @@ Manage Coffees
 Add coffee
     Have coffee just added be selected when go back to CoffeeActivity.
     Improve appearance of errors in edit volumes
-    Impost limit on coffee name length
+    Impose limit on coffee name length
 Manage Volumes
     Add volume feature
     Prompt to delete volume, or provide undo option.
