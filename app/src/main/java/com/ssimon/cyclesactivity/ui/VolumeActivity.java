@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -96,7 +95,7 @@ public class VolumeActivity extends AppCompatActivity {
     }
 
     public void onClickEditVolume(View unused) {
-        Intent i = new Intent(this, CycleActivity.class);
+        Intent i = new Intent(this, OldCycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
         int n = volumeList.getCheckedItemPosition();
         Volume v = (Volume) volumeList.getItemAtPosition(n);
@@ -105,7 +104,7 @@ public class VolumeActivity extends AppCompatActivity {
     }
 
     public void onClickAddVolume(View unused) {
-        Intent i = new Intent(this, CycleActivity.class);
+        Intent i = new Intent(this, OldCycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
         i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
         startActivity(i);

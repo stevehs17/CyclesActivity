@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ssimon.cyclesactivity"
-    >
+          package="com.ssimon.cyclesactivity">
+
     <application
         android:name=".CanaryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Manage Cycles"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.CoffeeActivity"
-            android:launchMode="singleTop"
             android:label="Manage Coffees"
-            >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -24,17 +23,17 @@
             android:name=".ui.VolumeActivity"
             android:label="Manage Volumes"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.CoffeeActivity"
-            />
+            android:parentActivityName=".ui.CoffeeActivity"/>
         <activity
-            android:name=".ui.CycleActivity"
+            android:name=".ui.OldCycleActivity"
             android:label="Manage Cycles"
-            android:parentActivityName=".ui.VolumeActivity"
-            />
+            android:parentActivityName=".ui.VolumeActivity"/>
         <activity
             android:name=".ui.AddcoffeeActivity"
             android:label="Add Coffee"
-            android:parentActivityName=".ui.CoffeeActivity"
-            />
+            android:parentActivityName=".ui.CoffeeActivity"/>
+        <activity android:name=".ui.CycleActivity">
+        </activity>
     </application>
+
 </manifest>

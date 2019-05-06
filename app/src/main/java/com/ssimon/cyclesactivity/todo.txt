@@ -5,6 +5,7 @@ Manage Cycles
         Go back to separate onClick methods for brewTime and vacTime
         When initialize parm table, add tags to vacTime buttons with row number
         Can then compare stored row index with last visible cycle index to determine range
+    See if can eliminate fields for deleteCycleButton and addCycleButton
 
     Test for CyclesActivity:
         set parm buttons, get parm buttons, compare values
