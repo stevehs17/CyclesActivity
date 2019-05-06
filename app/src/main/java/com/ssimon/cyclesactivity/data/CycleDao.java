@@ -16,6 +16,15 @@ import static com.ssimon.cyclesactivity.data.Contract.Cycle.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Cycle.TABLE_NAME;
 
 public class CycleDao {
+    static void deleteCyclesByVolumeId(SQLiteDatabase db, long volumeId) {
+        Checker.notNull(db);
+        Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
+        String where = Col.VOLUME_ID + "=?";
+        String[] whereArgs = {Long.toString(volumeId)};
+        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
+        Checker.inRange(numDeleted, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+    }
+
     static List<Cycle> getCycles(SQLiteDatabase db, long volumeId) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
@@ -65,12 +74,19 @@ public class CycleDao {
         db.insertOrThrow(TABLE_NAME, null, cv);
     }
 
-    static private void deleteCyclesByVolumeId(SQLiteDatabase db, long volumeId) {
+    static void replaceCycles(SQLiteDatabase db, long volumeId, List<Cycle> cycles) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
-        String where = Col.VOLUME_ID + "=?";
-        String[] whereArgs = {Long.toString(volumeId)};
-        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
-        Checker.inRange(numDeleted, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+        Checker.notNull(cycles);
+        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+
+        db.beginTransaction();
+        try {
+            deleteCyclesByVolumeId(db, volumeId);
+            insertCycles(db, volumeId, cycles);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
     }
 }

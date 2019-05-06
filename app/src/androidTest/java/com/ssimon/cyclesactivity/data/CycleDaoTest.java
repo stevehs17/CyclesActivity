@@ -17,6 +17,8 @@ import java.util.List;
 public class CycleDaoTest {
     static final private List<Cycle> CYCLES = DatabaseTestUtils
             .createCycles(Volume.MAX_NUM_CYCLES);
+    static final private List<Cycle> CYCLES_2 = DatabaseTestUtils
+            .createCycles(Volume.MIN_NUM_CYCLES);
     static final private long VOL_ID = 1;
     private SQLiteDatabase db;
 
@@ -56,5 +58,33 @@ public class CycleDaoTest {
         insertCycles_Succeeds();
         List<Cycle> cs = CycleDao.getCycles(db, VOL_ID);
         DatabaseTestUtils.assertCyclesEqual(CYCLES, cs);
+    }
+
+    @Test
+    public void deleteCyclesByVolumeId_Succeeds() {
+        db.execSQL("PRAGMA foreign_keys = OFF;");
+        CycleDao.insertCycles(db, VOL_ID, CYCLES);
+        List<Cycle> cs = CycleDao.getCycles(db, VOL_ID);
+        DatabaseTestUtils.assertCyclesEqual(CYCLES, cs);
+        CycleDao.deleteCyclesByVolumeId(db, VOL_ID);
+        db.execSQL("PRAGMA foreign_keys = ON;");
+        try {
+            CycleDao.getCycles(db, VOL_ID);
+        } catch (IllegalStateException unused) {
+            return;
+        }
+        throw new RuntimeException("failure deleting cycles");
+    }
+
+    @Test
+    public void replaceCycles_Succeeds() {
+        db.execSQL("PRAGMA foreign_keys = OFF;");
+        CycleDao.insertCycles(db, VOL_ID, CYCLES);
+        List<Cycle> cs = CycleDao.getCycles(db, VOL_ID);
+        DatabaseTestUtils.assertCyclesEqual(CYCLES, cs);
+        CycleDao.replaceCycles(db, VOL_ID, CYCLES_2);
+        db.execSQL("PRAGMA foreign_keys = ON;");
+        cs = CycleDao.getCycles(db, VOL_ID);
+        DatabaseTestUtils.assertCyclesEqual(CYCLES_2, cs);
     }
 }
