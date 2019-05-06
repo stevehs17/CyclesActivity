@@ -36,6 +36,7 @@ public class CycleDao {
         return cycles;
     }
 
+    /*
     static void insertCycles(SQLiteDatabase db, long volumeId, List<Cycle> cycles) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
@@ -51,6 +52,7 @@ public class CycleDao {
         }
     }
 
+
     static void insertCycle(SQLiteDatabase db, long volumeId, Cycle cycle, int index) {
         Checker.notNull(db);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
@@ -64,4 +66,37 @@ public class CycleDao {
         cv.put(Col.VACUUM_TIME_SECONDS, cycle.vacuumSeconds());
         db.insertOrThrow(TABLE_NAME, null, cv);
     }
+    */
+
+    static void insertCycles(SQLiteDatabase db, long volumeId, List<Cycle> cycles) {
+        Checker.notNull(db);
+        Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(cycles);
+
+        db.beginTransaction();
+        try {
+            for (int i = 0; i < cycles.size(); i++)
+                insertCycle(db, volumeId, cycles.get(i));
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+
+    static void insertCycle(SQLiteDatabase db, long volumeId, Cycle cycle) {
+        Checker.notNull(db);
+        Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
+        Checker.notNull(cycle);
+     
+        ContentValues cv = new ContentValues();
+        cv.put(Col.VOLUME_ID, volumeId);
+        cv.put(Col.VOLUME_MILLILITERS, cycle.volumeMl());
+        cv.put(Col.BREW_TIME_SECONDS, cycle.brewSeconds());
+        cv.put(Col.VACUUM_TIME_SECONDS, cycle.vacuumSeconds());
+        db.insertOrThrow(TABLE_NAME, null, cv);
+    }
+
+
+
 }
