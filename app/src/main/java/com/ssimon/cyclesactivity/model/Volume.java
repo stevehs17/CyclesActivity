@@ -19,12 +19,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class Volume implements Serializable {
+    static final public int MIN_NUM_CYCLES = 1;
+    static final public int MAX_NUM_CYCLES = 6;
+
     final private long id;
     final private List<Cycle> cycles;
 
     public Volume(List<Cycle> cycles) {
         Checker.notNull(cycles);
-        Checker.inRange(cycles.size(), Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
 
         this.id = Const.UNSET_DATABASE_ID;
         this.cycles = Collections.unmodifiableList(cycles);
@@ -33,7 +36,7 @@ public class Volume implements Serializable {
     public Volume(long id, List<Cycle> cycles) {
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNull(cycles);
-        Checker.inRange(cycles.size(), Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
 
         this.id = id;
         this.cycles = Collections.unmodifiableList(cycles);

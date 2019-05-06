@@ -76,8 +76,8 @@ public class DatabaseTestUtils {
 
         List<Volume> vs = new ArrayList<>();
         for (int i = 0; i < nvolumes; i++) {
-            int ncycles = Cycle.MIN_NUM_CYCLES + i;
-            ncycles = (ncycles > Cycle.MAX_NUM_CYCLES ? Cycle.MIN_NUM_CYCLES : ncycles);
+            int ncycles = Volume.MIN_NUM_CYCLES + i;
+            ncycles = (ncycles > Volume.MAX_NUM_CYCLES ? Volume.MIN_NUM_CYCLES : ncycles);
             List<Cycle> cycles = createCycles(ncycles);
             vs.add(new Volume(cycles));
         }
@@ -101,7 +101,7 @@ public class DatabaseTestUtils {
         Checker.greaterThan(nvolumes, 0);
 
         List<Cycle> cycles = new ArrayList<>();
-        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++)
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++)
             cycles.add(new Cycle(Cycle.MAX_VOLUME, Cycle.MAX_TIME, Cycle.MAX_TIME-1));
         String name = "a";
         List<Coffee> coffees = new ArrayList<>();

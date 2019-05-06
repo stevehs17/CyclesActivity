@@ -148,7 +148,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
 
     private List<String> getCycleNumbers() {
         List<String> nums = new ArrayList<>();
-        for (int i = Cycle.MIN_NUM_CYCLES; i <= Cycle.MAX_NUM_CYCLES; i++)
+        for (int i = Volume.MIN_NUM_CYCLES; i <= Volume.MAX_NUM_CYCLES; i++)
             nums.add(String.valueOf(i));
         return nums;
     }
@@ -246,7 +246,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         try {
             String s = numCyclesSpin.getSelectedItem().toString();
             int n = Integer.valueOf(s);
-            Checker.inRange(n, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+            Checker.inRange(n, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
             return n;
         } catch (NumberFormatException e) {
             throw new IllegalStateException(e);
@@ -272,7 +272,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
     }
 
     private List<Volume> createVolumes(int numCycles, int brewTime) {
-        Checker.inRange(numCycles, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(numCycles, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
         Checker.inRange(brewTime, Cycle.MIN_TOTAL_TIME, Cycle.MAX_TIME);
 
         List<Volume> vols = new ArrayList<>();
@@ -290,7 +290,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
     }
 
     private int getCycleAmount(int totalVolume, int numCycles) {
-        Checker.inRange(numCycles, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(numCycles, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
 
         int n = totalVolume/numCycles;
         n = (n/10) * 10;
@@ -298,7 +298,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
     }
 
     private List<Integer> numCyclesToAmounts(int n) {
-        Checker.inRange(n, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(n, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
         final int smallCup = 350;
         final int largeCup = 470;
         final int smallPot = 1000;
@@ -317,7 +317,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
     }
 
     private List<Float> numCyclesToTimeFactors(int n) {
-        Checker.inRange(n, Cycle.MIN_NUM_CYCLES, Cycle.MAX_NUM_CYCLES);
+        Checker.inRange(n, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
         switch (n) {
             case 1: return Arrays.asList(1f);
             case 2: return Arrays.asList(.6f, .4f);

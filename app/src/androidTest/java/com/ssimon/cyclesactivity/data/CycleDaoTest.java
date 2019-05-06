@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 
 import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.model.Volume;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class CycleDaoTest {
     static final private List<Cycle> CYCLES = DatabaseTestUtils
-            .createCycles(Cycle.MAX_NUM_CYCLES);
+            .createCycles(Volume.MAX_NUM_CYCLES);
     static final private long VOL_ID = 1;
     private SQLiteDatabase db;
 

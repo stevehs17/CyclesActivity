@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -64,6 +65,12 @@ public class CycleDao {
         db.insertOrThrow(TABLE_NAME, null, cv);
     }
 
-
-
+    static private void deleteCyclesByVolumeId(SQLiteDatabase db, long volumeId) {
+        Checker.notNull(db);
+        Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
+        String where = Col.VOLUME_ID + "=?";
+        String[] whereArgs = {Long.toString(volumeId)};
+        int numDeleted = db.delete(TABLE_NAME, where, whereArgs);
+        Checker.inRange(numDeleted, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+    }
 }

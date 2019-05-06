@@ -121,7 +121,7 @@ public class OldCycleActivity extends AppCompatActivity {
     private void setParmButtonValues(List<Cycle> cycles) {
         Checker.notNullOrEmpty(cycles);
         int numCycles = cycles.size();
-        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
             TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
             if (i < numCycles) {
                 Cycle c = cycles.get(i);
@@ -286,7 +286,7 @@ public class OldCycleActivity extends AppCompatActivity {
 
    private List<Cycle> parmButtonToCycles() {
         List<Cycle> cycles = new ArrayList<>();
-        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
             TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
             if (tr.getVisibility() == View.VISIBLE) {
                 int vol = getRowButtonInt(tr, VOLUME_COLUMN);
@@ -311,7 +311,7 @@ public class OldCycleActivity extends AppCompatActivity {
 
     private void setTotalVolume() {
         int n = 0;
-        for (int i = 0; i < Cycle.MAX_NUM_CYCLES; i++) {
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
             TableRow tr = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW_INDEX);
             if (tr.getVisibility() == View.INVISIBLE)
                 break;
