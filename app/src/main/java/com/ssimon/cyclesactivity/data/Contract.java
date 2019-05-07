@@ -4,8 +4,8 @@ import android.provider.BaseColumns;
 
 public class Contract {
     static final int DATABASE_VERSION = 2;
-    //static final String DATABASE_NAME = "groundcontrol_database.db";
-    static final String DATABASE_NAME = "nexxxxtest.db";
+    static final String DATABASE_NAME = "groundcontrol_database.db";
+    //static final String DATABASE_NAME = "nexxxxtest.db";
 
     static final private String CLOSE_PAREN = " ) ";
     static final private String COMMA = " , ";

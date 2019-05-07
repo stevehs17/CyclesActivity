@@ -95,7 +95,8 @@ public class VolumeActivity extends AppCompatActivity {
     }
 
     public void onClickEditVolume(View unused) {
-        Intent i = new Intent(this, OldCycleActivity.class);
+        //Intent i = new Intent(this, OldCycleActivity.class);
+        Intent i = new Intent(this, CycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
         int n = volumeList.getCheckedItemPosition();
         Volume v = (Volume) volumeList.getItemAtPosition(n);

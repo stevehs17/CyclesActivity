@@ -23,17 +23,22 @@
             android:name=".ui.VolumeActivity"
             android:label="Manage Volumes"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.CoffeeActivity"/>
+            android:parentActivityName=".ui.CoffeeActivity"
+            />
+       <!--
         <activity
             android:name=".ui.OldCycleActivity"
+            android:label="Manage Cycles"
+            android:parentActivityName=".ui.VolumeActivity"/>
+       -->
+        <activity
+            android:name=".ui.CycleActivity"
             android:label="Manage Cycles"
             android:parentActivityName=".ui.VolumeActivity"/>
         <activity
             android:name=".ui.AddcoffeeActivity"
             android:label="Add Coffee"
             android:parentActivityName=".ui.CoffeeActivity"/>
-        <activity android:name=".ui.CycleActivity">
-        </activity>
     </application>
 
 </manifest>
