@@ -42,48 +42,72 @@ public class DatabaseHelperTest {
         assertTrue(db.isOpen());
     }
 
+    /*
     @Test
     public void deleteCoffee_Succeeds() {
         List<Coffee> cs = DatabaseTestUtils.createCoffees(1, 1);
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
+        //SQLiteDatabase db = dbHelp.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cs);
         List<Coffee> csOut = CoffeeDao.getCoffees(db);
-        dbHelp.deleteCoffee(csOut.get(0).id());
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        dh.deleteCoffee(csOut.get(0).id());
     }
 
     @Test
     public void deleteVolume_Succeeds() {
         List<Coffee> cs = DatabaseTestUtils.createCoffees(1, 1);
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
+        //SQLiteDatabase db = dbHelp.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cs);
         List<Coffee> csOut = CoffeeDao.getCoffees(db);
         long id = csOut.get(0).volumes().get(0).id();
-        dbHelp.deleteVolume(id);
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        dh.deleteVolume(id);
     }
 
     @Test
     public void refreshCoffeeCache_Succeeds() {
         List<Coffee> cs = DatabaseTestUtils.createCoffees(1, 1);
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
+        //SQLiteDatabase db = dbHelp.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cs);
-        dbHelp.refreshCoffeeCache();
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        dh.refreshCoffeeCache();
+    }
+
+    @Test
+    public void replaceVolume_Succeeds() {
+        List<Coffee> cs = DatabaseTestUtils.createCoffees(1, 1);
+        //SQLiteDatabase db = dbHelp.getWritableDatabase();
+        CoffeeDao.insertCoffees(db, cs);
+        List<Coffee> csOut = CoffeeDao.getCoffees(db);
+        Volume v = csOut.get(0).volumes().get(0);
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        dh.replaceVolume(v.id(), v.cycles());
     }
 
     @Test
     public void saveVolume_Succeeds() {
         List<Coffee> cs = DatabaseTestUtils.createCoffees(1, 1);
-        SQLiteDatabase db = dbHelp.getWritableDatabase();
+        //SQLiteDatabase db = dbHelp.getWritableDatabase();
         CoffeeDao.insertCoffees(db, cs);
         List<Coffee> csOut = CoffeeDao.getCoffees(db);
         List<Cycle> cycles = DatabaseTestUtils.createCycles(Volume.MAX_NUM_CYCLES);
-        dbHelp.saveVolume(csOut.get(0).id(), cycles);
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        dh.saveVolume(csOut.get(0).id(), cycles);
     }
 
     @Test
     public void saveCoffee_Succeeds() {
         List<Coffee> cs = DatabaseTestUtils.createCoffees(1, 1);
-        dbHelp.saveCoffee(cs.get(0));
+        Context ctx = InstrumentationRegistry.getTargetContext();
+        DatabaseHelper dh = DatabaseHelper.getInstance(ctx);
+        dh.saveCoffee(cs.get(0));
     }
+    */
 
 
 }
