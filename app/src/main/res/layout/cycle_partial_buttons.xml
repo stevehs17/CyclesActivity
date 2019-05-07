@@ -11,6 +11,7 @@
         android:onClick="onClickAddCycle"
         />
     <Button
+        android:id="@+id/btn_deletecycle"
         style="@style/Button"
         android:layout_alignParentEnd="true"
         android:text="@string/cycle_btn_deletecycle"
