@@ -1,8 +1,8 @@
 package com.ssimon.cyclesactivity.ui;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ssimon.cyclesactivity.R;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
 
 import java.util.ArrayList;
@@ -49,6 +50,13 @@ public class CycleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cycle_activity);
+        setViews();
+        setParmColumnIndices();
+        initParmTable();
+        //UiUtil.setDecrementButton(decrementButton, seekBar);
+    }
+
+    private void setViews() {
         totalVolumeText = (TextView) findViewById(R.id.txt_totalvolume);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
         seekBar = (SeekBar) findViewById(R.id.seek);
@@ -58,13 +66,6 @@ public class CycleActivity extends AppCompatActivity {
         incrementButton = (ImageButton) findViewById(R.id.btn_increment);
         addCycleButton = (Button) findViewById(R.id.btn_addcycle);
         deleteCycleButton = (Button) findViewById(R.id.btn_deletecycle);
-
-
-
-
-        //UiUtil.setDecrementButton(decrementButton, seekBar);
-        setParmColumnIndices();
-        //initParmTables();
     }
 
     private void setParmColumnIndices() {
@@ -131,5 +132,46 @@ public class CycleActivity extends AppCompatActivity {
         for (int i = min; i <= max; i += increment)
             vals.add(i);
         return Collections.unmodifiableList(vals);
+    }
+
+    private void initParmTable() {
+        LayoutInflater infl = LayoutInflater.from(this);
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+            TableRow row = (TableRow) infl.inflate(R.layout.cycle_item_parm_row, null);
+            row.setVisibility(View.INVISIBLE);
+            initParmRow(row, i, VOLUMES.get(0), TIMES.get(0), LASTCYCLE_VACUUMTIMES.get(0));
+            parmTable.addView(row);
+        }
+    }
+
+    private void initParmRow(TableRow row, int rowIndex, int volume, int brewSecs, int vacSecs) {
+        Checker.notNull(row);
+        Checker.atLeast(rowIndex, 0);
+        Checker.inRange(volume, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME);
+        Checker.inRange(brewSecs, Cycle.MIN_TIME, Cycle.MAX_TIME);
+        Checker.inRange(vacSecs, Cycle.MIN_TIME, Cycle.MAX_TIME);
+
+        setRowChildText(row, cycleNumColumn, rowIndex+1);
+        setParmRow(row, volume, brewSecs, vacSecs);
+    }
+
+    private void setParmRow(TableRow row, int volume, int brewSecs, int vacSecs) {
+        Checker.notNull(row);
+        Checker.inRange(volume, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME);
+        Checker.inRange(brewSecs, Cycle.MIN_TIME, Cycle.MAX_TIME);
+        Checker.inRange(vacSecs, Cycle.MIN_TIME, Cycle.MAX_TIME);
+
+        setRowChildText(row, volumeMlColumn, volume);
+        setRowChildText(row, brewSecsColumn, brewSecs);
+        setRowChildText(row, vacuumSecsColiumn, vacSecs);
+    }
+
+    private void setRowChildText(TableRow row, int column, int val) {
+        Checker.notNull(row);
+        Checker.atLeast(column, 0);
+        Checker.greaterThan(val, 0);
+
+        TextView tv = (TextView) row.getChildAt(column);
+        tv.setText(Integer.toString(val));
     }
 }

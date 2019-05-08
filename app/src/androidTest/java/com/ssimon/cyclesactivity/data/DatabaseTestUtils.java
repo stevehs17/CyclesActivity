@@ -3,7 +3,6 @@ package com.ssimon.cyclesactivity.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
-import android.widget.ListView;
 
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Cycle;
@@ -25,8 +24,8 @@ public class DatabaseTestUtils {
     private DatabaseTestUtils() {}
 
     // This method exists to provide a means to execute the static code
-    // above, which doesn't work right if the same code insdie the static
-    // block is executed instead inside setupDatabase().
+    // above, which doesn't work right if the (same) code is executed
+    // instead inside setupDatabase().
     static public void setupDatabase() {}
 
     static public void setupTables() {
