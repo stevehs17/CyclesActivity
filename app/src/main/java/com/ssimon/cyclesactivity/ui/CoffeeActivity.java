@@ -18,6 +18,7 @@ import com.ssimon.cyclesactivity.data.CoffeeCache;
 import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.util.UiUtils;
 import com.ssimon.cyclesactivity.util.Utils;
 
 import java.util.ArrayList;
@@ -70,10 +71,7 @@ public class CoffeeActivity extends AppCompatActivity {
             adapter.addAll(coffees);
             adapter.notifyDataSetChanged();
         }
-        if (coffees.size() > 1)
-            Utils.enableButton(deleteButton);
-        else
-            Utils.disableButton(deleteButton);
+        UiUtils.setButtonEnabled(deleteButton, coffees.size() > 1 ? true : false);
         int n = coffeeList.getCheckedItemPosition();
         if (n == AdapterView.INVALID_POSITION)
             coffeeList.setItemChecked(0, true);

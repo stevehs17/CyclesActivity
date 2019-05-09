@@ -24,6 +24,7 @@ import com.ssimon.cyclesactivity.model.Cycle;
 import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.util.GroundControlException;
+import com.ssimon.cyclesactivity.util.UiUtils;
 import com.ssimon.cyclesactivity.util.Utils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -82,8 +83,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         numCyclesSpin = (Spinner) findViewById(R.id.spin_numcycles);
         nameEdit = (EditText) findViewById(R.id.edit_name);
         createButton = (Button) findViewById(R.id.btn_create);
-        Utils.disableButton(createButton);
-
+        UiUtils.setButtonEnabled(createButton, false);
     }
 
     @Override
@@ -267,7 +267,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
         } else {
-            Utils.enableButton(createButton);
+            UiUtils.setButtonEnabled(createButton, true);
         }
     }
 

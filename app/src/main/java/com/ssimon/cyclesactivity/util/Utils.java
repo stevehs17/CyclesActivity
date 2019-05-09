@@ -84,21 +84,4 @@ public class Utils {
                 return v.cycles();
         throw new IllegalArgumentException("No coffee with id = " + coffeeId + " and volume = " + volumeId + " found.");
     }
-
-    static public void disableButton(Button b) {
-        b.setAlpha(0.5f);
-        b.setEnabled(false);
-    }
-
-    static public void enableButton(Button b) {
-        b.setAlpha(1f);
-        b.setEnabled(true);
-    }
-
-
-
-
-
-
-
 }

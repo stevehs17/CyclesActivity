@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import com.ssimon.cyclesactivity.model.Volume;
 import com.ssimon.cyclesactivity.util.AndroidUtils;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.util.ModelUtils;
+import com.ssimon.cyclesactivity.util.UiUtils;
 import com.ssimon.cyclesactivity.util.Utils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -40,6 +42,8 @@ public class CycleActivity extends AppCompatActivity {
 
     static final private int HEADER_ROW = 0;
     static final private int FIRST_PARM_ROW = HEADER_ROW + 1;
+
+    static final private String TAG = "CycleActivity";
 
     private int cycleNumColumn;
     private int firstParmColumn;
@@ -81,7 +85,6 @@ public class CycleActivity extends AppCompatActivity {
         super.onPause();
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void configureActivity(CoffeeRefreshEvent unused ) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
@@ -105,15 +108,14 @@ public class CycleActivity extends AppCompatActivity {
         Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
 
         cyclesToButtons(cycles);
-        //clickDefaultParmButton();
-        //setTotalVolume();
-        //setAddCycleButton();
-        //setDeleteCycleButton();
+        clickDefaultParmButton();
+        setTotalVolumeText();
+        setAddCycleButtonEnabled();
+        setDeleteCycleButtonEnabled();
         TextView name = (TextView) findViewById(R.id.txt_coffee);
         name.setText(coffee.name());
         int totalVolume = (new Volume(cycles)).totalVolume();
         TextView initial = (TextView) findViewById(R.id.txt_initialvolume);
-        //initial.setText(Integer.toString(totalVolume) + " mL");
         initial.setText(String.format(getString(R.string.cycle_txt_volumeformat), totalVolume));
     }
 
@@ -127,6 +129,161 @@ public class CycleActivity extends AppCompatActivity {
             Cycle c = cycles.get(i);
             setParmRow(row, c.volumeMl(), c.brewSeconds(), c.vacuumSeconds());
         }
+    }
+
+    private void clickDefaultParmButton() {
+        TableRow row = (TableRow) parmTable.getChildAt(FIRST_PARM_ROW);
+        View v = row.getChildAt(volumeMlColumn);
+        onClickVolumeMl(v);
+    }
+
+    public void onClickVolumeMl(View v) {
+        Log.v(TAG, "Clicked Volume");
+        boolean isVolume = true;
+        onClickParm(v, VOLUMES, isVolume);
+    }
+
+    public void onClickBrewSecs(View v) {
+        Log.v(TAG, "Clicked Brew");
+        boolean isVolume = false;
+        onClickParm(v, TIMES, isVolume);
+    }
+
+    public void onClickVacuumSecs(View v) {
+        Log.v(TAG, "Clicked Vacuum");
+        List<Integer> values = isLastCycle(v)
+                ? LASTCYCLE_VACUUMTIMES
+                : TIMES;
+        boolean isVolume = false;
+        onClickParm(v, values, isVolume);
+    }
+
+    public void onClickAddCycle(View v) {
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            if (row.getVisibility() == View.INVISIBLE) {
+                row.setVisibility(View.VISIBLE);
+                setDeleteCycleButtonEnabled();
+                setAddCycleButtonEnabled();
+                return;
+            }
+        }
+        throw new IllegalStateException("attempted to exceed max num cycles");
+    }
+
+    public void onClickDeleteCycle(View unused) {
+        for (int i = Volume.MAX_NUM_CYCLES - 1; i >= 0; i--) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            if (row.getVisibility() != View.VISIBLE)
+                continue;
+            row.setVisibility(View.INVISIBLE);
+            TableRow newLastRow = (TableRow) parmTable.getChildAt(i - 1 + FIRST_PARM_ROW);
+            Button b = (Button) newLastRow.getChildAt(vacuumSecsColiumn);
+            String s = b.getText().toString();
+            int vacSecs = Integer.valueOf(s);
+            int min = LASTCYCLE_VACUUMTIMES.get(0);
+            if (vacSecs < min)
+                b.setText(Integer.toString(min));
+            setDeleteCycleButtonEnabled();
+            setAddCycleButtonEnabled();
+            return;
+        }
+        throw new IllegalArgumentException("attempted to delete last remaining cycle");
+    }
+
+    private boolean isLastCycle(View v) {
+        Checker.notNull(v);
+        TableRow row = (TableRow) v.getParent();
+        TextView tv = (TextView) row.getChildAt(cycleNumColumn);
+        String rowNumStr = tv.getText().toString();
+        int rowNum = Integer.valueOf(rowNumStr);
+        int nrows = getNumVisibleParmRows();
+        return rowNum == nrows;
+    }
+
+    private void onClickParm(View v, List<Integer> values, boolean isVolume) {
+        Checker.notNull(v);
+        Checker.notNullOrEmpty(values);
+
+        if (currentParmButton != null)
+            currentParmButton.setBackgroundResource(R.drawable.white_rectangle);
+        currentParmButton = (Button) v;
+        currentParmButton.setBackgroundResource(R.drawable.yellow_rectangle);
+        String s = currentParmButton.getText().toString();
+        int val = Integer.parseInt(s);
+        int idx = values.indexOf(val);
+        if (idx < 0)
+            throw new IllegalStateException("failed to find parm value = " + val);
+        int maxIdx = values.size() - 1;
+        seekBar.setOnSeekBarChangeListener(null);   // set to null to suppress calls to listener when set max and progress
+        seekBar.setMax(maxIdx);
+        seekBar.setProgress(idx);
+        seekBar.setOnSeekBarChangeListener(seekBarListener(values, isVolume));
+        minValueText.setText(Integer.toString(values.get(0)));
+        maxValueText.setText(Integer.toString(values.get(maxIdx)));
+    }
+
+    private SeekBar.OnSeekBarChangeListener seekBarListener(final List<Integer> values, final boolean isVolume) {
+        return new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
+                Log.v(TAG, "seek bar listener");
+                Checker.inRange(idx, 0, values.size() - 1);
+                //UiUtils.setButtonEnabled(decrementButton, idx == 0 ? false : true);
+                //UiUtils.setButtonEnabled(incrementButton, idx == values.size()-1 ? false : true);
+                int val = values.get(idx);
+                currentParmButton.setText(Integer.toString(val));
+                if (isVolume)
+                    setTotalVolumeText();
+            }
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+        };
+    }
+
+
+    private void setTotalVolumeText() {
+        int vol = 0;
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            if (row.getVisibility() == View.INVISIBLE)
+                break;
+            vol += getButtonInt(row, volumeMlColumn);
+        }
+        totalVolumeText.setText(String.format(getString(R.string.cycle_txt_volumeformat), vol));
+    }
+
+    private int getButtonInt(TableRow row, int column) {
+        Checker.notNull(row);
+        Checker.inRange(column, firstParmColumn, lastParmColumn);
+
+        Button b = (Button) row.getChildAt(column);
+        String s = b.getText().toString();
+        return Integer.valueOf(s);
+    }
+
+    private void setAddCycleButtonEnabled() {
+        int n = getNumVisibleParmRows();
+        UiUtils.setButtonEnabled(addCycleButton,
+                n == Volume.MAX_NUM_CYCLES ? false : true);
+    }
+
+    private void setDeleteCycleButtonEnabled() {
+        int n = getNumVisibleParmRows();
+        UiUtils.setButtonEnabled(deleteCycleButton,
+                n == Volume.MIN_NUM_CYCLES ? false : true);
+    }
+
+    private int getNumVisibleParmRows() {
+        int numRows = 0;
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            if (row.getVisibility() == View.INVISIBLE)
+                break;
+            ++numRows;
+        }
+        Checker.inRange(numRows, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+        return numRows;
     }
 
     private void setViews() {

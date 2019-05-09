@@ -31,6 +31,7 @@ import com.ssimon.cyclesactivity.data.DatabaseHelper;
 import com.ssimon.cyclesactivity.message.CoffeeRefreshEvent;
 import com.ssimon.cyclesactivity.model.Coffee;
 import com.ssimon.cyclesactivity.model.Volume;
+import com.ssimon.cyclesactivity.util.UiUtils;
 import com.ssimon.cyclesactivity.util.Utils;
 
 import java.util.ArrayList;
@@ -85,10 +86,8 @@ public class VolumeActivity extends AppCompatActivity {
             adapter.addAll(volumes);
             adapter.notifyDataSetChanged();
         }
-        if (coffee.volumes().size() == 1)
-            Utils.disableButton(deleteButton);
-        else
-            Utils.enableButton(deleteButton);
+        UiUtils.setButtonEnabled(deleteButton,
+                coffee.volumes().size() == 1 ? false : true);
         int n = volumeList.getCheckedItemPosition();
         if (n == AdapterView.INVALID_POSITION)
             volumeList.setItemChecked(0, true);
