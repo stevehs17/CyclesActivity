@@ -97,12 +97,12 @@ public class OldCycleActivity extends AppCompatActivity {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
         } else {
-            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+            long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.NULL_DATABASE_ID);
             Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-            long volumeId = getIntent().getLongExtra(VolumeActivity.EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
-            Checker.atLeast(coffeeId, Const.UNSET_DATABASE_ID);
+            long volumeId = getIntent().getLongExtra(VolumeActivity.EXTRA_VOLUMEID, Const.NULL_DATABASE_ID);
+            Checker.atLeast(coffeeId, Const.NULL_DATABASE_ID);
 
-            List<Cycle> cycles = (volumeId == Const.UNSET_DATABASE_ID)
+            List<Cycle> cycles = (volumeId == Const.NULL_DATABASE_ID)
                 ? ModelUtils.createDefaultCyclesTemplate()
                 : Utils.getCyclesByCoffeeAndVolumeIds(coffeeId, volumeId, coffees);
 
@@ -351,7 +351,7 @@ public class OldCycleActivity extends AppCompatActivity {
     public void onClickSaveCycles(View unused) {
         List<Cycle> cs = parmButtonToCycles();
         DatabaseHelper dh = DatabaseHelper.getInstance(this);
-        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.NULL_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
         dh.saveVolume(coffeeId, cs);
     }
@@ -363,7 +363,7 @@ public class OldCycleActivity extends AppCompatActivity {
             promptToOverwrite(coffee.id);
 
         DatabaseHelper dh = DatabaseHelper.getInstance(this);
-        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.UNSET_DATABASE_ID);
+        long coffeeId = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID, Const.NULL_DATABASE_ID);
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
         dh.saveVolume(coffeeId, cs);
     }

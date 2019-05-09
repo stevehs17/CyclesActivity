@@ -112,6 +112,11 @@ public class Checker {
             throw new IllegalStateException("val is equal to " + targetVal);
     }
 
+    static public void notEquals(long val, long targetVal) {
+        if (val == targetVal)
+            throw new IllegalStateException("val is equal to " + targetVal);
+    }
+
     static public void notGreaterThan(float val, float max) {
         if (val > max) {
             final String fmt = "val (%f) is greater than max (%f)";

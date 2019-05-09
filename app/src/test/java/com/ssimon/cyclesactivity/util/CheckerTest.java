@@ -244,11 +244,6 @@ public class CheckerTest {
     }
 
     @Test
-    public void notEmpty_String_Succeeds() throws Exception {
-        Checker.notEmpty(NONEMPTY_STRING);
-    }
-
-    @Test
     public void notEmpty_String_Fails() throws Exception {
         try {
             Checker.notEmpty(EMPTY_STRING);
@@ -259,8 +254,18 @@ public class CheckerTest {
     }
 
     @Test
+    public void notEmpty_String_Succeeds() throws Exception {
+        Checker.notEmpty(NONEMPTY_STRING);
+    }
+
+    @Test
     public void notEquals_int_Succeeds() throws Exception {
         Checker.notEquals(INTMIN, INTMAX);
+    }
+
+    @Test
+    public void notEquals_long_Succeeds() throws Exception {
+        Checker.notEquals(LONGMIN, LONGMAX);
     }
 
     @Test

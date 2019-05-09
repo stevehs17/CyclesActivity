@@ -17,6 +17,7 @@
     <string name="cycle_txt_brewsecs">Brew Secs</string>
     <string name="cycle_txt_coffee">Coffee</string>
     <string name="cycle_txt_cycle">Cycle</string>
+    <string name="cycle_txt_initialvolume">Initial Volume</string>
     <string name="cycle_txt_totalvolume">Total Volume</string>
     <string name="cycle_txt_vacuumsecs">Vacuum Secs</string>
     <string name="cycle_txt_volumeml">Volume mL</string>

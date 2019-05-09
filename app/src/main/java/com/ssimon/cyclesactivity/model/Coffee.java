@@ -11,12 +11,10 @@
 
 package com.ssimon.cyclesactivity.model;
 
-import com.ssimon.cyclesactivity.data.VolumeDao;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -27,11 +25,11 @@ public class Coffee implements Serializable {
     final private List<Volume> volumes;
 
     public Coffee(String name, List<Volume> volumes) {
-       this(Const.UNSET_DATABASE_ID, name, volumes);
+       this(Const.NULL_DATABASE_ID, name, volumes);
     }
 
     public Coffee(long id, String name, List<Volume> volumes) {
-        if (id != Const.UNSET_DATABASE_ID)
+        if (id != Const.NULL_DATABASE_ID)
             Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(name);
         Checker.notNullOrEmpty(volumes);

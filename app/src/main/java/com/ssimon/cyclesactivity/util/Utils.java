@@ -19,14 +19,9 @@ public class Utils {
             .throwSubscriberException(true)
             .build();
 
-    /*
-    static public void postEvent(MessageEvent e) {
-        Checker.notNull(e);
-        EventBus.getDefault().post(e);
+    private Utils() {
+        throw new UnsupportedOperationException();
     }
-    */
-
-
 
     static public void postEvent(MessageEvent e) {
         Checker.notNull(e);

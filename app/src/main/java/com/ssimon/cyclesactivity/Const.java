@@ -12,7 +12,8 @@
 package com.ssimon.cyclesactivity;
 
 public interface Const {
-    int NULL_RESOURCE_ID = 0;
     long MIN_DATABASE_ID = 1;
-    long UNSET_DATABASE_ID = MIN_DATABASE_ID - 1;
+    long NULL_DATABASE_ID = MIN_DATABASE_ID - 1;
+    long NULL_LONG = Long.MIN_VALUE;
+    int NULL_RESOURCE_ID = 0;
 }

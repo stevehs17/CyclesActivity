@@ -107,7 +107,7 @@ public class VolumeActivity extends AppCompatActivity {
     public void onClickAddVolume(View unused) {
         Intent i = new Intent(this, OldCycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
-        i.putExtra(EXTRA_VOLUMEID, Const.UNSET_DATABASE_ID);
+        i.putExtra(EXTRA_VOLUMEID, Const.NULL_DATABASE_ID);
         startActivity(i);
     }
 
@@ -119,8 +119,8 @@ public class VolumeActivity extends AppCompatActivity {
 
     private long getCoffeeId() {
         long id = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID,
-                Const.UNSET_DATABASE_ID);
-        if (id == Const.UNSET_DATABASE_ID)
+                Const.NULL_DATABASE_ID);
+        if (id == Const.NULL_DATABASE_ID)
             throw new IllegalStateException("coffee ID not set");
         return id;
     }

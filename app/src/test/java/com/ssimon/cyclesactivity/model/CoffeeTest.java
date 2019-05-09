@@ -36,7 +36,7 @@ public class CoffeeTest {
         vs.add(new Volume(Const.MIN_DATABASE_ID, cs));
         String name = "n";
         Coffee c = new Coffee(name, vs);
-        assertEquals(Const.UNSET_DATABASE_ID, c.id());
+        assertEquals(Const.NULL_DATABASE_ID, c.id());
         assertEquals(name, c.name());
         Volume v = c.volumes().get(0);
         assertEquals(Const.MIN_DATABASE_ID, v.id());
@@ -49,7 +49,7 @@ public class CoffeeTest {
     @Test
     public void newCoffeeBadId_Fails() {
         try {
-            Coffee c = new Coffee(Const.UNSET_DATABASE_ID - 1, "n", volumes());
+            Coffee c = new Coffee(Const.NULL_DATABASE_ID - 1, "n", volumes());
         } catch (IllegalStateException unused) {
             return;
         }

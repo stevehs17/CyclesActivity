@@ -33,7 +33,7 @@ public class VolumeTest {
         List<Cycle> cs = new ArrayList<>();
         cs.add(c);
         Volume v = new Volume(cs);
-        assertEquals(Const.UNSET_DATABASE_ID, v.id());
+        assertEquals(Const.NULL_DATABASE_ID, v.id());
         cs = v.cycles();
         Cycle cout = cs.get(0);
         assertEquals(Cycle.MIN_VOLUME, cout.volumeMl());

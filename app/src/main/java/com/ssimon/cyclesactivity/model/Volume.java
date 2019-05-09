@@ -29,7 +29,7 @@ public class Volume implements Serializable {
         Checker.notNull(cycles);
         Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
 
-        this.id = Const.UNSET_DATABASE_ID;
+        this.id = Const.NULL_DATABASE_ID;
         this.cycles = Collections.unmodifiableList(cycles);
     }
 
