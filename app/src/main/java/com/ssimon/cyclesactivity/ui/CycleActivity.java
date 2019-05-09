@@ -113,7 +113,8 @@ public class CycleActivity extends AppCompatActivity {
         name.setText(coffee.name());
         int totalVolume = (new Volume(cycles)).totalVolume();
         TextView initial = (TextView) findViewById(R.id.txt_initialvolume);
-        initial.setText(Integer.toString(totalVolume) + " mL");
+        //initial.setText(Integer.toString(totalVolume) + " mL");
+        initial.setText(String.format(getString(R.string.cycle_txt_volumeformat), totalVolume));
     }
 
     private void cyclesToButtons(List<Cycle> cycles) {

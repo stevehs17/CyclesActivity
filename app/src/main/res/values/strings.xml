@@ -20,5 +20,6 @@
     <string name="cycle_txt_initialvolume">Initial Volume</string>
     <string name="cycle_txt_totalvolume">Total Volume</string>
     <string name="cycle_txt_vacuumsecs">Vacuum Secs</string>
+    <string name="cycle_txt_volumeformat">%d mL</string>
     <string name="cycle_txt_volumeml">Volume mL</string>
 </resources>
