@@ -58,9 +58,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         seekBar.setMax(Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
         ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-        //decr.setOnClickListener(decrementListener());
         ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
-        //incr.setOnClickListener(incrementListener());
         brewTimeText = (TextView) findViewById(R.id.txt_brewtime);
 
         int idx = DEFAULT_BREW_TIME - Cycle.MIN_TOTAL_TIME;

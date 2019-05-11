@@ -20,43 +20,6 @@ public class UiUtils {
         throw new UnsupportedOperationException();
     }
 
-    static public void setDecrementButton(ImageButton btn, SeekBar bar) {
-        setSeekBarButton(btn, bar, new ProgressDecrementer());
-    }
-
-    static public void setIncrementButton(ImageButton btn, SeekBar bar, int maxIndex) {
-        setSeekBarButton(btn, bar, new ProgressIncrementer(maxIndex));
-    }
-
-    static private void setSeekBarButton(final ImageButton btn, final SeekBar bar,
-            final ProgressProcessor proc) {
-        Checker.notNull(btn);
-        Checker.notNull(bar);
-        Checker.notNull(proc);
-
-        final Runnable repeater = new Runnable() {
-            @Override
-            public void run() {
-                proc.setProgress(bar);
-                final int millis = 100;
-                btn.postDelayed(this, millis);
-            }
-        };
-
-        btn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    proc.setProgress(bar);
-                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
-                } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                    v.removeCallbacks(repeater);
-                }
-                return false;
-            }
-        });
-    }
-
     // Find the coffee in the list of coffees that has the specified ID.
     // Note: it is assumed that the coffee with that ID occurs in the list.
     static public Coffee getCoffeeById(long coffeeId, List<Coffee> coffees) {
@@ -110,11 +73,52 @@ public class UiUtils {
         }
     }
 
+    // Set button used to decrement values also set by SeekBar
+    static public void setDecrementButton(ImageButton btn, SeekBar bar) {
+        setSeekBarButton(btn, bar, new ProgressDecrementer());
+    }
 
+    // Set button used to increment values also set by SeekBar
+    static public void setIncrementButton(ImageButton btn, SeekBar bar, int maxIndex) {
+        setSeekBarButton(btn, bar, new ProgressIncrementer(maxIndex));
+    }
+
+    // Set buttons used to change values also set by SeekBar
+    static private void setSeekBarButton(final ImageButton btn, final SeekBar bar,
+                                         final ProgressProcessor proc) {
+        Checker.notNull(btn);
+        Checker.notNull(bar);
+        Checker.notNull(proc);
+
+        final Runnable repeater = new Runnable() {
+            @Override
+            public void run() {
+                proc.setProgress(bar);
+                final int millis = 100;
+                btn.postDelayed(this, millis);
+            }
+        };
+
+        btn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                    proc.setProgress(bar);
+                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
+                } else if (e.getAction() == MotionEvent.ACTION_UP) {
+                    v.removeCallbacks(repeater);
+                }
+                return false;
+            }
+        });
+    }
+
+    // Interface used by setSeekBarButton.
     private interface ProgressProcessor {
         void setProgress(SeekBar bar);
     }
 
+    // Decrement Progress bar
     static private class ProgressIncrementer implements ProgressProcessor {
         final private int maxIndex;
 
@@ -134,6 +138,7 @@ public class UiUtils {
         }
     }
 
+    // Incrment Progress bar
     static private class ProgressDecrementer implements ProgressProcessor {
         @Override
         public void setProgress(SeekBar bar) {
@@ -146,6 +151,7 @@ public class UiUtils {
         }
     }
 
+    // Enable/disable and undim/dim specified view (used for buttons)
     static public void setViewEnabled(View v, boolean enable) {
         Checker.notNull(v);
         v.setEnabled(enable);
