@@ -16,6 +16,7 @@
         android:id="@+id/edit_name"
         style="@style/HeadingText"
         android:ems="10"
+        android:maxLength="21"
         android:hint="My New Coffee"
         android:backgroundTint="@android:color/black"
         android:background="@null"
