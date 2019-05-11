@@ -37,10 +37,9 @@ public class AddcoffeeActivity extends AppCompatActivity {
     static final private int DEFAULT_BREW_TIME = (Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME) / 2;
     private SeekBar seekBar;
     private TextView brewTimeText;
-    private Spinner numCyclesSpin;
+    private Spinner numCyclesSpin;  // Spinner used to specify number of cycles for Coffee
     private EditText nameEdit;
     private Button createButton;
-    private List<Coffee> coffees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         ArrayAdapter<String> aa = new ArrayAdapter<>(this, R.layout.addcoffee_item_spinner, items);
         Spinner s = (Spinner) findViewById(R.id.spin_numcycles);
         s.setAdapter(aa);
+        brewTimeText = (TextView) findViewById(R.id.txt_brewtime);
         TextView min = (TextView) findViewById(R.id.txt_min_value);
         min.setText(Integer.toString(Cycle.MIN_TOTAL_TIME));
         TextView max = (TextView) findViewById(R.id.txt_max_value);
@@ -57,16 +57,12 @@ public class AddcoffeeActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seek);
         seekBar.setMax(Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME);
         seekBar.setOnSeekBarChangeListener(seekBarListener());
-        ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
-        ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
-        brewTimeText = (TextView) findViewById(R.id.txt_brewtime);
-
         int idx = DEFAULT_BREW_TIME - Cycle.MIN_TOTAL_TIME;
         seekBar.setProgress(idx);
-
-        setDecrementButton();
-        setIncrementButton();
-
+        ImageButton decr = (ImageButton) findViewById(R.id.btn_decrement);
+        UiUtils.setDecrementButton(decr, seekBar);
+        ImageButton incr = (ImageButton) findViewById(R.id.btn_increment);
+        UiUtils.setIncrementButton(incr, seekBar, Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME);
         findViewById(R.id.activity_addcoffee).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -258,7 +254,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeeRefreshEvent e) {
-        coffees = CoffeeCache.getCoffees();
+        List<Coffee> coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
