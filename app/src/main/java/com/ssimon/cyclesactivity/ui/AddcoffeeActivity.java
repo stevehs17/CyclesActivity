@@ -35,11 +35,14 @@ import java.util.List;
 
 public class AddcoffeeActivity extends AppCompatActivity {
     static final private int DEFAULT_BREW_TIME = (Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME) / 2;
+
     private SeekBar seekBar;
     private TextView brewTimeText;
     private Spinner numCyclesSpin;  // Spinner used to specify number of cycles for Coffee
     private EditText nameEdit;
     private Button createButton;
+
+    private List<Coffee> coffees;   // Needed to check if new coffee name is already used
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         numCyclesSpin = (Spinner) findViewById(R.id.spin_numcycles);
         nameEdit = (EditText) findViewById(R.id.edit_name);
         createButton = (Button) findViewById(R.id.btn_create);
@@ -82,7 +84,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Utils.registerEventBus(this);
-        Utils.postEvent(new CoffeeRefreshEvent());
+        setCoffees(null);
     }
 
     @Override
@@ -90,35 +92,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
         Utils.unregisterEventBus(this);
         super.onPause();
     }
-
-
-    private void setDecrementButton() {
-        setSeekBarButton(true);
-    }
-
-    private void setIncrementButton() {
-        setSeekBarButton(false);
-    }
-
-
-    private View.OnClickListener decrementListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View unused) {
-                seekBar.setProgress(seekBar.getProgress() - 1);
-            }
-        };
-    }
-
-    private View.OnClickListener incrementListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View unused) {
-                seekBar.setProgress(seekBar.getProgress() + 1);
-            }
-        };
-    }
-
 
     private SeekBar.OnSeekBarChangeListener seekBarListener() {
         return new SeekBar.OnSeekBarChangeListener() {
@@ -145,53 +118,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
         return nums;
     }
 
-    private void setSeekBarButton(final boolean isDecrement) {
-        final ImageButton btn = (ImageButton) findViewById(isDecrement ? R.id.btn_decrement
-                : R.id.btn_increment);
-        final Runnable repeater = new Runnable() {
-            @Override
-            public void run() {
-                if (isDecrement)
-                    decrement();
-                else
-                    increment();
-                final int milliseconds = 100;
-                btn.postDelayed(this, milliseconds);
-            }
-        };
-        btn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (isDecrement)
-                        decrement();
-                    else
-                        increment();
-                    v.postDelayed(repeater, ViewConfiguration.getLongPressTimeout());
-                } else if (e.getAction() == MotionEvent.ACTION_UP) {
-                    v.removeCallbacks(repeater);
-                }
-                return true;
-            }
-        });
-    }
-
-    private void decrement() {
-        int idx = seekBar.getProgress();
-        if (idx > 0) {
-            idx--;
-            seekBar.setProgress(idx);
-        }
-    }
-
-    private void increment() {
-        int idx = seekBar.getProgress();
-        if (idx < (Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME)) {
-            idx++;
-            seekBar.setProgress(idx);
-        }
-    }
-
     public void onClickCreate(View unused) {
         try {
             String name = getCoffeeName();
@@ -213,8 +139,6 @@ public class AddcoffeeActivity extends AppCompatActivity {
             nameEdit.setError("Please fill in value");
             throw new GroundControlException();
         }
-        List<Coffee> coffees = CoffeeCache.getCoffees();
-        Checker.notNullOrEmpty(coffees);
         if (nameInUse(name, coffees)) {
             nameEdit.requestFocus();
             nameEdit.setError("Name is already used.");
@@ -251,10 +175,10 @@ public class AddcoffeeActivity extends AppCompatActivity {
         Checker.inRange(time, Cycle.MIN_TOTAL_TIME, Cycle.MAX_TIME);
         return time;
     }
-
+    
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCoffeeList(CoffeeRefreshEvent e) {
-        List<Coffee> coffees = CoffeeCache.getCoffees();
+    public void setCoffees(CoffeeRefreshEvent unused) {
+        coffees = CoffeeCache.getCoffees();
         if (coffees == null) {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
