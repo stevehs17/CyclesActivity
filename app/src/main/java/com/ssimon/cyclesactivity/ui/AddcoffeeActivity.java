@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -93,32 +92,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private SeekBar.OnSeekBarChangeListener seekBarListener() {
-        return new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar unused1, int value, boolean fromUser) {
-                value += Cycle.MIN_TOTAL_TIME;
-                brewTimeText.setText(Integer.toString(value));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar unused) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar unused) {
-            }
-        };
-    }
-
-    private List<String> getCycleNumbers() {
-        List<String> nums = new ArrayList<>();
-        for (int i = Volume.MIN_NUM_CYCLES; i <= Volume.MAX_NUM_CYCLES; i++)
-            nums.add(String.valueOf(i));
-        return nums;
-    }
-
-    public void onClickCreate(View unused) {
+    public void onClickCreateCoffee(View unused) {
         try {
             String name = getCoffeeName();
             int numCycles = getNumCycles();
@@ -128,8 +102,46 @@ public class AddcoffeeActivity extends AppCompatActivity {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.saveCoffee(c);
             finish();
-        } catch (GroundControlException unused1) {
+        } catch (GroundControlException unused1) {}
+    }
+
+    // Retrieve the current list of coffees stored in the database.
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setCoffees(CoffeeRefreshEvent unused) {
+        coffees = CoffeeCache.getCoffees();
+        if (coffees == null) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            dh.refreshCoffeeCache();
+        } else {
+            UiUtils.setViewEnabled(createButton, true);
         }
+    }
+
+    // Create Volumes for the new Coffee based on the specified brew time and number of cycles.
+    private List<Volume> createVolumes(int numCycles, int brewTime) {
+        Checker.inRange(numCycles, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+        Checker.inRange(brewTime, Cycle.MIN_TOTAL_TIME, Cycle.MAX_TIME);
+
+        List<Volume> vols = new ArrayList<>();
+        for (Integer amount : numCyclesToAmounts(numCycles)) {
+            int cycleAmount = getCycleAmount(amount, numCycles);
+            int cycleVacTime = getVacuumTimePerCycle(cycleAmount);
+            List<Cycle> cycles = new ArrayList<>();
+            for (Float factor : numCyclesToBrewTimeFactors(numCycles)) {
+                int cycleBrewTime = (int) (brewTime * factor);
+                cycles.add(new Cycle(cycleAmount, cycleBrewTime, cycleVacTime));
+            }
+            vols.add(new Volume(cycles));
+        }
+        return vols;
+    }
+
+    // Create a list of cycle numbers to populate the Spinner
+    private List<String> getCycleNumbers() {
+        List<String> nums = new ArrayList<>();
+        for (int i = Volume.MIN_NUM_CYCLES; i <= Volume.MAX_NUM_CYCLES; i++)
+            nums.add(String.valueOf(i));
+        return nums;
     }
 
     private String getCoffeeName() throws GroundControlException {
@@ -147,6 +159,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         return name;
     }
 
+    // Determine whether the specified name is already used by an existing coffee.
     private boolean nameInUse(String name, List<Coffee> coffees) {
         Checker.notNullOrEmpty(name);
         Checker.notNullOrEmpty(coffees);
@@ -158,6 +171,22 @@ public class AddcoffeeActivity extends AppCompatActivity {
         return false;
     }
 
+    // Listener for SeekBar used to specify brew time.
+    private SeekBar.OnSeekBarChangeListener seekBarListener() {
+        return new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar unused1, int value, boolean fromUser) {
+                value += Cycle.MIN_TOTAL_TIME;
+                brewTimeText.setText(Integer.toString(value));
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar unused) {}
+
+            @Override public void onStopTrackingTouch(SeekBar unused) {}
+        };
+    }
+
+    // Get the specified number of cycles from the spinner.
     private int getNumCycles() {
         try {
             String s = numCyclesSpin.getSelectedItem().toString();
@@ -169,42 +198,15 @@ public class AddcoffeeActivity extends AppCompatActivity {
         }
     }
 
+    // Get the specified brew time from the SeekBar
     private int getBrewTime() {
         int idx = seekBar.getProgress();
         int time = idx + Cycle.MIN_TOTAL_TIME;
         Checker.inRange(time, Cycle.MIN_TOTAL_TIME, Cycle.MAX_TIME);
         return time;
     }
-    
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCoffees(CoffeeRefreshEvent unused) {
-        coffees = CoffeeCache.getCoffees();
-        if (coffees == null) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeeCache();
-        } else {
-            UiUtils.setViewEnabled(createButton, true);
-        }
-    }
 
-    private List<Volume> createVolumes(int numCycles, int brewTime) {
-        Checker.inRange(numCycles, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
-        Checker.inRange(brewTime, Cycle.MIN_TOTAL_TIME, Cycle.MAX_TIME);
-
-        List<Volume> vols = new ArrayList<>();
-        for (Integer amount : numCyclesToAmounts(numCycles)) {
-            int cycleAmount = getCycleAmount(amount, numCycles);
-            int cycleVacTime = getVacuumTimePerCycle(cycleAmount);
-            List<Cycle> cycles = new ArrayList<>();
-            for (Float factor : numCyclesToTimeFactors(numCycles)) {
-                int cycleBrewTime = (int) (brewTime * factor);
-                cycles.add(new Cycle(cycleAmount, cycleBrewTime, cycleVacTime));
-            }
-            vols.add(new Volume(cycles));
-        }
-        return vols;
-    }
-
+    // Cycle volumes must be divisible by 10.
     private int getCycleAmount(int totalVolume, int numCycles) {
         Checker.inRange(numCycles, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
 
@@ -213,6 +215,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         return n;
     }
 
+    // Determine Volumes for a coffee based on the number of cycles.
     private List<Integer> numCyclesToAmounts(int n) {
         Checker.inRange(n, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
         final int smallCup = 350;
@@ -232,7 +235,8 @@ public class AddcoffeeActivity extends AppCompatActivity {
         }
     }
 
-    private List<Float> numCyclesToTimeFactors(int n) {
+    // Return ratios of brew times for each cycle based on number of cycles.
+    private List<Float> numCyclesToBrewTimeFactors(int n) {
         Checker.inRange(n, Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
         switch (n) {
             case 1: return Arrays.asList(1f);
@@ -245,6 +249,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         }
     }
 
+    // Return a vacuum time based on the cycle volume.
     private int getVacuumTimePerCycle(int volumePerCycle) {
         Checker.atLeast(volumePerCycle, 1);
 

@@ -53,6 +53,6 @@
         style="@style/Button"
         android:layout_gravity="center_horizontal"
         android:text="Create"
-        android:onClick="onClickCreate"
+        android:onClick="onClickCreateCoffee"
         />
 </LinearLayout>
