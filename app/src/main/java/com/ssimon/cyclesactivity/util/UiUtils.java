@@ -8,6 +8,13 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
+import com.ssimon.cyclesactivity.Const;
+import com.ssimon.cyclesactivity.model.Coffee;
+import com.ssimon.cyclesactivity.model.Cycle;
+import com.ssimon.cyclesactivity.model.Volume;
+
+import java.util.List;
+
 public class UiUtils {
     private UiUtils() {
         throw new UnsupportedOperationException();
@@ -48,6 +55,31 @@ public class UiUtils {
                 return false;
             }
         });
+    }
+
+    // Find the coffee in the list of coffees that has the specified ID.
+    // Note: it is assumed that the coffee with that ID occurs in the list.
+    static public Coffee getCoffeeById(long coffeeId, List<Coffee> coffees) {
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(coffees);
+
+        for (Coffee c : coffees) {
+            if (c.id() == coffeeId)
+                return c;
+        }
+        throw new IllegalArgumentException("No coffee found with id = " + coffeeId);
+    }
+
+    // Return the list of volumes contained in the Coffee with the specified ID.
+    static public List<Volume> getVolumesByCoffeeId(long coffeeId, List<Coffee> coffees) {
+        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
+        Checker.notNullOrEmpty(coffees);
+
+        for (Coffee c : coffees) {
+            if (c.id() == coffeeId)
+                return c.volumes();
+        }
+        throw new IllegalArgumentException("No coffee found with id = " + coffeeId);
     }
 
     static private class Repeater implements Runnable {

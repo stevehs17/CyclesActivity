@@ -1,17 +1,8 @@
 package com.ssimon.cyclesactivity.util;
 
-import android.widget.Button;
-
-import com.ssimon.cyclesactivity.Const;
 import com.ssimon.cyclesactivity.message.MessageEvent;
-import com.ssimon.cyclesactivity.model.Coffee;
-import com.ssimon.cyclesactivity.model.Cycle;
-import com.ssimon.cyclesactivity.model.Volume;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.EventBusBuilder;
-
-import java.util.List;
 
 public class Utils {
     static final private EventBus eventBus =  EventBus
@@ -36,52 +27,5 @@ public class Utils {
     static public void unregisterEventBus(Object o) {
         Checker.notNull(o);
         eventBus.unregister(o);
-    }
-
-
-
-    static public void postStickyEvent(MessageEvent e) {
-        Checker.notNull(e);
-        EventBus.getDefault().postSticky(e);
-    }
-
-    static public void removeStickyEvent(MessageEvent e) {
-        Checker.notNull(e);
-        EventBus.getDefault().removeStickyEvent(e);
-    }
-
-
-    static public Coffee getCoffeeById(long coffeeId, List<Coffee> coffees) {
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(coffees);
-
-        for (Coffee c : coffees) {
-            if (c.id() == coffeeId)
-                return c;
-        }
-        throw new IllegalArgumentException("No coffee found with id = " + coffeeId);
-    }
-
-
-    static public List<Volume> getVolumesByCoffeeId(long coffeeId, List<Coffee> coffees) {
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(coffees);
-
-        for (Coffee c : coffees) {
-            if (c.id() == coffeeId)
-                return c.volumes();
-        }
-        throw new IllegalArgumentException("No coffee found with id = " + coffeeId);
-    }
-
-    static public List<Cycle> getCyclesByCoffeeAndVolumeIds(long coffeeId, long volumeId, List<Coffee> coffees) {
-        Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(coffees);
-
-        List<Volume> vols = Utils.getVolumesByCoffeeId(coffeeId, coffees);
-        for (Volume v : vols)
-            if (v.id() == volumeId)
-                return v.cycles();
-        throw new IllegalArgumentException("No coffee with id = " + coffeeId + " and volume = " + volumeId + " found.");
     }
 }

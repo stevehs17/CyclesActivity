@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Provides pre-defined Coffee, Volume, and Cycle objects.
 public class ModelUtils {
     static public List<Cycle> createDefaultCyclesTemplate() {
         List<Cycle> c = new ArrayList<>();
@@ -56,8 +57,8 @@ public class ModelUtils {
         c.add(new Cycle(750, 28, 100));
         c.add(new Cycle(500, 11, 85));
         // V2
-        c.add(new Cycle(1125, 140, 85));
-        c.add(new Cycle(1125, 26, 105));
+        c.add(new Cycle(1130, 140, 85));
+        c.add(new Cycle(1120, 26, 105));
         c.add(new Cycle(750, 10, 110));
         // V3
         c.add(new Cycle(1400, 140, 90));
@@ -86,8 +87,8 @@ public class ModelUtils {
         c.add(new Cycle(750, 27, 100));    // 3
         c.add(new Cycle(500, 6, 85));      // 4
         // V2
-        c.add(new Cycle(1125, 138, 85));   // 5
-        c.add(new Cycle(1125, 25, 105));   // 6
+        c.add(new Cycle(1130, 138, 85));   // 5
+        c.add(new Cycle(1120, 25, 105));   // 6
         c.add(new Cycle(750, 6, 110));     // 7
         // V3
         c.add(new Cycle(1400, 137, 90));   // 8
@@ -115,8 +116,8 @@ public class ModelUtils {
         c.add(new Cycle(750, 27, 100));         // 3
         c.add(new Cycle(500, 100, 85));         // 4
         // V2
-        c.add(new Cycle(1125, 138, 85));        // 5
-        c.add(new Cycle(1125, 25, 105));        // 6
+        c.add(new Cycle(1130, 138, 85));        // 5
+        c.add(new Cycle(1120, 25, 105));        // 6
         c.add(new Cycle(750, 7, 110));          // 7
         // V3
         c.add(new Cycle(1400, 138, 90));        // 8
@@ -144,8 +145,8 @@ public class ModelUtils {
         c.add(new Cycle(750, 28, 100));     // 3
         c.add(new Cycle(500, 9, 85));       // 4
         // V2
-        c.add(new Cycle(1125, 139, 85));    // 5
-        c.add(new Cycle(1125, 25, 105));    // 6
+        c.add(new Cycle(1130, 139, 85));    // 5
+        c.add(new Cycle(1120, 25, 105));    // 6
         c.add(new Cycle(750, 8, 110));      // 7
         // V3
         c.add(new Cycle(1400, 139, 90));    // 8

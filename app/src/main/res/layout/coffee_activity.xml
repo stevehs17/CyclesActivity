@@ -32,7 +32,7 @@
         <Button
             style="@style/Button"
             android:text="@string/coffee_btn_edit"
-            android:onClick="onClickEditCoffee"
+            android:onClick="onClickEditVolumes"
             />
     </LinearLayout>
     <LinearLayout

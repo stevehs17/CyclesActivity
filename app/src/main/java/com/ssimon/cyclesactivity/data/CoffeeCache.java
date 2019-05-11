@@ -8,6 +8,7 @@ import com.ssimon.cyclesactivity.util.Checker;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+// Provides quick access to Coffee objects in database
 public class CoffeeCache {
     static private AtomicReference<List<Coffee>> coffees = new AtomicReference<>();
 

@@ -14,11 +14,11 @@ package com.ssimon.cyclesactivity.model;
 import com.ssimon.cyclesactivity.util.Checker;
 import com.ssimon.cyclesactivity.Const;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class Volume implements Serializable {
+// Data class for Volume objects.
+public class Volume {
     static final public int MIN_NUM_CYCLES = 1;
     static final public int MAX_NUM_CYCLES = 6;
 

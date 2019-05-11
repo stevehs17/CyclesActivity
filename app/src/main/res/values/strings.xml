@@ -4,16 +4,9 @@
     <string name="coffee_btn_delete">Delete Coffee</string>
     <string name="coffee_btn_edit">Edit Volumes</string>
     <string name="coffee_btn_rename">Edit Name</string>
-
     <string name="cycle_btn_addcycle">Add Cycle</string>
     <string name="cycle_btn_deletecycle">Delete Cycle</string>
     <string name="cycle_btn_savevolume">Save Volume</string>
-    <string name="cycle_txt_1">1</string>
-    <string name="cycle_txt_2">2</string>
-    <string name="cycle_txt_3">3</string>
-    <string name="cycle_txt_4">4</string>
-    <string name="cycle_txt_5">5</string>
-    <string name="cycle_txt_6">6</string>
     <string name="cycle_txt_brewsecs">Brew Secs</string>
     <string name="cycle_txt_coffee">Coffee</string>
     <string name="cycle_txt_cycle">Cycle</string>

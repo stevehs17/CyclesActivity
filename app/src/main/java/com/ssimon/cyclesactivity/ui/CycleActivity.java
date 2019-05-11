@@ -170,7 +170,7 @@ public class CycleActivity extends AppCompatActivity {
         } else {
             Intent i = getIntent();
             long coffeeId = AndroidUtils.getLongIntentExtraOrThrow(i, CoffeeActivity.EXTRA_COFFEEID);
-            coffee = getCoffeeById(coffeeId, coffees);
+            coffee = UiUtils.getCoffeeById(coffeeId, coffees);
             long volumeId = AndroidUtils.getLongIntentExtraOrThrow(i, VolumeActivity.EXTRA_VOLUMEID);
             List<Cycle> cycles = (volumeId == Const.NULL_DATABASE_ID)
                     ? ModelUtils.createDefaultCyclesTemplate()
@@ -262,26 +262,10 @@ public class CycleActivity extends AppCompatActivity {
         return Integer.valueOf(s);
     }
 
-    // Find the coffee in the list of coffees that has the specified ID.
-    // Note: it is assumed that the coffee with that ID occurs in the list.
-    private Coffee getCoffeeById(long id, List<Coffee> coffees) {
-        Checker.atLeast(id, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(coffees);
-
-        for (Coffee c : coffees) {
-            if (c.id() == id)
-                return c;
-        }
-        throw new IllegalArgumentException("no coffee found with id = " + id);
-    }
-
-
-
     // Get the index of the brew time column.
     private int getCycleNumColumnIndex() {
         return getParmColumnIndex(R.string.cycle_txt_cycle);
     }
-
 
     // Find the list of cycles associated with the specified coffee and volume IDs.
     // Note: it is assumed that the volume specified by those IDs exists.
@@ -290,7 +274,7 @@ public class CycleActivity extends AppCompatActivity {
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(coffees);
 
-        List<Volume> vols = getVolumesByCoffeeId(coffeeId, coffees);
+        List<Volume> vols = UiUtils.getVolumesByCoffeeId(coffeeId, coffees);
         for (Volume v : vols) {
             if (v.id() == volumeId)
                 return v.cycles();
@@ -369,19 +353,7 @@ public class CycleActivity extends AppCompatActivity {
         return getIntegerList(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, increment);
     }
 
-    // Find the list of volumes contained in the Coffee with the specified ID.
-    private List<Volume> getVolumesByCoffeeId(long id, List<Coffee> coffees) {
-        Checker.atLeast(id, Const.MIN_DATABASE_ID);
-        Checker.notNullOrEmpty(coffees);
-
-        for (Coffee c : coffees) {
-            if (c.id() == id)
-                return c.volumes();
-        }
-        throw new IllegalArgumentException("no coffee found with id = " + id);
-    }
-
-    // Set the values for the specified row in the parameter table, including the cycle number.
+   // Set the values for the specified row in the parameter table, including the cycle number.
     private void initParmRow(TableRow row, int rowIndex, int volume, int brewSecs, int vacSecs) {
         Checker.notNull(row);
         Checker.atLeast(rowIndex, 0);

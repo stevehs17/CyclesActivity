@@ -67,6 +67,7 @@ public class VolumeActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // Populate ListView with Volumes for passed in coffee
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setVolumeList(CoffeeRefreshEvent e) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
@@ -74,7 +75,7 @@ public class VolumeActivity extends AppCompatActivity {
             DatabaseHelper.getInstance(this). refreshCoffeeCache();
             return;
         }
-        Coffee coffee = Utils.getCoffeeById(getCoffeeId(), coffees);
+        Coffee coffee = UiUtils.getCoffeeById(getCoffeeId(), coffees);
         List<Volume> volumes = new ArrayList<>(coffee.volumes());
         if (adapter == null) {
             TextView tv = (TextView) findViewById(R.id.txt_coffee);
@@ -94,7 +95,6 @@ public class VolumeActivity extends AppCompatActivity {
     }
 
     public void onClickEditVolume(View unused) {
-        //Intent i = new Intent(this, OldCycleActivity.class);
         Intent i = new Intent(this, CycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
         int n = volumeList.getCheckedItemPosition();
@@ -104,7 +104,7 @@ public class VolumeActivity extends AppCompatActivity {
     }
 
     public void onClickAddVolume(View unused) {
-        Intent i = new Intent(this, OldCycleActivity.class);
+        Intent i = new Intent(this, CycleActivity.class);
         i.putExtra(CoffeeActivity.EXTRA_COFFEEID, getCoffeeId());
         i.putExtra(EXTRA_VOLUMEID, Const.NULL_DATABASE_ID);
         startActivity(i);
@@ -116,6 +116,7 @@ public class VolumeActivity extends AppCompatActivity {
         DatabaseHelper.getInstance(this).deleteVolume(v.id());
     }
 
+    // todo: replace this with AndroidUtils.getLongIntentExtraOrThrow()
     private long getCoffeeId() {
         long id = getIntent().getLongExtra(CoffeeActivity.EXTRA_COFFEEID,
                 Const.NULL_DATABASE_ID);
@@ -124,6 +125,7 @@ public class VolumeActivity extends AppCompatActivity {
         return id;
     }
 
+    // Custom adapter for ListView with Volumes for selected coffee
     private class VolumeAdapter extends ArrayAdapter<Volume> {
         public VolumeAdapter(Context ctx, List<Volume> coffees) {
             super(ctx, 0, coffees);
@@ -152,7 +154,5 @@ public class VolumeActivity extends AppCompatActivity {
                 name = v.findViewById(android.R.id.text1);
             }
         }
-
     }
-
 }

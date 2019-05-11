@@ -13,9 +13,8 @@ package com.ssimon.cyclesactivity.model;
 
 import com.ssimon.cyclesactivity.util.Checker;
 
-import java.io.Serializable;
-
-public class Cycle implements Serializable {
+// Data class for Cycle objects.
+public class Cycle {
     static final public int MIN_VOLUME = 150;
     static final public int MAX_VOLUME = 1670;
     static final public int MIN_TIME = 1;

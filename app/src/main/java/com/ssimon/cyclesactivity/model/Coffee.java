@@ -19,15 +19,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Coffee implements Serializable {
+// Data class to represent Coffee objects.
+public class Coffee {
     final private long id;
     final private String name;
     final private List<Volume> volumes;
 
+    // Constructor for Coffee objects that haven't been saved to database.
     public Coffee(String name, List<Volume> volumes) {
        this(Const.NULL_DATABASE_ID, name, volumes);
     }
 
+    // Constructor for Coffee objects that have been saved to database.
     public Coffee(long id, String name, List<Volume> volumes) {
         if (id != Const.NULL_DATABASE_ID)
             Checker.atLeast(id, Const.MIN_DATABASE_ID);
@@ -40,6 +43,7 @@ public class Coffee implements Serializable {
         this.volumes = Collections.unmodifiableList(volumes);
     }
 
+    // Order list of Volume objects contained in Coffee object
     static private class TotalVolumeSorter implements Comparator<Volume> {
         @Override
         public int compare(Volume v1, Volume v2) {

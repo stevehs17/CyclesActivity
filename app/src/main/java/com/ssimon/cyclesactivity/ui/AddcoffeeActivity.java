@@ -32,7 +32,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class AddcoffeeActivity extends AppCompatActivity {
     static final private int DEFAULT_BREW_TIME = (Cycle.MAX_TIME - Cycle.MIN_TOTAL_TIME) / 2;
@@ -48,7 +47,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addcoffee_activity);
         List<String> items = getCycleNumbers();
-        ArrayAdapter<String> aa = new ArrayAdapter<>(this, R.layout.addcoffee_partial_spinneritem, items);
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this, R.layout.addcoffee_item_spinner, items);
         Spinner s = (Spinner) findViewById(R.id.spin_numcycles);
         s.setAdapter(aa);
         TextView min = (TextView) findViewById(R.id.txt_min_value);

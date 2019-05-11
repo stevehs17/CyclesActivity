@@ -15,6 +15,7 @@ import java.util.List;
 import static com.ssimon.cyclesactivity.data.Contract.Volume.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Volume.TABLE_NAME;
 
+// Dao for Volume database table
 public class VolumeDao {
     static public List<Volume> getVolumes(SQLiteDatabase db, long coffeeId) {
         Checker.notNull(db);

@@ -96,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Update CoffeeCache using current database contents
     public void refreshCoffeeCache() {
         new RefreshCoffeeCacheThread().start();
     }
@@ -114,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Replace cycles in specified Volume
     public void replaceVolume(long volumeId, List<Cycle> cycles) {
         new ReplaceVolumeThread(volumeId, cycles).start();
     }
@@ -187,6 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // All database thread classes extend from here
     abstract private class BackgroundThread extends Thread {
         @Override
         public void run() {

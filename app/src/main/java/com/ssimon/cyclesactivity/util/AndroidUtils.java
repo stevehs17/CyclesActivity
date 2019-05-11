@@ -9,6 +9,7 @@ public class AndroidUtils {
         throw new UnsupportedOperationException();
     }
 
+    // Wrapper for Intent.getLongExtra() with check for missing extra data
     static public long getLongIntentExtraOrThrow(Intent i, String key) {
         Checker.notNull(i);
         Checker.notNullOrEmpty(key);

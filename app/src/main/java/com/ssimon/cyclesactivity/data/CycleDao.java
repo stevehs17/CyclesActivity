@@ -15,6 +15,7 @@ import java.util.List;
 import static com.ssimon.cyclesactivity.data.Contract.Cycle.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Cycle.TABLE_NAME;
 
+// Dao for Cycle database table
 public class CycleDao {
     static void deleteCyclesByVolumeId(SQLiteDatabase db, long volumeId) {
         Checker.notNull(db);

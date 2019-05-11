@@ -16,6 +16,7 @@ import java.util.List;
 import static com.ssimon.cyclesactivity.data.Contract.Coffee.Col;
 import static com.ssimon.cyclesactivity.data.Contract.Coffee.TABLE_NAME;
 
+// Dao for Coffee database table
 public class CoffeeDao {
     static List<Coffee> getCoffees(SQLiteDatabase db) {
         Checker.notNull(db);

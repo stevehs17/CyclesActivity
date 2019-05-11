@@ -54,6 +54,7 @@ public class CoffeeActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // Populate ListView for coffees
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCoffeeList(CoffeeRefreshEvent unused) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
@@ -77,6 +78,7 @@ public class CoffeeActivity extends AppCompatActivity {
             coffeeList.setItemChecked(0, true);
     }
 
+    // Custom adapter for ListView for coffees
     private class CoffeeAdapter extends ArrayAdapter<Coffee> {
         CoffeeAdapter(Context ctx, List<Coffee> coffees) {
             super(ctx, 0, coffees);
@@ -118,7 +120,7 @@ public class CoffeeActivity extends AppCompatActivity {
         DatabaseHelper.getInstance(this).deleteCoffee(c.id());
     }
 
-    public void onClickEditCoffee(View unused) {
+    public void onClickEditVolumes(View unused) {
         Intent i = new Intent(this, VolumeActivity.class);
         int n = coffeeList.getCheckedItemPosition();
         Coffee c = (Coffee) coffeeList.getItemAtPosition(n);
