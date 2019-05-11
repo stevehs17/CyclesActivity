@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -43,8 +42,6 @@ public class CycleActivity extends AppCompatActivity {
 
     static final private int HEADER_ROW = 0;                    // header row for table of parameter values
     static final private int FIRST_PARM_ROW = HEADER_ROW + 1;   // first non-header row for parameter values
-
-    static final private String TAG = "CycleActivity";
 
     private int cycleNumColumn;     // index for column containing cycle numbers in table of parameter values
     private int firstParmColumn;    // index for column containing first (user-adjustable) parameter, for range checking
@@ -86,79 +83,20 @@ public class CycleActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    // sets up data used by activity and the activity's UI
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void configureActivity(CoffeeRefreshEvent unused ) {
-        List<Coffee> coffees = CoffeeCache.getCoffees();
-        if (coffees == null) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.refreshCoffeeCache();
-        } else {
-            Intent i = getIntent();
-            long coffeeId = AndroidUtils.getLongIntentExtraOrThrow(i, CoffeeActivity.EXTRA_COFFEEID);
-            coffee = getCoffeeById(coffeeId, coffees);
-            long volumeId = AndroidUtils.getLongIntentExtraOrThrow(i, VolumeActivity.EXTRA_VOLUMEID);
-            List<Cycle> cycles = (volumeId == Const.NULL_DATABASE_ID)
-                    ? ModelUtils.createDefaultCyclesTemplate()
-                    : getCyclesByIds(coffeeId, volumeId, coffees);
-            configureUi(cycles);
-        }
-    }
-
-    // sets up the UI for the activity
-    private void configureUi(List<Cycle> cycles) {
-        Checker.notNull(cycles);
-        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
-
-        cyclesToButtons(cycles);
-        clickDefaultParmButton();
-        setTotalVolumeText();
-        setAddCycleButtonEnabled();
-        setDeleteCycleButtonEnabled();
-        TextView name = (TextView) findViewById(R.id.txt_coffee);
-        name.setText(coffee.name());
-        int totalVolume = (new Volume(cycles)).totalVolume();
-        TextView initial = (TextView) findViewById(R.id.txt_initialvolume);
-        initial.setText(String.format(getString(R.string.cycle_txt_volumeformat), totalVolume));
-    }
-
-    // display cycle parameter values in the buttons in the parameter table
-    private void cyclesToButtons(List<Cycle> cycles) {
-        Checker.notNull(cycles);
-        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
-
-        for (int i = 0; i < cycles.size(); i++) {
-            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
-            row.setVisibility(View.VISIBLE);
-            Cycle c = cycles.get(i);
-            setParmRow(row, c.volumeMl(), c.brewSeconds(), c.vacuumSeconds());
-        }
-    }
-
-    // selects a default parameter (some parameter must always be selected)
-    private void clickDefaultParmButton() {
-        TableRow row = (TableRow) parmTable.getChildAt(FIRST_PARM_ROW);
-        View v = row.getChildAt(volumeMlColumn);
-        onClickVolumeMl(v);
-    }
-
     // handle the user's selection of the volume parameter in a cycle
     public void onClickVolumeMl(View v) {
-        Log.v(TAG, "Clicked Volume");
         boolean isVolume = true;
         onClickParm(v, VOLUMES, isVolume);
     }
 
     // handle the user's selection of the brew time parameter in a cycle
     public void onClickBrewSecs(View v) {
-        Log.v(TAG, "Clicked Brew");
         boolean isVolume = false;
         onClickParm(v, TIMES, isVolume);
     }
 
     // handle the user's selection of the vacuum time parameter in a cycle
     public void onClickVacuumSecs(View v) {
-        Log.v(TAG, "Clicked Vacuum");
         List<Integer> values = isLastCycle(v)
                 ? LASTCYCLE_VACUUMTIMES
                 : TIMES;
@@ -208,6 +146,60 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException("attempted to delete last remaining cycle");
     }
 
+    // Save the values currently displayed in the parameter tables as a Volume object.
+    public void onClickSaveCycles(View unused) {
+        List<Cycle> cycles = buttonsToCycles();
+        int vol = (new Volume(cycles)).totalVolume();
+        long existingVolumeId = findMatchingVolume(coffee.volumes(), vol);
+        if (existingVolumeId == Const.NULL_DATABASE_ID) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            dh.saveVolume(coffee.id(), cycles);
+            this.finish();
+        } else {
+            promptToOverWriteVolume(existingVolumeId, cycles);
+        }
+    }
+
+
+    // sets up data used by activity and the activity's UI
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void configureActivity(CoffeeRefreshEvent unused ) {
+        List<Coffee> coffees = CoffeeCache.getCoffees();
+        if (coffees == null) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            dh.refreshCoffeeCache();
+        } else {
+            Intent i = getIntent();
+            long coffeeId = AndroidUtils.getLongIntentExtraOrThrow(i, CoffeeActivity.EXTRA_COFFEEID);
+            coffee = getCoffeeById(coffeeId, coffees);
+            long volumeId = AndroidUtils.getLongIntentExtraOrThrow(i, VolumeActivity.EXTRA_VOLUMEID);
+            List<Cycle> cycles = (volumeId == Const.NULL_DATABASE_ID)
+                    ? ModelUtils.createDefaultCyclesTemplate()
+                    : getCyclesByIds(coffeeId, volumeId, coffees);
+            configureUi(cycles);
+        }
+    }
+
+    // display cycle parameter values in the buttons in the parameter table
+    private void cyclesToButtons(List<Cycle> cycles) {
+        Checker.notNull(cycles);
+        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+
+        for (int i = 0; i < cycles.size(); i++) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            row.setVisibility(View.VISIBLE);
+            Cycle c = cycles.get(i);
+            setParmRow(row, c.volumeMl(), c.brewSeconds(), c.vacuumSeconds());
+        }
+    }
+
+    // selects a default parameter (some parameter must always be selected)
+    private void clickDefaultParmButton() {
+        TableRow row = (TableRow) parmTable.getChildAt(FIRST_PARM_ROW);
+        View v = row.getChildAt(volumeMlColumn);
+        onClickVolumeMl(v);
+    }
+
     // Determine whether the current cycle is the last one; used to know what the minimum
     // vacuum time should be.
     private boolean isLastCycle(View v) {
@@ -220,59 +212,6 @@ public class CycleActivity extends AppCompatActivity {
         return rowNum == nrows;
     }
 
-    // Common code used to handle clicks of all cycle parameters.
-    private void onClickParm(View v, List<Integer> values, boolean isVolume) {
-        Checker.notNull(v);
-        Checker.notNullOrEmpty(values);
-
-        if (currentParmButton != null)
-            currentParmButton.setBackgroundResource(R.drawable.white_rectangle);
-        currentParmButton = (Button) v;
-        currentParmButton.setBackgroundResource(R.drawable.yellow_rectangle);
-        String s = currentParmButton.getText().toString();
-        int val = Integer.parseInt(s);
-        int idx = values.indexOf(val);
-        if (idx < 0)
-            throw new IllegalStateException("failed to find parm value = " + val);
-        int maxIdx = values.size() - 1;
-        seekBar.setOnSeekBarChangeListener(null);   // set to null to suppress calls to listener when set max and progress
-        seekBar.setMax(maxIdx);
-        seekBar.setProgress(idx);
-        seekBar.setOnSeekBarChangeListener(seekBarListener(values, isVolume));
-        UiUtils.setIncrementButton(incrementButton, seekBar, maxIdx);
-        minValueText.setText(Integer.toString(values.get(0)));
-        maxValueText.setText(Integer.toString(values.get(maxIdx)));
-    }
-
-    // Handles gross adjustments of parameter values.
-    // Note: the total volume is recalculated if (and only if) the parameter being adjusted is the volume.
-    private SeekBar.OnSeekBarChangeListener seekBarListener(final List<Integer> values, final boolean isVolume) {
-        return new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
-                Checker.inRange(idx, 0, values.size() - 1);
-                int val = values.get(idx);
-                currentParmButton.setText(Integer.toString(val));
-                if (isVolume)
-                    setTotalVolumeText();
-            }
-            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
-        };
-    }
-
-    // Calculate and display the total volume across all cycles.
-    private void setTotalVolumeText() {
-        int vol = 0;
-        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
-            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
-            if (row.getVisibility() == View.INVISIBLE)
-                break;
-            vol += getButtonInt(row, volumeMlColumn);
-        }
-        totalVolumeText.setText(String.format(getString(R.string.cycle_txt_volumeformat), vol));
-    }
-
     // Get the value of the integer being displayed for the parameter in the specified column.
     private int getButtonInt(TableRow row, int column) {
         Checker.notNull(row);
@@ -281,22 +220,6 @@ public class CycleActivity extends AppCompatActivity {
         Button b = (Button) row.getChildAt(column);
         String s = b.getText().toString();
         return Integer.valueOf(s);
-    }
-
-    // Enable the Add Cycle button if and only if the current number of cycles is less
-    // than the maximum.
-    private void setAddCycleButtonEnabled() {
-        int n = getNumVisibleParmRows();
-        UiUtils.setViewEnabled(addCycleButton,
-                n == Volume.MAX_NUM_CYCLES ? false : true);
-    }
-
-    // Enable the Delete Cycle button if and only if the current number of cycles is greater
-    // than the minimum.
-    private void setDeleteCycleButtonEnabled() {
-        int n = getNumVisibleParmRows();
-        UiUtils.setViewEnabled(deleteCycleButton,
-                n == Volume.MIN_NUM_CYCLES ? false : true);
     }
 
     // Determines how many cycles have been created.
@@ -312,29 +235,6 @@ public class CycleActivity extends AppCompatActivity {
         return numRows;
     }
 
-    // Gets all the views that can be reset as the user interacts with the activity
-    private void setViews() {
-        totalVolumeText = (TextView) findViewById(R.id.txt_totalvolume);
-        parmTable = (TableLayout) findViewById(R.id.lay_parms);
-        seekBar = (SeekBar) findViewById(R.id.seek);
-        minValueText = (TextView) findViewById(R.id.txt_min_value);
-        maxValueText = (TextView) findViewById(R.id.txt_max_value);
-        decrementButton = (ImageButton) findViewById(R.id.btn_decrement);
-        incrementButton = (ImageButton) findViewById(R.id.btn_increment);
-        addCycleButton = (Button) findViewById(R.id.btn_addcycle);
-        deleteCycleButton = (Button) findViewById(R.id.btn_deletecycle);
-    }
-
-    // Determines the columns for each item in the table of parameters, based on the strings
-    // that appear in the header.
-    private void setParmColumnIndices() {
-        brewSecsColumn = getBrewSecsColumnIndex();
-        cycleNumColumn = getCycleNumColumnIndex();
-        vacuumSecsColiumn = getVacuumSecsColumnIndex();
-        volumeMlColumn = getVolumeMlColumnIndex();
-        firstParmColumn = Math.min(brewSecsColumn, Math.min(vacuumSecsColiumn, volumeMlColumn));
-        lastParmColumn = Math.max(brewSecsColumn, Math.max(vacuumSecsColiumn, volumeMlColumn));
-    }
 
     // Gets the index for the brew time column.
     private int getBrewSecsColumnIndex() {
@@ -464,6 +364,61 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException("no coffee found with id = " + id);
     }
 
+
+
+
+
+
+
+    // Create a list of cycles based on the currently displayed values
+    // in the table of parameters.
+    private List<Cycle> buttonsToCycles() {
+        List<Cycle> cycles = new ArrayList<>();
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            if (row.getVisibility() == View.VISIBLE) {
+                int val = getButtonInt(row, volumeMlColumn);
+                int brew = getButtonInt(row, brewSecsColumn);
+                int vac = getButtonInt(row, vacuumSecsColiumn);
+                cycles.add(new Cycle(val, brew, vac));
+            } else {
+                break;
+            }
+        }
+        return cycles;
+    }
+
+    // sets up the UI for the activity
+    private void configureUi(List<Cycle> cycles) {
+        Checker.notNull(cycles);
+        Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
+
+        cyclesToButtons(cycles);
+        clickDefaultParmButton();
+        setTotalVolumeText();
+        setAddCycleButtonEnabled();
+        setDeleteCycleButtonEnabled();
+        TextView name = (TextView) findViewById(R.id.txt_coffee);
+        name.setText(coffee.name());
+        int totalVolume = (new Volume(cycles)).totalVolume();
+        TextView initial = (TextView) findViewById(R.id.txt_initialvolume);
+        initial.setText(String.format(getString(R.string.cycle_txt_volumeformat), totalVolume));
+    }
+    
+
+    // Return the ID of the Volume object with the specified total volume
+    // NULL_DATABASE_ID if there is no such volume.
+    private long findMatchingVolume(List<Volume> vs, int totalVolume) {
+        Checker.notNullOrEmpty(vs);
+        Checker.greaterThan(totalVolume, 0);
+
+        for (Volume v : vs) {
+            if (v.totalVolume() == totalVolume)
+                return v.id();
+        }
+        return Const.NULL_DATABASE_ID;
+    }
+
     // Find the list of cycles associated with the specified coffee and volume IDs.
     // Note: it is assumed that the volume specified by those IDs exists.
     private List<Cycle> getCyclesByIds(long coffeeId, long volumeId, List<Coffee> coffees) {
@@ -480,6 +435,8 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException(String.format(format, coffeeId, volumeId));
     }
 
+
+
     // Find the list of volumes contained in the Coffee with the specified ID.
     private List<Volume> getVolumesByCoffeeId(long id, List<Coffee> coffees) {
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
@@ -492,19 +449,31 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException("no coffee found with id = " + id);
     }
 
-    // Save the values currently displayed in the parameter tables as a Volume object.
-    public void onClickSaveCycles(View unused) {
-        List<Cycle> cycles = buttonsToCycles();
-        int vol = (new Volume(cycles)).totalVolume();
-        long existingVolumeId = findMatchingVolume(coffee.volumes(), vol);
-        if (existingVolumeId == Const.NULL_DATABASE_ID) {
-            DatabaseHelper dh = DatabaseHelper.getInstance(this);
-            dh.saveVolume(coffee.id(), cycles);
-            this.finish();
-        } else {
-            promptToOverWriteVolume(existingVolumeId, cycles);
-        }
+    // Common code used to handle clicks of all cycle parameters.
+    private void onClickParm(View v, List<Integer> values, boolean isVolume) {
+        Checker.notNull(v);
+        Checker.notNullOrEmpty(values);
+
+        if (currentParmButton != null)
+            currentParmButton.setBackgroundResource(R.drawable.white_rectangle);
+        currentParmButton = (Button) v;
+        currentParmButton.setBackgroundResource(R.drawable.yellow_rectangle);
+        String s = currentParmButton.getText().toString();
+        int val = Integer.parseInt(s);
+        int idx = values.indexOf(val);
+        if (idx < 0)
+            throw new IllegalStateException("failed to find parm value = " + val);
+        int maxIdx = values.size() - 1;
+        seekBar.setOnSeekBarChangeListener(null);   // set to null to suppress calls to listener when set max and progress
+        seekBar.setMax(maxIdx);
+        seekBar.setProgress(idx);
+        seekBar.setOnSeekBarChangeListener(seekBarListener(values, isVolume));
+        UiUtils.setIncrementButton(incrementButton, seekBar, maxIdx);
+        minValueText.setText(Integer.toString(values.get(0)));
+        maxValueText.setText(Integer.toString(values.get(maxIdx)));
     }
+
+
 
     // If a Volume object with the same total volume exists, prompt the user whether
     // to overwrite it, since each Coffee object can contain only one Volume object
@@ -531,34 +500,84 @@ public class CycleActivity extends AppCompatActivity {
         b.create().show();
     }
 
-    // Create a list of cycles based on the currently displayed values
-    // in the table of parameters.
-    private List<Cycle> buttonsToCycles() {
-        List<Cycle> cycles = new ArrayList<>();
-        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
-            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
-            if (row.getVisibility() == View.VISIBLE) {
-                int val = getButtonInt(row, volumeMlColumn);
-                int brew = getButtonInt(row, brewSecsColumn);
-                int vac = getButtonInt(row, vacuumSecsColiumn);
-                cycles.add(new Cycle(val, brew, vac));
-            } else {
-                break;
+    // Handles gross adjustments of parameter values.
+    // Note: the total volume is recalculated if (and only if) the parameter being adjusted is the volume.
+    private SeekBar.OnSeekBarChangeListener seekBarListener(final List<Integer> values, final boolean isVolume) {
+        return new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
+                Checker.inRange(idx, 0, values.size() - 1);
+                int val = values.get(idx);
+                currentParmButton.setText(Integer.toString(val));
+                if (isVolume)
+                    setTotalVolumeText();
             }
-        }
-        return cycles;
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        };
     }
 
-    // Return the ID of the Volume object with the specified total volume
-    // NULL_DATABASE_ID if there is no such volume.
-    private long findMatchingVolume(List<Volume> vs, int totalVolume) {
-        Checker.notNullOrEmpty(vs);
-        Checker.greaterThan(totalVolume, 0);
-
-        for (Volume v : vs) {
-            if (v.totalVolume() == totalVolume)
-                return v.id();
-        }
-        return Const.NULL_DATABASE_ID;
+    // Enable the Add Cycle button if and only if the current number of cycles is less
+    // than the maximum.
+    private void setAddCycleButtonEnabled() {
+        int n = getNumVisibleParmRows();
+        UiUtils.setViewEnabled(addCycleButton,
+                n == Volume.MAX_NUM_CYCLES ? false : true);
     }
+
+    // Enable the Delete Cycle button if and only if the current number of cycles is greater
+    // than the minimum.
+    private void setDeleteCycleButtonEnabled() {
+        int n = getNumVisibleParmRows();
+        UiUtils.setViewEnabled(deleteCycleButton,
+                n == Volume.MIN_NUM_CYCLES ? false : true);
+    }
+
+    // Calculate and display the total volume across all cycles.
+        private void setTotalVolumeText() {
+            int vol = 0;
+            for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+                TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+                if (row.getVisibility() == View.INVISIBLE)
+                    break;
+                vol += getButtonInt(row, volumeMlColumn);
+            }
+            totalVolumeText.setText(String.format(getString(R.string.cycle_txt_volumeformat), vol));
+        }
+
+    // Determines the columns for each item in the table of parameters, based on the strings
+    // that appear in the header.
+    private void setParmColumnIndices() {
+        brewSecsColumn = getBrewSecsColumnIndex();
+        cycleNumColumn = getCycleNumColumnIndex();
+        vacuumSecsColiumn = getVacuumSecsColumnIndex();
+        volumeMlColumn = getVolumeMlColumnIndex();
+        firstParmColumn = Math.min(brewSecsColumn, Math.min(vacuumSecsColiumn, volumeMlColumn));
+        lastParmColumn = Math.max(brewSecsColumn, Math.max(vacuumSecsColiumn, volumeMlColumn));
+    }
+
+
+
+
+    // Gets all the views that can be reset as the user interacts with the activity
+    private void setViews() {
+        totalVolumeText = (TextView) findViewById(R.id.txt_totalvolume);
+        parmTable = (TableLayout) findViewById(R.id.lay_parms);
+        seekBar = (SeekBar) findViewById(R.id.seek);
+        minValueText = (TextView) findViewById(R.id.txt_min_value);
+        maxValueText = (TextView) findViewById(R.id.txt_max_value);
+        decrementButton = (ImageButton) findViewById(R.id.btn_decrement);
+        incrementButton = (ImageButton) findViewById(R.id.btn_increment);
+        addCycleButton = (Button) findViewById(R.id.btn_addcycle);
+        deleteCycleButton = (Button) findViewById(R.id.btn_deletecycle);
+    }
+
+
+
 }
