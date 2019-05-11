@@ -2,14 +2,12 @@ package com.ssimon.cyclesactivity.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -39,31 +37,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class CycleActivity extends AppCompatActivity {
-    static final private List<Integer> LASTCYCLE_VACUUMTIMES = getLastCycleVacuumTimes();
-    static final private List<Integer> TIMES = getTimes();
-    static final private List<Integer> VOLUMES = getVolumes();
+    static final private List<Integer> VOLUMES = getVolumes();  // range of values for volumes per cycle
+    static final private List<Integer> TIMES = getTimes();      // range of values for brew times and vacuum times for each cycle
+    static final private List<Integer> LASTCYCLE_VACUUMTIMES = getLastCycleVacuumTimes();   // vacuum times in last cycle have their own range
 
-    static final private int HEADER_ROW = 0;
-    static final private int FIRST_PARM_ROW = HEADER_ROW + 1;
+    static final private int HEADER_ROW = 0;                    // header row for table of parameter values
+    static final private int FIRST_PARM_ROW = HEADER_ROW + 1;   // first non-header row for parameter values
 
     static final private String TAG = "CycleActivity";
 
-    private int cycleNumColumn;
-    private int firstParmColumn;
-    private int volumeMlColumn;
-    private int brewSecsColumn;
-    private int vacuumSecsColiumn;
-    private int lastParmColumn;
+    private int cycleNumColumn;     // index for column containing cycle numbers in table of parameter values
+    private int firstParmColumn;    // index for column containing first (user-adjustable) parameter, for range checking
+    private int volumeMlColumn;     // index for column containing volume value
+    private int brewSecsColumn;     // index for colume containing value for brew time
+    private int vacuumSecsColiumn;  // index for column containing value for vacuum time
+    private int lastParmColumn;     // index for column containing last (user-adjustable) parameter, for range checking
 
-    private TextView totalVolumeText;
-    private TableLayout parmTable;
-    private SeekBar seekBar;
-    private TextView minValueText, maxValueText;
-    private ImageButton decrementButton, incrementButton;
-    private Button deleteCycleButton, addCycleButton;
+    private TextView totalVolumeText;   // displays the sum of the volumes for all cycles
+    private TableLayout parmTable;      // table of parameter values
+    private SeekBar seekBar;            // used to make gross adjustments of parameter values
+    private TextView minValueText, maxValueText;    // the minimum and maximum values for the currently-selected parameter
+    private ImageButton decrementButton, incrementButton;   // used to make fine adjustments of parameter values
+    private Button deleteCycleButton, addCycleButton;   // used to delete and add cycles in the table of parameter values
 
-    private Button currentParmButton = null;
-    private Coffee coffee;
+    private Button currentParmButton = null;    // the currently selected parameter (either the volume, brew time, or vacuum time)
+    private Coffee coffee;                      // the currently selected coffee, whose volume is being edited
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +86,7 @@ public class CycleActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // sets up data used by activity and the activity's UI
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void configureActivity(CoffeeRefreshEvent unused ) {
         List<Coffee> coffees = CoffeeCache.getCoffees();
@@ -106,6 +105,7 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
+    // sets up the UI for the activity
     private void configureUi(List<Cycle> cycles) {
         Checker.notNull(cycles);
         Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
@@ -122,6 +122,7 @@ public class CycleActivity extends AppCompatActivity {
         initial.setText(String.format(getString(R.string.cycle_txt_volumeformat), totalVolume));
     }
 
+    // display cycle parameter values in the buttons in the parameter table
     private void cyclesToButtons(List<Cycle> cycles) {
         Checker.notNull(cycles);
         Checker.inRange(cycles.size(), Volume.MIN_NUM_CYCLES, Volume.MAX_NUM_CYCLES);
@@ -134,24 +135,28 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
+    // selects a default parameter (some parameter must always be selected)
     private void clickDefaultParmButton() {
         TableRow row = (TableRow) parmTable.getChildAt(FIRST_PARM_ROW);
         View v = row.getChildAt(volumeMlColumn);
         onClickVolumeMl(v);
     }
 
+    // handle the user's selection of the volume parameter in a cycle
     public void onClickVolumeMl(View v) {
         Log.v(TAG, "Clicked Volume");
         boolean isVolume = true;
         onClickParm(v, VOLUMES, isVolume);
     }
 
+    // handle the user's selection of the brew time parameter in a cycle
     public void onClickBrewSecs(View v) {
         Log.v(TAG, "Clicked Brew");
         boolean isVolume = false;
         onClickParm(v, TIMES, isVolume);
     }
 
+    // handle the user's selection of the vacuum time parameter in a cycle
     public void onClickVacuumSecs(View v) {
         Log.v(TAG, "Clicked Vacuum");
         List<Integer> values = isLastCycle(v)
@@ -161,6 +166,9 @@ public class CycleActivity extends AppCompatActivity {
         onClickParm(v, values, isVolume);
     }
 
+    // add a cycle to the parameter table
+    // Note: the add button is disabled when the maximum number of cycles is reached,
+    // so it should never be possible to exceed the maximum.
     public void onClickAddCycle(View v) {
         for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
             TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
@@ -174,6 +182,12 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalStateException("attempted to exceed max num cycles");
     }
 
+    // remove a cycle to the parameter table
+    // Note 1: the delete button is disabled when the minimum number of cycles is reached,
+    // so it should never be possible to fall under the minimum.
+    // Note 2: becuase the last cycle has a different minimum vacuum time than other cycles,
+    // the vacuum time for the newly-created last cycle resulting from deleting the current
+    // last cycle is clipped to the minimum value.
     public void onClickDeleteCycle(View unused) {
         for (int i = Volume.MAX_NUM_CYCLES - 1; i >= 0; i--) {
             TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
@@ -194,6 +208,8 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException("attempted to delete last remaining cycle");
     }
 
+    // Determine whether the current cycle is the last one; used to know what the minimum
+    // vacuum time should be.
     private boolean isLastCycle(View v) {
         Checker.notNull(v);
         TableRow row = (TableRow) v.getParent();
@@ -204,6 +220,7 @@ public class CycleActivity extends AppCompatActivity {
         return rowNum == nrows;
     }
 
+    // Common code used to handle clicks of all cycle parameters.
     private void onClickParm(View v, List<Integer> values, boolean isVolume) {
         Checker.notNull(v);
         Checker.notNullOrEmpty(values);
@@ -227,11 +244,12 @@ public class CycleActivity extends AppCompatActivity {
         maxValueText.setText(Integer.toString(values.get(maxIdx)));
     }
 
+    // Handles gross adjustments of parameter values.
+    // Note: the total volume is recalculated if (and only if) the parameter being adjusted is the volume.
     private SeekBar.OnSeekBarChangeListener seekBarListener(final List<Integer> values, final boolean isVolume) {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
-                Log.v(TAG, "seek bar listener");
                 Checker.inRange(idx, 0, values.size() - 1);
                 int val = values.get(idx);
                 currentParmButton.setText(Integer.toString(val));
@@ -243,6 +261,7 @@ public class CycleActivity extends AppCompatActivity {
         };
     }
 
+    // Calculate and display the total volume across all cycles.
     private void setTotalVolumeText() {
         int vol = 0;
         for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
@@ -254,6 +273,7 @@ public class CycleActivity extends AppCompatActivity {
         totalVolumeText.setText(String.format(getString(R.string.cycle_txt_volumeformat), vol));
     }
 
+    // Get the value of the integer being displayed for the parameter in the specified column.
     private int getButtonInt(TableRow row, int column) {
         Checker.notNull(row);
         Checker.inRange(column, firstParmColumn, lastParmColumn);
@@ -263,18 +283,23 @@ public class CycleActivity extends AppCompatActivity {
         return Integer.valueOf(s);
     }
 
+    // Enable the Add Cycle button if and only if the current number of cycles is less
+    // than the maximum.
     private void setAddCycleButtonEnabled() {
         int n = getNumVisibleParmRows();
         UiUtils.setViewEnabled(addCycleButton,
                 n == Volume.MAX_NUM_CYCLES ? false : true);
     }
 
+    // Enable the Delete Cycle button if and only if the current number of cycles is greater
+    // than the minimum.
     private void setDeleteCycleButtonEnabled() {
         int n = getNumVisibleParmRows();
         UiUtils.setViewEnabled(deleteCycleButton,
                 n == Volume.MIN_NUM_CYCLES ? false : true);
     }
 
+    // Determines how many cycles have been created.
     private int getNumVisibleParmRows() {
         int numRows = 0;
         for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
@@ -287,6 +312,7 @@ public class CycleActivity extends AppCompatActivity {
         return numRows;
     }
 
+    // Gets all the views that can be reset as the user interacts with the activity
     private void setViews() {
         totalVolumeText = (TextView) findViewById(R.id.txt_totalvolume);
         parmTable = (TableLayout) findViewById(R.id.lay_parms);
@@ -299,6 +325,8 @@ public class CycleActivity extends AppCompatActivity {
         deleteCycleButton = (Button) findViewById(R.id.btn_deletecycle);
     }
 
+    // Determines the columns for each item in the table of parameters, based on the strings
+    // that appear in the header.
     private void setParmColumnIndices() {
         brewSecsColumn = getBrewSecsColumnIndex();
         cycleNumColumn = getCycleNumColumnIndex();
@@ -308,22 +336,29 @@ public class CycleActivity extends AppCompatActivity {
         lastParmColumn = Math.max(brewSecsColumn, Math.max(vacuumSecsColiumn, volumeMlColumn));
     }
 
+    // Gets the index for the brew time column.
     private int getBrewSecsColumnIndex() {
         return getParmColumnIndex(R.string.cycle_txt_brewsecs);
     }
 
+    // Gets he index of the brew time column.
     private int getCycleNumColumnIndex() {
         return getParmColumnIndex(R.string.cycle_txt_cycle);
     }
 
+    // Gets the index for the vacuum time column.
     private int getVacuumSecsColumnIndex() {
         return getParmColumnIndex(R.string.cycle_txt_vacuumsecs);
     }
 
+    // Gets the index for the volume column.
     private int getVolumeMlColumnIndex() {
         return getParmColumnIndex(R.string.cycle_txt_volumeml);
     }
 
+    // Get the index for a column in the parameter table based on the
+    // id of the string used for the column's heading.
+    // Note: it is assumed that the string actually appears in the heading.
     private int getParmColumnIndex(int headingId) {
         Checker.notNullResourceId(headingId);
 
@@ -337,23 +372,26 @@ public class CycleActivity extends AppCompatActivity {
         throw new RuntimeException("no heading found with string id = " + headingId);
     }
 
-
-
+    // Get the range of values for the vacuum times for the last cycle.
     static private List<Integer> getLastCycleVacuumTimes() {
         final int increment = 1;
         return getIntegerList(Cycle.MIN_LASTCYCLE_VACUUMTIME, Cycle.MAX_TIME, increment);
     }
 
+    // Get the range of values for brew times and (non-last cycle) vacuum times.
     static private List<Integer> getTimes() {
         final int increment = 1;
         return getIntegerList(Cycle.MIN_TIME, Cycle.MAX_TIME, increment);
     }
 
+    // Get the range of values for the volume quantity.
     static private List<Integer> getVolumes() {
         final int increment = 10;
         return getIntegerList(Cycle.MIN_VOLUME, Cycle.MAX_VOLUME, increment);
     }
 
+    // Create a list of integers starting with min and ending with max, using
+    // the specified increment.
     static private List<Integer> getIntegerList(int min, int max, int increment) {
         Checker.atLeast(min, 0);
         Checker.lessThan(min, max);
@@ -365,6 +403,9 @@ public class CycleActivity extends AppCompatActivity {
         return Collections.unmodifiableList(vals);
     }
 
+    // Create the rows for the user-adjustable parameters in the table of cycles.
+    // Note: the rows are created dynamically rather than in XML in order to
+    // ensure that the number of rows is consistent with the number of cycles.
     private void initParmTable() {
         LayoutInflater infl = LayoutInflater.from(this);
         for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
@@ -375,6 +416,7 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
+    // Set the values for the specified row in the parameter table, including the cycle number.
     private void initParmRow(TableRow row, int rowIndex, int volume, int brewSecs, int vacSecs) {
         Checker.notNull(row);
         Checker.atLeast(rowIndex, 0);
@@ -386,6 +428,7 @@ public class CycleActivity extends AppCompatActivity {
         setParmRow(row, volume, brewSecs, vacSecs);
     }
 
+    // Set the values for the user-adjustable parameters in the specified row in the parmater table.
     private void setParmRow(TableRow row, int volume, int brewSecs, int vacSecs) {
         Checker.notNull(row);
         Checker.inRange(volume, Cycle.MIN_VOLUME, Cycle.MAX_VOLUME);
@@ -397,6 +440,8 @@ public class CycleActivity extends AppCompatActivity {
         setRowChildText(row, vacuumSecsColiumn, vacSecs);
     }
 
+    // Display the specified parameter value in the button specified by
+    // the parameter table row and column.
     private void setRowChildText(TableRow row, int column, int val) {
         Checker.notNull(row);
         Checker.atLeast(column, 0);
@@ -406,6 +451,8 @@ public class CycleActivity extends AppCompatActivity {
         tv.setText(Integer.toString(val));
     }
 
+    // Find the coffee in the list of coffees that has the specified ID.
+    // Note: it is assumed that the coffee with that ID occurs in the list.
     private Coffee getCoffeeById(long id, List<Coffee> coffees) {
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(coffees);
@@ -417,6 +464,8 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException("no coffee found with id = " + id);
     }
 
+    // Find the list of cycles associated with the specified coffee and volume IDs.
+    // Note: it is assumed that the volume specified by those IDs exists.
     private List<Cycle> getCyclesByIds(long coffeeId, long volumeId, List<Coffee> coffees) {
         Checker.atLeast(coffeeId, Const.MIN_DATABASE_ID);
         Checker.atLeast(volumeId, Const.MIN_DATABASE_ID);
@@ -431,6 +480,7 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException(String.format(format, coffeeId, volumeId));
     }
 
+    // Find the list of volumes contained in the Coffee with the specified ID.
     private List<Volume> getVolumesByCoffeeId(long id, List<Coffee> coffees) {
         Checker.atLeast(id, Const.MIN_DATABASE_ID);
         Checker.notNullOrEmpty(coffees);
@@ -442,6 +492,7 @@ public class CycleActivity extends AppCompatActivity {
         throw new IllegalArgumentException("no coffee found with id = " + id);
     }
 
+    // Save the values currently displayed in the parameter tables as a Volume object.
     public void onClickSaveCycles(View unused) {
         List<Cycle> cycles = buttonsToCycles();
         int vol = (new Volume(cycles)).totalVolume();
@@ -455,6 +506,9 @@ public class CycleActivity extends AppCompatActivity {
         }
     }
 
+    // If a Volume object with the same total volume exists, prompt the user whether
+    // to overwrite it, since each Coffee object can contain only one Volume object
+    // with a given total volume.
     private void promptToOverWriteVolume(final long volumeId, final List<Cycle> cycles) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle("Confirm Replacement");
@@ -477,6 +531,8 @@ public class CycleActivity extends AppCompatActivity {
         b.create().show();
     }
 
+    // Create a list of cycles based on the currently displayed values
+    // in the table of parameters.
     private List<Cycle> buttonsToCycles() {
         List<Cycle> cycles = new ArrayList<>();
         for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
@@ -493,6 +549,8 @@ public class CycleActivity extends AppCompatActivity {
         return cycles;
     }
 
+    // Return the ID of the Volume object with the specified total volume
+    // NULL_DATABASE_ID if there is no such volume.
     private long findMatchingVolume(List<Volume> vs, int totalVolume) {
         Checker.notNullOrEmpty(vs);
         Checker.greaterThan(totalVolume, 0);

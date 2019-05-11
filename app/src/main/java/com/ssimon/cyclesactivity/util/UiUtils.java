@@ -21,39 +21,6 @@ public class UiUtils {
         setSeekBarButton(btn, bar, new ProgressIncrementer(maxIndex));
     }
 
-    /*
-    static private void setSeekBarButton(final ImageButton btn, final SeekBar bar,
-            final IndexProcessor proc) {
-        Checker.notNull(btn);
-        Checker.notNull(bar);
-        Checker.notNull(proc);
-
-        final Runnable repeater = new Runnable() {
-            @Override
-            public void run() {
-
-
-                int idx = bar.getProgress();
-                idx = proc.processIndex(idx);
-                bar.setProgress(idx);
-
-                final int millis = 100;
-                btn.postDelayed(this, millis);
-            }
-        };
-
-        btn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN)
-                    v.post(repeater);
-                else if (e.getAction() == MotionEvent.ACTION_UP)
-                    v.removeCallbacks(repeater);
-                return false;
-            }
-        });
-    }
-*/
     static private void setSeekBarButton(final ImageButton btn, final SeekBar bar,
             final ProgressProcessor proc) {
         Checker.notNull(btn);
