@@ -22,7 +22,7 @@
         style="@style/Button"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btn_addcycle"
-        android:text="@string/cycle_btn_savecycles"
+        android:text="@string/cycle_btn_savevolume"
         android:onClick="onClickSaveCycles"
         />
 </RelativeLayout>

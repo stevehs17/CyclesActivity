@@ -71,7 +71,7 @@ public class CoffeeActivity extends AppCompatActivity {
             adapter.addAll(coffees);
             adapter.notifyDataSetChanged();
         }
-        UiUtils.setButtonEnabled(deleteButton, coffees.size() > 1 ? true : false);
+        UiUtils.setViewEnabled(deleteButton, coffees.size() > 1 ? true : false);
         int n = coffeeList.getCheckedItemPosition();
         if (n == AdapterView.INVALID_POSITION)
             coffeeList.setItemChecked(0, true);

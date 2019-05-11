@@ -86,7 +86,7 @@ public class VolumeActivity extends AppCompatActivity {
             adapter.addAll(volumes);
             adapter.notifyDataSetChanged();
         }
-        UiUtils.setButtonEnabled(deleteButton,
+        UiUtils.setViewEnabled(deleteButton,
                 coffee.volumes().size() == 1 ? false : true);
         int n = volumeList.getCheckedItemPosition();
         if (n == AdapterView.INVALID_POSITION)

@@ -1,12 +1,15 @@
 package com.ssimon.cyclesactivity.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -69,7 +72,7 @@ public class CycleActivity extends AppCompatActivity {
         setViews();
         setParmColumnIndices();
         initParmTable();
-        //UiUtil.setDecrementButton(decrementButton, seekBar);
+        UiUtils.setDecrementButton(decrementButton, seekBar);
     }
 
     @Override
@@ -219,6 +222,7 @@ public class CycleActivity extends AppCompatActivity {
         seekBar.setMax(maxIdx);
         seekBar.setProgress(idx);
         seekBar.setOnSeekBarChangeListener(seekBarListener(values, isVolume));
+        UiUtils.setIncrementButton(incrementButton, seekBar, maxIdx);
         minValueText.setText(Integer.toString(values.get(0)));
         maxValueText.setText(Integer.toString(values.get(maxIdx)));
     }
@@ -229,8 +233,6 @@ public class CycleActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar unused, int idx, boolean unused1) {
                 Log.v(TAG, "seek bar listener");
                 Checker.inRange(idx, 0, values.size() - 1);
-                //UiUtils.setButtonEnabled(decrementButton, idx == 0 ? false : true);
-                //UiUtils.setButtonEnabled(incrementButton, idx == values.size()-1 ? false : true);
                 int val = values.get(idx);
                 currentParmButton.setText(Integer.toString(val));
                 if (isVolume)
@@ -240,7 +242,6 @@ public class CycleActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         };
     }
-
 
     private void setTotalVolumeText() {
         int vol = 0;
@@ -264,13 +265,13 @@ public class CycleActivity extends AppCompatActivity {
 
     private void setAddCycleButtonEnabled() {
         int n = getNumVisibleParmRows();
-        UiUtils.setButtonEnabled(addCycleButton,
+        UiUtils.setViewEnabled(addCycleButton,
                 n == Volume.MAX_NUM_CYCLES ? false : true);
     }
 
     private void setDeleteCycleButtonEnabled() {
         int n = getNumVisibleParmRows();
-        UiUtils.setButtonEnabled(deleteCycleButton,
+        UiUtils.setViewEnabled(deleteCycleButton,
                 n == Volume.MIN_NUM_CYCLES ? false : true);
     }
 
@@ -439,5 +440,67 @@ public class CycleActivity extends AppCompatActivity {
                 return c.volumes();
         }
         throw new IllegalArgumentException("no coffee found with id = " + id);
+    }
+
+    public void onClickSaveCycles(View unused) {
+        List<Cycle> cycles = buttonsToCycles();
+        int vol = (new Volume(cycles)).totalVolume();
+        long existingVolumeId = findMatchingVolume(coffee.volumes(), vol);
+        if (existingVolumeId == Const.NULL_DATABASE_ID) {
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            dh.saveVolume(coffee.id(), cycles);
+            this.finish();
+        } else {
+            promptToOverWriteVolume(existingVolumeId, cycles);
+        }
+    }
+
+    private void promptToOverWriteVolume(final long volumeId, final List<Cycle> cycles) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Confirm Replacement");
+        b.setMessage("Replace existing volume?");
+        b.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int unused) {
+                DatabaseHelper dh = DatabaseHelper.getInstance(CycleActivity.this);
+                dh.replaceVolume(volumeId, cycles);
+                dialog.dismiss();
+                CycleActivity.this.finish();
+            }
+        });
+        b.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int unused) {
+                dialog.dismiss();
+            }
+        });
+        b.create().show();
+    }
+
+    private List<Cycle> buttonsToCycles() {
+        List<Cycle> cycles = new ArrayList<>();
+        for (int i = 0; i < Volume.MAX_NUM_CYCLES; i++) {
+            TableRow row = (TableRow) parmTable.getChildAt(i + FIRST_PARM_ROW);
+            if (row.getVisibility() == View.VISIBLE) {
+                int val = getButtonInt(row, volumeMlColumn);
+                int brew = getButtonInt(row, brewSecsColumn);
+                int vac = getButtonInt(row, vacuumSecsColiumn);
+                cycles.add(new Cycle(val, brew, vac));
+            } else {
+                break;
+            }
+        }
+        return cycles;
+    }
+
+    private long findMatchingVolume(List<Volume> vs, int totalVolume) {
+        Checker.notNullOrEmpty(vs);
+        Checker.greaterThan(totalVolume, 0);
+
+        for (Volume v : vs) {
+            if (v.totalVolume() == totalVolume)
+                return v.id();
+        }
+        return Const.NULL_DATABASE_ID;
     }
 }

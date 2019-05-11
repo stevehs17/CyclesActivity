@@ -83,7 +83,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
         numCyclesSpin = (Spinner) findViewById(R.id.spin_numcycles);
         nameEdit = (EditText) findViewById(R.id.edit_name);
         createButton = (Button) findViewById(R.id.btn_create);
-        UiUtils.setButtonEnabled(createButton, false);
+        UiUtils.setViewEnabled(createButton, false);
     }
 
     @Override
@@ -267,7 +267,7 @@ public class AddcoffeeActivity extends AppCompatActivity {
             DatabaseHelper dh = DatabaseHelper.getInstance(this);
             dh.refreshCoffeeCache();
         } else {
-            UiUtils.setButtonEnabled(createButton, true);
+            UiUtils.setViewEnabled(createButton, true);
         }
     }
 
@@ -339,6 +339,4 @@ public class AddcoffeeActivity extends AppCompatActivity {
         else
             return 40;
     }
-
-
 }
